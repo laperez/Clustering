@@ -1,0 +1,42 @@
+.container-fluid {
+  padding-left: 50px !important;
+  padding-right: 50px !important;
+}
+
+body {
+  background-color: #006d38 !important;
+}
+
+pre {
+  padding: 2.5px !important;
+}
+
+thead {
+  background-color: black !important;
+  color: white !important;
+}
+
+.dataTables_info{
+  color: white !important;
+}
+
+.dataTables_filter > label {
+  color: white !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    color: white !important;
+    border: 1px solid #111;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button, .dataTables_wrapper .dataTables_paginate .paginate_button, .dataTables_wrapper .dataTables_paginate .paginate_button{
+  background-color: black !important;
+  color: white !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+  background: linear-gradient(to bottom, #585858 0%, #111 100% !important
+}
+
+
+

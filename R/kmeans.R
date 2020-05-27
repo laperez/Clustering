@@ -1,0 +1,262 @@
+#' Method that runs the KMeans_rcpp algorithm using the Euclidean metric to make an external or internal validation of the cluster
+#'
+#' @param data matrix or data frame
+#' @param clusters number of clusters
+#' @param columnClass number of column, for example if a dataset has five column,
+#' we can select column four to calculate alidation
+#' @param metric metrics avalaible in the package. The metrics implemented are: entropy, variation_information,precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.
+#'
+#' @return returns a list with both the internal and external evaluation of the grouping
+#'
+#' @keywords internal
+#'
+
+kmeans_rcpp_method = function(data, clusters, columnClass, metric) {
+  start.time <- Sys.time()
+
+  if ('data.frame' %in% class(data))
+    data = as.matrix(data)
+
+  numeric_cluster <- ifelse(!is.numeric(clusters), 1, 0)
+
+  if (sum(numeric_cluster) > 0)
+    stop('The field clusters must be a numeric')
+
+  kmeans_rcpp <- tryCatch({
+    KMeans_rcpp(data = data, clusters = clusters)
+  },
+
+  error = function(cond) {
+    return(CONST_NULL)
+  })
+
+  if (!is.null(kmeans_rcpp)) {
+    ev_kmeans_rcpp <-
+      tryCatch({
+        external_validation(
+          column_dataset_label = c(data[, columnClass]),
+          clusters_vector = kmeans_rcpp$clusters,
+          metric
+        )
+      },
+
+      error = function(cond) {
+        ev_kmeans_rcpp = initializeExternalValidation()
+      })
+
+    iv_kmeans_rcpp <- tryCatch({
+      internal_validation(
+        distance = CONST_NULL,
+        clusters_vector = kmeans_rcpp$clusters,
+        data = data,
+        method = CONST_EUCLIDEAN,
+        metric
+      )
+    },
+
+    error = function(cond) {
+      iv_kmeans_rcpp = initializeInternalValidation()
+    })
+
+  } else {
+    ev_kmeans_rcpp = initializeExternalValidation()
+    iv_kmeans_rcpp = initializeInternalValidation()
+  }
+
+  end.time <- Sys.time()
+  time <- end.time - start.time
+
+  ev_kmeans_rcpp$time = time - iv_kmeans_rcpp$time
+  iv_kmeans_rcpp$time = time - ev_kmeans_rcpp$time
+
+  result = list("external" = ev_kmeans_rcpp,
+                "internal" = iv_kmeans_rcpp)
+
+  return (result)
+
+}
+
+#' Method that runs the KMeans_arma algorithm using the Euclidean metric to make an external or internal validation of the cluster
+#'
+#' @param data matrix or data frame
+#' @param clusters number of clusters
+#' @param columnClass number of column, for example if a dataset has five column,
+#' we can select column four to calculate alidation
+#' @param metric metrics avalaible in the package. The metrics implemented are: entropy, variation_information,precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.
+#'
+#' @return returns a list with both the internal and external evaluation of the grouping
+#'
+#' @keywords internal
+#'
+
+
+kmeans_arma_method = function(data, clusters, columnClass, metric) {
+  start.time <- Sys.time()
+
+  if ('data.frame' %in% class(data))
+    data = as.matrix(data)
+
+  numeric_cluster <- ifelse(!is.numeric(clusters), 1, 0)
+
+  if (sum(numeric_cluster) > 0)
+    stop('The field clusters must be a numeric')
+
+  kmeans_arma <- tryCatch({
+    KMeans_arma(data = data, clusters = clusters)
+  },
+
+  error = function(cond) {
+    return(CONST_NULL)
+  })
+
+  if (!is.null(kmeans_arma)) {
+    pr_kmeans_arma <- tryCatch({
+      predict_KMeans(data = data, CENTROIDS = kmeans_arma)
+    },
+
+    error = function(cond) {
+      return(CONST_NULL)
+    })
+
+    if (!is.null(pr_kmeans_arma)) {
+      ev_kmeans_arma <-
+        tryCatch({
+          external_validation(
+            column_dataset_label = c(data[, columnClass]),
+            clusters_vector = as.vector(pr_kmeans_arma, metric)
+          )
+        },
+
+        error = function(cond) {
+          ev_kmeans_arma = initializeExternalValidation()
+        })
+
+      iv_kmeans_arma <- tryCatch({
+        internal_validation(
+          distance = CONST_NULL,
+          clusters_vector = as.vector(pr_kmeans_arma),
+          data = data,
+          method = CONST_EUCLIDEAN,
+          metric
+        )
+      },
+
+      error = function(cond) {
+        iv_kmeans_arma = initializeInternalValidation()
+      })
+    } else {
+      ev_kmeans_arma = initializeExternalValidation()
+
+      iv_kmeans_arma = initializeInternalValidation()
+    }
+
+  } else {
+    ev_kmeans_arma = initializeExternalValidation()
+
+    iv_kmeans_arma = initializeInternalValidation()
+
+  }
+
+  end.time <- Sys.time()
+  time <- end.time - start.time
+
+  ev_kmeans_arma$time = time - iv_kmeans_arma$time
+  iv_kmeans_arma$time = time - ev_kmeans_arma$time
+
+  result = list("external" = ev_kmeans_arma,
+                "internal" = iv_kmeans_arma)
+
+  return (result)
+
+}
+
+#' Method that runs the MiniBatchKmeans algorithm using the Euclidean metric to make an external or internal validation of the cluster
+#'
+#' @param data matrix or data frame
+#' @param clusters number of clusters
+#' @param columnClass number of column, for example if a dataset has five column,
+#' we can select column four to calculate alidation
+#' @param metric metrics avalaible in the package. The metrics implemented are: entropy, variation_information,precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.
+#'
+#' @return returns a list with both the internal and external evaluation of the grouping
+#'
+#' @keywords internal
+#'
+
+mini_kmeans_method = function(data, clusters, columnClass, metric) {
+  start.time <- Sys.time()
+
+  if ('data.frame' %in% class(data))
+    data = as.matrix(data)
+
+  numeric_cluster <- ifelse(!is.numeric(clusters), 1, 0)
+
+  if (sum(numeric_cluster) > 0)
+    stop('The field clusters must be a numeric')
+
+  mini_kmeans <- tryCatch({
+    MiniBatchKmeans(data = data, clusters = clusters)
+  },
+
+  error = function(cond) {
+    return(CONST_NULL)
+  })
+
+  if (!is.null(mini_kmeans)) {
+    pr_mini_kmeans <-
+      tryCatch({
+        predict_MBatchKMeans(data = data, CENTROIDS = mini_kmeans$centroids)
+
+      },
+
+      error = function(cond) {
+        return(CONST_NULL)
+      })
+
+    if (!is.null(pr_mini_kmeans)) {
+      ev_mini_kmeans <-
+        tryCatch({
+          external_validation(
+            column_dataset_label = c(data[, columnClass]),
+            clusters_vector = as.vector(pr_mini_kmeans, metric)
+          )
+        },
+
+        error = function(cond) {
+          ev_mini_kmeans = initializeExternalValidation()
+        })
+
+      iv_mini_kmeans <- tryCatch({
+        internal_validation(
+          distance = CONST_NULL,
+          clusters_vector = as.vector(pr_mini_kmeans),
+          data = data,
+          method = CONST_EUCLIDEAN,
+          metric
+        )
+      },
+
+      error = function(cond) {
+        iv_mini_kmeans = initializeInternalValidation()
+      })
+    } else{
+      ev_mini_kmeans = initializeExternalValidation()
+      iv_mini_kmeans = initializeInternalValidation()
+    }
+
+  } else {
+    ev_mini_kmeans = initializeExternalValidation()
+    iv_mini_kmeans = initializeInternalValidation()
+  }
+
+  end.time <- Sys.time()
+  time <- end.time - start.time
+
+  ev_mini_kmeans$time = time - iv_mini_kmeans$time
+  iv_mini_kmeans$time = time - ev_mini_kmeans$time
+
+  result = list("external" = ev_mini_kmeans,
+                "internal" = iv_mini_kmeans)
+
+  return (result)
+}

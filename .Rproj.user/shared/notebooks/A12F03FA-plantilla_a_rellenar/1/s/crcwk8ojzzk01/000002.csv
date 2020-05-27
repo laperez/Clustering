@@ -1,0 +1,14 @@
+"0","```r
+starwars %>% filter(str_detect(films, \"Return of the Jedi\"), gender %in% 'male') %>% group_by(species) %>% summarise(maximo = max(n())) %>% top_n(n=1)
+
+species maximo
+  Human        9
+
+starwars  %>% group_by(species) %>% summarise(number = n()) %>% top_n(n = 3)
+
+ species number
+  Droid        5
+  Human       35
+  NA           5
+
+```"

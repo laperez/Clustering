@@ -1,0 +1,10 @@
+{
+    "data" : [
+        "\nR version 3.6.0 (2019-04-26) -- \"Planting of a Tree\"\nCopyright (C) 2019 The R Foundation for Statistical Computing\nPlatform: x86_64-apple-darwin15.6.0 (64-bit)\n\nR es un software libre y viene sin GARANTIA ALGUNA.\nUsted puede redistribuirlo bajo ciertas circunstancias.\nEscriba 'license()' o 'licence()' para detalles de distribucion.\n\nR es un proyecto colaborativo con muchos contribuyentes.\nEscriba 'contributors()' para obtener más información y\n'citation()' para saber cómo citar R o paquetes de R en publicaciones.\n\n",
+        "Escriba 'demo()' para demostraciones, 'help()' para el sistema on-line de ayuda,\no 'help.start()' para abrir el sistema de ayuda HTML con su navegador.\nEscriba 'q()' para salir de R.\n\n[Workspace loaded from ~/Desktop/Doctorado Ujaen/Paquetes R/clustering/.RData]\n\n\nRestarting R session...\n\n"
+    ],
+    "type" : [
+        2,
+        2
+    ]
+}

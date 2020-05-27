@@ -1,0 +1,196 @@
+---
+title: "Clustering Package"
+author: "Luis Alfonso Pérez Martos"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Clustering Package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+library("tidyverse")
+library("dplyr")
+```
+
+Clustering is considered as a concise data model by which from a set of data we must partition them and introduce them in data groups, which are ́an as similar as possible. If review all clustering algorithm implements in R, can see a great number of packages that implement or improve  algorithm or functionality.  
+
+The Clustering package contain multiply implementations of algorithms like: gmm, kmeans-arma, kmeans-rcpp, fuzzy_cm, fuzzy_gg, fuzzy_gk, hclust, apclusterk,aggExcluster,clara, daisy, diana,fanny,gama,mona,pam, pvclust,pvpick.  
+
+Also can use differents similarity measures to calculate the distance between points like: Euclidean, Manhattan,  Jaccard,  Gower,  Mahalanobis, Correlation and Minkowski.
+
+Furthermore, the package offers functions to:  
+
+* Execute different clustering algorithms.  
+* Metrics to evaluate clusters internal and external.  
+
+
+
+### Clustering
+
+It's the main method of the package.Clustering method processes a set of clustering algorithms. If we need to get information about the parameters that the method has we can do so by using the ?function or help(function). The way to load the datasets can be done in two different ways:  
+
+* If we fill in the path property we need to indicate a directory where a set of dedatasets is available.
+* On the other hand, if we only need to execute a dataset that we have previously loaded in the R console, indicating to the df parameter which is the reference dataframe.  
+
+Once the method has been executed, we obtain the results divided into four parts:
+
+```{r echo=TRUE, warning=FALSE}
+
+df <- Clustering::clustering(df = Clustering::basketball,  
+                             packages = c("clusterr"), min = 4, max = 6)
+
+```
+
+Here we have a dataframe with the result of the execution. In it you can see all the algorithms, the similarity measures used, the variables classified in order of importance, the execution time of the algorithms and the evaluation metrics.  
+
+
+```{r echo=FALSE, warning=FALSE }
+
+  result <- dplyr::select(as.data.frame(df$result), -c("Ranking"))
+
+  knitr::kable(result, "html") %>%  
+  kableExtra::kable_styling()  %>%
+  kableExtra::scroll_box(height = "400px", width = "100%")
+
+```
+
+This property tells us if we have made an internal evaluation of the groups  
+
+```{r echo=FALSE, warning=FALSE }
+  df$hasInternalMetrics 
+```
+
+This property tells us if we have made an external evaluation of the groups  
+
+```{r echo=FALSE, warning=FALSE }
+  df$hasExternalMetrics 
+```
+
+Algorithms executed
+
+```{r echo=FALSE, warning=FALSE }
+df$algorithms_execute
+```
+
+Similarity Metrics
+
+```{r echo=FALSE, warning=FALSE }
+df$measures_execute
+```
+
+If we want to obtain the classified variables instead of the values we must use the variable property
+
+```{r echo=TRUE, warning=FALSE}
+
+df_variable <- Clustering::clustering(df = Clustering::basketball,  
+                             packages = c("clusterr"), min = 4, max = 6, variables = TRUE)
+
+```
+
+```{r echo=FALSE, warning=FALSE }
+
+  result <- dplyr::select(as.data.frame(df_variable$result), -c("Ranking"))
+
+  knitr::kable(result, "html") %>%  
+  kableExtra::kable_styling()  %>%
+  kableExtra::scroll_box(height = "400px", width = "100%")
+
+```
+
+If we only want to obtain the best classified variables or values for the external variables we execute the following method:
+
+```{r echo=TRUE, warning=FALSE}
+
+df_best_ranked_external <- Clustering::best_ranked_external_metrics(df$result)
+
+```
+
+```{r echo=FALSE, warning=FALSE }
+
+  result <- dplyr::select(df_best_ranked_external$result, -c("Ranking"))
+
+  knitr::kable(result, "html") %>%  
+  kableExtra::kable_styling()  %>%
+  kableExtra::scroll_box(height = "400px", width = "100%")
+
+```
+
+We also obtain the best classified values for internal evaluation
+
+```{r echo=TRUE, warning=FALSE}
+
+df_best_ranked_internal <- Clustering::best_ranked_internal_metrics(df$result)
+
+```
+
+```{r echo=FALSE, warning=FALSE, results='asis' }
+
+  result <- dplyr::select(df_best_ranked_internal$result, -c("Ranking"))
+
+  knitr::kable(result, "html") %>%  
+  kableExtra::kable_styling() %>%
+  kableExtra::scroll_box(height = "400px", width = "100%")
+
+```
+
+In order to obtain the best evaluation by algorithm
+
+```{r echo=TRUE, warning=FALSE}
+
+df_best_validation_external <- Clustering::evaluate_best_validation_external_by_metrics(df$result)
+
+```
+
+```{r echo=FALSE, warning=FALSE }
+  knitr::kable(df_best_validation_external$result,"html") %>%  
+  kableExtra::kable_styling() %>% kableExtra::row_spec(1:2, bold = TRUE, italic = TRUE, color = "white", background = "#006d38") %>% kableExtra::scroll_box(width = "100%")
+
+```
+
+Based on the results obtained we can see that the gmm algorithm behaves better.
+
+From the algorithm with the best rating we can select the most appropriate number of clusters.
+
+```{r echo=TRUE, warning=FALSE}
+
+df_result_external <- Clustering::result_external_algorithm_by_metric(df$result,"gmm")
+
+```
+
+```{r echo=FALSE, warning=FALSE }
+  knitr::kable(df_result_external$result,"html") %>%  
+  kableExtra::kable_styling() %>% kableExtra::row_spec(1, bold = TRUE, italic = TRUE, color = "white", background = "#006d38") %>% kableExtra::scroll_box(width = "100%")
+
+```
+
+The same checks performed for external evaluation metrics, we can perform for internal evaluation.
+
+```{r echo=TRUE, warning=FALSE}
+
+df_best_validation_internal <-   
+  Clustering::evaluate_best_validation_internal_by_metrics(df$result)
+
+```
+
+```{r echo=FALSE, warning=FALSE }
+  knitr::kable(df_best_validation_internal$result,"html") %>%  
+  kableExtra::kable_styling() %>% kableExtra::row_spec(3:5, bold = TRUE, italic = TRUE, color = "white", background = "#006d38") %>% kableExtra::scroll_box(width = "100%")
+
+```
+In this case we can see that depending on the evaluation you want to make, one algorithm or another is chosen.
+
+If we want to see graphically the representation of any metric as a function of the number of clusters and algorithm we can do it in the following way depending if the evaluation metric is internal or external
+
+```{r fig.show='hold', fig.width=7, fig.align ='center', warning=FALSE }
+
+Clustering::plot_external_validation(df,"variation_information")
+
+```
+

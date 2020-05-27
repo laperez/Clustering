@@ -1,0 +1,18 @@
+Package: Clustering
+Type: Package
+Title: Execution of Multiple Clustering Algorithm
+Version: 1.6
+Date: 2020-04-10
+Author: Luis Alfonso Perez Martos [aut, cre]
+Maintainer: Luis Alfonso Perez Martos <lapm0001@gmail.com>
+Description: The design of this package allows us to run different clustering packages and compare the results between them, to determine which algorithm behaves best from the data provided.
+URL: https://github.com/laperez/clustering.git
+Depends: R (>= 3.5.0)
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.0
+Repository: CRAN
+Imports: advclust, amap, apcluster, cluster, ClusterR, data.table, gama, gmp, pracma, pvclust, sqldf, stats, tools, utils, xtable
+Suggests: DT,dplyr,ggplot2,glue,kableExtra,knitr,rmarkdown,shiny,shinyalert,shinyFiles,shinyjs,shinythemes,shinyWidgets,tidyverse,waiter
+VignetteBuilder: knitr

@@ -1,0 +1,512 @@
+connectivity
+library(Clustering)
+clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm', variables = TRUE)
+clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm', variables = TRUE)
+clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm', variables = TRUE)
+connectivity
+clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm', variables = TRUE)
+library(Clustering)
+clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm', variables = TRUE)
+library(Clustering)
+clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm', variables = TRUE)
+library(Clustering)
+clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm', variables = TRUE)
+clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm', variables = TRUE)
+conn
+clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm', variables = TRUE)
+entropy
+clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm', variables = TRUE)
+clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm', variables = TRUE)
+clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm', variables = TRUE)
+me
+me
+me
+library(Clustering)
+clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm', variables = TRUE)
+clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm', variables = TRUE)
+entropy
+conversion_data_frame
+table_convert
+column_dataset_label
+clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm')
+clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm')
+library(ClusterR)
+data(dietary_survey_IBS)
+dat = dietary_survey_IBS[, -ncol(dietary_survey_IBS)]
+X = center_scale(dat)
+km = KMeans_rcpp(X, clusters = 2, num_init = 5, max_iters = 100, initializer = 'kmeans++')
+res = external_validation(dietary_survey_IBS$class, km$clusters, method = "entropy")
+res
+res = external_validation(dietary_survey_IBS$class, km$clusters)
+res
+res = ClusterR::external_validation(dietary_survey_IBS$class, km$clusters)
+res
+res = ClusterR::external_validation(dietary_survey_IBS$class, km$clusters, summary_stats = TRUE)
+data(cluster::agriculture)
+data(agriculture)
+library("cluster")
+data(agriculture)
+at = agriculture[, -ncol(agriculture)]
+X = center_scale(at)
+at
+data(agriculture)
+dat = agriculture[, -ncol(agriculture)]
+X = center_scale(dat)
+data(ClusterR::mushroom)
+data(mushroom)
+dat = mushroom[, -ncol(mushroom)]
+X = center_scale(dat)
+ClusterR::soybean
+cluster::animals
+cluster::chorSub
+data("basketball")
+dat = basketball[, -ncol(basketball)]
+X = center_scale(dat)
+km = KMeans_rcpp(X, clusters = 2, num_init = 5, max_iters = 100, initializer = 'kmeans++')
+km
+external_validation(dietary_survey_IBS$class, km$clusters, summary_stats = TRUE)
+external_validation(basketball$assists_per_minuteReal, km$clusters, summary_stats = TRUE)
+external_validation(basketball$heightInteger, km$clusters, summary_stats = TRUE)
+clustering(df = basketball, min = 4, max = 5, algorith='kmeans_rcpp', variables = TRUE)
+km = KMeans_rcpp(X, clusters = 4, num_init = 5, max_iters = 100, initializer = 'kmeans++')
+external_validation(basketball$heightInteger, km$clusters, summary_stats = TRUE)
+clustering(df = basketball, min = 4, max = 5, algorith='kmeans_rcpp')
+km = KMeans_rcpp(X, clusters = 4)
+external_validation(basketball$heightInteger, km$clusters, summary_stats = TRUE)
+clustering(df = basketball, min = 4, max = 5, algorith='kmeans_rcpp')
+clustering(df = basketball, min = 4, max = 5, algorith='kmeans_rcpp', variables = TRUE)
+km = KMeans_rcpp(X, clusters = 4)
+km
+library(Clustering)
+clustering(df = basketball, min = 4, max = 5, algorith='kmeans_rcpp', variables = TRUE)
+kmeans_rcpp
+X
+clustering(df = basketball, min = 4, max = 5, algorith='kmeans_rcpp', variables = TRUE)
+data
+data(basketball)
+dat = basketball[, -ncol(basketball)]
+X = center_scale(dat)
+X
+basketball
+data(dietary_survey_IBS)
+luis <- data(basketball)
+luis
+ncol(basketball)
+dat = basketball[, -ncol(basketball)]
+dat
+basketball
+X <- center_scale(basketball)
+X
+km = KMeans_rcpp(X, clusters = 5)
+external_validation(basketball$heightInteger, km$clusters, summary_stats = TRUE)
+clustering(df = basketball, min = 4, max = 5, algorith='kmeans_rcpp', variables = TRUE)
+clustering(df = basketball, min = 4, max = 5, algorith='kmeans_rcpp')
+clustering(df = basketball, min = 4, max = 5, algorith='kmeans_rcpp')$result
+library(Clustering)
+km = KMeans_rcpp(X, clusters = 4)
+external_validation(basketball$heightInteger, km$clusters, summary_stats = TRUE)
+clustering(df = basketball, min = 4, max = 4, algorith='kmeans_rcpp')$result
+clustering(df = basketball, min = 4, max = 4, algorith='kmeans_rcpp', variables = TRUE)$result
+external_validation(basketball$heightInteger, km$clusters, summary_stats = TRUE)
+library(Clustering)
+clustering(df = basketball, min = 4, max = 4, algorith='kmeans_rcpp', variables = TRUE)$result
+clustering(df = basketball, min = 4, max = 4, algorith='kmeans_rcpp', variables = NULL)$result
+clustering(df = basketball, min = 4, max = 4, algorith='kmeans_rcpp', variables = NULL)$result
+columnClass
+ev_kmeans_rcpp
+clustering(df = basketball, min = 4, max = 4, algorith='kmeans_rcpp', variables = NULL)$result
+variation_information
+clustering(df = basketball, min = 4, max = 4, algorith='kmeans_rcpp', variables = NULL)$result
+variation_information
+sort_variation_information
+clustering(df = basketball, min = 4, max = 4, algorith='kmeans_rcpp', variables = NULL)$result
+ranking
+ranking
+clustering(df = basketball, min = 4, max = 4, algorith='kmeans_rcpp', variables = NULL)$result
+clustering(df = basketball, min = 4, max = 4, algorith='kmeans_rcpp', variables = NULL)$result
+ranking
+resultadoValores
+clustering(df = basketball, min = 4, max = 4, algorith='kmeans_rcpp', variables = NULL)$result
+ranking
+resultadoValores$variation_information
+match(ranking, sort_variation_information)
+sort_variation_information
+match(ranking, sort_variation_information)
+sort_variation_information
+sort_variation_information[1]
+library(Clustering)
+clustering(df = basketball, min = 4, max = 4, algorith='kmeans_rcpp', variables = NULL)$result
+external_validation(basketball$heightInteger, km$clusters, summary_stats = TRUE)
+clustering(df = basketball, min = 4, max = 4, algorith='kmeans_rcpp', variables = TRUE)$result
+external_validation(basketball$assists_per_minuteReal, km$clusters, summary_stats = TRUE)
+library(Clustering)
+clustering(df = basketball, min = 4, max = 4, algorith='kmeans_rcpp', variables = TRUE)$result
+clustering(df = basketball, min = 4, max = 4, algorith='kmeans_rcpp', variables = NULL)$result
+external_validation(basketball$time_playedReal, km$clusters, summary_stats = TRUE)
+library(Clustering)
+clustering(df = basketball, min = 4, max = 4, algorith='kmeans_rcpp', variables = NULL)$result
+clustering(df = basketball, min = 4, max = 4, algorith='kmeans_rcpp', variables = TRUE)$result
+library(Clustering)
+clustering(df = basketball, min = 4, max = 4, algorith='kmeans_rcpp', variables = TRUE)$result
+roxygen2::roxygenise()
+df <- Clustering::clustering(df = cluster::agriculture, algorithm = c('gmm','clara'), min = 4, max = 5, metrics = c('precision','dunn'),variables = TRUE);
+df
+df$result
+df <- Clustering::clustering(df = cluster::agriculture, algorithm = c('gmm','clara'), min = 4, max = 5, metrics = c('precision','dunn'));
+df
+df$result
+library(Clustering)
+library(Clustering)
+roxygen2::roxygenise()
+library(Clustering)
+weather
+roxygen2::roxygenise()
+library(Clustering)
+df <- Clustering::clustering(df = Clustering::basketball, algorithm = c('gmm','clara'), min = 4, max = 5, metrics = c('precision','dunn'));
+df
+df <- Clustering::clustering(df = Clustering::basketball, algorithm = c('gmm','clara'), min = 4, max = 5, metrics = c('precision','dunn'), variables = TRUE);
+df
+df <- Clustering::clustering(df = Clustering::basketball, algorithm = c('gmm','clara'), min = 4, max = 5, metrics = c('precision','dunn'));
+df
+roxygen2::roxygenise()
+df
+df$result
+Clustering::clustering(df = Clustering::basketball,
+packages = c("clusterr"), min = 4, max = 6)
+Clustering::clustering(df = Clustering::basketball,
+packages = c("clusterr"), min = 4, max = 6)
+;
+Clustering::clustering(df = Clustering::basketball, packages = c("clusterr"), min = 4, max = 6)
+df<-result <- Clustering::clustering(df = Clustering::basketball, packages = c("clusterr"), min = 4, max = 6)
+df_result <- Clustering::clustering(df = Clustering::basketball, packages = c("clusterr"), min = 4, max = 6)
+ggplot2::ggplot(df_result, aes(x =))
+df_result <- Clustering::best_ranked_external_metrics(df$result)
+df_result
+ggplot2::ggplot(df_result$result, aes(x=Clusters, y=Algorithm))
+ggplot2::ggplot(df_result$result, ggplot2::aes(x=Clusters, y=Algorithm))
+ggplot2::ggplot(df_result$result, ggplot2::aes(x=Clusters, y=Algorithm, color=precision))
+ggplot2::ggplot(df_result$result, ggplot2::aes(x=Clusters, y=Algorithm, color=precision))
+ggplot2::ggplot(df_result$result, ggplot2::aes(x=Clusters, y=precision, color=Algorithm))
+ggplot2::ggplot(df_result$result, ggplot2::aes(x=Clusters, y=Algorithm, color=precision)) + ggplot2::geom_point()
+ggplot2::ggplot(data = df_result$result) + ggplot2::geom_point(mapping = aes(x = Clusters, y =as.numeric(precision), color = Distance)) + facet_wrap(~Algorithm, nrow = 4) + xlab("Clustering")+ ylab("Precision") + scale_y_continuous(breaks=c(0,0.25,0.5,0.75,1),limits=c(0, 1)) + labs(color='Distance')
+library("ggplo2")
+library("ggplot2")
+ggplot2::ggplot(data = df_result$result) + ggplot2::geom_point(mapping = aes(x = Clusters, y =as.numeric(precision), color = Distance)) + facet_wrap(~Algorithm, nrow = 4) + xlab("Clustering")+ ylab("Precision") + scale_y_continuous(breaks=c(0,0.25,0.5,0.75,1),limits=c(0, 1)) + labs(color='Distance')
+ggplot2::ggplot(data = df_result$result) + ggplot2::geom_point(mapping = aes(x = Distance, y =as.numeric(precision), color = Algorithm)) + facet_wrap(~Clusters, nrow = 4) + xlab("Clustering")+ ylab("Precision") + scale_y_continuous(breaks=c(0,0.25,0.5,0.75,1),limits=c(0, 1)) + labs(color='Distance')
+tmdb <- read.csv("~/Desktop/Curso de R/Tema 5 - Machine Learning and Clusering/Entrega/tmdb.csv")
+View(tmdb)
+tmdb <- dplyr::select(tmdb, -c(o id, homepage, keywords, overview, production_companies,production_countries, spoken_languages, status, tagline, cast, genres, original_title,original_language))
+tmdb <- dplyr::select(tmdb, -c(id, homepage, keywords, overview, production_companies,production_countries, spoken_languages, status, tagline, cast, genres, original_title,original_language))
+tmdb <- dplyr::filter(tmdb, budget > 0 && runtime > 0 && revenue)
+tmdb
+tmdb <- dplyr::mutate(tmdb, year = lubridate(release_date))
+library("lubridate")
+tmdb <- dplyr::mutate(tmdb, year = lubridate(release_date))
+tmdb <- dplyr::mutate(tmdb, year = lubridate::year(release_date))
+tmdb <- dplyr::filter(tmdb, budget > 0 && runtime > 0 && revenue)
+tmdb <- dplyr::select(tmdb, -c(release_date))
+install.packages("mlr")
+tmdb <- dplyr::mutate(tmdb, beneficio = (revenue_budget/budget)*100)
+tmdb <- dplyr::mutate(tmdb, beneficio = (revenue - budget/budget)*100)
+tmdb <- dplyr::mutate(tmdb, beneficio = ((revenue - budget)/budget)*100)
+tmdb <- dplyr::filter(tmdb, budget > 0 && runtime > 0 && revenue > 0)
+tmdb <- dplyr::select(tmdb, budget > 0 && runtime > 0 && revenue > 0)
+tmdb <- read.csv("~/Desktop/Curso de R/Tema 5 - Machine Learning and Clusering/Entrega/tmdb.csv")
+View(tmdb)
+tmdb <- dplyr::select(tmdb, -c(id, homepage, keywords, overview, production_companies,production_countries, spoken_languages, status, tagline, cast, genres, original_title,original_language))
+tmdb <- dplyr::filter(tmdb, budget > 0 && runtime > 0 && revenue)
+View(tmdb)
+tmdb <- dplyr::filter(tmdb, budget > 0 || runtime > 0 || revenue)
+tmdb <- dplyr::filter(tmdb, budget > 0)
+tmdb <- dplyr::filter(tmdb, revenue > 0)
+tmdb <- dplyr::filter(tmdb, runtime > 0)
+tmdb <- dplyr::mutate(tmdb, year = lubridate::year(release_date))
+tmdb <- dplyr::select(tmdb, -c(release_date))
+tmdb <- dplyr::mutate(tmdb, beneficio = (revenue - budget/budget)*100)
+tmdb <- dplyr::mutate(tmdb, beneficio = ((revenue - budget)/budget)*100)
+tmdb <- dplyr::mutate(tmdb, success = ifelse(beneficio > 75, as.factor(TRUE),as.factor(FALSE)))
+tmdb <- dplyr::mutate(tmdb, success = ifelse(beneficio > 75, TRUE,FALSE))
+as.factor(TRUE)
+as.factor(FALSE)
+tmdb <- dplyr::mutate(tmdb, success = ifelse(beneficio > 75, as.factor(TRUE),as.factor(FALSE)))
+true <- as.factor(TRUE)
+false <- as.factor(FALSE)
+tmdb <- dplyr::mutate(tmdb, success = ifelse(beneficio > 75, true,false)
+)
+tmdb <- dplyr::mutate(tmdb, success = ifelse(beneficio > 75, true,false))
+view(tmdb)
+View(tmdb)
+tmdb <- dplyr::mutate(tmdb, success = ifelse(beneficio > 75, TRUE,FALSE))
+tmdb <- dplyr::select(tmdb, -c(beneficio,revenue))
+tmdb
+N <- nrow(tmdb)
+train_indices <- sample(seq(N), size = round(0.75*N))
+train_indices
+test_indices <- setdiff(seq(N), train_indices)
+train_df <- tmdb[train_indices, ]
+test_df <- tmdb[test_indices, ]
+train_df
+?glm
+library("mlbench")
+install.packages(("mlbench"))
+library("mlbench")
+Sonar
+View(mlbench::Sonar)
+data("Sonar")
+View(data("Sonar"))
+data("Sonar")
+data(Sonar)
+View(dat(Sonar))
+model <- glm(Class ~ .,data = train_df, family = binomial)
+model <- glm(Class ~ .,
++ data = train_df,
++ family = "binomial")
+model <- glm(success ~ .,
++ data = train_df,
++ family = "binomial")
+model <- glm(Class ~ .,data = train_df, family = binomial)
+model <- glm(success ~ .,data = train_df, family = binomial)
+model
+predictions <- predict(model, test_df, type = "response")
+predictions
+predicted_success <- ifelse(predictions > 0.75, TRUE, FALSE)
+predicted_success
+mean(predicted_success == test_df$success)
+luis <- data(Sonar)
+luis
+View(luis)
+data(Sonar)
+summary(Sonar)
+Sonar
+View(Sonar)
+Sonar$Class
+table(predicted_success, test_df$success)
+caret::confusionMatrix(as.factor(predicted_success), test_df$success)
+install.packages("caret")
+caret::confusionMatrix(as.factor(predicted_success), test_df$success)
+Error in loadNamespace(name) : there is no package called ‘caret’
+caret::confusionMatrix(as.factor(predicted_success), test_df$success)
+caret::confusionMatrix(predicted_success, test_df$success)
+caret::confusionMatrix(as.factor(predicted_success), as.factor(test_df$success))
+install.packages("e1071")
+caret::confusionMatrix(as.factor(predicted_success), as.factor(test_df$success))
+caTools::colAUC(predictions, test_df$Class, plotROC = TRUE)
+caTools::colAUC(predictions, test_df$success, plotROC = TRUE)
+installed.packages("caTools")
+caTools::colAUC(predictions, test_df$success, plotROC = TRUE)
+installed.packages("caTools")
+install.packages("caTools")
+caTools::colAUC(predictions, test_df$success, plotROC = TRUE)
+install.packages("rpart")
+install.packages("rpart")
+tree <- rpart(success ~ ., data = train_df,method = "class")
+library("rpart")
+tree <- rpart(success ~ ., data = train_df,method = "class")
+caTools::colAUC(predictions, test_df$success, plotROC = TRUE)
+tree
+library("rpart.plot")
+install.packages("rpart.plot")
+install.packages("rpart.plot")
+install.packages("rpart.plot")
+install.packages("rpart.plot")
+rpart.plot(tree)
+installed.packages("rpart.plot")
+install.packages(""rpart.plot"")
+install.packages(""rpart.plot"")
+install.packages("rpart.plot")
+install.packages("~/Desktop/rpart.plot_3.0.8.tar.gz", repos = NULL, type = "source")
+rpart.plot(tree)
+library("rpart.plot")
+rpart.plot(tree)
+tmdb_classes <- predict(tree, test_df, type = "class")
+mean(tmdb_classes == test_df$success)
+table(tmdb_classes, test_df$success)
+caret::confusionMatrix(as.factor(predicted_success), as.factor(test_df$success))
+install.packages("ranger")
+install.packages("ranger")
+install.packages("~/Desktop/ranger_0.12.1.tar.gz", repos = NULL, type = "source")
+install.packages("RcppEigen")
+install.packages("~/Desktop/RcppEigen_0.3.3.7.0.tar.gz", repos = NULL, type = "source")
+detach("package:rpart", unload = TRUE)
+detach("package:rpart.plot", unload = TRUE)
+library("ranger")
+install.packages("~/Desktop/ranger_0.12.1.tar.gz", repos = NULL, type = "source")
+library("ranger")
+install.packages("ranger")
+model_rf <- ranger::ranger(success ~ ., data = train_df, num.trees = 200)
+model_rf
+model$confusion.matrix
+model_rf$confusion.matrix
+model_rf %>% predict(test_df)
+install.packages("tidyverse")
+library(tidyverse)
+model_rf %>% predict(test_df)
+model <- glm(success ~ .,data = train_df, family = binomial)
+?glm
+?lm
+task = makeClassifTask(data=tmdb , target="Class")
+task = mlr::makeClassifTask(data=tmdb , target="Class")
+task = mlr::makeClassifTask(data=tmdb , target="success")
+task
+model
+lrn = mlr::makeLearner("classif.ksvm")
+install.packages("kernlab")
+lrn = mlr::makeLearner("classif.ksvm")
+lrn
+rdesc = makeResampleDesc(method="CV", iters =5)
+rdesc = mlr::makeResampleDesc(method="CV", iters =5)
+rdesc
+ps = makeParamSet(makeDiscreteParam("kernel", values=c("polydot", "rbfdot")),makeNumericParam("C", lower=-15, upper=15,  trafo=function(x) 2^x),makeNumericParam("sigma", lower=-15, upper=15,  trafo=function(x) 2^x,requires = quote(kernel  == "rbfdot")),makeIntegerParam("degree", lower = 1, upper = 5,requires = quote(kernel  == "polydot")))
+ps = mlr::makeParamSet(makeDiscreteParam("kernel", values=c("polydot", "rbfdot")),makeNumericParam("C", lower=-15, upper=15,  trafo=function(x) 2^x),makeNumericParam("sigma", lower=-15, upper=15,  trafo=function(x) 2^x,requires = quote(kernel  == "rbfdot")),makeIntegerParam("degree", lower = 1, upper = 5,requires = quote(kernel  == "polydot")))
+tmdb <- read.csv("~/Desktop/Curso de R/Tema 5 - Machine Learning and Clusering/Entrega/tmdb.csv")
+View(tmdb)
+tree <- rpart(success ~ ., data = train_df,method = "class")
+tree <- rpart::rpart(success ~ ., data = train_df,method = "class")
+tree <- rpart::rpart(success ~ ., data = train_df,method = "success")
+tmdb_classes <- predict(tree, test_df, type = "class")
+tmdb_classes <- predict(tree, test_df, type = "success")
+trainTask <- mlr::makeClassifTask(data = train_df,target = "success")
+trainTask
+mlr::getParamSet("classif.rpart")
+getParamSet("classif.rpart")
+mlr::makeLearner("classif.rpart", predict.type = "response")
+?makeParamSet
+install.packages("irace")
+?setHyperPars
+predict(t.rpart, testTask)
+trainTask <- mlr::makeClassifTask(data = train_df,target = "success")
+testTask <- mlr::makeClassifTask(data = test_df, target = "success")
+makeatree <- mlr::makeLearner("classif.rpart", predict.type = "response")
+set_cv <- mlr::makeResampleDesc("CV",iters = 2L)
+gscontrol <- mlr::makeTuneControlGrid()
+ctrl = mlr::makeTuneControlIrace(maxExperiments = 12, nbIterations = 1, minNbSurvival = 1)
+gs <- ParamHelpers::makeParamSet(
+ParamHelpers::makeIntegerParam("minsplit",lower = 1, upper = 5),
+ParamHelpers::makeIntegerParam("minbucket", lower = 3, upper = 8),
+ParamHelpers::makeNumericParam("cp", lower = 0.001, upper = 0.2)
+)
+stune <- mlr::tuneParams(learner = makeatree, resampling = set_cv, task = trainTask, par.set = gs, control = ctrl, measures = mlr::acc)
+t.tree <- mlr::setHyperPars(makeatree, par.vals = stune$x)
+t.rpart <- train(t.tree, trainTask)
+lear_model <- mlr::getLearnerModel(t.rpart)
+predict(t.rpart, testTask)
+resultatado <- predict(t.rpart, testTask)
+resultado.response
+resultado[,3]
+resultatado[,3]
+resultatado[,2]
+resultatado[1,2]
+resultatado
+as.dataframe(resultatado)
+mlr::calculateConfusionMatrix(predict())
+mlr::calculateConfusionMatrix(resultatado)
+mlr::calculateConfusionMatrix(resultatado,relative = TRUE)
+mlr::calculateConfusionMatrix(resultatado,relative = TRUE, set = train)
+mlr::calculateConfusionMatrix(resultatado,relative = TRUE, set = "train")
+mlr::calculateConfusionMatrix(resultatado,relative = TRUE)
+summary(predict_modelo)
+predict_modelo <- predict(t.rpart, testTask)
+summary(predict_modelo)
+summary(predict_modelo.data)
+print(predict_modelo.data)
+predict_modelo.data
+predict_modelo$data
+predict_modelo$data$response
+t.rpart$data
+t.rpart$datamodel_rf <- ranger::ranger(success ~ ., data = train_df, num.trees = 200)
+model_rf <- ranger::ranger(success ~ ., data = train_df, num.trees = 200)
+model_rf$predictions
+predict(model_rf$predictions,test_df)
+test_df
+predict(model_rf,test_df)
+model_rf$predictions
+library(Clustering)
+df = clustering(df = cluster::agriculture, min = 4, max = 6)
+plot_external_validation(df)
+rest_column_name
+length(rest_column_name)
+plot_external_validation(df)
+length(rest_column_name)
+library(Clustering)
+plot_external_validation(df)
+length(rest_column_name)
+rest_column_name
+library(Clustering)
+plot_external_validation(df)
+rest_column_name
+library(Clustering)
+plot_external_validation(df)
+rest_column_name
+rest_column_name
+library(Clustering)
+plot_external_validation(df)
+rest_column_name
+rest_column_name
+library(Clustering)
+plot_external_validation(df)
+library(Clustering)
+plot_external_validation(df)
+c
+plot_external_validation(df)
+plot_external_validation(df)
+library(Clustering)
+plot_external_validation(df)
+library(Clustering)
+plot_external_validation(df)
+library(Clustering)
+plot_external_validation(df)
+plot_external_validation(df,"precision")
+library(Clustering)
+plot_external_validation(df,"precision")
+plot_external_validation(df,"recall")
+df
+plot_external_validation(df,"variation_information")
+library(Clustering)
+plot_external_validation(df,"variation_information")
+library(Clustering)
+roxygen2::roxygenise()
+library(Clustering)
+plot_external_validation(df,"variation_information")
+library(Clustering)
+plot_external_validation(df,"variation_information")
+metric = "variation_information"
+df
+dplyr::select(df, c(metric))
+dplyr::filter(df, c(metric))
+dplyr::select(df)
+dplyr::select(df$result)
+dplyr::select(df$result, c(metric))
+dplyr::select(df$result, metric)
+dplyr::select(df$result, c('variation_information'))
+dplyr::select(df$result, c("variation_information"))
+df$result
+dplyr::select(df$result, c("Algorithm"))
+dplyr::select(as.data.frame(df$result), c("Algorithm"))
+dplyr::select(as.data.frame(df$result), c(metric))
+dplyr::select(as.data.frame(df$result), metric)
+max(dplyr::select(as.data.frame(df$result), metric))
+dplyr::select(as.data.frame(df$result), metric) + summary(max = max(metric))
+dplyr::select(as.data.frame(df$result), metric) + summary(maximo = max(metric))
+dplyr::select(as.data.frame(df$result), metric)
+max(dplyr::select(as.data.frame(df$result), metric))
+max(as.numeric(dplyr::select(as.data.frame(df$result), metric)))
+max(dplyr::select(as.data.frame(df$result), metric), na.rm = TRUE)
+df_prueba <- as.data.frame(df)
+df_prueba <- as.data.frame(df$result)
+max(dplyr::select(df_prueba, metric), na.rm = TRUE)
+result <- dplyr::select(df_prueba, metric)
+maximo <- max(result)
+maximo <- max(result[1,])
+maximo <- max(result[1,], na.rm = TRUE)
+colMax(result)
+colMax(unlist(result))
+max(unlist(result))
+max(unlist(as.numeric(result)))
+dplyr::select(as.data.frame(df$result), metric) + dplyr::group_by(metric)
+dplyr::select(as.data.frame(df$result), metric) +arrange(desc(metric))
+dplyr::select(as.data.frame(df$result), metric) + dplyr::arrange(desc(metric))
+dplyr::select(as.data.frame(df$result), metric) + dplyr::arrange(dplyr::desc(metric))
+install.packages("rlang")
+install.packages("rlang")
+install.packages("rlang")
+install.packages("rlang")
