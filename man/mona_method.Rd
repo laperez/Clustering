@@ -4,10 +4,10 @@
 \alias{mona_method}
 \title{Method that runs the mona algorithm to make an external or internal validation of the cluster}
 \usage{
-mona_method(data, clusters, columnClass, metric)
+mona_method(dt, clusters, columnClass, metric)
 }
 \arguments{
-\item{data}{matrix or data frame}
+\item{dt}{matrix or data frame}
 
 \item{clusters}{number of clusters}
 

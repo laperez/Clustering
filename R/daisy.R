@@ -1,6 +1,6 @@
 #' Method that runs the daisy algorithm using the euclidean metric to make an external or internal validation of the cluster
 #'
-#' @param data matrix or data frame
+#' @param dt matrix or data frame
 #' @param clusters number of clusters
 #' @param columnClass number of column, for example if a dataset has five column,
 #' we can select column four to calculate alidation
@@ -11,11 +11,11 @@
 #' @keywords internal
 #'
 
-daisy_euclidean_method = function(data, clusters, columnClass, metric) {
+daisy_euclidean_method = function(dt, clusters, columnClass, metric) {
   start.time <- Sys.time()
 
-  if ('data.frame' %in% class(data))
-    data = as.matrix(data)
+  if ('data.frame' %in% class(dt))
+    dt = as.matrix(dt)
 
   numeric_cluster <- ifelse(!is.numeric(clusters),1,0)
 
@@ -23,7 +23,7 @@ daisy_euclidean_method = function(data, clusters, columnClass, metric) {
     stop('The field clusters must be a numeric')
 
   daisy_euclidean <- tryCatch({
-    daisy(x = data, metric = CONST_EUCLIDEAN)
+    daisy(x = dt, metric = CONST_EUCLIDEAN)
   },
 
   error = function(cond) {
@@ -36,7 +36,7 @@ daisy_euclidean_method = function(data, clusters, columnClass, metric) {
     if (!is.null(daisy_euclidean_clust)) {
       ev_daisy_euclidean <-
         tryCatch({
-          external_validation(c(data[, columnClass]),
+          external_validation(c(dt[, columnClass]),
                               cutree(daisy_euclidean_clust, k = clusters),metric)
 
         },
@@ -49,7 +49,7 @@ daisy_euclidean_method = function(data, clusters, columnClass, metric) {
         internal_validation(
           distance = CONST_NULL,
           clusters_vector = cutree(daisy_euclidean_clust, k = clusters),
-          data = data,
+          dataf = dt,
           method = CONST_EUCLIDEAN,
           metric
         )
@@ -86,7 +86,7 @@ daisy_euclidean_method = function(data, clusters, columnClass, metric) {
 
 #' Method that runs the daisy algorithm using the manhattan metric to make an external or internal validation of the cluster
 #'
-#' @param data matrix or data frame
+#' @param dt matrix or data frame
 #' @param clusters number of clusters
 #' @param columnClass number of column, for example if a dataset has five column,
 #' we can select column four to calculate alidation
@@ -97,11 +97,11 @@ daisy_euclidean_method = function(data, clusters, columnClass, metric) {
 #' @keywords internal
 #'
 
-daisy_manhattan_method = function(data, clusters, columnClass, metric) {
+daisy_manhattan_method = function(dt, clusters, columnClass, metric) {
   start.time <- Sys.time()
 
-  if ('data.frame' %in% class(data))
-    data = as.matrix(data)
+  if ('data.frame' %in% class(dt))
+    dt = as.matrix(dt)
 
   numeric_cluster <- ifelse(!is.numeric(clusters),1,0)
 
@@ -109,7 +109,7 @@ daisy_manhattan_method = function(data, clusters, columnClass, metric) {
     stop('The field clusters must be a numeric')
 
   daisy_manhattan <- tryCatch({
-    daisy(x = data, metric = CONST_MANHATTAN)
+    daisy(x = dt, metric = CONST_MANHATTAN)
   },
 
   error = function(cond) {
@@ -130,7 +130,7 @@ daisy_manhattan_method = function(data, clusters, columnClass, metric) {
     if (!is.null(daisy_manhattan_clust)) {
       ev_daisy_manhattan <-
         tryCatch({
-          external_validation(c(data[, columnClass]),
+          external_validation(c(dt[, columnClass]),
                               cutree(daisy_manhattan_clust, k = clusters),metric)
 
         },
@@ -143,7 +143,7 @@ daisy_manhattan_method = function(data, clusters, columnClass, metric) {
         internal_validation(
           distance = CONST_NULL,
           clusters_vector = cutree(daisy_manhattan_clust, k = clusters),
-          data = data,
+          dataf = dt,
           method = CONST_MANHATTAN,
           metric
         )
@@ -182,7 +182,7 @@ daisy_manhattan_method = function(data, clusters, columnClass, metric) {
 
 #' Method that runs the daisy algorithm using the gower metric to make an external or internal validation of the cluster
 #'
-#' @param data matrix or data frame
+#' @param dt matrix or data frame
 #' @param clusters number of clusters
 #' @param columnClass number of column, for example if a dataset has five column,
 #' we can select column four to calculate alidation
@@ -193,11 +193,11 @@ daisy_manhattan_method = function(data, clusters, columnClass, metric) {
 #' @keywords internal
 #'
 
-daisy_gower_method = function(data, clusters, columnClass, metric) {
+daisy_gower_method = function(dt, clusters, columnClass, metric) {
   start.time <- Sys.time()
 
-  if ('data.frame' %in% class(data))
-    data = as.matrix(data)
+  if ('data.frame' %in% class(dt))
+    dt = as.matrix(dt)
 
   numeric_cluster <- ifelse(!is.numeric(clusters),1,0)
 
@@ -205,7 +205,7 @@ daisy_gower_method = function(data, clusters, columnClass, metric) {
     stop('The field clusters must be a numeric')
 
   daisy_gower <- tryCatch({
-    daisy(x = data, metric = CONST_GOWER)
+    daisy(x = dt, metric = CONST_GOWER)
   },
 
   error = function(cond) {
@@ -226,7 +226,7 @@ daisy_gower_method = function(data, clusters, columnClass, metric) {
     if (!is.null(daisy_gower_clust)) {
       ev_daisy_gower <-
         tryCatch({
-          external_validation(c(data[, columnClass]),
+          external_validation(c(dt[, columnClass]),
                               cutree(daisy_gower_clust, k = clusters),metric)
 
         },
@@ -239,7 +239,7 @@ daisy_gower_method = function(data, clusters, columnClass, metric) {
         internal_validation(
           distance = as.matrix(daisy_gower),
           clusters_vector = cutree(daisy_gower_clust, k = clusters),
-          data = data,
+          dataf = dt,
           method = CONST_NULL,
           metric
         )

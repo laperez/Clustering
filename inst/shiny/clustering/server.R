@@ -10,7 +10,6 @@
 library(shiny)
 library(shinyjs)
 library(dplyr)
-library(waiter)
 library(shinyalert)
 library(ggplot2)
 
@@ -59,16 +58,8 @@ df_result <- NULL
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
-    w <- Waiter$new(id = "tableClustering", color = "#006d38")
-    wev1 <- Waiter$new(id = "best_evaluation1", color = "#006d38")
-    wev2 <- Waiter$new(id = "best_evaluation2", color = "#006d38")
-    wev3 <- Waiter$new(id = "image1", color = "#006d38")
-    wev4 <- Waiter$new(id = "plotImage1", color = "#006d38")
-    wev5 <- Waiter$new(id = "image2", color = "#006d38")
-    wev6 <- Waiter$new(id = "plotImage2", color = "#006d38")
 
     df_result <<- NULL
-
 
     shinyDirChoose(
         input,
@@ -90,7 +81,7 @@ shinyServer(function(input, output, session) {
         if (!is.null(input$image1) &&
             input$image1 != "" && !is.null(df_result)) {
             output$plotImage1 <- renderPlot({
-                Clustering::plot_external_validation(df_result, input$image1)
+                plot(df_result, input$image1)
             })
         }
     })
@@ -99,7 +90,7 @@ shinyServer(function(input, output, session) {
         if (!is.null(input$image2) &&
             input$image2 != "" && !is.null(df_result)) {
             output$plotImage2 <- renderPlot({
-                Clustering::plot_internal_validation(df_result, input$image2)
+                plot(df_result, input$image2)
             })
         }
     })
@@ -115,7 +106,8 @@ shinyServer(function(input, output, session) {
     })
 
     observeEvent(
-        ignoreNULL = FALSE,
+        ignoreNULL = F,
+        ignoreInit = T,
         eventExpr = {
             input$algorithm
         },
@@ -126,8 +118,6 @@ shinyServer(function(input, output, session) {
                 } else {
                     selectedPackage = c(input$packages)
                 }
-
-                #' Limpiamos aquellos paquetes que no se usan.
 
                 algorithm_clustering <-
                     c(
@@ -241,8 +231,6 @@ shinyServer(function(input, output, session) {
                     selectedPackage = selectedPackage[selectedPackage != 'pvclust']
                 }
 
-                #' Finalmente añadimos los packages que no existan
-
                 for (a in 1:length(input$algorithm)) {
                     if (input$algorithm[a] %in% advclust_algorithm) {
                         if (!is.null(input$packages)) {
@@ -319,15 +307,20 @@ shinyServer(function(input, output, session) {
                 selectedPackage = ""
             }
 
+
             updatePickerInput(session = session,
                               inputId = "packages",
                               selected = selectedPackage)
         }
     )
 
+    observe({
+        generate_information()
+    })
 
     observeEvent(
-        ignoreNULL = FALSE,
+        ignoreNULL = F,
+        ignoreInit = T,
         eventExpr = {
             input$packages
         },
@@ -535,22 +528,15 @@ shinyServer(function(input, output, session) {
             } else {
                 selectedAlgorithm = ""
             }
-
-            updatePickerInput(session = session,
-                              inputId = "algorithm",
-                              selected = selectedAlgorithm)
-
         }
     )
-
-
 
     renderText({
         input$typeExecution
     })
 
     observeEvent(
-        ignoreNULL = TRUE,
+        ignoreNULL = T,
         eventExpr = {
             input$dir
         },
@@ -560,14 +546,33 @@ shinyServer(function(input, output, session) {
             home <- normalizePath("~")
             global$datapath <-
                 file.path(home, paste(unlist(dir()$path[-1]), collapse = .Platform$file.sep))
-        }
+        },
+        ignoreInit = T
     )
 
-    observeEvent(input$generate, {
+
+
+    generate_information <- function() {
+
+        output$tableClustering <- NULL
+
+        output$best_evaluation1 <- NULL
+
+        output$best_evaluation2 <- NULL
+
+        output$image1 <- NULL
+
+        output$plotImage1 <- NULL
+
+        output$image2 <- NULL
+
+        output$plotImage2 <- NULL
+
         shinyjs::hide("image1")
         shinyjs::hide("image2")
         shinyjs::hide("plotImage1")
         shinyjs::hide("plotImage2")
+        shinyjs::hide("best_evaluation2")
 
         if ((is.null(input$packages) ||
              input$packages == "") ||
@@ -577,18 +582,13 @@ shinyServer(function(input, output, session) {
             shinyalert("The field packages,algorithm and metrics must be filled",
                        type = "error")
         } else {
-            w$show()
-            wev1$show()
-            wev2$show()
-            wev3$show()
-            wev4$show()
-            wev5$show()
-            wev6$show()
 
-            visible = NULL
+            visible = F
+
+            printFirstTable = F
 
             if (input$visible == "TRUE")
-                visible = TRUE
+                visible = T
 
 
             if (input$typeExecution == "data") {
@@ -636,32 +636,34 @@ shinyServer(function(input, output, session) {
                         columnnames <- columnnames[columnnames != "timeExternal"]
                     }
 
-                    result <- dplyr::filter(as.data.frame(df_result$result), Ranking == 1) %>% select(columnnames)
+                    result <-
+                        dplyr::filter(as.data.frame(df_result$result),
+                                      Ranking == 1) %>% select(columnnames)
 
                     output$tableClustering <-
                         DT::renderDataTable(result,
                                             options = list(
-                                                scrollX = TRUE,
-                                                lengthChange = FALSE
+                                                scrollX = T,
+                                                lengthChange = F,
+                                                scroller = T
                                             ))
-
-                    printFirstTable = FALSE
 
 
                     if (df_result$hasExternalMetrics) {
                         result_external <-
-                            Clustering::evaluate_best_validation_external_by_metrics(df_result$result)
+                            Clustering::evaluate_best_validation_external_by_metrics(df_result)
 
                         output$best_evaluation1 <-
                             DT::renderDataTable(
                                 result_external$result,
                                 options = list(
-                                    scrollX = TRUE,
-                                    lengthChange = FALSE
+                                    scroller = T,
+                                    scrollX = T,
+                                    lengthChange = F
                                 )
                             )
 
-                        printFirstTable = TRUE
+                        printFirstTable = T
 
                         shinyjs::show("plotImage1")
                         output$plotImage1 <- renderPlot({
@@ -674,31 +676,34 @@ shinyServer(function(input, output, session) {
                                 choices = result,
                                 selected = result[1]
                             )
-                            Clustering::plot_external_validation(df_result, result[1])
+                            plot(df_result, result[1])
 
                         })
                     }
 
                     if (df_result$hasInternalMetrics) {
                         result_internal <-
-                            Clustering::evaluate_best_validation_internal_by_metrics(df_result$result)
+                            Clustering::evaluate_best_validation_internal_by_metrics(df_result)
 
                         if (printFirstTable) {
                             output$best_evaluation2 <-
                                 DT::renderDataTable(
                                     result_internal$result,
                                     options = list(
-                                        scrollX = TRUE,
-                                        lengthChange = FALSE
+                                        scroller = T,
+                                        scrollX = T,
+                                        lengthChange = F
                                     )
                                 )
+                            shinyjs::show("best_evaluation2")
                         } else {
                             output$best_evaluation1 <-
                                 DT::renderDataTable(
                                     result_internal$result,
                                     options = list(
-                                        scrollX = TRUE,
-                                        lengthChange = FALSE
+                                        scroller = T,
+                                        scrollX = T,
+                                        lengthChange = F
                                     )
                                 )
                         }
@@ -714,7 +719,7 @@ shinyServer(function(input, output, session) {
                                 choices = result,
                                 selected = result[1]
                             )
-                            Clustering::plot_internal_validation(df_result, result[1])
+                            plot(df_result, result[1])
 
                         })
                     }
@@ -723,22 +728,26 @@ shinyServer(function(input, output, session) {
                 error = function(e) {
                     output$tableClustering <- DT::renderDataTable(NULL,
                                                                   options = list(
-                                                                      scrollX = TRUE,
-                                                                      lengthChange = FALSE
+                                                                      scroller = T,
+                                                                      scrollX = T,
+                                                                      lengthChange = F
                                                                   ))
 
                     output$best_evaluation1 <-
                         DT::renderDataTable(NULL,
                                             options = list(
-                                                scrollX = TRUE,
-                                                lengthChange = FALSE
+                                                scroller = T,
+                                                scrollX = T,
+                                                lengthChange = F
                                             ))
                     output$best_evaluation2 <-
                         DT::renderDataTable(NULL,
                                             options = list(
-                                                scrollX = TRUE,
-                                                lengthChange = FALSE
+                                                scroller = T,
+                                                scrollX = T,
+                                                lengthChange = F
                                             ))
+                    shinyjs::show("best_evaluation2")
 
                     messageError <- ""
 
@@ -749,13 +758,6 @@ shinyServer(function(input, output, session) {
                     }
 
                     shinyalert(messageError, type = "error")
-                    w$hide()
-                    wev1$hide()
-                    wev2$hide()
-                    wev3$hide()
-                    wev4$hide()
-                    wev5$hide()
-                    wev6$hide()
                 })
 
             } else {
@@ -790,26 +792,28 @@ shinyServer(function(input, output, session) {
                     output$tableClustering <-
                         DT::renderDataTable(result,
                                             options = list(
-                                                scrollX = TRUE,
-                                                lengthChange = FALSE
+                                                scroller = T,
+                                                scrollX = T,
+                                                lengthChange = F
                                             ))
 
-                    printFirstTable = FALSE
+                    printFirstTable = F
 
                     if (df_result$hasExternalMetrics) {
                         result_external <-
-                            Clustering::evaluate_best_validation_external_by_metrics(df_result$result)
+                            Clustering::evaluate_best_validation_external_by_metrics(df_result)
 
                         output$best_evaluation1 <-
                             DT::renderDataTable(
                                 result_external$result,
                                 options = list(
-                                    scrollX = TRUE,
-                                    lengthChange = FALSE
+                                    scroller = T,
+                                    scrollX = T,
+                                    lengthChange = F
                                 )
                             )
 
-                        printFirstTable = TRUE
+                        printFirstTable = T
 
                         shinyjs::show("plotImage1")
                         output$plotImage1 <- renderPlot({
@@ -822,7 +826,7 @@ shinyServer(function(input, output, session) {
                                 choices = result,
                                 selected = result[1]
                             )
-                            Clustering::plot_external_validation(df_result, result[1])
+                            plot(df_result, result[1])
 
                         })
                     }
@@ -830,24 +834,27 @@ shinyServer(function(input, output, session) {
 
                     if (df_result$hasInternalMetrics) {
                         result_internal <-
-                            Clustering::evaluate_best_validation_internal_by_metrics(df_result$result)
+                            Clustering::evaluate_best_validation_internal_by_metrics(df_result)
 
                         if (printFirstTable) {
                             output$best_evaluation2 <-
                                 DT::renderDataTable(
                                     result_internal$result,
                                     options = list(
-                                        scrollX = TRUE,
-                                        lengthChange = FALSE
+                                        scroller = T,
+                                        scrollX = T,
+                                        lengthChange = F
                                     )
                                 )
+                            shinyjs::show("best_evaluation2")
                         } else {
                             output$best_evaluation1 <-
                                 DT::renderDataTable(
                                     result_internal$result,
                                     options = list(
-                                        scrollX = TRUE,
-                                        lengthChange = FALSE
+                                        scroller = T,
+                                        scrollX = T,
+                                        lengthChange = F
                                     )
                                 )
                         }
@@ -863,7 +870,7 @@ shinyServer(function(input, output, session) {
                                 choices = result,
                                 selected = result[1]
                             )
-                            Clustering::plot_internal_validation(df_result, result[1])
+                            plot(df_result, result[1])
 
                         })
                     }
@@ -872,21 +879,25 @@ shinyServer(function(input, output, session) {
                 error = function(e) {
                     output$tableClustering <- DT::renderDataTable(NULL,
                                                                   options = list(
-                                                                      scrollX = TRUE,
-                                                                      lengthChange = FALSE
+                                                                      scroller = T,
+                                                                      scrollX = T,
+                                                                      lengthChange = F
                                                                   ))
                     output$best_evaluation1 <-
                         DT::renderDataTable(NULL,
                                             options = list(
-                                                scrollX = TRUE,
-                                                lengthChange = FALSE
+                                                scroller = T,
+                                                scrollX = T,
+                                                lengthChange = F
                                             ))
                     output$best_evaluation2 <-
                         DT::renderDataTable(NULL,
                                             options = list(
-                                                scrollX = TRUE,
-                                                lengthChange = FALSE
+                                                scroller = T,
+                                                scrollX = T,
+                                                lengthChange = F
                                             ))
+                    shinyjs::show("best_evaluation2")
 
                     messageError <- ""
 
@@ -897,22 +908,8 @@ shinyServer(function(input, output, session) {
                     }
 
                     shinyalert(messageError, type = "error")
-                    w$hide()
-                    wev1$hide()
-                    wev2$hide()
-                    wev3$hide()
-                    wev4$hide()
-                    wev5$hide()
-                    wev6$hide()
                 })
             }
-            w$hide()
-            wev1$hide()
-            wev2$hide()
-            wev3$hide()
-            wev4$hide()
-            wev5$hide()
-            wev6$hide()
         }
-    })
+    }
 })

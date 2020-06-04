@@ -4,10 +4,10 @@
 \alias{apclusterK_manhattan}
 \title{Method that runs the apclusterK algorithm using the manhattan metric to make an external or internal validation of the cluster}
 \usage{
-apclusterK_manhattan(data, clusters, columnClass, metric)
+apclusterK_manhattan(dt, clusters, columnClass, metric)
 }
 \arguments{
-\item{data}{matrix or data frame}
+\item{dt}{matrix or data frame}
 
 \item{clusters}{number of clusters}
 

@@ -4,10 +4,10 @@
 \alias{kmeans_rcpp_method}
 \title{Method that runs the KMeans_rcpp algorithm using the Euclidean metric to make an external or internal validation of the cluster}
 \usage{
-kmeans_rcpp_method(data, clusters, columnClass, metric)
+kmeans_rcpp_method(dt, clusters, columnClass, metric)
 }
 \arguments{
-\item{data}{matrix or data frame}
+\item{dt}{matrix or data frame}
 
 \item{clusters}{number of clusters}
 

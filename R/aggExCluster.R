@@ -1,7 +1,7 @@
 
 #' Method that runs the aggExcluster algorithm using the Euclidean metric to make an external or internal validation of the cluster
 #'
-#' @param data matrix or data frame
+#' @param dt matrix or data frame
 #' @param clusters number of clusters
 #' @param metric metrics avalaible in the package. The metrics implemented are: entropy, variation_information,precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.
 #'
@@ -9,12 +9,11 @@
 #'
 #' @keywords internal
 
-aggExCluster_euclidean = function(data, clusters, metric) {
+aggExCluster_euclidean = function(dt, clusters, metric) {
   start.time <- Sys.time()
 
-
-  if ('data.frame' %in% class(data))
-    data = as.matrix(data)
+  if ('data.frame' %in% class(dt))
+    dt = as.matrix(dt)
 
   numeric_cluster <- ifelse(!is.numeric(clusters),1,0)
 
@@ -23,7 +22,7 @@ aggExCluster_euclidean = function(data, clusters, metric) {
 
   aggExCluster_euclidean <- tryCatch({
     aggExCluster(s = negDistMat(r = CONST_TWO, method = CONST_EUCLIDEAN),
-                            x = data)
+                            x = dt)
   },
 
   error = function(cond) {
@@ -47,7 +46,7 @@ aggExCluster_euclidean = function(data, clusters, metric) {
       internal_validation(
         distance = CONST_NULL,
         clusters_vector = cutree(tree = aggExCluster_euclidean, k = clusters),
-        data = data,
+        dataf = dt,
         method = CONST_EUCLIDEAN,
         metric
       )

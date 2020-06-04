@@ -6,13 +6,13 @@
 \usage{
 execute_datasets(
   path,
-  df = CONST_NULL,
-  packages = CONST_NULL,
-  algorithm = CONST_NULL,
-  cluster_min = CONST_NULL,
-  cluster_max = CONST_NULL,
-  metrics = CONST_NULL,
-  variables = CONST_NULL
+  df,
+  packages,
+  algorithm,
+  cluster_min,
+  cluster_max,
+  metrics,
+  variables
 )
 }
 \arguments{

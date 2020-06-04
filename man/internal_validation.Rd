@@ -7,7 +7,7 @@
 internal_validation(
   distance = NULL,
   clusters_vector,
-  data = NULL,
+  dataf = NULL,
   method = CONST_EUCLIDEAN,
   metric = NULL
 )
@@ -17,7 +17,7 @@ internal_validation(
 
 \item{clusters_vector}{array that containe tha data grouped in cluster}
 
-\item{data}{dataframe with original data}
+\item{dataf}{dataframe with original data}
 
 \item{method}{indicates the method for calculating distance between points}
 

@@ -4,10 +4,10 @@
 \alias{hclust_euclidean}
 \title{Method that runs the gama hcluster using the Euclidean metric to make an external or internal validation of the cluster}
 \usage{
-hclust_euclidean(data, clusters, columnClass, metric)
+hclust_euclidean(dt, clusters, columnClass, metric)
 }
 \arguments{
-\item{data}{matrix or data frame}
+\item{dt}{matrix or data frame}
 
 \item{clusters}{number of clusters}
 

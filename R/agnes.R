@@ -1,6 +1,6 @@
 #' Method that runs the agnes algorithm using the euclidean metric to make an external or internal validation of the cluster
 #'
-#' @param data matrix or data frame
+#' @param dt matrix or data frame
 #' @param clusters number of clusters
 #' @param metric metrics avalaible in the package. The metrics implemented are: entropy, variation_information,precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.
 #'
@@ -9,11 +9,11 @@
 #' @keywords internal
 
 
-agnes_euclidean_method = function(data, clusters, metric) {
+agnes_euclidean_method = function(dt, clusters, metric) {
   start.time <- Sys.time()
 
-  if ('data.frame' %in% class(data))
-    data = as.matrix(data)
+  if ('data.frame' %in% class(dt))
+    dt = as.matrix(dt)
 
   numeric_cluster <- ifelse(!is.numeric(clusters),1,0)
 
@@ -22,9 +22,9 @@ agnes_euclidean_method = function(data, clusters, metric) {
 
   agnes_euclidean <- tryCatch({
     agnes(
-      x = data,
+      x = dt,
       metric = CONST_EUCLIDEAN,
-      stand = FALSE,
+      stand = F,
       trace.lev = CONST_ZERO
     )
   },
@@ -49,7 +49,7 @@ agnes_euclidean_method = function(data, clusters, metric) {
       internal_validation(
         distance = agnes_euclidean$diss,
         clusters_vector = cutree(agnes_euclidean, k = clusters),
-        data = data,
+        dataf = dt,
         method = CONST_EUCLIDEAN,
         metric
       )
@@ -79,7 +79,7 @@ agnes_euclidean_method = function(data, clusters, metric) {
 
 #' Method that runs the agnes algorithm using the manhattan metric to make an external or internal validation of the cluster
 #'
-#' @param data matrix or data frame
+#' @param dt matrix or data frame
 #' @param clusters number of clusters
 #' @param metric metrics avalaible in the package. The metrics implemented are: entropy, variation_information,precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.
 #'
@@ -88,11 +88,11 @@ agnes_euclidean_method = function(data, clusters, metric) {
 #' @keywords internal
 #'
 
-agnes_manhattan_method = function(data, clusters, metric) {
+agnes_manhattan_method = function(dt, clusters, metric) {
   start.time <- Sys.time()
 
-  if ('data.frame' %in% class(data))
-    data = as.matrix(data)
+  if ('data.frame' %in% class(dt))
+    dt = as.matrix(dt)
 
   numeric_cluster <- ifelse(!is.numeric(clusters),1,0)
 
@@ -101,9 +101,9 @@ agnes_manhattan_method = function(data, clusters, metric) {
 
   agnes_manhattan <- tryCatch({
     agnes(
-      x = data,
+      x = dt,
       metric = CONST_MANHATTAN,
-      stand = FALSE,
+      stand = F,
       trace.lev = CONST_ZERO
     )
   },
@@ -128,7 +128,7 @@ agnes_manhattan_method = function(data, clusters, metric) {
       internal_validation(
         distance = agnes_manhattan$diss,
         clusters_vector = cutree(agnes_manhattan, k = clusters),
-        data = data,
+        dataf = dt,
         method = CONST_MANHATTAN,
         metric
       )

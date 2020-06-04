@@ -34,21 +34,21 @@ test_that("validates that it correctly executes the dataset",{
 
   expect_equal(as.numeric(df$result[1,7]),0.0435)
 
-  expect_equal(as.numeric(Clustering::best_ranked_external_metrics(df$result)$result[1,7]),0.0435)
+  expect_equal(as.numeric(Clustering::best_ranked_external_metrics(df)$result[1,7]),0.0435)
 
-  expect_equal(as.numeric(Clustering::best_ranked_internal_metrics(df$result)$result[1,7]),0.482)
+  expect_equal(as.numeric(Clustering::best_ranked_internal_metrics(df)$result[1,7]), 0.482)
 
-  expect_equal(as.numeric(Clustering::evaluate_validation_external_by_metrics(df$result)$result[1,3]),0.0714)
+  expect_equal(as.numeric(Clustering::evaluate_validation_external_by_metrics(df)$result[1,3]),0.0714)
 
-  expect_equal(as.numeric(Clustering::evaluate_validation_internal_by_metrics(df$result)$result[1,3]),0.4)
+  expect_equal(as.numeric(Clustering::evaluate_validation_internal_by_metrics(df)$result[1,3]),0.4)
 
-  expect_equal(as.numeric(Clustering::evaluate_best_validation_external_by_metrics(df$result)$result[1,4]),0.0667)
+  expect_equal(as.numeric(Clustering::evaluate_best_validation_external_by_metrics(df)$result[1,4]),0.0667)
 
-  expect_equal(as.numeric(Clustering::evaluate_best_validation_internal_by_metrics(df$result)$result[1,4]),0.4)
+  expect_equal(as.numeric(Clustering::evaluate_best_validation_internal_by_metrics(df)$result[1,4]),0.4)
 
-  expect_equal(as.numeric(Clustering::result_external_algorithm_by_metric(df$result,"clara")$result[1,4]),0.0667)
+  expect_equal(as.numeric(Clustering::result_external_algorithm_by_metric(df,"clara")$result[1,4]),0.0667)
 
-  expect_equal(as.numeric(Clustering::result_internal_algorithm_by_metric(df$result,"gmm")$result[2,4]),0.4498)
+  expect_equal(as.numeric(Clustering::result_internal_algorithm_by_metric(df,"gmm")$result[2,4]),0.4498)
 
 })
 

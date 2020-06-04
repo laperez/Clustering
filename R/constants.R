@@ -167,9 +167,9 @@
 
   CONST_NULL <- NULL
 
-  CONST_FALSE <- FALSE
+  CONST_FALSE <- F
 
-  CONST_TRUE <- TRUE
+  CONST_TRUE <- T
 
   CONST_ZERO_DOUBLE <- 0.0
 
@@ -188,3 +188,7 @@
   CONST_SINGLE <- "single"
 
   CONST_FORMAT_ARFF_FILE <- "arff"
+
+  CONST_NAME_EXTERNAL_FILA_LATEX = "external_data.tex"
+
+  CONST_NAME_INTERNAL_FILA_LATEX = "internal_data.tex"

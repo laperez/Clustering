@@ -4,10 +4,10 @@
 \alias{fuzzy_gk_method}
 \title{Method that runs the fuzzy.GK algorithm using the Euclidean metric to make an external or internal validation of the cluster}
 \usage{
-fuzzy_gk_method(data, clusters, columnClass, metric)
+fuzzy_gk_method(dt, clusters, columnClass, metric)
 }
 \arguments{
-\item{data}{matrix or data frame}
+\item{dt}{matrix or data frame}
 
 \item{clusters}{number of clusters}
 

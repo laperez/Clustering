@@ -21,7 +21,7 @@ calculate_connectivity(
 
 \item{method}{indicates the method for calculating distance between points. Default is euclidean}
 
-\item{data}{dataframe with original data}
+\item{datdf}{dataframe with original data}
 }
 \value{
 returns a double with the result of the connectivity calculation

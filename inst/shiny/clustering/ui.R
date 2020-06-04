@@ -12,41 +12,34 @@ library(shinythemes)
 library(shinyFiles)
 library(shinyWidgets)
 library(shinyjs)
-library(waiter)
 library(DT)
 library(shinyalert)
+library(shinycssloaders)
 
 # Define UI for application that draws a histogram
 shinyUI(
     fluidPage(
         shinyjs::useShinyjs(),
         theme = shinythemes::shinytheme("superhero"),
-        use_waiter(),
         useShinyalert(),
 
         tags$link(rel = "stylesheet", type = "text/css", href = "style.css"),
         tags$script(src = "myjs.js"),
 
 
-        fluidRow(
-            column(
-                3,
+        sidebarLayout(
+            sidebarPanel(
                 radioButtons(
                     "typeExecution",
                     label = h3(" Do you want to use test data or a file directory ? "),
                     choices = list("File Directory" = "directory", "Test Data" = "data"),
-                    inline = TRUE,
+                    inline = T,
                     selected = "data"
-                )
-            ),
-            column(
-                3,
-                h3("Directory Datasets"),
-                shinyDirButton(id = "dir", label = "Directory Datasets", title = 'Select a directory')
-            ),
-            column(4, h3("Path"), verbatimTextOutput("dir", placeholder = TRUE)),
-            column(
-                2,
+                ),
+                shinyDirButton(id = "dir", label = "Directory Datasets", title = 'Select a directory'),
+                tags$br(),
+                tags$br(),
+                verbatimTextOutput("dir", placeholder = T),
                 selectInput(
                     inputId = "datasetTest",
                     label = h3("Dataset Test"),
@@ -57,18 +50,9 @@ shinyUI(
                         "Stulong" = "stulong",
                         "Weather" = "weather"
                     ),
-                    multiple = FALSE,
+                    multiple = F,
                     selected = "basketball"
-                )
-
-            )
-
-        ),
-
-        # Sidebar with a slider input for number of bins
-        fluidRow(
-            column(
-                2,
+                ),
                 pickerInput(
                     inputId = "packages",
                     label = h3("Packages"),
@@ -82,16 +66,13 @@ shinyUI(
                         "Pvclust" = "pvclust"
                     ),
                     options = list(
-                        `actions-box` = TRUE,
+                        `actions-box` = T,
                         size = 5,
                         `selected-text-format` = "count > 3"
                     ),
-                    multiple = TRUE,
+                    multiple = T,
                     selected = "cluster"
-                )
-            ),
-            column(
-                2,
+                ),
                 pickerInput(
                     inputId = "algorithm",
                     label = h3("Algorithms"),
@@ -116,27 +97,20 @@ shinyUI(
                         "Pvclust" = "pvclust"
                     ),
                     options = list(
-                        `actions-box` = TRUE,
+                        `actions-box` = T,
                         size = 5,
                         `selected-text-format` = "count > 3"
                     ),
                     selected = c("kmeans_arma", "kmeans_rcpp", "mini_kmeans", "gmm"),
-                    multiple = TRUE
-                )
-
-            ),
-            column(
-                3,
+                    multiple = T
+                ),
                 sliderInput(
                     "clustering",
                     label = h3("Number of Clustering"),
                     min = 1,
                     max = 10,
                     value = c(3, 4)
-                )
-            ),
-            column(
-                2,
+                ),
                 pickerInput(
                     "metrics",
                     label = h3("Metrics"),
@@ -152,66 +126,52 @@ shinyUI(
                         "Variation Information" = "variation_information"
                     ),
                     options = list(
-                        `actions-box` = TRUE,
+                        `actions-box` = T,
                         size = 5,
                         `selected-text-format` = "count > 3"
                     ),
-                    multiple = TRUE,
+                    choicesOpt = list(
+                        style = "height: 15px;"
+                    ),
+                    multiple = T,
                     selected = "precision"
-                )
-            ),
-            column(
-                3,
+                ),
                 radioButtons(
                     "visible",
                     label = h3("Do you want to show the variable?"),
-                    choices = list("Yes" = TRUE, "No" = FALSE),
-                    inline = TRUE
+                    choices = list("Yes" = T, "No" = F),
+                    inline = T
                 )
+
             ),
-        ),
+            mainPanel(
+                tabsetPanel(
+                    tabPanel("Summary",
+                             withSpinner(DT::dataTableOutput("tableClustering"),color = "#4e5d6c"),
+                             tags$br(),
+                             withSpinner(DT::dataTableOutput("best_evaluation1"),color = "#4e5d6c"),
+                             tags$br(),
+                             DT::dataTableOutput("best_evaluation2")),
 
-        fluidRow(column(10),
-                 column(
-                     1, actionButton("generate", "Generate Information")
-                 )),
-        tags$br(),
-        fluidRow(
-            column(4,
-                   DT::dataTableOutput("tableClustering")),
-            column(4, DT::dataTableOutput("best_evaluation1")),
-            column(4, DT::dataTableOutput("best_evaluation2"))
-        ),
-        tags$br(),
-        fluidRow(column(
-            2,
-            hidden(
-            selectInput(
-                "image1",
-                h3("Metrics External"),
-                choices = c(),
-                multiple = FALSE
-            ))
-        ),
-        column(4, plotOutput("plotImage1")),
-        column(
-            2,
-            hidden(
-                selectInput(
-                    "image2",
-                    h3("Metrics Internal"),
-                    choices = c(),
-                    multiple = FALSE
-                ))
-        ),
-        column(4, plotOutput("plotImage2"))
-
-
+                    tabPanel("Plot",hidden(
+                        selectInput(
+                            "image1",
+                            h3("Metrics External", class="h3-clustering"),
+                            choices = c(),
+                            multiple = F
+                        )),
+                        withSpinner(plotOutput("plotImage1"),color = "#4e5d6c"),
+                        hidden(
+                            selectInput(
+                                "image2",
+                                h3("Metrics Internal",class="h3-clustering"),
+                                choices = c(),
+                                multiple = F
+                            )),
+                        plotOutput("plotImage2")
+                    )
+                )
+            )
         )
     )
-
-
-
-
-
 )

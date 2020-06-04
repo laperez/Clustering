@@ -11,9 +11,9 @@ calculate_dunn(distance = NULL, clusters, datadf = NULL, method = "euclidean")
 
 \item{clusters}{array that containe tha data grouped in cluster}
 
-\item{method}{indicates the method for calculating distance between points}
+\item{datadf}{dataframe with original data}
 
-\item{data}{dataframe with original data}
+\item{method}{indicates the method for calculating distance between points}
 }
 \value{
 returns a double with the result of the dunn calculation

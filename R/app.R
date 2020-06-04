@@ -8,16 +8,14 @@
 #' appClustering
 #'
 appClustering <- function() {
-
-
   appDir <- system.file("shiny", "clustering", package = "Clustering")
   if (appDir == "") {
-    stop("Could not find directory. Try re-installing `clustering`.", call. = FALSE)
+    stop("Could not find directory. Try re-installing `clustering`.",
+         call. = F)
   }
 
   shiny::runApp(appDir, display.mode = "normal")
 }
-
 
 #'
 #' Execute a list of datasets from a route or a dataframe
@@ -36,11 +34,14 @@ appClustering <- function() {
 #'
 #' @return returns a matrix with the result of running all the metrics of the algorithms contained in the packages we indicated.
 #'
-#' @import
-#' glue
-#'
 #' @importFrom
 #' apcluster aggExCluster cutree apclusterK negDistMat
+#'
+#' @importFrom
+#' foreach foreach "%:%" "%do%"
+#'
+#' @importFrom
+#' doParallel registerDoParallel
 #'
 #' @importFrom
 #' cluster agnes clara daisy diana fanny silhouette mona pam
@@ -84,6 +85,9 @@ appClustering <- function() {
 #' @importFrom
 #' sqldf sqldf
 #'
+#' @import
+#' future
+#'
 #' @export
 #' clustering
 #'
@@ -91,14 +95,16 @@ appClustering <- function() {
 #'
 #' clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm', variables = TRUE)
 #'
-clustering <- function(path = CONST_NULL,
-                               df = CONST_NULL,
-                               packages = CONST_NULL,
-                               algorithm = CONST_NULL,
-                               min = CONST_NULL,
-                               max = CONST_NULL,
-                               metrics = CONST_NULL,
-                               variables = CONST_NULL) {
+clustering <- function(path = NULL,
+                       df = NULL,
+                       packages = NULL,
+                       algorithm = NULL,
+                       min = 3,
+                       max = 4,
+                       metrics = NULL,
+                       variables = F) {
+  ## Validation of input parameters
+
   if (is.null(path) && is.null(df)) {
     stop("You must fill in at least one of the fields: path or df")
   }
@@ -107,9 +113,12 @@ clustering <- function(path = CONST_NULL,
     stop("The path field must be a directory")
   }
 
-
   if (!is.null(df) && !is.data.frame(df)) {
     stop("The field df must be a data frame")
+  }
+
+  if (!is.null(path) && !is.null(df)) {
+    stop("You can only fill in df or path")
   }
 
   if (!is.null(packages) && !is.null(algorithm)) {
@@ -150,6 +159,12 @@ clustering <- function(path = CONST_NULL,
     stop("The cluster_min number must be equal to or greater than 1")
   }
 
+  if (!is.numeric(min))
+    stop ("The min field must be numeric")
+
+  if (!is.numeric(max))
+    stop ("The max field must be numeric")
+
   if (min > max) {
     stop("The minimum cluster number must be less than the maximum cluster number")
   }
@@ -159,10 +174,18 @@ clustering <- function(path = CONST_NULL,
   }
 
   if (!is.null(metrics) && length(metrics) > CONST_ZERO) {
-    for (i in 1:length(metrics)) {
-      if (!tolower(metrics[i]) %in% metrics())
+    for (iterateMetrics in 1:length(metrics)) {
+      if (!tolower(metrics[iterateMetrics]) %in% metrics())
         stop("The metric indicated is not among the metrics used by the")
     }
+  }
+
+  if (is.null(variables) || !is.logical(variables)) {
+    stop("The variable field must be boolean")
+  }
+
+  if (length(variables) > 1) {
+    stop("The variable field must have only one element")
   }
 
   execute_datasets(path,
@@ -192,25 +215,26 @@ clustering <- function(path = CONST_NULL,
 #'
 #' @keywords internal
 #'
+
 execute_datasets <- function (path,
-                              df = CONST_NULL,
-                              packages = CONST_NULL,
-                              algorithm = CONST_NULL,
-                              cluster_min = CONST_NULL,
-                              cluster_max = CONST_NULL,
-                              metrics = CONST_NULL,
-                              variables = CONST_NULL) {
+                              df,
+                              packages,
+                              algorithm,
+                              cluster_min,
+                              cluster_max,
+                              metrics,
+                              variables) {
+  ## Initialization of the parameter format
 
   on.exit(options(scipen = 999))
 
-  formals(print.data.frame)$row.names <- FALSE
+  formals(print.data.frame)$row.names <- F
 
   if (is.null(algorithm)) {
     algorithms_execute <- algorithms_package(packages)
 
     measures_execute = measure_package(packages)
   } else {
-
     algorithms_execute <- algorithm
 
     measures_execute = measure_calculate(algorithm)
@@ -228,19 +252,16 @@ execute_datasets <- function (path,
 
   numberDataSets <- CONST_ZERO
 
-  numberColumns <-
-    length(metrics_execute) + CONST_COLUMN_DEFAULT_TABLE
-
   numberClusters <- (cluster_max - cluster_min) + CONST_ONE
 
-  ficheros <- CONST_NULL
+  directory_files <- CONST_NULL
 
   if (!is.null(path)) {
-    ficheros <- path_dataset(path)
+    directory_files <- path_dataset(path)
   }
 
-  if (!is.null(ficheros) &&
-      length(ficheros) > CONST_ZERO) {
+  if (!is.null(directory_files) &&
+      length(directory_files) > CONST_ZERO) {
     numberDataSets <-
       numberDataSets + number_variables_dataset(path)
   }
@@ -256,61 +277,132 @@ execute_datasets <- function (path,
     number_algorithms <- number_algorithms + length(algorithms_execute)
   }
 
-  df_result <-
-    matrix(
-      nrow = number_algorithms * length(measures_execute) * numberClusters * numberDataSets,
-      ncol = numberColumns
-    )
+  if (!is.null(directory_files) || !is.null(df)) {
+    result <-
+      execute_package_parallel(
+        directory_files,
+        df,
+        algorithms_execute,
+        measures_execute,
+        cluster_min,
+        cluster_max,
+        metrics_execute,
+        variables,
+        number_algorithms,
+        numberClusters,
+        numberDataSets,
+        is_metric_external,
+        is_metric_internal
+      )
+  }
 
-  colnames(df_result) <-
-    c(
-      CONST_ALGORITHM,
-      CONST_DISTANCE,
-      CONST_CLUSTERS,
-      CONST_DATASET,
-      CONST_RANKING,
-      metrics_execute
-    )
 
-  df_external <- CONST_NULL
-  df_internal <- CONST_NULL
 
   if (is_metric_external) {
-    df_external <- data.frame(
-      matrix(
-        nrow = number_algorithms * length(measures_execute) * numberClusters * numberDataSets,
-        ncol = number_columnas_external(metrics_execute) + CONST_EXTERNAL_METRICS_DEFAULT
-      ),
-      row.names = CONST_NULL
-    )
-
-    colnames(df_external) <-
-      row_name_df_external(metrics_execute)
-
+    tableExternal <-
+      xtable(xtable(result$df_external), include.rownames = F)
   }
 
   if (is_metric_internal) {
-    df_internal <- data.frame(
-      matrix(
-        nrow = number_algorithms * length(measures_execute) * numberClusters * numberDataSets,
-        ncol = number_columnas_internal(metrics_execute) + CONST_INTERNAL_METRICS_DEFAULT
-      ),
-      row.names = CONST_NULL
-    )
-
-    colnames(df_internal) <-
-      row_name_df_internal(metrics_execute)
+    tableInternal <-
+      xtable(xtable(result$df_internal), include.rownames = F)
   }
 
-  rowCount = CONST_ONE
+  res <-
+    list(
+      result = result$df_result,
+      hasInternalMetrics = is_metric_internal,
+      hasExternalMetrics = is_metric_external,
+      algorithms_execute = algorithms_execute,
+      measures_execute = measures_execute,
+      tableExternal = tableExternal,
+      tableInternal = tableInternal
+    )
 
-  rowCountLatex  = CONST_ONE
+  class(res) = "clustering"
 
-  if (!is.null(ficheros) || !is.null(df)) {
+  res
+}
+
+
+execute_package_parallel <-
+  function (directory_files,
+            df,
+            algorithms_execute,
+            measures_execute,
+            cluster_min,
+            cluster_max,
+            metrics_execute,
+            variables,
+            number_algorithms,
+            numberClusters,
+            numberDataSets,
+            is_metric_external,
+            is_metric_internal) {
+    cl <- parallel::makeCluster(availableCores(), timeout = 60)
+    plan(cluster, workers = cl)
+
+    numberColumns <-
+      length(metrics_execute) + CONST_COLUMN_DEFAULT_TABLE
+
+    df_result <-
+      matrix(
+        nrow = number_algorithms * length(measures_execute) * numberClusters * numberDataSets,
+        ncol = numberColumns
+      )
+
+    colnames(df_result) <-
+      c(
+        CONST_ALGORITHM,
+        CONST_DISTANCE,
+        CONST_CLUSTERS,
+        CONST_DATASET,
+        CONST_RANKING,
+        metrics_execute
+      )
+
+    df_external <- CONST_NULL
+    df_internal <- CONST_NULL
+
+    if (is_metric_external) {
+      df_external <- data.frame(
+        matrix(
+          nrow = number_algorithms * length(measures_execute) * numberClusters * numberDataSets,
+          ncol = number_columnas_external(metrics_execute) + CONST_EXTERNAL_METRICS_DEFAULT
+        ),
+        row.names = CONST_NULL
+      )
+
+      colnames(df_external) <-
+        row_name_df_external(metrics_execute)
+
+    }
+
+    if (is_metric_internal) {
+      df_internal <- data.frame(
+        matrix(
+          nrow = number_algorithms * length(measures_execute) * numberClusters * numberDataSets,
+          ncol = number_columnas_internal(metrics_execute) + CONST_INTERNAL_METRICS_DEFAULT
+        ),
+        row.names = CONST_NULL
+      )
+
+      colnames(df_internal) <-
+        row_name_df_internal(metrics_execute)
+    }
+
+    rowCount = CONST_ONE
+
+    rowCountLatex  = CONST_ONE
+
     changeAlgorithm = CONST_ZERO
 
-    for (i in 1:length(algorithms_execute)) {
+    number_files = ifelse(!is.null(df),
+                          CONST_ONE,
+                          length(directory_files))
 
+
+    for (i in 1:length(algorithms_execute)) {
       changeAlgorithm = CONST_ONE
 
       name_package = gsub("\\_", "\\\\_", algorithms_execute[i])
@@ -328,6 +420,7 @@ execute_datasets <- function (path,
 
       changeMeasure = CONST_ZERO
       nameMeasureUsing = ''
+
       for (j in 1:length(measures_execute)) {
         name_measure = substr(measures_execute[j],
                               CONST_ZERO,
@@ -349,10 +442,6 @@ execute_datasets <- function (path,
           for (k in cluster_min:cluster_max) {
             changeCluster = CONST_ONE
 
-            number_files = ifelse(!is.null(df),
-                                  CONST_ONE,
-                                  length(ficheros))
-
             for (m in 1:number_files) {
               entropy = CONST_ZERO_DOUBLE
               variation_information = CONST_ZERO_DOUBLE
@@ -367,117 +456,126 @@ execute_datasets <- function (path,
               silhouette = CONST_ZERO_DOUBLE
 
               if (!is.null(df)) {
-                resultado = evaluate_all_column_dataset(
-                  as.matrix(df),
-                  measures_execute[j],
-                  k,
-                  CONST_TIME_DF,
-                  metrics_execute
-                )
+                result <-
+                  value(
+                    evaluate_all_column_dataset(
+                      as.matrix(df),
+                      measures_execute[j],
+                      k,
+                      CONST_TIME_DF,
+                      metrics_execute
+                    )
+                  )
 
               } else {
-
-
-                resultado = evaluate_all_column_dataset(
-                  read_file(ficheros[m]),
-                  measures_execute[j],
-                  k,
-                  ficheros[m],
-                  metrics_execute
-                )
+                result <-
+                  value(
+                    evaluate_all_column_dataset(
+                      read_file(directory_files[m]),
+                      measures_execute[j],
+                      k,
+                      directory_files[m],
+                      metrics_execute
+                    )
+                  )
               }
 
               name_file = ifelse(!is.null(df),
                                  CONST_TIME_DF,
-                                 ficheros[m])
+                                 directory_files[m])
 
-              entropy = resultado$external$entropy
-              variation_information = resultado$external$variation_information
-              precision = resultado$external$precision
-              recall = resultado$external$recall
-              f_measure = resultado$external$f_measure
-              fowlkes_mallows_index = resultado$external$fowlkes_mallows_index
-              timeExternal = resultado$external$time
-              timeInternal = resultado$internal$time
-              dunn = resultado$internal$dunn
-              connectivity = resultado$internal$connectivity
-              silhouette = resultado$internal$silhouette
+              entropy = result$external$entropy
+              variation_information = result$external$variation_information
+              precision = result$external$precision
+              recall = result$external$recall
+              f_measure = result$external$f_measure
+              fowlkes_mallows_index = result$external$fowlkes_mallows_index
+              timeExternal = result$external$time
+              timeInternal = result$internal$time
+              dunn = result$internal$dunn
+              connectivity = result$internal$connectivity
+              silhouette = result$internal$silhouette
 
               for (c in 1:length(entropy)) {
-                info =     calculate_result(
-                  name_measure,
-                  measures_execute[j],
-                  k,
-                  name_file,
-                  c,
-                  timeExternal,
-                  if (CONST_ENTROPY_METRIC %in% metrics_execute)
-                    entropy
-                  else
-                    CONST_NULL,
-                  if (CONST_VARIATION_INFORMATION_METRIC %in% metrics_execute)
-                    variation_information
-                  else
-                    CONST_NULL,
-                  if (CONST_PRECISION_METRIC %in% metrics_execute)
-                    precision
-                  else
-                    CONST_NULL,
-                  if (CONST_RECALL_METRIC %in% metrics_execute)
-                    recall
-                  else
-                    CONST_NULL,
-                  if (CONST_FOWLKES_MALLOWS_INDEX_METRIC %in% metrics_execute)
-                    fowlkes_mallows_index
-                  else
-                    CONST_NULL,
-                  if (CONST_F_MEASURE_METRIC %in% metrics_execute)
-                    f_measure
-                  else
-                    CONST_NULL,
-                  if (CONST_DUNN_METRIC %in% metrics_execute)
-                    dunn
-                  else
-                    CONST_NULL,
-                  if (CONST_CONNECTIVITY_METRIC %in% metrics_execute)
-                    connectivity
-                  else
-                    CONST_NULL,
-                  if (CONST_SILHOUETTE_METRIC %in% metrics_execute)
-                    silhouette
-                  else
-                    CONST_NULL,
-                  if (CONST_TIME_INTERNAL %in% metrics_execute)
-                    timeInternal
-                  else
-                    CONST_NULL,
-                  variables
+                information <- value(
+                  calculate_result(
+                    name_measure,
+                    measures_execute[j],
+                    k,
+                    name_file,
+                    c,
+                    timeExternal,
+                    if (CONST_ENTROPY_METRIC %in% metrics_execute)
+                      entropy
+                    else
+                      CONST_NULL,
+                    if (CONST_VARIATION_INFORMATION_METRIC %in% metrics_execute)
+                      variation_information
+                    else
+                      CONST_NULL,
+                    if (CONST_PRECISION_METRIC %in% metrics_execute)
+                      precision
+                    else
+                      CONST_NULL,
+                    if (CONST_RECALL_METRIC %in% metrics_execute)
+                      recall
+                    else
+                      CONST_NULL,
+                    if (CONST_FOWLKES_MALLOWS_INDEX_METRIC %in% metrics_execute)
+                      fowlkes_mallows_index
+                    else
+                      CONST_NULL,
+                    if (CONST_F_MEASURE_METRIC %in% metrics_execute)
+                      f_measure
+                    else
+                      CONST_NULL,
+                    if (CONST_DUNN_METRIC %in% metrics_execute)
+                      dunn
+                    else
+                      CONST_NULL,
+                    if (CONST_CONNECTIVITY_METRIC %in% metrics_execute)
+                      connectivity
+                    else
+                      CONST_NULL,
+                    if (CONST_SILHOUETTE_METRIC %in% metrics_execute)
+                      silhouette
+                    else
+                      CONST_NULL,
+                    if (CONST_TIME_INTERNAL %in% metrics_execute)
+                      timeInternal
+                    else
+                      CONST_NULL,
+                    variables
+                  )
                 )
 
-                result_info <- (as.vector(unlist(info)))
+                result_information <-
+                  as.vector(unlist(information))
 
-                for (pos in 6:length(info)) {
-                  option_format <- options(digits=4)
+                for (pos in 6:length(information)) {
+                  option_format <- options(digits = 4)
                   on.exit(options(option_format))
-                  result_info[pos] = format(round(x = as.numeric(result_info[pos]),
-                                           digits = 4),scientific = FALSE)
+                  result_information[pos] = format(round(
+                    x = as.numeric(result_information[pos]),
+                    digits = 4
+                  ), scientific = F)
                 }
 
-                df_result[rowCount, ] = result_info
+                df_result[rowCount, ] = result_information
 
                 if (is_metric_external) {
-                  df_external[rowCountLatex, ] = info_external(
+                  df_external[rowCountLatex, ] <- information_external(
                     metrics_execute,
-                    info,
+                    information,
                     CONST_EXTERNAL_METRICS_DEFAULT + number_columnas_external(metrics_execute),
                     variables
                   )
                 }
 
                 if (is_metric_internal) {
-                  df_internal[rowCountLatex, ] = info_internal(
+                  df_internal[rowCountLatex, ] <-  information_internal(
                     metrics_execute,
-                    info,
+                    information,
                     CONST_INTERNAL_METRICS_DEFAULT + number_columnas_internal(metrics_execute),
                     variables
                   )
@@ -486,52 +584,64 @@ execute_datasets <- function (path,
                 rowCount = rowCount + CONST_ONE
 
                 rowCountLatex  = rowCountLatex + CONST_ONE
+
               }
             }
           }
         }
       }
     }
+
+    rowCount  = rowCount - CONST_ONE
+
+    rowCountLatex = rowCountLatex - CONST_ONE
+
+    result = list(
+      "df_result" = df_result[1:rowCount, ],
+      "df_external" = df_external[1:rowCountLatex,],
+      "df_internal" = df_internal[1:rowCountLatex,]
+    )
+
+    on.exit(parallel::stopCluster(cl))
+
+    return (result)
   }
 
-  rowCountLatex = rowCountLatex - CONST_ONE
 
-  if (is_metric_external) {
-    tableExternal <-
-      xtable(xtable(df_external[1:rowCountLatex,]), include.rownames = FALSE)
-  }
-
-  if (is_metric_internal) {
-    tableInternal <-
-      xtable(xtable(df_internal[1:rowCountLatex,]), include.rownames = FALSE)
-  }
-
-  rowCount  = rowCount - CONST_ONE
-
-  r <- list(result = df_result[1:rowCount, ], hasInternalMetrics = is_metric_internal, hasExternalMetrics = is_metric_external,
-            algorithms_execute = algorithms_execute, measures_execute = measures_execute, tableExternal = tableExternal, tableInternal = tableInternal)
-  r
-}
 
 #' Method that shows on screen the result of the clustring execution
 #'
 #' @param x list containing the result of the clustering run
 #' @param ... other params
 #'
-#' @keywords internal
 #'
-
 print.clustering <- function(x, ...)
 {
-  cat("Result:	\n");		print(x$result, ...)
-  cat("Has Internal Metrics: \t ", print(x$hasInternalMetrics, ...),"\n")
-  cat("Has External Metrics: \t ", print(x$is_metric_external, ...),"\n")
-  cat("Algorithms Execute: \t ", print(x$algorithms_execute, ...),"\n")
-  cat("Measures Execute: \t ", print(x$measures_execute, ...),"\n")
-  cat("External Table:\n");	print(x$tableExternal, ...)
-  cat("\nInternal Table:\n");	print(x$tableInternal, ...)
+  cat("Result:	\n")
+  print(x$result)
+  cat("\n")
+  cat("Internal Metrics: \n")
+  print(x$hasInternalMetrics)
+  cat("\n")
+  cat("External Metrics: \n")
+  print(x$hasExternalMetrics)
+  cat("\n")
+  cat("Algorithms Execute: \n ")
+  print(x$algorithms_execute)
+  cat("\n")
+  cat("Measures Execute: \n ")
+  print(x$measures_execute)
+  cat("\n")
+  cat("External Table:\n")
+  print(x$tableExternal)
+  cat("\n")
+  cat("\nInternal Table:\n")
+  print(x$tableInternal)
+  cat("\n")
+
   invisible(x)
 }
+
 
 #' Method that calculates the best rated external metrics
 #'
@@ -546,12 +656,16 @@ print.clustering <- function(x, ...)
 #'
 #' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
 #'
-#' best_ranked_external_metrics(df$result)
+#' best_ranked_external_metrics(df)
 #'
 
 best_ranked_external_metrics <- function (df) {
-  r <- list("result" = calculate_best_external_variables_by_metrics(df))
-  r
+  result <-
+    list("result" = calculate_best_external_variables_by_metrics(df$result))
+
+  class(result) <- "best_ranked_external_metrics"
+
+  result
 }
 
 #' Method that shows on screen the result of best rated external metrics
@@ -564,7 +678,8 @@ best_ranked_external_metrics <- function (df) {
 
 print.best_ranked_external_metrics <- function(x)
 {
-  cat("Result:	\n");		print(x$result)
+  cat("Result:	\n")
+  print(x$result)
   invisible(x)
 }
 
@@ -582,12 +697,16 @@ print.best_ranked_external_metrics <- function(x)
 #'
 #' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
 #'
-#' best_ranked_internal_metrics(df$result)
+#' best_ranked_internal_metrics(df)
 #'
 
 best_ranked_internal_metrics <- function (df) {
-  r <- list("result" = calculate_best_internal_variables_by_metrics(df))
-  r
+  result <-
+    list("result" = calculate_best_internal_variables_by_metrics(df$result))
+
+  class(result) <- "best_ranked_internal_metrics"
+
+  result
 }
 
 #' Method that shows on screen the result of best rated internal metrics
@@ -600,7 +719,8 @@ best_ranked_internal_metrics <- function (df) {
 
 print.best_ranked_internal_metrics <- function(x, ...)
 {
-  cat("Result:	\n");		print(x$result, ...)
+  cat("Result:	\n")
+  print(x$result, ...)
   invisible(x)
 }
 
@@ -618,14 +738,17 @@ print.best_ranked_internal_metrics <- function(x, ...)
 #'
 #' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
 #'
-#' evaluate_validation_external_by_metrics(df$result)
+#' evaluate_validation_external_by_metrics(df)
 #'
 
 evaluate_validation_external_by_metrics <- function (df) {
+  df_best_ranked <- best_ranked_external_metrics(df)
+  result <-
+    list("result" = calculate_validation_external_by_metrics(df_best_ranked$result))
 
-  df <- best_ranked_external_metrics(df)
-  r <- list("result" = calculate_validation_external_by_metrics(df$result))
-  r
+  class(result) <- "evaluate_validation_external_by_metrics"
+
+  result
 }
 
 #' Method that shows on screen the result of algorithm behaves best for the datasets provided
@@ -638,7 +761,8 @@ evaluate_validation_external_by_metrics <- function (df) {
 
 print.evaluate_validation_external_by_metrics <- function(x, ...)
 {
-  cat("Result:	\n");		print(x$result, ...)
+  cat("Result:	\n")
+  print(x$result, ...)
   invisible(x)
 }
 
@@ -656,13 +780,17 @@ print.evaluate_validation_external_by_metrics <- function(x, ...)
 #'
 #' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
 #'
-#' evaluate_validation_internal_by_metrics(df$result)
+#' evaluate_validation_internal_by_metrics(df)
 #'
 
 evaluate_validation_internal_by_metrics <- function (df) {
-  df <- best_ranked_internal_metrics(df)
-  r <- list("result" = calculate_validation_internal_by_metrics(df$result))
-  r
+  df_best_ranked <- best_ranked_internal_metrics(df)
+  result <-
+    list("result" = calculate_validation_internal_by_metrics(df_best_ranked$result))
+
+  class(result) <- "evaluate_validation_internal_by_metrics"
+
+  result
 }
 
 #' Method that shows on screen the result of algorithm behaves best for the datasets provided
@@ -675,7 +803,8 @@ evaluate_validation_internal_by_metrics <- function (df) {
 
 print.evaluate_validation_internal_by_metrics <- function(x, ...)
 {
-  cat("Result:	\n");		print(x$result, ...)
+  cat("Result:	\n")
+  print(x$result, ...)
   invisible(x)
 }
 
@@ -693,13 +822,17 @@ print.evaluate_validation_internal_by_metrics <- function(x, ...)
 #'
 #' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
 #'
-#' evaluate_best_validation_external_by_metrics(df$result)
+#' evaluate_best_validation_external_by_metrics(df)
 #'
 
 evaluate_best_validation_external_by_metrics <- function(df) {
-  df <- best_ranked_external_metrics(df)
-  r <- list("result" = calculate_best_validation_external_by_metrics(df$result))
-  r
+  df_best_ranked <- best_ranked_external_metrics(df)
+  result <-
+    list("result" = calculate_best_validation_external_by_metrics(df_best_ranked$result))
+
+  class(result) <- "evaluate_best_validation_external_by_metrics"
+
+  result
 }
 
 #' Method that shows on screen which algorithm and which metric behaves best for the datasets provided
@@ -710,11 +843,13 @@ evaluate_best_validation_external_by_metrics <- function(df) {
 #' @keywords internal
 #'
 
-print.evaluate_best_validation_external_by_metrics <- function(x, ...)
-{
-  cat("Result:	\n");		print(x$result, ...)
-  invisible(x)
-}
+print.evaluate_best_validation_external_by_metrics <-
+  function(x, ...)
+  {
+    cat("Result:	\n")
+    print(x$result, ...)
+    invisible(x)
+  }
 
 #' Method that calculates which algorithm and which metric behaves best for the datasets provided
 #'
@@ -730,13 +865,17 @@ print.evaluate_best_validation_external_by_metrics <- function(x, ...)
 #'
 #' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
 #'
-#' evaluate_best_validation_internal_by_metrics(df$result)
+#' evaluate_best_validation_internal_by_metrics(df)
 #'
 
 evaluate_best_validation_internal_by_metrics <- function(df) {
-  df <- best_ranked_internal_metrics(df)
-  r <- list("result" = calculate_best_validation_internal_by_metrics(df$result))
-  r
+  df_best_ranked <- best_ranked_internal_metrics(df)
+  result <-
+    list("result" = calculate_best_validation_internal_by_metrics(df_best_ranked$result))
+
+  class(result) <- "evaluate_best_validation_internal_by_metrics"
+
+  result
 }
 
 #' Method that shows on screen which algorithm and which metric behaves best for the datasets provided
@@ -747,11 +886,13 @@ evaluate_best_validation_internal_by_metrics <- function(df) {
 #' @keywords internal
 #'
 
-print.evaluate_best_validation_internal_by_metrics <- function(x, ...)
-{
-  cat("Result:	\n");		print(x$result, ...)
-  invisible(x)
-}
+print.evaluate_best_validation_internal_by_metrics <-
+  function(x, ...)
+  {
+    cat("Result:	\n")
+    print(x$result, ...)
+    invisible(x)
+  }
 
 #' Method that returns a table with the algorithm and the metric indicated as parameters
 #'
@@ -768,13 +909,17 @@ print.evaluate_best_validation_internal_by_metrics <- function(x, ...)
 #'
 #' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
 #'
-#' result_external_algorithm_by_metric(df$result,'daisy')
+#' result_external_algorithm_by_metric(df,'daisy')
 #'
 
 result_external_algorithm_by_metric <- function(df, algorithm) {
-  df <- best_ranked_external_metrics(df)
-  r <- list("result" = show_result_external_algorithm_by_metric(df$result, algorithm))
-  r
+  df_ranked <- best_ranked_external_metrics(df)
+  result <-
+    list("result" = show_result_external_algorithm_by_metric(df_ranked$result, algorithm))
+
+  class(result) <- "result_external_algorithm_by_metric"
+
+  result
 }
 
 #' Method that shows on screen the table with the algorithm and the metric indicated as parameters
@@ -787,7 +932,8 @@ result_external_algorithm_by_metric <- function(df, algorithm) {
 
 print.result_external_algorithm_by_metric <- function(x, ...)
 {
-  cat("Result:	\n");		print(x$result, ...)
+  cat("Result:	\n")
+  print(x$result, ...)
   invisible(x)
 }
 
@@ -806,14 +952,17 @@ print.result_external_algorithm_by_metric <- function(x, ...)
 #'
 #' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
 #'
-#' result_internal_algorithm_by_metric(df$result,'gmm')
+#' result_internal_algorithm_by_metric(df,'gmm')
 #'
 
 result_internal_algorithm_by_metric <- function(df, algorithm) {
+  df_ranked <- best_ranked_internal_metrics(df)
+  result <-
+    list("result" = show_result_internal_algorithm_by_metric(df_ranked$result, algorithm))
 
-  df <- best_ranked_internal_metrics(df)
-  r <- list("result" = show_result_internal_algorithm_by_metric(df$result, algorithm))
-  r
+  class(result) <- "result_internal_algorithm_by_metric"
+
+  result
 }
 
 #' Method that shows on screen the table with the algorithm and the metric indicated as parameters
@@ -826,7 +975,8 @@ result_internal_algorithm_by_metric <- function(df, algorithm) {
 
 print.result_internal_algorithm_by_metric <- function(x, ...)
 {
-  cat("Result:	\n");		print(x$result, ...)
+  cat("Result:	\n")
+  print(x$result, ...)
   invisible(x)
 }
 
@@ -838,7 +988,7 @@ print.result_internal_algorithm_by_metric <- function(x, ...)
 #'
 #' @export
 #'
-#' plot_external_validation
+#' plot.clustering
 #'
 #' @importFrom
 #'
@@ -848,97 +998,156 @@ print.result_internal_algorithm_by_metric <- function(x, ...)
 #'
 #' df <- clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm')
 #'
-#' plot_external_validation(df,"precision")
+#' plot.clustering(df,"precision")
 #'
 
-plot_external_validation <- function(df, metric) {
+plot.clustering <- function(df, metric) {
+  if (is.null(metric))
+    stop("Metric field must be filled in")
 
-  df_best_ranked <- best_ranked_external_metrics(df$result)
+  if (!is.null(metric) &&
+      length(metric) > 1)
+    stop("The metric field only accepts one element")
 
-  hasExternalMetrics <- ifelse(df$hasExternalMetrics, 1, 0)
+  if (!is.null(metric) &&
+      !is.character(metric))
+    stop("Metric field must be a string")
 
-  maximum <- as.numeric(max_value_metric(df$result,metric))
+  '%not in%' <- Negate('%in%')
 
-  maximum <-  ifelse(is.infinite(maximum),10000,maximum)
+  if (metric %not in% colnames(df$result)) stop("The metric indicate does not exist in the dataframe")
+
+  isExternalMetrics <- is_External_Metrics(metric)
+
+  isInternalMetrics <- is_Internal_Metrics(metric)
+
+  if (isExternalMetrics == F &&
+      isInternalMetrics == F)
+    stop("The metric field indicated is not correct")
+
+  df_best_ranked <- NULL
+
+  if (is_External_Metrics(metric)) {
+    df_best_ranked <- best_ranked_external_metrics(df)
+  } else {
+    df_best_ranked <- best_ranked_internal_metrics(df)
+  }
+
+  maximum <- as.numeric(max_value_metric(df$result, metric))
+
+  maximum <-  ifelse(is.infinite(maximum), 10000, maximum)
 
   interval <- maximum / 4
 
-  break_points <- (seq(0,maximum,by=interval))
+  break_points <- (seq(0, maximum, by = interval))
 
-  if (hasExternalMetrics == 0)
-    stop("There are no external metrics to represent")
-
-  exits_metric = FALSE
-
+  exits_metric = F
 
   for (col in colnames(df_best_ranked$result)) {
     if (col == metric) {
-      exits_metric = TRUE
+      exits_metric = T
     }
   }
 
   if (exits_metric) {
-
     name_metric <- metric
-    metric <- paste("as.numeric(",metric,")")
+    metric <- paste("as.numeric(", metric, ")")
 
     ggplot(df_best_ranked$result,
-           aes_string(x = "Clusters", y = metric, color = "Algorithm")) + ggplot2::geom_point() + xlab(toupper("Clustering"))+ ylab(toupper(name_metric)) + labs(color='Algorithm') + ggplot2::scale_y_continuous(breaks=as.numeric(break_points),limits=c(0, maximum))
+           aes_string(x = "Clusters", y = metric, color = "Algorithm")) + ggplot2::geom_point() + xlab(toupper("Clustering")) + ylab(toupper(name_metric)) + labs(color =                                                                                                                                                                   'Algorithm') + ggplot2::scale_y_continuous(breaks = as.numeric(break_points),
+                                                                                                                                                                                                                                                                                                                                                                                       limits = c(0, maximum))
   } else
-    stop("the metric indicates does not exist in the dataframe")
+    stop("The metric indicate does not exist in the dataframe")
 }
 
-
-
-#' Method that graphically compares internal evaluation metrics
 #'
-#' @param df df data matrix or data frame
-#' @param metric string with the name of the metric select to evaluate
+#' Method that exports the results of external measurements in latex format to a file
+#'
+#' @param df is a dataframe that contains as a parameter a table in latex format with the results of the external validations
+#' @param path is the path to a directory where a file is to be stored in latex format
 #'
 #' @export
 #'
-#' plot_internal_validation
+#' export_file_external
 #'
-#' @examples
+#' @example
 #'
-#' df <- clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm')
+#' export_file_external(df,'/Users')
 #'
-#' plot_internal_validation(df,"dunn")
 #'
 
-plot_internal_validation <- function(df, metric) {
+export_file_external <- function(df, path) {
+  '%not in%' <- Negate('%in%')
 
-  df_best_ranked <- best_ranked_internal_metrics(df$result)
+  if (is.null(df) ||
+      !is.list(df))
+    stop ("The df field must be a list")
 
-  hasInternalMetrics <- ifelse(df$hasInternalMetrics, 1, 0)
+  if (!df$hasExternalMetrics)
+    stop("The df field must have external evaluation metrics")
 
-  maximum <- as.numeric(max_value_metric(df$result,metric))
+  if (is.null(df$tableExternal) ||
+      !(is.list(df)))
+    stop ("The df field must be a list")
 
-  maximum <-  ifelse(is.infinite(maximum),10000,maximum)
+  if ("xtable" %not in% class(df$tableExternal))
+    stop ("The df$tableExternal field must be a dataframe or xtable")
 
-  interval <- maximum / 4
+  if (is.null(path) ||
+      length(path) < 1)
+    stop ("The path field must be filled in")
 
-  break_points <- (seq(0,maximum,by=interval))
+  if (!is.null(path) &&
+      !dir.exists(path))
+    stop ("The path must be a valid directory")
 
-  if (hasInternalMetrics == 0)
-    stop("There are no internal metrics to represent")
+  print(df$tableExternal,
+        file = paste(path, CONST_NAME_EXTERNAL_FILA_LATEX))
 
-  exits_metric = FALSE
+}
 
+#'
+#' Method that exports the results of internal measurements in latex format to a file
+#'
+#' @param df is a dataframe that contains as a parameter a table in latex format with the results of the internal validations
+#' @param path is the path to a directory where a file is to be stored in latex format
+#'
+#' @export
+#'
+#' export_file_internal
+#'
+#' @example
+#'
+#' export_file_internal(df,'/Users')
+#'
+#'
 
-  for (col in colnames(df_best_ranked$result)) {
-    if (col == metric) {
-      exits_metric = TRUE
-    }
-  }
+export_file_internal <- function(df, path) {
+  '%not in%' <- Negate('%in%')
 
-  if (exits_metric) {
+  if (is.null(df) ||
+      !is.list(df))
+    stop ("The df field must be a list")
 
-    name_metric <- metric
-    metric <- paste("as.numeric(",metric,")")
+  if (!df$hasInternalMetrics)
+    stop("The df field must have internal evaluation metrics")
 
-    ggplot(df_best_ranked$result,
-           aes_string(x = "Clusters", y = metric, color = "Algorithm")) + ggplot2::geom_point() + xlab(toupper("Clustering"))+ ylab(toupper(name_metric)) + labs(color='Algorithm') + ggplot2::scale_y_continuous(breaks=as.numeric(break_points),limits=c(0, maximum))
-  } else
-    stop("the metric indicates does not exist in the dataframe")
+  if (is.null(df$tableInternal) ||
+      !(is.list(df)))
+    stop ("The df field must be a list")
+
+  if ("xtable" %not in% class(df$tableInternal))
+    stop ("The df$tableInternal field must be a dataframe or xtable")
+
+  if (is.null(path) ||
+      length(path) < 1)
+    stop ("The path field must be filled in")
+
+  if (!is.null(path) &&
+      !dir.exists(path))
+    stop ("The path must be a valid directory")
+
+  print(df$tableInternal,
+        file = paste(path, CONST_NAME_INTERNAL_REPORT_FILE))
+
 }

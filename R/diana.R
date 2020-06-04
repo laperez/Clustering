@@ -1,6 +1,6 @@
 #' Method that runs the diana algorithm using the euclidean metric to make an external or internal validation of the cluster
 #'
-#' @param data matrix or data frame
+#' @param dt matrix or data frame
 #' @param clusters number of clusters
 #' @param metric metrics avalaible in the package. The metrics implemented are: entropy, variation_information,precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.
 #'
@@ -9,11 +9,11 @@
 #' @keywords internal
 #'
 
-diana_euclidean_method = function(data, clusters, metric) {
+diana_euclidean_method = function(dt, clusters, metric) {
   start.time <- Sys.time()
 
-  if ('data.frame' %in% class(data))
-    data = as.matrix(data)
+  if ('data.frame' %in% class(dt))
+    dt = as.matrix(dt)
 
   numeric_cluster <- ifelse(!is.numeric(clusters),1,0)
 
@@ -21,9 +21,9 @@ diana_euclidean_method = function(data, clusters, metric) {
     stop('The field clusters must be a numeric')
 
   diana_euclidean <- tryCatch({
-    diana(x = data,
+    diana(x = dt,
                    metric = CONST_EUCLIDEAN,
-                   stand = FALSE)
+                   stand = F)
   },
 
   error = function(cond) {
@@ -46,7 +46,7 @@ diana_euclidean_method = function(data, clusters, metric) {
       internal_validation(
         distance = CONST_NULL,
         clusters_vector = cutree(diana_euclidean, k = clusters),
-        data = data,
+        dataf = dt,
         method = CONST_EUCLIDEAN,
         metric
       )

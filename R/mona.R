@@ -1,6 +1,6 @@
 #' Method that runs the mona algorithm to make an external or internal validation of the cluster
 #'
-#' @param data matrix or data frame
+#' @param dt matrix or data frame
 #' @param clusters number of clusters
 #' @param columnClass number of column, for example if a dataset has five column,
 #' we can select column four to calculate alidation
@@ -11,11 +11,11 @@
 #' @keywords internal
 #'
 
-mona_method = function(data, clusters, columnClass, metric) {
+mona_method = function(dt, clusters, columnClass, metric) {
   start.time <- Sys.time()
 
-  if ('data.frame' %in% class(data))
-    data = as.matrix(data)
+  if ('data.frame' %in% class(dt))
+    dt = as.matrix(dt)
 
   numeric_cluster <- ifelse(!is.numeric(clusters),1,0)
 
@@ -23,7 +23,7 @@ mona_method = function(data, clusters, columnClass, metric) {
     stop('The field clusters must be a numeric')
 
   mona <- tryCatch({
-    mona(x = data)
+    mona(x = dt)
   },
 
   error = function(cond) {
@@ -32,7 +32,7 @@ mona_method = function(data, clusters, columnClass, metric) {
 
   if (!is.null(mona)) {
     ev_mona <- tryCatch({
-      external_validation(c(data[, columnClass]),
+      external_validation(c(dt[, columnClass]),
                           cutree(mona$order, k = clusters),metric)
     },
 
@@ -44,7 +44,7 @@ mona_method = function(data, clusters, columnClass, metric) {
       internal_validation(
         distance = NULL,
         clusters_vector = cutree(mona$order, k = clusters),
-        data = data,
+        dataf = dt,
         method = "",
         metric
       )

@@ -1,6 +1,6 @@
 #' Method that runs the gama algorithm using the Euclidean metric to make an external or internal validation of the cluster
 #'
-#' @param data matrix or data frame
+#' @param dt matrix or data frame
 #' @param clusters number of clusters
 #' @param columnClass number of column, for example if a dataset has five column,
 #' we can select column four to calculate alidation
@@ -11,11 +11,11 @@
 #' @keywords internal
 #'
 
-gama = function(data, clusters, columnClass, metric) {
+gama = function(dt, clusters, columnClass, metric) {
   start.time <- Sys.time()
 
-  if ('data.frame' %in% class(data))
-    data = as.matrix(data)
+  if ('data.frame' %in% class(dt))
+    dt = as.matrix(dt)
 
   numeric_cluster <- ifelse(!is.numeric(clusters),1,0)
 
@@ -23,7 +23,7 @@ gama = function(data, clusters, columnClass, metric) {
     stop('The field clusters must be a numeric')
 
   gama <- tryCatch({
-    gama(dataset = as.data.frame(data), k = clusters)
+    gama(dataset = as.data.frame(dt), k = clusters)
   },
 
   error = function(cond) {
@@ -33,7 +33,7 @@ gama = function(data, clusters, columnClass, metric) {
   if (!is.null(gama)) {
     ev_gama <-
       tryCatch({
-        external_validation(c(data[, columnClass]),
+        external_validation(c(dt[, columnClass]),
                             gama@cluster,metric)
 
       },
@@ -46,7 +46,7 @@ gama = function(data, clusters, columnClass, metric) {
       internal_validation(
         distance = CONST_NULL,
         clusters_vector = gama@cluster,
-        data = data,
+        dataf = dt,
         method = CONST_EUCLIDEAN,
         metric
       )

@@ -4,10 +4,10 @@
 \alias{pvclust_correlation_method}
 \title{Method that runs the pvclust algorithm using the Correlation metric to make an external or internal validation of the cluster}
 \usage{
-pvclust_correlation_method(data, clusters, columnClass, metric)
+pvclust_correlation_method(dt, clusters, columnClass, metric)
 }
 \arguments{
-\item{data}{matrix or data frame}
+\item{dt}{matrix or data frame}
 
 \item{clusters}{number of clusters}
 

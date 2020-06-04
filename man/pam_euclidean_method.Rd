@@ -4,10 +4,10 @@
 \alias{pam_euclidean_method}
 \title{Method that runs the pam algorithm using the Euclidean metric to make an external or internal validation of the cluster}
 \usage{
-pam_euclidean_method(data, clusters, columnClass, metric)
+pam_euclidean_method(dt, clusters, columnClass, metric)
 }
 \arguments{
-\item{data}{matrix or data frame}
+\item{dt}{matrix or data frame}
 
 \item{clusters}{number of clusters}
 

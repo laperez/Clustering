@@ -4,10 +4,10 @@
 \alias{clara_manhattan_method}
 \title{Method that runs the clara algorithm using the manhattan metric to make an external or internal validation of the cluster}
 \usage{
-clara_manhattan_method(data, clusters, columnClass, metric)
+clara_manhattan_method(dt, clusters, columnClass, metric)
 }
 \arguments{
-\item{data}{matrix or data frame}
+\item{dt}{matrix or data frame}
 
 \item{clusters}{number of clusters}
 

@@ -14,6 +14,8 @@
 #' @return List containing the relation string,
 #'  a named vector for attributes and a data.frame
 #'  for the data section
+#' @keywords internal
+#'
 
 read_arff <- function(arff_file) {
   file_con <- file(arff_file, "rb")
@@ -27,18 +29,18 @@ read_arff <- function(arff_file) {
       readChar(
         file_con,
         nchars = file.info(arff_file)$size,
-        useBytes = TRUE
+        useBytes = T
       ),
       "\\\r\n|\\\r|\\\n",
-      fixed = FALSE,
-      useBytes = TRUE
+      fixed = F,
+      useBytes = T
     )[[1]]
 
   close(file_con)
 
   # Split into relation, attributes and data
-  relation_at <- grep("@relation", file_data, ignore.case = TRUE)
-  data_start <- grep("@data", file_data, ignore.case = TRUE)
+  relation_at <- grep("@relation", file_data, ignore.case = T)
+  data_start <- grep("@data", file_data, ignore.case = T)
 
   if (is.na(relation_at))
     stop("Missing @relation or not unique.")
@@ -67,8 +69,6 @@ read_arff <- function(arff_file) {
   rm(rawdata)
   #names(dataset) <- names(attributes)
 
-  dput(dataset)
-
   return(as.matrix(dataset))
 }
 
@@ -93,7 +93,7 @@ parse_attributes <- function(arff_attrs) {
   #-----------------------------------------------------------------------------------------------------
   rgx <-
     "(?:{[^}\\s]*?(\\s+[^}\\s]*?)+}|(?<!\\\\)'[^'\\\\]*(?:\\\\.[^'\\\\]*)*(?<!\\\\)')(*SKIP)(*F)|\\s+"
-  att_list <- strsplit(arff_attrs, rgx, perl = TRUE)
+  att_list <- strsplit(arff_attrs, rgx, perl = T)
 
   # Structure by rows
   att_mat <-
@@ -104,7 +104,7 @@ parse_attributes <- function(arff_attrs) {
   rm(att_list)
   # Filter any data that is not an attribute
   att_mat <-
-    att_mat[grepl("\\s*@attribute", att_mat[, 1], ignore.case = TRUE), 2:3]
+    att_mat[grepl("\\s*@attribute", att_mat[, 1], ignore.case = T), 2:3]
   att_mat <- gsub("\\'", "'", att_mat, fixed = T)
   att_mat <- gsub("^'(.*?)'$", "\\1", att_mat, perl = T)
 
@@ -161,7 +161,7 @@ parse_nonsparse_data <- function(arff_data, num_attrs) {
     arff_data, ",", fixed = T
   )),
   ncol = num_attrs,
-  byrow = T), stringsAsFactors = FALSE)
+  byrow = T), stringsAsFactors = F)
 }
 
 # Builds a data.frame out of sparse ARFF data
@@ -183,5 +183,5 @@ parse_sparse_data <- function(arff_data, num_attrs) {
   })
 
   # Create and return data.frame
-  data.frame(t(dataset), stringsAsFactors = FALSE)
+  data.frame(t(dataset), stringsAsFactors = F)
 }

@@ -1,6 +1,6 @@
 #' Method that runs the pvpick algorithm to make an external or internal validation of the cluster
 #'
-#' @param data matrix or data frame
+#' @param dt matrix or data frame
 #' @param clusters number of clusters
 #' @param columnClass number of column, for example if a dataset has five column,
 #' we can select column four to calculate alidation
@@ -11,11 +11,11 @@
 #' @keywords internal
 #'
 
-pvpick_method = function(data, clusters, columnClass, metric) {
+pvpick_method = function(dt, clusters, columnClass, metric) {
   start.time <- Sys.time()
 
-  if ('data.frame' %in% class(data))
-    data = as.matrix(data)
+  if ('data.frame' %in% class(dt))
+    dt = as.matrix(dt)
 
   numeric_cluster <- ifelse(!is.numeric(clusters),1,0)
 
@@ -23,7 +23,7 @@ pvpick_method = function(data, clusters, columnClass, metric) {
     stop('The field clusters must be a numeric')
 
   pvpick <- tryCatch({
-    pvpick(x = data)
+    pvpick(x = dt)
   },
 
   error = function(cond) {
@@ -32,7 +32,7 @@ pvpick_method = function(data, clusters, columnClass, metric) {
 
   if (!is.null(pvpick)) {
     ev_pvpick <- tryCatch({
-      external_validation(c(data[, columnClass]),
+      external_validation(c(dt[, columnClass]),
                           pvpick$clusters[[1]],metric)
 
     }, error = function(cond) {
@@ -43,7 +43,7 @@ pvpick_method = function(data, clusters, columnClass, metric) {
       internal_validation(
         distance = NULL,
         clusters_vector = pvpick$clusters[[1]],
-        data = data,
+        dataf = dt,
         method = CONST_PEARSON_CORRELATION,
         metric
       )

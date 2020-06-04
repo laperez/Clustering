@@ -4,10 +4,10 @@
 \alias{pvclust_euclidean_method}
 \title{Method that runs the pvclust algorithm using the Euclidean metric to make an external or internal validation of the cluster}
 \usage{
-pvclust_euclidean_method(data, clusters, columnClass, metric)
+pvclust_euclidean_method(dt, clusters, columnClass, metric)
 }
 \arguments{
-\item{data}{matrix or data frame}
+\item{dt}{matrix or data frame}
 
 \item{clusters}{number of clusters}
 

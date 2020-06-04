@@ -1,6 +1,6 @@
 #' Method that runs the fanny algorithm using the euclidean metric to make an external or internal validation of the cluster
 #'
-#' @param data matrix or data frame
+#' @param dt matrix or data frame
 #' @param clusters number of clusters
 #' @param columnClass number of column, for example if a dataset has five column,
 #' we can select column four to calculate alidation
@@ -11,11 +11,11 @@
 #' @keywords internal
 #'
 
-fanny_euclidean_method = function(data, clusters, columnClass, metric) {
+fanny_euclidean_method = function(dt, clusters, columnClass, metric) {
   start.time <- Sys.time()
 
-  if ('data.frame' %in% class(data))
-    data = as.matrix(data)
+  if ('data.frame' %in% class(dt))
+    dt = as.matrix(dt)
 
   numeric_cluster <- ifelse(!is.numeric(clusters),1,0)
 
@@ -24,7 +24,7 @@ fanny_euclidean_method = function(data, clusters, columnClass, metric) {
 
   fanny_euclidean <- tryCatch({
     fanny(
-      x = data,
+      x = dt,
       k = clusters,
       metric = CONST_EUCLIDEAN,
       maxit = 100,
@@ -39,7 +39,7 @@ fanny_euclidean_method = function(data, clusters, columnClass, metric) {
   if (!is.null(fanny_euclidean)) {
     ev_fanny_euclidean <-
       tryCatch({
-        external_validation(c(data[, columnClass]),
+        external_validation(c(dt[, columnClass]),
                             fanny_euclidean$clustering,metric)
 
       },
@@ -52,7 +52,7 @@ fanny_euclidean_method = function(data, clusters, columnClass, metric) {
       internal_validation(
         distance = as.vector(fanny_euclidean$diss),
         clusters_vector = fanny_euclidean$clustering,
-        data = data,
+        dataf = dt,
         method = CONST_EUCLIDEAN,
         metric
       )
@@ -83,7 +83,7 @@ fanny_euclidean_method = function(data, clusters, columnClass, metric) {
 
 #' Method that runs the fanny algorithm using the manhattan metric to make an external or internal validation of the cluster
 #'
-#' @param data matrix or data frame
+#' @param dt matrix or data frame
 #' @param clusters number of clusters
 #' @param columnClass number of column, for example if a dataset has five column,
 #' we can select column four to calculate alidation
@@ -94,11 +94,11 @@ fanny_euclidean_method = function(data, clusters, columnClass, metric) {
 #' @keywords internal
 #'
 
-fanny_manhattan_method = function(data, clusters, columnClass, metric) {
+fanny_manhattan_method = function(dt, clusters, columnClass, metric) {
   start.time <- Sys.time()
 
-  if ('data.frame' %in% class(data))
-    data = as.matrix(data)
+  if ('data.frame' %in% class(dt))
+    dt = as.matrix(dt)
 
   numeric_cluster <- ifelse(!is.numeric(clusters),1,0)
 
@@ -107,7 +107,7 @@ fanny_manhattan_method = function(data, clusters, columnClass, metric) {
 
   fanny_manhattan <- tryCatch({
     fanny(
-      x = data,
+      x = dt,
       k = clusters,
       metric = CONST_MANHATTAN,
       maxit = 100,
@@ -122,7 +122,7 @@ fanny_manhattan_method = function(data, clusters, columnClass, metric) {
   if (!is.null(fanny_manhattan)) {
     ev_fanny_manhattan <-
       tryCatch({
-        external_validation(c(data[, columnClass]),
+        external_validation(c(dt[, columnClass]),
                             fanny_manhattan$clustering,metric)
 
       },
@@ -135,7 +135,7 @@ fanny_manhattan_method = function(data, clusters, columnClass, metric) {
       internal_validation(
         distance = as.vector(fanny_manhattan$diss),
         clusters_vector = fanny_manhattan$clustering,
-        data = data,
+        dataf = dt,
         method = CONST_MANHATTAN,
         metric
       )

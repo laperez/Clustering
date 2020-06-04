@@ -11,15 +11,15 @@
 #' @keywords internal
 #'
 
-evaluate_all_column_dataset = function(data,
+evaluate_all_column_dataset = function(datas,
                                        method,
                                        cluster,
                                        nameDataset,
                                        metrics) {
-  if ('data.frame' %in% class(data))
-    data = as.matrix(data)
+  if ('data.frame' %in% class(datas))
+    datas = as.matrix(datas)
 
-  nColumnDataSet = ncol(data)
+  nColumnDataSet = ncol(datas)
 
   resultado = list()
   entropy = list()
@@ -35,24 +35,22 @@ evaluate_all_column_dataset = function(data,
   dunn = list()
   silhouette = list()
 
-  if (anyNA(data)) {
-    minValue <- as.numeric(which.min(data) - 1)
-    data[is.na(data)] <- minValue
+  if (anyNA(datas)) {
+    minValue <- as.numeric(which.min(datas) - 1)
+    datas[is.na(datas)] <- minValue
   }
 
-  data <- format(data)
-  data <- trimws(data, whitespace = "[\\h\\v]")
-  data = as.data.frame(data,as.factor)
-  data = sapply(data, as.numeric)
+  datas <- convert_numeric_matrix(datas)
+  mode(datas) = "numeric"
 
-  data = center_scale(data)
+  datas = center_scale(datas)
 
   calculate_result <- list()
 
-  existsInfinitive <- ifelse(is.finite(data), 1, 0)
+  existsInfinitive <- ifelse(is.finite(datas), 1, 0)
 
   if (sum(existsInfinitive) > 0) {
-    data <- data[is.finite(rowSums(data)),]
+    datas <- datas[is.finite(rowSums(datas)),]
   }
 
 
@@ -69,107 +67,107 @@ evaluate_all_column_dataset = function(data,
       resultado = CONST_NULL
 
       if (method == 'gmm_euclidean') {
-        resultado = gmm_euclidean_method(data, cluster, i, metrics)
+        resultado = gmm_euclidean_method(datas, cluster, i, metrics)
       }
 
 
       if (method == 'gmm_manhattan') {
-        resultado = gmm_manhattan_method(data, cluster, i, metrics)
+        resultado = gmm_manhattan_method(datas, cluster, i, metrics)
 
       }
 
       if (method == 'kmeans_arma') {
-        resultado = kmeans_arma_method(data, cluster, i, metrics)
+        resultado = kmeans_arma_method(datas, cluster, i, metrics)
 
       }
 
       if (method == 'kmeans_rcpp') {
-        resultado = kmeans_rcpp_method(data, cluster, i, metrics)
+        resultado = kmeans_rcpp_method(datas, cluster, i, metrics)
       }
 
       if (method == 'mini_kmeans') {
-        resultado = mini_kmeans_method(data, cluster, i, metrics)
+        resultado = mini_kmeans_method(datas, cluster, i, metrics)
 
       }
 
       if (method == 'clara_euclidean') {
-        resultado = clara_euclidean_method(data, cluster, i, metrics)
+        resultado = clara_euclidean_method(datas, cluster, i, metrics)
       }
 
       if (method == 'clara_manhattan') {
-        resultado = clara_manhattan_method(data, cluster, i, metrics)
+        resultado = clara_manhattan_method(datas, cluster, i, metrics)
       }
 
       if (method == 'daisy_gower') {
-        resultado = daisy_gower_method(data, cluster, i, metrics)
+        resultado = daisy_gower_method(datas, cluster, i, metrics)
       }
 
       if (method == 'daisy_euclidean') {
-        resultado = daisy_euclidean_method(data, cluster, i, metrics)
+        resultado = daisy_euclidean_method(datas, cluster, i, metrics)
       }
 
       if (method == 'daisy_manhattan') {
-        resultado = daisy_manhattan_method(data, cluster, i, metrics)
+        resultado = daisy_manhattan_method(datas, cluster, i, metrics)
       }
 
       if (method == 'fanny_euclidean') {
-        resultado = fanny_euclidean_method(data, cluster, i, metrics)
+        resultado = fanny_euclidean_method(datas, cluster, i, metrics)
       }
 
       if (method == 'fanny_manhattan') {
-        resultado = fanny_manhattan_method(data, cluster, i, metrics)
+        resultado = fanny_manhattan_method(datas, cluster, i, metrics)
       }
 
       if (method == 'mona') {
-        resultado = mona_method(data, cluster, i, metrics)
+        resultado = mona_method(datas, cluster, i, metrics)
       }
 
       if (method == 'pam_euclidean') {
-        resultado = pam_euclidean_method(data, cluster, i, metrics)
+        resultado = pam_euclidean_method(datas, cluster, i, metrics)
       }
 
       if (method == 'pam_manhattan') {
-        resultado = pam_manhattan_method(data, cluster, i, metrics)
+        resultado = pam_manhattan_method(datas, cluster, i, metrics)
       }
 
       if (method == 'fuzzy_cm') {
-        resultado = fuzzy_cm_method(data, cluster,  i, metrics)
+        resultado = fuzzy_cm_method(datas, cluster,  i, metrics)
       }
 
       if (method == 'fuzzy_gg') {
-        resultado = fuzzy_gg_method(data, cluster, i, metrics)
+        resultado = fuzzy_gg_method(datas, cluster, i, metrics)
       }
 
       if (method == 'fuzzy_gk') {
-        resultado = fuzzy_gk_method(data, cluster, i, metrics)
+        resultado = fuzzy_gk_method(datas, cluster, i, metrics)
       }
 
       if (method == 'pvpick') {
-        resultado = pvpick_method(data, cluster, metrics)
+        resultado = pvpick_method(datas, cluster, metrics)
       }
 
       if (method == 'pvclust_correlation') {
-        resultado = pvclust_correlation_method(data, cluster, i, metrics)
+        resultado = pvclust_correlation_method(datas, cluster, i, metrics)
       }
 
       if (method == 'pvclust_euclidean') {
-        resultado = pvclust_euclidean_method(data, cluster, i, metrics)
+        resultado = pvclust_euclidean_method(datas, cluster, i, metrics)
       }
 
       if (method == 'apclusterK_euclidean') {
-        resultado = apclusterK_euclidean(data, cluster, i, metrics)
+        resultado = apclusterK_euclidean(datas, cluster, i, metrics)
       }
 
       if (method == 'apclusterK_manhattan') {
-        resultado = apclusterK_manhattan(data, cluster, i, metrics)
+        resultado = apclusterK_manhattan(datas, cluster, i, metrics)
       }
 
       if (method == 'apclusterK_minkowski') {
-        resultado = apclusterK_minkowski(data, cluster, i, metrics)
+        resultado = apclusterK_minkowski(datas, cluster, i, metrics)
       }
 
       if (method == 'gama_euclidean') {
-        resultado = gama(data, cluster, i, metrics)
+        resultado = gama(datas, cluster, i, metrics)
       }
 
       result <- list(
@@ -241,31 +239,31 @@ evaluate_all_column_dataset = function(data,
 
   } else {
     if (method == 'agnes_euclidean') {
-      resultado = agnes_euclidean_method(data, cluster, metrics)
+      resultado = agnes_euclidean_method(datas, cluster, metrics)
     }
 
     if (method == 'agnes_manhattan') {
-      resultado = agnes_manhattan_method(data, cluster, metrics)
+      resultado = agnes_manhattan_method(datas, cluster, metrics)
     }
 
     if (method == 'pvclust_euclidean') {
-      resultado = pvclust_euclidean_method(data, cluster, metrics)
+      resultado = pvclust_euclidean_method(datas, cluster, metrics)
     }
 
     if (method == 'pvclust_correlation') {
-      resultado = pvclust_correlation_method(data, cluster, metrics)
+      resultado = pvclust_correlation_method(datas, cluster, metrics)
     }
 
     if (method == 'diana_euclidean') {
-      resultado = diana_euclidean_method(data, cluster, metrics)
+      resultado = diana_euclidean_method(datas, cluster, metrics)
     }
 
     if (method == 'aggExCluster_euclidean') {
-      resultado = aggExCluster_euclidean(data, cluster, metrics)
+      resultado = aggExCluster_euclidean(datas, cluster, metrics)
     }
 
     if (method == 'hclust_euclidean') {
-      resultado = hclust_euclidean(data, cluster, i, metrics)
+      resultado = hclust_euclidean(datas, cluster, i, metrics)
     }
 
     result <- list(

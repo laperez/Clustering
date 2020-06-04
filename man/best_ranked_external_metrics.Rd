@@ -19,6 +19,6 @@ Method that calculates the best rated external metrics
 
 df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
 
-best_ranked_external_metrics(df$result)
+best_ranked_external_metrics(df)
 
 }

@@ -1,6 +1,6 @@
 #' Method that runs the clara algorithm using the euclidean metric to make an external or internal validation of the cluster
 #'
-#' @param data matrix or data frame
+#' @param dt matrix or data frame
 #' @param clusters number of clusters
 #' @param columnClass number of column, for example if a dataset has five column,
 #' we can select column four to calculate alidation
@@ -11,11 +11,11 @@
 #' @keywords internal
 #'
 
-clara_euclidean_method = function(data, clusters, columnClass, metric) {
+clara_euclidean_method = function(dt, clusters, columnClass, metric) {
   start.time <- Sys.time()
 
-  if ('data.frame' %in% class(data))
-    data = as.matrix(data)
+  if ('data.frame' %in% class(dt))
+    dt = as.matrix(dt)
 
   numeric_cluster <- ifelse(!is.numeric(clusters), 1, 0)
 
@@ -23,7 +23,7 @@ clara_euclidean_method = function(data, clusters, columnClass, metric) {
     stop('The field clusters must be a numeric')
 
   clara_euclidean <- tryCatch({
-    clara(x = data, k = clusters, metric = 'euclidean')
+    clara(x = dt, k = clusters, metric = 'euclidean')
   },
 
   error = function(cond) {
@@ -33,7 +33,7 @@ clara_euclidean_method = function(data, clusters, columnClass, metric) {
   if (!is.null(clara_euclidean)) {
     ev_clara_euclidean <-
       tryCatch({
-        external_validation(c(data[, columnClass]),
+        external_validation(c(dt[, columnClass]),
                             clara_euclidean$clustering, metric)
 
       },
@@ -46,7 +46,7 @@ clara_euclidean_method = function(data, clusters, columnClass, metric) {
       internal_validation(
         distance = NULL,
         clusters_vector = clara_euclidean$clustering,
-        data = data,
+        dataf = dt,
         method = "euclidean",
         metric
       )
@@ -77,7 +77,7 @@ clara_euclidean_method = function(data, clusters, columnClass, metric) {
 
 #' Method that runs the clara algorithm using the manhattan metric to make an external or internal validation of the cluster
 #'
-#' @param data matrix or data frame
+#' @param dt matrix or data frame
 #' @param clusters number of clusters
 #' @param columnClass number of column, for example if a dataset has five column,
 #' we can select column four to calculate alidation
@@ -88,11 +88,11 @@ clara_euclidean_method = function(data, clusters, columnClass, metric) {
 #' @keywords internal
 #'
 
-clara_manhattan_method  = function(data, clusters, columnClass, metric) {
+clara_manhattan_method  = function(dt, clusters, columnClass, metric) {
   start.time <- Sys.time()
 
-  if ('data.frame' %in% class(data))
-    data = as.matrix(data)
+  if ('data.frame' %in% class(dt))
+    dt = as.matrix(dt)
 
   numeric_cluster <- ifelse(!is.numeric(clusters), 1, 0)
 
@@ -100,7 +100,7 @@ clara_manhattan_method  = function(data, clusters, columnClass, metric) {
     stop('The field clusters must be a numeric')
 
   clara_manhattan <- tryCatch({
-    clara(x = data, k = clusters, metric = 'manhattan')
+    clara(x = dt, k = clusters, metric = 'manhattan')
   },
 
   error = function(cond) {
@@ -110,7 +110,7 @@ clara_manhattan_method  = function(data, clusters, columnClass, metric) {
   if (!is.null(clara_manhattan)) {
     ev_clara_manhattan <-
       tryCatch({
-        external_validation(c(data[, columnClass]),
+        external_validation(c(dt[, columnClass]),
                             clara_manhattan$clustering, metric)
 
       },
@@ -123,7 +123,7 @@ clara_manhattan_method  = function(data, clusters, columnClass, metric) {
       internal_validation(
         distance = NULL,
         clusters_vector = clara_manhattan$clustering,
-        data = data,
+        dataf = dt,
         method = "manhattan",
         metric
       )

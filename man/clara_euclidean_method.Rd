@@ -4,10 +4,10 @@
 \alias{clara_euclidean_method}
 \title{Method that runs the clara algorithm using the euclidean metric to make an external or internal validation of the cluster}
 \usage{
-clara_euclidean_method(data, clusters, columnClass, metric)
+clara_euclidean_method(dt, clusters, columnClass, metric)
 }
 \arguments{
-\item{data}{matrix or data frame}
+\item{dt}{matrix or data frame}
 
 \item{clusters}{number of clusters}
 

@@ -4,10 +4,10 @@
 \alias{apclusterK_minkowski}
 \title{Method that runs the apclusterK algorithm using the minkowski metric to make an external or internal validation of the cluster}
 \usage{
-apclusterK_minkowski(data, clusters, columnClass, metric)
+apclusterK_minkowski(dt, clusters, columnClass, metric)
 }
 \arguments{
-\item{data}{matrix or data frame}
+\item{dt}{matrix or data frame}
 
 \item{clusters}{number of clusters}
 

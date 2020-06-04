@@ -4,14 +4,14 @@
 \alias{connectivity_metric}
 \title{Method to calculate the connectivity}
 \usage{
-connectivity_metric(distance, clusters_vector, data, method)
+connectivity_metric(distance, clusters_vector, dt, method)
 }
 \arguments{
 \item{distance}{dissimilarity matrix}
 
 \item{clusters_vector}{array that containe tha data grouped in cluster}
 
-\item{data}{dataframe with original data}
+\item{dt}{dataframe with original data}
 
 \item{method}{indicates the method for calculating distance between points}
 }

@@ -19,6 +19,6 @@ Method that calculates the best rated internal metrics
 
 df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
 
-best_ranked_internal_metrics(df$result)
+best_ranked_internal_metrics(df)
 
 }

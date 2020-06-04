@@ -14,4 +14,3 @@
 \description{
 Method that shows on screen the result of the clustring execution
 }
-\keyword{internal}

@@ -4,17 +4,17 @@
 \alias{kmeans_arma_method}
 \title{Method that runs the KMeans_arma algorithm using the Euclidean metric to make an external or internal validation of the cluster}
 \usage{
-kmeans_arma_method(data, clusters, columnClass, metric)
+kmeans_arma_method(dt, clusters, columnClass, metric)
 }
 \arguments{
-\item{data}{matrix or data frame}
-
 \item{clusters}{number of clusters}
 
 \item{columnClass}{number of column, for example if a dataset has five column,
 we can select column four to calculate alidation}
 
 \item{metric}{metrics avalaible in the package. The metrics implemented are: entropy, variation_information,precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.}
+
+\item{data}{matrix or data frame}
 }
 \value{
 returns a list with both the internal and external evaluation of the grouping

@@ -4,12 +4,12 @@
 \alias{dunn_metric}
 \title{Method to calculate the dunn}
 \usage{
-dunn_metric(dist, clusters_vector, data, me)
+dunn_metric(dist, clusters_vector, dt, me)
 }
 \arguments{
 \item{clusters_vector}{array that containe tha data grouped in cluster}
 
-\item{data}{dataframe with original data}
+\item{dt}{dataframe with original data}
 
 \item{distance}{dissimilarity matrix}
 

@@ -19,6 +19,6 @@ Method that calculates which algorithm and which metric behaves best for the dat
 
 df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
 
-evaluate_best_validation_external_by_metrics(df$result)
+evaluate_best_validation_external_by_metrics(df)
 
 }

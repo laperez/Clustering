@@ -4,10 +4,10 @@
 \alias{gama}
 \title{Method that runs the gama algorithm using the Euclidean metric to make an external or internal validation of the cluster}
 \usage{
-gama(data, clusters, columnClass, metric)
+gama(dt, clusters, columnClass, metric)
 }
 \arguments{
-\item{data}{matrix or data frame}
+\item{dt}{matrix or data frame}
 
 \item{clusters}{number of clusters}
 

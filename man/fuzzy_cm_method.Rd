@@ -4,10 +4,10 @@
 \alias{fuzzy_cm_method}
 \title{Method that runs the fuzzy.CM algorithm using the Euclidean metric to make an external or internal validation of the cluster}
 \usage{
-fuzzy_cm_method(data, clusters, columnClass, metric)
+fuzzy_cm_method(dt, clusters, columnClass, metric)
 }
 \arguments{
-\item{data}{matrix or data frame}
+\item{dt}{matrix or data frame}
 
 \item{clusters}{number of clusters}
 

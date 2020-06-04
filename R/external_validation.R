@@ -17,34 +17,35 @@ row_name_df_external = function(metrics) {
   result = c(result, CONST_RANKING)
   result = c(result, CONST_TIME_EXTERNAL)
 
-  for (i in 1:length(metrics)) {
-    if (tolower(metrics[i]) == CONST_ENTROPY_METRIC) {
+  for (iterate in 1:length(metrics)) {
+    if (tolower(metrics[iterate]) == CONST_ENTROPY_METRIC) {
       result = c(result, CONST_ENTROPY_METRIC)
     }
 
-    if (tolower(metrics[i]) == CONST_VARIATION_INFORMATION_METRIC) {
+    if (tolower(metrics[iterate]) == CONST_VARIATION_INFORMATION_METRIC) {
       result = c(result, CONST_VARIATION_INFORMATION_METRIC)
     }
 
-    if (tolower(metrics[i]) == CONST_PRECISION_METRIC) {
+    if (tolower(metrics[iterate]) == CONST_PRECISION_METRIC) {
       result = c(result, CONST_PRECISION_METRIC)
     }
 
-    if (tolower(metrics[i]) == CONST_RECALL_METRIC) {
+    if (tolower(metrics[iterate]) == CONST_RECALL_METRIC) {
       result = c(result, CONST_RECALL_METRIC)
     }
 
-    if (tolower(metrics[i]) == CONST_F_MEASURE_METRIC) {
+    if (tolower(metrics[iterate]) == CONST_F_MEASURE_METRIC) {
       result = c(result, CONST_F_MEASURE_METRIC)
     }
 
-    if (tolower(metrics[i]) == CONST_FOWLKES_MALLOWS_INDEX_METRIC) {
+    if (tolower(metrics[iterate]) == CONST_FOWLKES_MALLOWS_INDEX_METRIC) {
       result = c(result, CONST_FOWLKES_MALLOWS_INDEX_METRIC)
     }
   }
 
   return (result)
 }
+
 
 #' Method that applicate differents external metrics about a data frame or matrix, for example precision, recall etc
 #'
@@ -177,18 +178,18 @@ external_validation = function(column_dataset_label,
   time_external = round(as.numeric(time),4)
 
   resultadoValores = list(
-    "entropy" = format(round(as.numeric(entropy), digits = 4),scientific = FALSE),
+    "entropy" = format(round(as.numeric(entropy), digits = 4),scientific = F),
     "variation_information" = format(round(
       as.numeric(variation_information),
       digits = 4
-    ),scientific = FALSE),
-    "precision" = format(round(as.numeric(precision), digits = 4),scientific = FALSE),
-    "recall" = format(round(as.numeric(recall), digits = 4),scientific = FALSE),
-    "f_measure" = format(round(as.numeric(f_measure), digits = 4),scientific = FALSE),
+    ),scientific = F),
+    "precision" = format(round(as.numeric(precision), digits = 4),scientific = F),
+    "recall" = format(round(as.numeric(recall), digits = 4),scientific = F),
+    "f_measure" = format(round(as.numeric(f_measure), digits = 4),scientific = F),
     "fowlkes_mallows_index" = format(round(
       as.numeric(fowlkes_mallows_index),
       digits = 4
-    ),scientific = FALSE),
+    ),scientific = F),
     "time" = round(as.numeric(time_external), digits = 4)
   )
 
@@ -261,19 +262,19 @@ variation_information_metric =
 
     variation_information = 0.0
 
-    for (i in 1:nrow(conversion_data_frame)) {
-      for (j in 1:ncol(conversion_data_frame)) {
-        if (conversion_data_frame[i, j] > 0.0) {
-          join_entropy = join_entropy + (-((conversion_data_frame[i, j] / sum(table_convert)) * log2(conversion_data_frame[i, j] / sum(table_convert))
+    for (iterate_row in 1:nrow(conversion_data_frame)) {
+      for (iterate_col in 1:ncol(conversion_data_frame)) {
+        if (conversion_data_frame[iterate_row, iterate_col] > 0.0) {
+          join_entropy = join_entropy + (-((conversion_data_frame[iterate_row, iterate_col] / sum(table_convert)) * log2(conversion_data_frame[iterate_row, iterate_col] / sum(table_convert))
           ))
 
-          share_information = share_information + ((conversion_data_frame[i, j] / sum(table_convert)) * log2(as.numeric(
+          share_information = share_information + ((conversion_data_frame[iterate_row, iterate_col] / sum(table_convert)) * log2(as.numeric(
             as.bigz(
-              as.numeric(sum(table_convert)) * as.numeric(conversion_data_frame[i, j])
+              as.numeric(sum(table_convert)) * as.numeric(conversion_data_frame[iterate_row, iterate_col])
             ) / as.bigz(as.numeric(sum(
-              conversion_data_frame[i,]
+              conversion_data_frame[iterate_row,]
             )) * as.numeric(sum(
-              conversion_data_frame[, j]
+              conversion_data_frame[, iterate_col]
             )))
           )))
         }
@@ -418,18 +419,18 @@ initializeExternalValidation = function() {
 
 
   resultadoValores = list(
-    "entropy" = format(round(as.numeric(entropy), digits = 4),scientific = FALSE),
+    "entropy" = format(round(as.numeric(entropy), digits = 4),scientific = F),
     "variation_information" = format(round(
       as.numeric(variation_information),
       digits = 4
-    ),scientific = FALSE),
-    "precision" = format(round(as.numeric(precision), digits = 4),scientific = FALSE),
-    "recall" = format(round(as.numeric(recall), digits = 4),scientific = FALSE),
-    "f_measure" = format(round(as.numeric(f_measure), digits = 4),scientific = FALSE),
+    ),scientific = F),
+    "precision" = format(round(as.numeric(precision), digits = 4),scientific = F),
+    "recall" = format(round(as.numeric(recall), digits = 4),scientific = F),
+    "f_measure" = format(round(as.numeric(f_measure), digits = 4),scientific = F),
     "fowlkes_mallows_index" = format(round(
       as.numeric(fowlkes_mallows_index),
       digits = 4
-    ),scientific = FALSE),
+    ),scientific = F),
     "time" = round(as.numeric(time), digits = 4)
   )
 
@@ -450,13 +451,13 @@ initializeExternalValidation = function() {
 entropy_formula = function(x_vec) {
   vec = rep(NA, length(x_vec))
 
-  for (i in 1:length(x_vec)) {
-    if (x_vec[i] == 0.0) {
-      vec[i] = 0.0
+  for (iterate in 1:length(x_vec)) {
+    if (x_vec[iterate] == 0.0) {
+      vec[iterate] = 0.0
     }
 
     else {
-      vec[i] = ((x_vec[i]) * log2(x_vec[i] / sum(x_vec)))
+      vec[iterate] = ((x_vec[iterate]) * log2(x_vec[iterate] / sum(x_vec)))
     }
   }
 

@@ -21,6 +21,6 @@ Method that returns a table with the algorithm and the metric indicated as param
 
 df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
 
-result_internal_algorithm_by_metric(df$result,'gmm')
+result_internal_algorithm_by_metric(df,'gmm')
 
 }

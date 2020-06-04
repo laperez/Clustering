@@ -51,12 +51,12 @@ path_dataset = function (directory) {
 
 fill_cluster_vector = function(data, appcluster) {
   cluster_vector = array(dim = nrow(data))
-  for (i in 1:length(appcluster@clusters)) {
-    for (j in 1:length(appcluster@clusters[[i]])) {
-      array_cluster = appcluster@clusters[[i]]
-      pos = array_cluster[j]
+  for (iterator_row in 1:length(appcluster@clusters)) {
+    for (iterator_col in 1:length(appcluster@clusters[[iterator_row]])) {
+      array_cluster = appcluster@clusters[[iterator_row]]
+      pos = array_cluster[iterator_col]
 
-      cluster_vector[[pos]] = i
+      cluster_vector[[pos]] = iterator_row
 
     }
   }
@@ -76,19 +76,19 @@ fill_cluster_vector = function(data, appcluster) {
 
 detect_definition_attribute = function(path) {
   con = file(path, "r")
-  numeroFilas = 1
-  while (TRUE) {
+  number_rows = 1
+  while (T) {
     line = readLines(con, n = 1)
     if (!grepl("@", line)) {
       break
 
     }
-    numeroFilas = numeroFilas + 1
+    number_rows = number_rows + 1
   }
 
   close(con)
 
-  return (numeroFilas - 1)
+  return (number_rows - 1)
 }
 
 #'
@@ -116,9 +116,8 @@ number_variables_dataset <- function(path) {
             file = files[pos],
             header = CONST_FALSE,
             comment.char = '@',
-            stringsAsFactors = FALSE,
-            encoding = "UTF-8",
-            strip.white = TRUE
+            stringsAsFactors = F,
+            encoding = "UTF-8"
           )
         )
       }
@@ -164,12 +163,48 @@ read_file <- function(path) {
       file = path,
       header = CONST_FALSE,
       comment.char = '@',
-      stringsAsFactors = FALSE,
+      stringsAsFactors = F,
       encoding = "UTF-8",
-      strip.white = TRUE
+      strip.white = T
     ))
   }
 
   return (result)
+}
 
+#'
+#'Method that converts a matrix into numerical format
+#'
+#'@param datas information matrix
+#'
+#'@return return a matrix in numeric format
+#'
+#'@keywords internal
+#'
+
+convert_numeric_matrix <- function(datas){
+
+  ncol(datas)
+
+  for (iterator in 1:ncol(datas)){
+
+    #datas <- format(datas)
+    #datas <- trimws(datas, whitespace = "[\\h\\v]")
+
+    if (class(datas[,iterator])=="character"){
+
+      character_numeric <- ifelse(!is.na(as.numeric(datas[,iterator])), 1, 0)
+
+      if(character_numeric > 0){
+        datas[,iterator] = as.numeric(datas[,iterator])
+      } else {
+        datas[,iterator]=as.numeric(as.factor(datas[,iterator]))
+      }
+
+    } else {
+      datas[,iterator] = as.numeric(datas[,iterator])
+    }
+  }
+
+  return (datas)
 }

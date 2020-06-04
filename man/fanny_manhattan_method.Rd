@@ -4,10 +4,10 @@
 \alias{fanny_manhattan_method}
 \title{Method that runs the fanny algorithm using the manhattan metric to make an external or internal validation of the cluster}
 \usage{
-fanny_manhattan_method(data, clusters, columnClass, metric)
+fanny_manhattan_method(dt, clusters, columnClass, metric)
 }
 \arguments{
-\item{data}{matrix or data frame}
+\item{dt}{matrix or data frame}
 
 \item{clusters}{number of clusters}
 

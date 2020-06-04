@@ -4,10 +4,10 @@
 \alias{daisy_gower_method}
 \title{Method that runs the daisy algorithm using the gower metric to make an external or internal validation of the cluster}
 \usage{
-daisy_gower_method(data, clusters, columnClass, metric)
+daisy_gower_method(dt, clusters, columnClass, metric)
 }
 \arguments{
-\item{data}{matrix or data frame}
+\item{dt}{matrix or data frame}
 
 \item{clusters}{number of clusters}
 

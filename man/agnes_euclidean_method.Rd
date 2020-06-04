@@ -4,10 +4,10 @@
 \alias{agnes_euclidean_method}
 \title{Method that runs the agnes algorithm using the euclidean metric to make an external or internal validation of the cluster}
 \usage{
-agnes_euclidean_method(data, clusters, metric)
+agnes_euclidean_method(dt, clusters, metric)
 }
 \arguments{
-\item{data}{matrix or data frame}
+\item{dt}{matrix or data frame}
 
 \item{clusters}{number of clusters}
 

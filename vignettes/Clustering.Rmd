@@ -9,9 +9,9 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include = FALSE}
+```{r setup, include = F}
 knitr::opts_chunk$set(
-  collapse = TRUE,
+  collapse = T,
   comment = "#>"
 )
 
@@ -41,7 +41,7 @@ It's the main method of the package.Clustering method processes a set of cluster
 
 Once the method has been executed, we obtain the results divided into four parts:
 
-```{r echo=TRUE, warning=FALSE}
+```{r echo=T, warning=F}
 
 df <- Clustering::clustering(df = Clustering::basketball,  
                              packages = c("clusterr"), min = 4, max = 6)
@@ -51,7 +51,7 @@ df <- Clustering::clustering(df = Clustering::basketball,
 Here we have a dataframe with the result of the execution. In it you can see all the algorithms, the similarity measures used, the variables classified in order of importance, the execution time of the algorithms and the evaluation metrics.  
 
 
-```{r echo=FALSE, warning=FALSE }
+```{r echo=FALSE, warning=F }
 
   result <- dplyr::select(as.data.frame(df$result), -c("Ranking"))
 
@@ -63,34 +63,34 @@ Here we have a dataframe with the result of the execution. In it you can see all
 
 This property tells us if we have made an internal evaluation of the groups  
 
-```{r echo=FALSE, warning=FALSE }
+```{r echo=FALSE, warning=F }
   df$hasInternalMetrics 
 ```
 
 This property tells us if we have made an external evaluation of the groups  
 
-```{r echo=FALSE, warning=FALSE }
+```{r echo=FALSE, warning=F }
   df$hasExternalMetrics 
 ```
 
 Algorithms executed
 
-```{r echo=FALSE, warning=FALSE }
+```{r echo=FALSE, warning=F }
 df$algorithms_execute
 ```
 
 Similarity Metrics
 
-```{r echo=FALSE, warning=FALSE }
+```{r echo=FALSE, warning=F }
 df$measures_execute
 ```
 
 If we want to obtain the classified variables instead of the values we must use the variable property
 
-```{r echo=TRUE, warning=FALSE}
+```{r echo=T, warning=F}
 
 df_variable <- Clustering::clustering(df = Clustering::basketball,  
-                             packages = c("clusterr"), min = 4, max = 6, variables = TRUE)
+                             packages = c("clusterr"), min = 4, max = 6, variables = T)
 
 ```
 
@@ -106,13 +106,13 @@ df_variable <- Clustering::clustering(df = Clustering::basketball,
 
 If we only want to obtain the best classified variables or values for the external variables we execute the following method:
 
-```{r echo=TRUE, warning=FALSE}
+```{r echo=T, warning=F}
 
-df_best_ranked_external <- Clustering::best_ranked_external_metrics(df$result)
+df_best_ranked_external <- Clustering::best_ranked_external_metrics(df)
 
 ```
 
-```{r echo=FALSE, warning=FALSE }
+```{r echo=FALSE, warning=F }
 
   result <- dplyr::select(df_best_ranked_external$result, -c("Ranking"))
 
@@ -124,13 +124,13 @@ df_best_ranked_external <- Clustering::best_ranked_external_metrics(df$result)
 
 We also obtain the best classified values for internal evaluation
 
-```{r echo=TRUE, warning=FALSE}
+```{r echo=T, warning=F}
 
-df_best_ranked_internal <- Clustering::best_ranked_internal_metrics(df$result)
+df_best_ranked_internal <- Clustering::best_ranked_internal_metrics(df)
 
 ```
 
-```{r echo=FALSE, warning=FALSE, results='asis' }
+```{r echo=FALSE, warning=F, results='asis' }
 
   result <- dplyr::select(df_best_ranked_internal$result, -c("Ranking"))
 
@@ -142,15 +142,15 @@ df_best_ranked_internal <- Clustering::best_ranked_internal_metrics(df$result)
 
 In order to obtain the best evaluation by algorithm
 
-```{r echo=TRUE, warning=FALSE}
+```{r echo=T, warning=F}
 
-df_best_validation_external <- Clustering::evaluate_best_validation_external_by_metrics(df$result)
+df_best_validation_external <- Clustering::evaluate_best_validation_external_by_metrics(df)
 
 ```
 
-```{r echo=FALSE, warning=FALSE }
+```{r echo=FALSE, warning=F }
   knitr::kable(df_best_validation_external$result,"html") %>%  
-  kableExtra::kable_styling() %>% kableExtra::row_spec(1:2, bold = TRUE, italic = TRUE, color = "white", background = "#006d38") %>% kableExtra::scroll_box(width = "100%")
+  kableExtra::kable_styling() %>% kableExtra::row_spec(1:2, bold = T, italic = T, color = "white", background = "#006d38") %>% kableExtra::scroll_box(width = "100%")
 
 ```
 
@@ -158,39 +158,39 @@ Based on the results obtained we can see that the gmm algorithm behaves better.
 
 From the algorithm with the best rating we can select the most appropriate number of clusters.
 
-```{r echo=TRUE, warning=FALSE}
+```{r echo=T, warning=F}
 
-df_result_external <- Clustering::result_external_algorithm_by_metric(df$result,"gmm")
+df_result_external <- Clustering::result_external_algorithm_by_metric(df,"gmm")
 
 ```
 
-```{r echo=FALSE, warning=FALSE }
+```{r echo=FALSE, warning=F }
   knitr::kable(df_result_external$result,"html") %>%  
-  kableExtra::kable_styling() %>% kableExtra::row_spec(1, bold = TRUE, italic = TRUE, color = "white", background = "#006d38") %>% kableExtra::scroll_box(width = "100%")
+  kableExtra::kable_styling() %>% kableExtra::row_spec(1, bold = T, italic = T, color = "white", background = "#006d38") %>% kableExtra::scroll_box(width = "100%")
 
 ```
 
 The same checks performed for external evaluation metrics, we can perform for internal evaluation.
 
-```{r echo=TRUE, warning=FALSE}
+```{r echo=T, warning=F}
 
 df_best_validation_internal <-   
-  Clustering::evaluate_best_validation_internal_by_metrics(df$result)
+  Clustering::evaluate_best_validation_internal_by_metrics(df)
 
 ```
 
-```{r echo=FALSE, warning=FALSE }
+```{r echo=FALSE, warning=F }
   knitr::kable(df_best_validation_internal$result,"html") %>%  
-  kableExtra::kable_styling() %>% kableExtra::row_spec(3:5, bold = TRUE, italic = TRUE, color = "white", background = "#006d38") %>% kableExtra::scroll_box(width = "100%")
+  kableExtra::kable_styling() %>% kableExtra::row_spec(3:5, bold = T, italic = T, color = "white", background = "#006d38") %>% kableExtra::scroll_box(width = "100%")
 
 ```
 In this case we can see that depending on the evaluation you want to make, one algorithm or another is chosen.
 
 If we want to see graphically the representation of any metric as a function of the number of clusters and algorithm we can do it in the following way depending if the evaluation metric is internal or external
 
-```{r fig.show='hold', fig.width=7, fig.align ='center', warning=FALSE }
+```{r fig.show='hold', fig.width=7, fig.align ='center', warning=F }
 
-Clustering::plot_external_validation(df,"variation_information")
+plot(df,"variation_information")
 
 ```
 

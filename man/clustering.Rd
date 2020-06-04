@@ -5,14 +5,14 @@
 \title{Execute a list of datasets from a route or a dataframe}
 \usage{
 clustering(
-  path = CONST_NULL,
-  df = CONST_NULL,
-  packages = CONST_NULL,
-  algorithm = CONST_NULL,
-  min = CONST_NULL,
-  max = CONST_NULL,
-  metrics = CONST_NULL,
-  variables = CONST_NULL
+  path = NULL,
+  df = NULL,
+  packages = NULL,
+  algorithm = NULL,
+  min = 3,
+  max = 4,
+  metrics = NULL,
+  variables = F
 )
 }
 \arguments{
