@@ -1,11 +1,4 @@
-#
-# This is the user-interface definition of a Shiny web application. You can
-# run the application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
+# library load
 
 library(shiny)
 library(shinythemes)
@@ -16,9 +9,11 @@ library(DT)
 library(shinyalert)
 library(shinycssloaders)
 
-# Define UI for application that draws a histogram
+# Define UI for application which allows us to run the clustering algorithm without having to do it from the console
 shinyUI(
     fluidPage(
+
+        #load javascript y themes
         shinyjs::useShinyjs(),
         theme = shinythemes::shinytheme("superhero"),
         useShinyalert(),
@@ -26,7 +21,7 @@ shinyUI(
         tags$link(rel = "stylesheet", type = "text/css", href = "style.css"),
         tags$script(src = "myjs.js"),
 
-
+        #layout left
         sidebarLayout(
             sidebarPanel(
                 radioButtons(
@@ -144,6 +139,8 @@ shinyUI(
                 )
 
             ),
+
+            #layout middle
             mainPanel(
                 tabsetPanel(
                     tabPanel("Summary",

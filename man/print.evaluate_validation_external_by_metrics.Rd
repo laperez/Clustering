@@ -2,16 +2,16 @@
 % Please edit documentation in R/app.R
 \name{print.evaluate_validation_external_by_metrics}
 \alias{print.evaluate_validation_external_by_metrics}
-\title{Method that shows on screen the result of algorithm behaves best for the datasets provided}
+\title{Method that shows on screen the result of algorithm behaves best for the datasets provided.}
 \usage{
 \method{print}{evaluate_validation_external_by_metrics}(x, ...)
 }
 \arguments{
-\item{x}{list containing the result of the evaluate_validation_external_by_metrics run}
+\item{x}{list containing the result of the evaluate_validation_external_by_metrics run.}
 
-\item{...}{other params}
+\item{...}{other params.}
 }
 \description{
-Method that shows on screen the result of algorithm behaves best for the datasets provided
+Method that shows on screen the result of algorithm behaves best for the datasets provided.
 }
 \keyword{internal}

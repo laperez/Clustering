@@ -2,16 +2,16 @@
 % Please edit documentation in R/app.R
 \name{print.best_ranked_internal_metrics}
 \alias{print.best_ranked_internal_metrics}
-\title{Method that shows on screen the result of best rated internal metrics}
+\title{Method that shows on screen the result of best rated internal metrics.}
 \usage{
 \method{print}{best_ranked_internal_metrics}(x, ...)
 }
 \arguments{
-\item{x}{list containing the result of the best_ranked_internal_metrics run}
+\item{x}{list containing the result of the best_ranked_internal_metrics run.}
 
-\item{...}{other params}
+\item{...}{other params.}
 }
 \description{
-Method that shows on screen the result of best rated internal metrics
+Method that shows on screen the result of best rated internal metrics.
 }
 \keyword{internal}

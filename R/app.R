@@ -1,11 +1,15 @@
 #'
-#' Method running the web interface of the clustering package
+#' Method that allows us to execute the main algorithm in graphic interface mode instead of through the console.
 #'
 #' @importFrom
 #' shiny runApp dataTableOutput renderDataTable runExample
 #'
 #' @export
 #' appClustering
+#'
+#' @examples
+#'
+#' appClustering()
 #'
 appClustering <- function() {
   appDir <- system.file("shiny", "clustering", package = "Clustering")
@@ -18,21 +22,52 @@ appClustering <- function() {
 }
 
 #'
-#' Execute a list of datasets from a route or a dataframe
+#' @title Clustering algorithm.
+#' @description Discovering the behavior of variables in a set of clustering packages based on evaluation metrics.
 #'
-#' @param path  path where the datasets are located.
-#' @param df data matrix or data frame, or dissimilarity matrix, depending on the value of the argument.
-#' @param packages array defining the clustering package. The seven packages implemented are: cluster, ClusterR, advclust, amap, apcluster,
+#' @param path The path of file. \code{NULL} It is only allowed to use path or df but not both at the same time. Only files in .dat, .csv or arff format are allowed.
+#' @param df data matrix or data frame, or dissimilarity matrix. \code{NULL} If you want to use training and test \code{basketball} variables.
+#' @param packages character vector with the packets running the algorithm. \code{NULL} The seven packages implemented are: cluster, ClusterR, advclust, amap, apcluster,
 #'        gama, pvclust. \cr By default runs all packages.
-#' @param algorithm array with the algorithms that implement the package. The algorithms implemented are: fuzzy_cm,fuzzy_gg,fuzzy_gk,
+#' @param algorithm character vector with the algorithms implemented within the package. \code{NULL} The algorithms implemented are: fuzzy_cm,fuzzy_gg,fuzzy_gk,
 #'        hclust,apclusterK,agnes,clara,daisy, \cr diana,fanny,mona,pam,gmm,kmeans_arma,kmeans_rcpp,mini_kmeans,gama,\cr pvclust.
-#' @param min minimum number of clusters. at least one must be.
-#' @param max maximum number of clusters. cluster_max must be greater or equal cluster_min.
-#' @param metrics array defining the metrics avalaible in the package. The night metrics implemented are: entropy, variation_information,\cr
+#' @param min An integer with the minimum number of clusters This data is necessary to indicate the minimum number of clusters when grouping the data. The default value is \code{3}.
+#' @param max An integer with the maximum number of clusters. This data is necessary to indicate the maximum number of clusters when grouping the data. The default value is \code{4}.
+#' @param metrics Character vector with the metrics implemented to evaluate the distribution of the data in clusters. \code{NULL} The night metrics implemented are: entropy, variation_information,\cr
 #' precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.
-#' @param variables accepts Boolean values. If true as a result it shows the variable that behaves best otherwise it shows the value of the executed metric.
+#' @param variables an boolean which indicates that if we want to show as a result the variables of the datasets or the numerical value of the calculation of the metrics. The default value is \code{F}.
 #'
-#' @return returns a matrix with the result of running all the metrics of the algorithms contained in the packages we indicated.
+#' @details The operation of this algorithm is to evaluate how the variables of a dataset or a set of datasets behave in
+#' different grouping algorithms. To do this, it is necessary to indicate the type of evaluation you want to make on the
+#' distribution of the data. To be able to execute the algorithm it is necessary to indicate the number of clusters
+#' \code{min} and \code{max}, the algorithms \code{algorithm} or packages \code{packages} that we want to cluster,
+#' the metrics \code{metrics} and if we want that the results of evaluation are the own classified variables or numerical values \code{variables}.
+#'
+#' @section How does this algorithm work?:
+#' This algorithm improves and complements existing implementations of clustering algorithms.
+#'
+#' The approaches that exist, are many algorithms that run parallel to the algorithms, without being able to be compared
+#' between them. In addition, it was necessary to indicate which variable of the dataset is required to be executed.
+#' In addition, depending on the package there are some implementations or others to evaluate the groupings of data,
+#' so it is sometimes complicated to compare the groupings between different packages.
+#'
+#' With this algorithm we can solve the problems mentioned above and determine which algorithm has the best behavior
+#' for the set of variables as well as the most efficient number of clusters.
+#'
+#'
+#' @return returns a matrix with the result of running all the metrics of the algorithms contained in the packages we indicated. We also obtain information with the types of metrics, algorithms and packages executed in addition to being able to export the results in latex format.
+#' \enumerate{
+#'     \itemize{
+#'        \item result It is a list with the algorithms, metrics and variables defined in the execution of the algorithm.
+#'        \item hasInternalMetrics Boolean field to indicate if there are internal metrics such as: dunn, silhoutte and connectivity.
+#'        \item hasExternalMetrics Boolean field to indicate if there are external metrics such as: precision, recall, f-measure, entropy, variation information and fowlkes-mallows.
+#'        \item algorithms_execute Vector de caracteres con los algoritmos ejecutados. Dichos algoritmos han sido mencionados en la definición de los parámetros.
+#'        \item measures_execute Character vector with the measures executed. These measures have been mentioned in the definition of the parameters.
+#'        \item tableExternal It's a string of characters. It contains the results of the external evaluation measures in latex format. This table can be exported to a file using the \code{export_file_external}.
+#'        \item tableInternal It's a string of characters. It contains the results of the internal evaluation measures in latex format. This table can be exported to a file using the \code{export_file_internal}.
+#'     }
+#' }
+#'
 #'
 #' @importFrom
 #' apcluster aggExCluster cutree apclusterK negDistMat
@@ -93,7 +128,21 @@ appClustering <- function() {
 #'
 #' @examples
 #'
-#' clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm', variables = TRUE)
+#' clustering(
+#'     df = cluster::agriculture,
+#'     min = 4,
+#'     max = 5,
+#'     algorith='gmm',
+#'     variables = TRUE
+#' )
+#'
+#' clustering(
+#'    df = Clustering::weather,
+#'    min = 2
+#'    max = 3,
+#'    algorithm = c("gmm","kmeans_rcpp",
+#'    metrics = c("precision","recall")
+#' )
 #'
 clustering <- function(path = NULL,
                        df = NULL,
@@ -188,6 +237,8 @@ clustering <- function(path = NULL,
     stop("The variable field must have only one element")
   }
 
+  #Start of the main method that executes the datasets.
+
   execute_datasets(path,
                    df,
                    packages,
@@ -200,7 +251,7 @@ clustering <- function(path = NULL,
 
 
 
-#' Method of performing information processing
+#' Method of performing information processing.
 #'
 #' @param path  path where the datasets are located.
 #' @param df data matrix or data frame, or dissimilarity matrix, depending on the value of the argument.
@@ -224,27 +275,42 @@ execute_datasets <- function (path,
                               cluster_max,
                               metrics,
                               variables) {
-  ## Initialization of the parameter format
+  # Initialization of the parameter format
 
   on.exit(options(scipen = 999))
 
   formals(print.data.frame)$row.names <- F
 
   if (is.null(algorithm)) {
+    # We calculate the algorithms to be executed depending on the package
+
     algorithms_execute <- algorithms_package(packages)
 
+    # Depending on the algorithms we determine the measures of dissimilarity
+
     measures_execute = measure_package(packages)
+
   } else {
+    # In the case of indicating the algorithm parameter, we carry out the calculation to obtain the dissimilarity measurements
+
     algorithms_execute <- algorithm
 
     measures_execute = measure_calculate(algorithm)
   }
 
+  # Character vector with the clustering evaluation measures
+
   metrics_execute = metrics_calculate(metrics)
+
+  # We calculate if you have internal evaluation measures
 
   is_metric_internal <- is_Internal_Metrics(metrics)
 
+  # We calculate if you have external evaluation measures
+
   is_metric_external <- is_External_Metrics(metrics)
+
+  # Variable initialization
 
   tableInternal <- CONST_INITIALIZER_STRING
 
@@ -255,6 +321,8 @@ execute_datasets <- function (path,
   numberClusters <- (cluster_max - cluster_min) + CONST_ONE
 
   directory_files <- CONST_NULL
+
+  # If we have indicated the path field, we read all the existing files in that directory.
 
   if (!is.null(path)) {
     directory_files <- path_dataset(path)
@@ -278,6 +346,9 @@ execute_datasets <- function (path,
   }
 
   if (!is.null(directory_files) || !is.null(df)) {
+    # We carry out the calculations of all the algorithms and metrics for the files or datatsets
+    # indicated at the beginning of the algorithm.
+
     result <-
       execute_package_parallel(
         directory_files,
@@ -296,17 +367,21 @@ execute_datasets <- function (path,
       )
   }
 
-
+  # If it contains external metrics we create the table in latex format with the external results obtained.
 
   if (is_metric_external) {
     tableExternal <-
       xtable(xtable(result$df_external), include.rownames = F)
   }
 
+  # If it contains internal metrics we create the table in latex format with the internal results obtained.
+
   if (is_metric_internal) {
     tableInternal <-
       xtable(xtable(result$df_internal), include.rownames = F)
   }
+
+  #We return a list with the result of the execution, algorithms, packages, tables in latex format with the separation of the results in internal and external
 
   res <-
     list(
@@ -339,11 +414,16 @@ execute_package_parallel <-
             numberDataSets,
             is_metric_external,
             is_metric_internal) {
+
+    # We start the process of creating clusters to perform parallel runs.
+
     cl <- parallel::makeCluster(availableCores(), timeout = 60)
     plan(cluster, workers = cl)
 
     numberColumns <-
       length(metrics_execute) + CONST_COLUMN_DEFAULT_TABLE
+
+    # We create the different matrixes and vectors needed to return the results.
 
     df_result <-
       matrix(
@@ -391,6 +471,8 @@ execute_package_parallel <-
         row_name_df_internal(metrics_execute)
     }
 
+    # Initialization of variables
+
     rowCount = CONST_ONE
 
     rowCountLatex  = CONST_ONE
@@ -401,9 +483,12 @@ execute_package_parallel <-
                           CONST_ONE,
                           length(directory_files))
 
+    # We're going through each of the algorithms
 
     for (i in 1:length(algorithms_execute)) {
       changeAlgorithm = CONST_ONE
+
+      # From the algorithm we get the package
 
       name_package = gsub("\\_", "\\\\_", algorithms_execute[i])
 
@@ -420,6 +505,8 @@ execute_package_parallel <-
 
       changeMeasure = CONST_ZERO
       nameMeasureUsing = ''
+
+      # We're going through each of the measures("euclidean","manhattan")
 
       for (j in 1:length(measures_execute)) {
         name_measure = substr(measures_execute[j],
@@ -439,8 +526,12 @@ execute_package_parallel <-
 
           changeCluster = CONST_ZERO
 
+          #We'll go through each of the clusters
+
           for (k in cluster_min:cluster_max) {
             changeCluster = CONST_ONE
+
+            #We'll go through each of the files
 
             for (m in 1:number_files) {
               entropy = CONST_ZERO_DOUBLE
@@ -455,7 +546,12 @@ execute_package_parallel <-
               connectivity = CONST_ZERO_DOUBLE
               silhouette = CONST_ZERO_DOUBLE
 
+              # We initialize the evaluation metrics
+
               if (!is.null(df)) {
+
+                #If the indicated parameter is the dataframe, we make the appropriate calculations.
+
                 result <-
                   value(
                     evaluate_all_column_dataset(
@@ -468,6 +564,9 @@ execute_package_parallel <-
                   )
 
               } else {
+
+                #We perform the calculations for each of the files.
+
                 result <-
                   value(
                     evaluate_all_column_dataset(
@@ -495,6 +594,8 @@ execute_package_parallel <-
               dunn = result$internal$dunn
               connectivity = result$internal$connectivity
               silhouette = result$internal$silhouette
+
+              # We carry out the assignment of the calculations for each of the variables.
 
               for (c in 1:length(entropy)) {
                 information <- value(
@@ -552,6 +653,8 @@ execute_package_parallel <-
                 result_information <-
                   as.vector(unlist(information))
 
+                #We checked that the format of the numbers is 4 decimals.
+
                 for (pos in 6:length(information)) {
                   option_format <- options(digits = 4)
                   on.exit(options(option_format))
@@ -561,7 +664,11 @@ execute_package_parallel <-
                   ), scientific = F)
                 }
 
+                # We assign the value in the matrix
+
                 df_result[rowCount, ] = result_information
+
+                # From the result obtained we parse the external information
 
                 if (is_metric_external) {
                   df_external[rowCountLatex, ] <- information_external(
@@ -572,6 +679,8 @@ execute_package_parallel <-
                   )
                 }
 
+                # From the result obtained we parse the internal information
+
                 if (is_metric_internal) {
                   df_internal[rowCountLatex, ] <-  information_internal(
                     metrics_execute,
@@ -580,6 +689,8 @@ execute_package_parallel <-
                     variables
                   )
                 }
+
+                # we increase the position of the matrix
 
                 rowCount = rowCount + CONST_ONE
 
@@ -602,6 +713,7 @@ execute_package_parallel <-
       "df_internal" = df_internal[1:rowCountLatex,]
     )
 
+    # We stop the clusters created in the parallel execution.
     on.exit(parallel::stopCluster(cl))
 
     return (result)
@@ -609,10 +721,10 @@ execute_package_parallel <-
 
 
 
-#' Method that shows on screen the result of the clustring execution
+#' Method that shows on screen the result of the clustring execution.
 #'
-#' @param x list containing the result of the clustering run
-#' @param ... other params
+#' @param x list containing the result of the clustering run.
+#' @param ... other params.
 #'
 #'
 print.clustering <- function(x, ...)
@@ -643,18 +755,23 @@ print.clustering <- function(x, ...)
 }
 
 
-#' Method that calculates the best rated external metrics
+#' Method that calculates the best rated external metrics.
 #'
-#' @param df  data matrix or data frame
+#' @param df  data matrix or data frame with the result of running the clustering algorithm.
 #'
-#' @return returns a table with the external metrics that has the best rating
+#' @return returns a table with the external metrics that has the best rating.
 #'
 #' @export
 #' best_ranked_external_metrics
 #'
 #' @examples
 #'
-#' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
+#' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = T)
+#'
+#' best_ranked_external_metrics(df)
+#'
+#'
+#' df = clustering(df = Clustering::weather, min = 4, max = 5, algorithm = c("gmm", "kmeans_rcpp"), variables = F)
 #'
 #' best_ranked_external_metrics(df)
 #'
@@ -668,10 +785,10 @@ best_ranked_external_metrics <- function (df) {
   result
 }
 
-#' Method that shows on screen the result of best rated external metrics
+#' Method that shows on screen the result of best rated external metrics.
 #'
-#' @param x list containing the result of the best_ranked_external_metrics run
-#' @param ... other params
+#' @param x list containing the result of the best_ranked_external_metrics run.
+#' @param ... other params.
 #'
 #' @keywords internal
 #'
@@ -683,11 +800,11 @@ print.best_ranked_external_metrics <- function(x)
   invisible(x)
 }
 
-#' Method that calculates the best rated internal metrics
+#' Method that calculates the best rated internal metrics.
 #'
-#' @param df  data matrix or data frame
+#' @param df data matrix or data frame with the result of running the clustering algorithm.
 #'
-#' @return returns a table with the internal metrics that has the best rating
+#' @return returns a table with the internal metrics that has the best rating.
 #'
 #' @export
 #'
@@ -695,7 +812,11 @@ print.best_ranked_external_metrics <- function(x)
 #'
 #' @examples
 #'
-#' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
+#' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = T)
+#'
+#' best_ranked_internal_metrics(df)
+#'
+#' df = clustering(df = Clustering::weather, min = 4, max = 5, algorithm = c("gmm", "kmeans_rcpp"), variables = F)
 #'
 #' best_ranked_internal_metrics(df)
 #'
@@ -709,10 +830,10 @@ best_ranked_internal_metrics <- function (df) {
   result
 }
 
-#' Method that shows on screen the result of best rated internal metrics
+#' Method that shows on screen the result of best rated internal metrics.
 #'
-#' @param x list containing the result of the best_ranked_internal_metrics run
-#' @param ... other params
+#' @param x list containing the result of the best_ranked_internal_metrics run.
+#' @param ... other params.
 #'
 #' @keywords internal
 #'
@@ -724,11 +845,11 @@ print.best_ranked_internal_metrics <- function(x, ...)
   invisible(x)
 }
 
-#' Method that calculates which algorithm behaves best for the datasets provided
+#' Method that calculates which algorithm behaves best for the datasets provided.
 #'
-#' @param df data matrix or data frame
+#' @param df data matrix or data frame with the result of running the clustering algorithm.
 #'
-#' @return returns a table with the best performing algorithm for the provided datasets
+#' @return returns a table with the best performing algorithm for the provided datasets.
 #'
 #' @export
 #'
@@ -737,6 +858,10 @@ print.best_ranked_internal_metrics <- function(x, ...)
 #' @examples
 #'
 #' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
+#'
+#' evaluate_validation_external_by_metrics(df)
+#'
+#' df = clustering(df = Clustering::weather, min = 4, max = 5, algorithm = c("gmm", "kmeans_rcpp"), variables = F)
 #'
 #' evaluate_validation_external_by_metrics(df)
 #'
@@ -751,10 +876,10 @@ evaluate_validation_external_by_metrics <- function (df) {
   result
 }
 
-#' Method that shows on screen the result of algorithm behaves best for the datasets provided
+#' Method that shows on screen the result of algorithm behaves best for the datasets provided.
 #'
-#' @param x list containing the result of the evaluate_validation_external_by_metrics run
-#' @param ... other params
+#' @param x list containing the result of the evaluate_validation_external_by_metrics run.
+#' @param ... other params.
 #'
 #' @keywords internal
 #'
@@ -766,11 +891,11 @@ print.evaluate_validation_external_by_metrics <- function(x, ...)
   invisible(x)
 }
 
-#' Method that calculates which algorithm behaves best for the datasets provided
+#' Method that calculates which algorithm behaves best for the datasets provided.
 #'
-#' @param df data matrix or data frame
+#' @param df data matrix or data frame with the result of running the clustering algorithm.
 #'
-#' @return returns a table with the best performing algorithm for the provided datasets
+#' @return returns a table with the best performing algorithm for the provided datasets.
 #'
 #' @export
 #'
@@ -779,6 +904,10 @@ print.evaluate_validation_external_by_metrics <- function(x, ...)
 #' @examples
 #'
 #' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
+#'
+#' evaluate_validation_internal_by_metrics(df)
+#'
+#' df = clustering(df = Clustering::weather, min = 4, max = 5, algorithm = c("gmm", "kmeans_rcpp"), variables = F)
 #'
 #' evaluate_validation_internal_by_metrics(df)
 #'
@@ -793,10 +922,10 @@ evaluate_validation_internal_by_metrics <- function (df) {
   result
 }
 
-#' Method that shows on screen the result of algorithm behaves best for the datasets provided
+#' Method that shows on screen the result of algorithm behaves best for the datasets provided.
 #'
-#' @param x list containing the result of the evaluate_validation_internal_by_metrics run
-#' @param ... other params
+#' @param x list containing the result of the evaluate_validation_internal_by_metrics run.
+#' @param ... other params.
 #'
 #' @keywords internal
 #'
@@ -808,11 +937,11 @@ print.evaluate_validation_internal_by_metrics <- function(x, ...)
   invisible(x)
 }
 
-#' Method that calculates which algorithm and which metric behaves best for the datasets provided
+#' Method that calculates which algorithm and which metric behaves best for the datasets provided.
 #'
-#' @param df data matrix or data frame
+#' @param df data matrix or data frame with the result of running the clustering algorithm.
 #'
-#' @return returns a table with the algorithm and the best performing metric for the datasets
+#' @return returns a table with the algorithm and the best performing metric for the datasets.
 #'
 #' @export
 #'
@@ -821,6 +950,10 @@ print.evaluate_validation_internal_by_metrics <- function(x, ...)
 #' @examples
 #'
 #' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
+#'
+#' evaluate_best_validation_external_by_metrics(df)
+#'
+#' df = clustering(df = Clustering::weather, min = 4, max = 5, algorithm = c("gmm", "kmeans_rcpp"), variables = F)
 #'
 #' evaluate_best_validation_external_by_metrics(df)
 #'
@@ -835,10 +968,10 @@ evaluate_best_validation_external_by_metrics <- function(df) {
   result
 }
 
-#' Method that shows on screen which algorithm and which metric behaves best for the datasets provided
+#' Method that shows on screen which algorithm and which metric behaves best for the datasets provided.
 #'
-#' @param x list containing the result of the evaluate_best_validation_external_by_metrics run
-#' @param ... other params
+#' @param x list containing the result of the evaluate_best_validation_external_by_metrics run.
+#' @param ... other params.
 #'
 #' @keywords internal
 #'
@@ -851,11 +984,11 @@ print.evaluate_best_validation_external_by_metrics <-
     invisible(x)
   }
 
-#' Method that calculates which algorithm and which metric behaves best for the datasets provided
+#' Method that calculates which algorithm and which metric behaves best for the datasets provided.
 #'
-#' @param df data matrix or data frame
+#' @param df data matrix or data frame with the result of running the clustering algorithm.
 #'
-#' @return returns a table with the algorithm and the best performing metric for the datasets
+#' @return returns a table with the algorithm and the best performing metric for the datasets.
 #'
 #' @export
 #'
@@ -867,6 +1000,9 @@ print.evaluate_best_validation_external_by_metrics <-
 #'
 #' evaluate_best_validation_internal_by_metrics(df)
 #'
+#' df = clustering(df = Clustering::weather, min = 4, max = 5, algorithm = c("gmm", "kmeans_rcpp"), variables = F)
+#'
+#' evaluate_best_validation_internal_by_metrics(df)
 
 evaluate_best_validation_internal_by_metrics <- function(df) {
   df_best_ranked <- best_ranked_internal_metrics(df)
@@ -878,10 +1014,10 @@ evaluate_best_validation_internal_by_metrics <- function(df) {
   result
 }
 
-#' Method that shows on screen which algorithm and which metric behaves best for the datasets provided
+#' Method that shows on screen which algorithm and which metric behaves best for the datasets provided.
 #'
-#' @param x list containing the result of the evaluate_best_validation_internal_by_metrics run
-#' @param ... other params
+#' @param x list containing the result of the evaluate_best_validation_internal_by_metrics run.
+#' @param ... other params.
 #'
 #' @keywords internal
 #'
@@ -894,12 +1030,12 @@ print.evaluate_best_validation_internal_by_metrics <-
     invisible(x)
   }
 
-#' Method that returns a table with the algorithm and the metric indicated as parameters
+#' Method that returns a table with the algorithm and the metric indicated as parameters.
 #'
-#' @param df data matrix or data frame
-#' @param algorithm on which we will calculate the results
+#' @param df data matrix or data frame with the result of running the clustering algorithm.
+#' @param algorithm on which we will calculate the results.
 #'
-#' @return returns a table with the algorithm and the metric indicated as parameter
+#' @return returns a table with the algorithm and the metric indicated as parameter.
 #'
 #' @export
 #'
@@ -922,10 +1058,10 @@ result_external_algorithm_by_metric <- function(df, algorithm) {
   result
 }
 
-#' Method that shows on screen the table with the algorithm and the metric indicated as parameters
+#' Method that shows on screen the table with the algorithm and the metric indicated as parameters.
 #'
-#' @param x list containing the result of the result_external_algorithm_by_metric run
-#' @param ... other params
+#' @param x list containing the result of the result_external_algorithm_by_metric run.
+#' @param ... other params.
 #'
 #' @keywords internal
 #'
@@ -937,12 +1073,12 @@ print.result_external_algorithm_by_metric <- function(x, ...)
   invisible(x)
 }
 
-#' Method that returns a table with the algorithm and the metric indicated as parameters
+#' Method that returns a table with the algorithm and the metric indicated as parameters.
 #'
-#' @param df data matrix or data frame
-#' @param algorithm on which we will calorder(v1)culate the results
+#' @param df data matrix or data frame with the result of running the clustering algorithm.
+#' @param algorithm on which we will calorder(v1)culate the results.
 #'
-#' @return returns a table with the algorithm and the metric indicated as parameter
+#' @return returns a table with the algorithm and the metric indicated as parameter.
 #'
 #' @export
 #'
@@ -1000,6 +1136,10 @@ print.result_internal_algorithm_by_metric <- function(x, ...)
 #'
 #' plot.clustering(df,"precision")
 #'
+#' df <- clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm')
+#'
+#' plot.clustering(df,"recall")
+#'
 
 plot.clustering <- function(df, metric) {
   if (is.null(metric))
@@ -1015,7 +1155,8 @@ plot.clustering <- function(df, metric) {
 
   '%not in%' <- Negate('%in%')
 
-  if (metric %not in% colnames(df$result)) stop("The metric indicate does not exist in the dataframe")
+  if (metric %not in% colnames(df$result))
+    stop("The metric indicate does not exist in the dataframe")
 
   isExternalMetrics <- is_External_Metrics(metric)
 
@@ -1032,6 +1173,8 @@ plot.clustering <- function(df, metric) {
   } else {
     df_best_ranked <- best_ranked_internal_metrics(df)
   }
+
+  #We calculate the maximum value of l metric. In case the value is infinite we set a limit.
 
   maximum <- as.numeric(max_value_metric(df$result, metric))
 

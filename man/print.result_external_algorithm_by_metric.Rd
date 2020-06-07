@@ -2,16 +2,16 @@
 % Please edit documentation in R/app.R
 \name{print.result_external_algorithm_by_metric}
 \alias{print.result_external_algorithm_by_metric}
-\title{Method that shows on screen the table with the algorithm and the metric indicated as parameters}
+\title{Method that shows on screen the table with the algorithm and the metric indicated as parameters.}
 \usage{
 \method{print}{result_external_algorithm_by_metric}(x, ...)
 }
 \arguments{
-\item{x}{list containing the result of the result_external_algorithm_by_metric run}
+\item{x}{list containing the result of the result_external_algorithm_by_metric run.}
 
-\item{...}{other params}
+\item{...}{other params.}
 }
 \description{
-Method that shows on screen the table with the algorithm and the metric indicated as parameters
+Method that shows on screen the table with the algorithm and the metric indicated as parameters.
 }
 \keyword{internal}

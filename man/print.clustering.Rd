@@ -2,15 +2,15 @@
 % Please edit documentation in R/app.R
 \name{print.clustering}
 \alias{print.clustering}
-\title{Method that shows on screen the result of the clustring execution}
+\title{Method that shows on screen the result of the clustring execution.}
 \usage{
 \method{print}{clustering}(x, ...)
 }
 \arguments{
-\item{x}{list containing the result of the clustering run}
+\item{x}{list containing the result of the clustering run.}
 
-\item{...}{other params}
+\item{...}{other params.}
 }
 \description{
-Method that shows on screen the result of the clustring execution
+Method that shows on screen the result of the clustring execution.
 }

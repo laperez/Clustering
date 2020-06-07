@@ -2,20 +2,20 @@
 % Please edit documentation in R/app.R
 \name{result_internal_algorithm_by_metric}
 \alias{result_internal_algorithm_by_metric}
-\title{Method that returns a table with the algorithm and the metric indicated as parameters}
+\title{Method that returns a table with the algorithm and the metric indicated as parameters.}
 \usage{
 result_internal_algorithm_by_metric(df, algorithm)
 }
 \arguments{
-\item{df}{data matrix or data frame}
+\item{df}{data matrix or data frame with the result of running the clustering algorithm.}
 
-\item{algorithm}{on which we will calorder(v1)culate the results}
+\item{algorithm}{on which we will calorder(v1)culate the results.}
 }
 \value{
-returns a table with the algorithm and the metric indicated as parameter
+returns a table with the algorithm and the metric indicated as parameter.
 }
 \description{
-Method that returns a table with the algorithm and the metric indicated as parameters
+Method that returns a table with the algorithm and the metric indicated as parameters.
 }
 \examples{
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/app.R
 \name{clustering}
 \alias{clustering}
-\title{Execute a list of datasets from a route or a dataframe}
+\title{Clustering algorithm.}
 \usage{
 clustering(
   path = NULL,
@@ -16,33 +16,78 @@ clustering(
 )
 }
 \arguments{
-\item{path}{path where the datasets are located.}
+\item{path}{The path of file. \code{NULL} It is only allowed to use path or df but not both at the same time. Only files in .dat, .csv or arff format are allowed.}
 
-\item{df}{data matrix or data frame, or dissimilarity matrix, depending on the value of the argument.}
+\item{df}{data matrix or data frame, or dissimilarity matrix. \code{NULL} If you want to use training and test \code{basketball} variables.}
 
-\item{packages}{array defining the clustering package. The seven packages implemented are: cluster, ClusterR, advclust, amap, apcluster,
+\item{packages}{character vector with the packets running the algorithm. \code{NULL} The seven packages implemented are: cluster, ClusterR, advclust, amap, apcluster,
 gama, pvclust. \cr By default runs all packages.}
 
-\item{algorithm}{array with the algorithms that implement the package. The algorithms implemented are: fuzzy_cm,fuzzy_gg,fuzzy_gk,
+\item{algorithm}{character vector with the algorithms implemented within the package. \code{NULL} The algorithms implemented are: fuzzy_cm,fuzzy_gg,fuzzy_gk,
 hclust,apclusterK,agnes,clara,daisy, \cr diana,fanny,mona,pam,gmm,kmeans_arma,kmeans_rcpp,mini_kmeans,gama,\cr pvclust.}
 
-\item{min}{minimum number of clusters. at least one must be.}
+\item{min}{An integer with the minimum number of clusters This data is necessary to indicate the minimum number of clusters when grouping the data. The default value is \code{3}.}
 
-\item{max}{maximum number of clusters. cluster_max must be greater or equal cluster_min.}
+\item{max}{An integer with the maximum number of clusters. This data is necessary to indicate the maximum number of clusters when grouping the data. The default value is \code{4}.}
 
-\item{metrics}{array defining the metrics avalaible in the package. The night metrics implemented are: entropy, variation_information,\cr
+\item{metrics}{Character vector with the metrics implemented to evaluate the distribution of the data in clusters. \code{NULL} The night metrics implemented are: entropy, variation_information,\cr
 precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.}
 
-\item{variables}{accepts Boolean values. If true as a result it shows the variable that behaves best otherwise it shows the value of the executed metric.}
+\item{variables}{an boolean which indicates that if we want to show as a result the variables of the datasets or the numerical value of the calculation of the metrics. The default value is \code{F}.}
 }
 \value{
-returns a matrix with the result of running all the metrics of the algorithms contained in the packages we indicated.
+returns a matrix with the result of running all the metrics of the algorithms contained in the packages we indicated. We also obtain information with the types of metrics, algorithms and packages executed in addition to being able to export the results in latex format.
+\enumerate{
+    \itemize{
+       \item result It is a list with the algorithms, metrics and variables defined in the execution of the algorithm.
+       \item hasInternalMetrics Boolean field to indicate if there are internal metrics such as: dunn, silhoutte and connectivity.
+       \item hasExternalMetrics Boolean field to indicate if there are external metrics such as: precision, recall, f-measure, entropy, variation information and fowlkes-mallows.
+       \item algorithms_execute Vector de caracteres con los algoritmos ejecutados. Dichos algoritmos han sido mencionados en la definición de los parámetros.
+       \item measures_execute Character vector with the measures executed. These measures have been mentioned in the definition of the parameters.
+       \item tableExternal It's a string of characters. It contains the results of the external evaluation measures in latex format. This table can be exported to a file using the \code{export_file_external}.
+       \item tableInternal It's a string of characters. It contains the results of the internal evaluation measures in latex format. This table can be exported to a file using the \code{export_file_internal}.
+    }
+}
 }
 \description{
-Execute a list of datasets from a route or a dataframe
+Discovering the behavior of variables in a set of clustering packages based on evaluation metrics.
 }
+\details{
+The operation of this algorithm is to evaluate how the variables of a dataset or a set of datasets behave in
+different grouping algorithms. To do this, it is necessary to indicate the type of evaluation you want to make on the
+distribution of the data. To be able to execute the algorithm it is necessary to indicate the number of clusters
+\code{min} and \code{max}, the algorithms \code{algorithm} or packages \code{packages} that we want to cluster,
+the metrics \code{metrics} and if we want that the results of evaluation are the own classified variables or numerical values \code{variables}.
+}
+\section{How does this algorithm work?}{
+
+This algorithm improves and complements existing implementations of clustering algorithms.
+
+The approaches that exist, are many algorithms that run parallel to the algorithms, without being able to be compared
+between them. In addition, it was necessary to indicate which variable of the dataset is required to be executed.
+In addition, depending on the package there are some implementations or others to evaluate the groupings of data,
+so it is sometimes complicated to compare the groupings between different packages.
+
+With this algorithm we can solve the problems mentioned above and determine which algorithm has the best behavior
+for the set of variables as well as the most efficient number of clusters.
+}
+
 \examples{
 
-clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm', variables = TRUE)
+clustering(
+    df = cluster::agriculture,
+    min = 4,
+    max = 5,
+    algorith='gmm',
+    variables = TRUE
+)
+
+clustering(
+   df = Clustering::weather,
+   min = 2
+   max = 3,
+   algorithm = c("gmm","kmeans_rcpp",
+   metrics = c("precision","recall")
+)
 
 }

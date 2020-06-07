@@ -2,18 +2,18 @@
 % Please edit documentation in R/app.R
 \name{evaluate_best_validation_internal_by_metrics}
 \alias{evaluate_best_validation_internal_by_metrics}
-\title{Method that calculates which algorithm and which metric behaves best for the datasets provided}
+\title{Method that calculates which algorithm and which metric behaves best for the datasets provided.}
 \usage{
 evaluate_best_validation_internal_by_metrics(df)
 }
 \arguments{
-\item{df}{data matrix or data frame}
+\item{df}{data matrix or data frame with the result of running the clustering algorithm.}
 }
 \value{
-returns a table with the algorithm and the best performing metric for the datasets
+returns a table with the algorithm and the best performing metric for the datasets.
 }
 \description{
-Method that calculates which algorithm and which metric behaves best for the datasets provided
+Method that calculates which algorithm and which metric behaves best for the datasets provided.
 }
 \examples{
 
@@ -21,4 +21,7 @@ df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', va
 
 evaluate_best_validation_internal_by_metrics(df)
 
+df = clustering(df = Clustering::weather, min = 4, max = 5, algorithm = c("gmm", "kmeans_rcpp"), variables = F)
+
+evaluate_best_validation_internal_by_metrics(df)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/app.R
 \name{execute_datasets}
 \alias{execute_datasets}
-\title{Method of performing information processing}
+\title{Method of performing information processing.}
 \usage{
 execute_datasets(
   path,
@@ -36,6 +36,6 @@ execute_datasets(
 returns a matrix with the result of running all the metrics of the algorithms contained in the packages we indicated. It also provides two files called internal and external in latex format with the results of the execution.
 }
 \description{
-Method of performing information processing
+Method of performing information processing.
 }
 \keyword{internal}

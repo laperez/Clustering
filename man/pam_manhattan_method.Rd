@@ -9,7 +9,7 @@ pam_manhattan_method(dt, clusters, columnClass, metric)
 \arguments{
 \item{clusters}{number of clusters}
 
-\item{columnClass}{number of column, for example if a dataset has five column,
+\item{columnClass}{is an integer with the number of columns, for example if a dataset has five column,
 we can select column four to calculate alidation}
 
 \item{metric}{metrics avalaible in the package. The metrics implemented are: entropy, variation_information,precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.}

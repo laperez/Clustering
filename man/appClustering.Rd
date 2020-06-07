@@ -2,10 +2,15 @@
 % Please edit documentation in R/app.R
 \name{appClustering}
 \alias{appClustering}
-\title{Method running the web interface of the clustering package}
+\title{Method that allows us to execute the main algorithm in graphic interface mode instead of through the console.}
 \usage{
 appClustering()
 }
 \description{
-Method running the web interface of the clustering package
+Method that allows us to execute the main algorithm in graphic interface mode instead of through the console.
+}
+\examples{
+
+appClustering()
+
 }

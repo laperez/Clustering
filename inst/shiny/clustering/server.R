@@ -1,17 +1,11 @@
-#
-# This is the server logic of a Shiny web application. You can run the
-# application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
+# Load library
 library(shiny)
 library(shinyjs)
 library(dplyr)
 library(shinyalert)
 library(ggplot2)
+
+# Function that manages the combo data with the external metrics
 
 fillComboExternalGraphs <- function(metrics) {
     '%not in%' <- Negate('%in%')
@@ -36,6 +30,8 @@ fillComboExternalGraphs <- function(metrics) {
     return (result)
 }
 
+# Function that manages the combo data with the internal metrics
+
 fillComboInternalGraphs <- function(metrics) {
     '%not in%' <- Negate('%in%')
 
@@ -56,11 +52,12 @@ fillComboInternalGraphs <- function(metrics) {
 
 df_result <- NULL
 
-# Define server logic required to draw a histogram
+# Define server logic required to manages the processing of user interface components.
 shinyServer(function(input, output, session) {
 
     df_result <<- NULL
 
+    # File management component
     shinyDirChoose(
         input,
         'dir',
@@ -76,7 +73,7 @@ shinyServer(function(input, output, session) {
         global$datapath
     })
 
-
+    # Reactive event for the management of external image loading
     observeEvent(input$image1, {
         if (!is.null(input$image1) &&
             input$image1 != "" && !is.null(df_result)) {
@@ -86,6 +83,7 @@ shinyServer(function(input, output, session) {
         }
     })
 
+    # Reactive event for the management of internal image loading
     observeEvent(input$image2, {
         if (!is.null(input$image2) &&
             input$image2 != "" && !is.null(df_result)) {
@@ -95,6 +93,7 @@ shinyServer(function(input, output, session) {
         }
     })
 
+    # Reactive event to manage how the data will be loaded, i.e. if we are going to work with a dataframe or a file directory
     observeEvent(input$typeExecution, {
         if (input$typeExecution == "data") {
             shinyjs::disable("dir")
@@ -105,6 +104,9 @@ shinyServer(function(input, output, session) {
         }
     })
 
+
+    # Reactive event to manage the algorithm combo, that is, if we select an algorithm through this
+    # event we will select the package that contains that algorithm.
     observeEvent(
         ignoreNULL = F,
         ignoreInit = T,
@@ -314,10 +316,13 @@ shinyServer(function(input, output, session) {
         }
     )
 
+    # Event that will launch the execution of the algorithm every time it detects a change in any component.
     observe({
         generate_information()
     })
 
+    # Event that manages the package component. Each vex that selects a bundle will mark
+    # the algorithms corresponding to the bundle.
     observeEvent(
         ignoreNULL = F,
         ignoreInit = T,
@@ -531,10 +536,12 @@ shinyServer(function(input, output, session) {
         }
     )
 
+    # Renders the text containing the directory name
     renderText({
         input$typeExecution
     })
 
+    # Event managed by the component that controls the management of directories
     observeEvent(
         ignoreNULL = T,
         eventExpr = {
@@ -551,8 +558,10 @@ shinyServer(function(input, output, session) {
     )
 
 
-
+    # Main function in charge of obtaining the values needed to launch the clustering algorithm
     generate_information <- function() {
+
+        # Initialization of variables
 
         output$tableClustering <- NULL
 
@@ -574,6 +583,8 @@ shinyServer(function(input, output, session) {
         shinyjs::hide("plotImage2")
         shinyjs::hide("best_evaluation2")
 
+        # If the required fields are not marked, this triggers an exception
+
         if ((is.null(input$packages) ||
              input$packages == "") ||
             (is.null(input$algorithm) ||
@@ -590,6 +601,8 @@ shinyServer(function(input, output, session) {
             if (input$visible == "TRUE")
                 visible = T
 
+            # We check if the user has marked that the data should be uploaded from a directory
+            # or a dataframe
 
             if (input$typeExecution == "data") {
                 data = NULL
@@ -613,6 +626,9 @@ shinyServer(function(input, output, session) {
                 }
 
                 tryCatch({
+
+                    # Execute clustering algorithm to dataset indicate
+
                     df_result <<-
                         Clustering::clustering(
                             df = data,
@@ -625,8 +641,12 @@ shinyServer(function(input, output, session) {
 
                     columnnames <- colnames(df_result$result)
 
+                    # Exclude ranking column.
+
                     columnnames <-
                         columnnames[columnnames != "Ranking"]
+
+                    # Check if has external or internal column
 
                     if (isFALSE(df_result$hasInternalMetrics)) {
                         columnnames <- columnnames[columnnames != "timeInternal"]
@@ -636,9 +656,13 @@ shinyServer(function(input, output, session) {
                         columnnames <- columnnames[columnnames != "timeExternal"]
                     }
 
+                    # Select only values classified like first
+
                     result <-
                         dplyr::filter(as.data.frame(df_result$result),
                                       Ranking == 1) %>% select(columnnames)
+
+                    # Render tables and graphics
 
                     output$tableClustering <-
                         DT::renderDataTable(result,
@@ -725,6 +749,8 @@ shinyServer(function(input, output, session) {
                     }
                 },
 
+                # When you raise an exception, it initializes the table and hides the load component
+
                 error = function(e) {
                     output$tableClustering <- DT::renderDataTable(NULL,
                                                                   options = list(
@@ -761,6 +787,9 @@ shinyServer(function(input, output, session) {
                 })
 
             } else {
+
+                # Execute this part when the user select a directory with the files a execute
+
                 tryCatch({
                     df_result <<-
                         Clustering::clustering(
@@ -774,8 +803,12 @@ shinyServer(function(input, output, session) {
 
                     columnnames <- colnames(df_result$result)
 
+                    #Exclude ranking column
+
                     columnnames <-
                         columnnames[columnnames != "Ranking"]
+
+                    # Verify if contain internal or external values.
 
                     if (isFALSE(df_result$hasInternalMetrics)) {
                         columnnames <- columnnames[columnnames != "timeInternal"]
@@ -788,6 +821,8 @@ shinyServer(function(input, output, session) {
                     result <-
                         dplyr::select(as.data.frame(df_result$result),
                                       columnnames)
+
+                    # Render tables and plots.
 
                     output$tableClustering <-
                         DT::renderDataTable(result,

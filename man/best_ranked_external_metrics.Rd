@@ -2,22 +2,27 @@
 % Please edit documentation in R/app.R
 \name{best_ranked_external_metrics}
 \alias{best_ranked_external_metrics}
-\title{Method that calculates the best rated external metrics}
+\title{Method that calculates the best rated external metrics.}
 \usage{
 best_ranked_external_metrics(df)
 }
 \arguments{
-\item{df}{data matrix or data frame}
+\item{df}{data matrix or data frame with the result of running the clustering algorithm.}
 }
 \value{
-returns a table with the external metrics that has the best rating
+returns a table with the external metrics that has the best rating.
 }
 \description{
-Method that calculates the best rated external metrics
+Method that calculates the best rated external metrics.
 }
 \examples{
 
-df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
+df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = T)
+
+best_ranked_external_metrics(df)
+
+
+df = clustering(df = Clustering::weather, min = 4, max = 5, algorithm = c("gmm", "kmeans_rcpp"), variables = F)
 
 best_ranked_external_metrics(df)
 

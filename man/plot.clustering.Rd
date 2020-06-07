@@ -20,4 +20,8 @@ df <- clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm')
 
 plot.clustering(df,"precision")
 
+df <- clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm')
+
+plot.clustering(df,"recall")
+
 }
