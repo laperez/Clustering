@@ -1,6 +1,21 @@
 {
     "debugBreakpointsState" : {
         "breakpoints" : [
+            {
+                "editor_line_number" : 15,
+                "editor_state" : 1,
+                "function_name" : "gama",
+                "function_steps" : "2",
+                "id" : 0,
+                "is_package_breakpoint" : true,
+                "is_pending_debug_completion" : false,
+                "line_number" : 15,
+                "needs_updated_steps" : false,
+                "package_name" : "Clustering",
+                "path" : "~/Desktop/Doctorado Ujaen/Paquetes R/clustering/R/gama.R",
+                "state" : 1,
+                "type" : 0
+            }
         ]
     }
 }

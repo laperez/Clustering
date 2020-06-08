@@ -19,8 +19,15 @@ Method that returns a table with the algorithm and the metric indicated as param
 }
 \examples{
 
-df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
+result = clustering(
+               df = cluster::agriculture,
+               min = 4,
+               max = 5,
+               algorithm='gmm',
+               metrics=c("silhouette"),
+               variables = FALSE
+         )
 
-result_internal_algorithm_by_metric(df,'gmm')
+result_internal_algorithm_by_metric(result,'gmm')
 
 }

@@ -17,12 +17,15 @@ Method that calculates which algorithm behaves best for the datasets provided.
 }
 \examples{
 
-df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
+result = clustering(
+               df = cluster::agriculture,
+               min = 4,
+               max = 5,
+               algorithm='kmeans_rcpp',
+               metrics=c("silhouette"),
+               variables = TRUE
+         )
 
-evaluate_validation_internal_by_metrics(df)
-
-df = clustering(df = Clustering::weather, min = 4, max = 5, algorithm = c("gmm", "kmeans_rcpp"), variables = F)
-
-evaluate_validation_internal_by_metrics(df)
+evaluate_validation_internal_by_metrics(result)
 
 }

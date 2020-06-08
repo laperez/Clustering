@@ -7,7 +7,7 @@
 best_ranked_external_metrics(df)
 }
 \arguments{
-\item{df}{data matrix or data frame with the result of running the clustering algorithm.}
+\item{df}{matrix or data frame with the result of running the clustering algorithm.}
 }
 \value{
 returns a table with the external metrics that has the best rating.
@@ -17,13 +17,15 @@ Method that calculates the best rated external metrics.
 }
 \examples{
 
-df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = T)
+result = clustering(
+               df = cluster::agriculture,
+               min = 4,
+               max = 5,
+               algorithm='gmm',
+               metrics=c("recall"),
+               variables = FALSE
+         )
 
-best_ranked_external_metrics(df)
-
-
-df = clustering(df = Clustering::weather, min = 4, max = 5, algorithm = c("gmm", "kmeans_rcpp"), variables = F)
-
-best_ranked_external_metrics(df)
+best_ranked_external_metrics(df = result)
 
 }

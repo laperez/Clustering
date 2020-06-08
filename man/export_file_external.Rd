@@ -4,7 +4,7 @@
 \alias{export_file_external}
 \title{Method that exports the results of external measurements in latex format to a file}
 \usage{
-export_file_external(df, path)
+export_file_external(df, path = NULL)
 }
 \arguments{
 \item{df}{is a dataframe that contains as a parameter a table in latex format with the results of the external validations}
@@ -13,4 +13,18 @@ export_file_external(df, path)
 }
 \description{
 Method that exports the results of external measurements in latex format to a file
+}
+\examples{
+result = clustering(
+               df = cluster::agriculture,
+               min = 4,
+               max = 5,
+               algorithm='gmm',
+               metrics=c("precision"),
+               variables = TRUE
+         )
+
+export_file_external(result)
+on.exit(file.remove("ExtneralReport.txt"))
+
 }

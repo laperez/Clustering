@@ -7,9 +7,6 @@
 #' @export
 #' appClustering
 #'
-#' @examples
-#'
-#' appClustering()
 #'
 appClustering <- function() {
   appDir <- system.file("shiny", "clustering", package = "Clustering")
@@ -129,21 +126,26 @@ appClustering <- function() {
 #' @examples
 #'
 #' clustering(
-#'     df = cluster::agriculture,
-#'     min = 4,
-#'     max = 5,
-#'     algorith='gmm',
-#'     variables = TRUE
+#'      df = cluster::agriculture,
+#'      min = 4,
+#'      max = 5,
+#'      algorithm='gmm',
+#'      metrics='precision',
+#'      variables = TRUE
 #' )
 #'
+#'\dontrun{
 #' clustering(
-#'    df = Clustering::weather,
-#'    min = 2
-#'    max = 3,
-#'    algorithm = c("gmm","kmeans_rcpp",
-#'    metrics = c("precision","recall")
+#'       df = Clustering::weather,
+#'       min = 2,
+#'       max = 3,
+#'       algorithm= c("gmm","kmeans_arma"),
+#'       metrics= c("precision","dunn"),
+#'       variables = FALSE
 #' )
+#' }
 #'
+
 clustering <- function(path = NULL,
                        df = NULL,
                        packages = NULL,
@@ -151,7 +153,7 @@ clustering <- function(path = NULL,
                        min = 3,
                        max = 4,
                        metrics = NULL,
-                       variables = F) {
+                       variables = FALSE) {
   ## Validation of input parameters
 
   if (is.null(path) && is.null(df)) {
@@ -720,14 +722,7 @@ execute_package_parallel <-
   }
 
 
-
-#' Method that shows on screen the result of the clustring execution.
-#'
-#' @param x list containing the result of the clustering run.
-#' @param ... other params.
-#'
-#'
-print.clustering <- function(x, ...)
+print.clustering <- function(x,...)
 {
   cat("Result:	\n")
   print(x$result)
@@ -757,7 +752,7 @@ print.clustering <- function(x, ...)
 
 #' Method that calculates the best rated external metrics.
 #'
-#' @param df  data matrix or data frame with the result of running the clustering algorithm.
+#' @param df matrix or data frame with the result of running the clustering algorithm.
 #'
 #' @return returns a table with the external metrics that has the best rating.
 #'
@@ -766,14 +761,16 @@ print.clustering <- function(x, ...)
 #'
 #' @examples
 #'
-#' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = T)
+#' result = clustering(
+#'                df = cluster::agriculture,
+#'                min = 4,
+#'                max = 5,
+#'                algorithm='gmm',
+#'                metrics=c("recall"),
+#'                variables = FALSE
+#'          )
 #'
-#' best_ranked_external_metrics(df)
-#'
-#'
-#' df = clustering(df = Clustering::weather, min = 4, max = 5, algorithm = c("gmm", "kmeans_rcpp"), variables = F)
-#'
-#' best_ranked_external_metrics(df)
+#' best_ranked_external_metrics(df = result)
 #'
 
 best_ranked_external_metrics <- function (df) {
@@ -785,15 +782,7 @@ best_ranked_external_metrics <- function (df) {
   result
 }
 
-#' Method that shows on screen the result of best rated external metrics.
-#'
-#' @param x list containing the result of the best_ranked_external_metrics run.
-#' @param ... other params.
-#'
-#' @keywords internal
-#'
-
-print.best_ranked_external_metrics <- function(x)
+print.best_ranked_external_metrics <- function(x,...)
 {
   cat("Result:	\n")
   print(x$result)
@@ -812,13 +801,16 @@ print.best_ranked_external_metrics <- function(x)
 #'
 #' @examples
 #'
-#' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = T)
+#' result = clustering(
+#'                df = cluster::agriculture,
+#'                min = 4,
+#'                max = 5,
+#'                algorithm='gmm',
+#'                metrics=c("dunn"),
+#'                variables = FALSE
+#'          )
 #'
-#' best_ranked_internal_metrics(df)
-#'
-#' df = clustering(df = Clustering::weather, min = 4, max = 5, algorithm = c("gmm", "kmeans_rcpp"), variables = F)
-#'
-#' best_ranked_internal_metrics(df)
+#' best_ranked_internal_metrics(result)
 #'
 
 best_ranked_internal_metrics <- function (df) {
@@ -829,14 +821,6 @@ best_ranked_internal_metrics <- function (df) {
 
   result
 }
-
-#' Method that shows on screen the result of best rated internal metrics.
-#'
-#' @param x list containing the result of the best_ranked_internal_metrics run.
-#' @param ... other params.
-#'
-#' @keywords internal
-#'
 
 print.best_ranked_internal_metrics <- function(x, ...)
 {
@@ -857,13 +841,16 @@ print.best_ranked_internal_metrics <- function(x, ...)
 #'
 #' @examples
 #'
-#' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
+#' result = clustering(
+#'                df = cluster::agriculture,
+#'                min = 4,
+#'                max = 5,
+#'                algorithm='kmeans_arma',
+#'                metrics=c("precision"),
+#'                variables = TRUE
+#'          )
 #'
-#' evaluate_validation_external_by_metrics(df)
-#'
-#' df = clustering(df = Clustering::weather, min = 4, max = 5, algorithm = c("gmm", "kmeans_rcpp"), variables = F)
-#'
-#' evaluate_validation_external_by_metrics(df)
+#' evaluate_validation_external_by_metrics(result)
 #'
 
 evaluate_validation_external_by_metrics <- function (df) {
@@ -876,15 +863,7 @@ evaluate_validation_external_by_metrics <- function (df) {
   result
 }
 
-#' Method that shows on screen the result of algorithm behaves best for the datasets provided.
-#'
-#' @param x list containing the result of the evaluate_validation_external_by_metrics run.
-#' @param ... other params.
-#'
-#' @keywords internal
-#'
-
-print.evaluate_validation_external_by_metrics <- function(x, ...)
+print.evaluate_validation_external_by_metrics <- function(x,...)
 {
   cat("Result:	\n")
   print(x$result, ...)
@@ -903,13 +882,16 @@ print.evaluate_validation_external_by_metrics <- function(x, ...)
 #'
 #' @examples
 #'
-#' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
+#' result = clustering(
+#'                df = cluster::agriculture,
+#'                min = 4,
+#'                max = 5,
+#'                algorithm='kmeans_rcpp',
+#'                metrics=c("silhouette"),
+#'                variables = TRUE
+#'          )
 #'
-#' evaluate_validation_internal_by_metrics(df)
-#'
-#' df = clustering(df = Clustering::weather, min = 4, max = 5, algorithm = c("gmm", "kmeans_rcpp"), variables = F)
-#'
-#' evaluate_validation_internal_by_metrics(df)
+#' evaluate_validation_internal_by_metrics(result)
 #'
 
 evaluate_validation_internal_by_metrics <- function (df) {
@@ -922,15 +904,7 @@ evaluate_validation_internal_by_metrics <- function (df) {
   result
 }
 
-#' Method that shows on screen the result of algorithm behaves best for the datasets provided.
-#'
-#' @param x list containing the result of the evaluate_validation_internal_by_metrics run.
-#' @param ... other params.
-#'
-#' @keywords internal
-#'
-
-print.evaluate_validation_internal_by_metrics <- function(x, ...)
+print.evaluate_validation_internal_by_metrics <- function(x,...)
 {
   cat("Result:	\n")
   print(x$result, ...)
@@ -949,13 +923,16 @@ print.evaluate_validation_internal_by_metrics <- function(x, ...)
 #'
 #' @examples
 #'
-#' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
+#' result = clustering(
+#'                df = cluster::agriculture,
+#'                min = 4,
+#'                max = 5,
+#'                algorithm='kmeans_rcpp',
+#'                metrics=c("f_measure"),
+#'                variables = TRUE
+#'          )
 #'
-#' evaluate_best_validation_external_by_metrics(df)
-#'
-#' df = clustering(df = Clustering::weather, min = 4, max = 5, algorithm = c("gmm", "kmeans_rcpp"), variables = F)
-#'
-#' evaluate_best_validation_external_by_metrics(df)
+#' evaluate_best_validation_external_by_metrics(result)
 #'
 
 evaluate_best_validation_external_by_metrics <- function(df) {
@@ -968,16 +945,9 @@ evaluate_best_validation_external_by_metrics <- function(df) {
   result
 }
 
-#' Method that shows on screen which algorithm and which metric behaves best for the datasets provided.
-#'
-#' @param x list containing the result of the evaluate_best_validation_external_by_metrics run.
-#' @param ... other params.
-#'
-#' @keywords internal
-#'
 
 print.evaluate_best_validation_external_by_metrics <-
-  function(x, ...)
+  function(x,...)
   {
     cat("Result:	\n")
     print(x$result, ...)
@@ -996,13 +966,20 @@ print.evaluate_best_validation_external_by_metrics <-
 #'
 #' @examples
 #'
-#' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
+#' result = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
 #'
-#' evaluate_best_validation_internal_by_metrics(df)
+#' evaluate_best_validation_internal_by_metrics(result)
 #'
-#' df = clustering(df = Clustering::weather, min = 4, max = 5, algorithm = c("gmm", "kmeans_rcpp"), variables = F)
+#' result = clustering(
+#'                df = cluster::agriculture,
+#'                min = 4,
+#'                max = 5,
+#'                algorithm='gmm',
+#'                metrics=c("connectivity"),
+#'                variables = TRUE
+#'          )
 #'
-#' evaluate_best_validation_internal_by_metrics(df)
+#' evaluate_best_validation_internal_by_metrics(result)
 
 evaluate_best_validation_internal_by_metrics <- function(df) {
   df_best_ranked <- best_ranked_internal_metrics(df)
@@ -1014,16 +991,8 @@ evaluate_best_validation_internal_by_metrics <- function(df) {
   result
 }
 
-#' Method that shows on screen which algorithm and which metric behaves best for the datasets provided.
-#'
-#' @param x list containing the result of the evaluate_best_validation_internal_by_metrics run.
-#' @param ... other params.
-#'
-#' @keywords internal
-#'
-
 print.evaluate_best_validation_internal_by_metrics <-
-  function(x, ...)
+  function(x,...)
   {
     cat("Result:	\n")
     print(x$result, ...)
@@ -1043,9 +1012,16 @@ print.evaluate_best_validation_internal_by_metrics <-
 #'
 #' @examples
 #'
-#' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
+#' result = clustering(
+#'                df = cluster::agriculture,
+#'                min = 4,
+#'                max = 5,
+#'                algorithm='gmm',
+#'                metrics=c("precision"),
+#'                variables = FALSE
+#'          )
 #'
-#' result_external_algorithm_by_metric(df,'daisy')
+#' result_external_algorithm_by_metric(result,'daisy')
 #'
 
 result_external_algorithm_by_metric <- function(df, algorithm) {
@@ -1058,15 +1034,7 @@ result_external_algorithm_by_metric <- function(df, algorithm) {
   result
 }
 
-#' Method that shows on screen the table with the algorithm and the metric indicated as parameters.
-#'
-#' @param x list containing the result of the result_external_algorithm_by_metric run.
-#' @param ... other params.
-#'
-#' @keywords internal
-#'
-
-print.result_external_algorithm_by_metric <- function(x, ...)
+print.result_external_algorithm_by_metric <- function(x,...)
 {
   cat("Result:	\n")
   print(x$result, ...)
@@ -1086,9 +1054,16 @@ print.result_external_algorithm_by_metric <- function(x, ...)
 #'
 #' @examples
 #'
-#' df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
+#' result = clustering(
+#'                df = cluster::agriculture,
+#'                min = 4,
+#'                max = 5,
+#'                algorithm='gmm',
+#'                metrics=c("silhouette"),
+#'                variables = FALSE
+#'          )
 #'
-#' result_internal_algorithm_by_metric(df,'gmm')
+#' result_internal_algorithm_by_metric(result,'gmm')
 #'
 
 result_internal_algorithm_by_metric <- function(df, algorithm) {
@@ -1101,15 +1076,7 @@ result_internal_algorithm_by_metric <- function(df, algorithm) {
   result
 }
 
-#' Method that shows on screen the table with the algorithm and the metric indicated as parameters
-#'
-#' @param x list containing the result of the result_internal_algorithm_by_metric run
-#' @param ... other params
-#'
-#' @keywords internal
-#'
-
-print.result_internal_algorithm_by_metric <- function(x, ...)
+print.result_internal_algorithm_by_metric <- function(x,...)
 {
   cat("Result:	\n")
   print(x$result, ...)
@@ -1122,26 +1089,29 @@ print.result_internal_algorithm_by_metric <- function(x, ...)
 #' @param df df data matrix or data frame
 #' @param metric string with the name of the metric select to evaluate
 #'
-#' @export
-#'
-#' plot.clustering
-#'
 #' @importFrom
 #'
 #' ggplot2 ggplot aes_string geom_point xlab ylab labs scale_y_continuous
 #'
+#' @export
+#'
+#' plot_clustering
+#'
 #' @examples
 #'
-#' df <- clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm')
+#' result = clustering(
+#'                df = cluster::agriculture,
+#'                min = 4,
+#'                max = 5,
+#'                algorithm='gmm',
+#'                metrics=c("precision"),
+#'                variables = TRUE
+#'          )
 #'
-#' plot.clustering(df,"precision")
-#'
-#' df <- clustering(df = cluster::agriculture, min = 4, max = 5, algorith='gmm')
-#'
-#' plot.clustering(df,"recall")
+#' plot_clustering(result,"precision")
 #'
 
-plot.clustering <- function(df, metric) {
+plot_clustering <- function(df,metric) {
   if (is.null(metric))
     stop("Metric field must be filled in")
 
@@ -1213,13 +1183,21 @@ plot.clustering <- function(df, metric) {
 #'
 #' export_file_external
 #'
-#' @example
+#' @examples
+#' result = clustering(
+#'                df = cluster::agriculture,
+#'                min = 4,
+#'                max = 5,
+#'                algorithm='gmm',
+#'                metrics=c("precision"),
+#'                variables = TRUE
+#'          )
 #'
-#' export_file_external(df,'/Users')
-#'
+#' export_file_external(result)
+#' on.exit(file.remove("ExtneralReport.txt"))
 #'
 
-export_file_external <- function(df, path) {
+export_file_external <- function(df, path=NULL) {
   '%not in%' <- Negate('%in%')
 
   if (is.null(df) ||
@@ -1236,16 +1214,16 @@ export_file_external <- function(df, path) {
   if ("xtable" %not in% class(df$tableExternal))
     stop ("The df$tableExternal field must be a dataframe or xtable")
 
-  if (is.null(path) ||
-      length(path) < 1)
-    stop ("The path field must be filled in")
-
   if (!is.null(path) &&
       !dir.exists(path))
     stop ("The path must be a valid directory")
 
-  print(df$tableExternal,
-        file = paste(path, CONST_NAME_EXTERNAL_FILA_LATEX))
+  if (!is.null(path)){
+    print(df$tableExternal,
+          file = paste(path, CONST_NAME_EXTERNAL_FILA_LATEX))
+  } else print(df$tableExternal,
+               file = CONST_NAME_EXTERNAL_FILA_LATEX)
+
 
 }
 
@@ -1259,13 +1237,21 @@ export_file_external <- function(df, path) {
 #'
 #' export_file_internal
 #'
-#' @example
+#' @examples
+#' result = clustering(
+#'                df = cluster::agriculture,
+#'                min = 4,
+#'                max = 5,
+#'                algorithm='gmm',
+#'                metrics=c("dunn"),
+#'                variables = TRUE
+#'          )
 #'
-#' export_file_internal(df,'/Users')
-#'
+#' export_file_internal(result)
+#' on.exit(file.remove("InternalReport.txt"))
 #'
 
-export_file_internal <- function(df, path) {
+export_file_internal <- function(df, path=NULL) {
   '%not in%' <- Negate('%in%')
 
   if (is.null(df) ||
@@ -1282,15 +1268,17 @@ export_file_internal <- function(df, path) {
   if ("xtable" %not in% class(df$tableInternal))
     stop ("The df$tableInternal field must be a dataframe or xtable")
 
-  if (is.null(path) ||
-      length(path) < 1)
-    stop ("The path field must be filled in")
-
   if (!is.null(path) &&
       !dir.exists(path))
     stop ("The path must be a valid directory")
 
-  print(df$tableInternal,
-        file = paste(path, CONST_NAME_INTERNAL_REPORT_FILE))
+  if (!is.null(path)){
+    print(df$tableInternal,
+          file = paste(path, CONST_NAME_INTERNAL_REPORT_FILE))
+  } else {
+    print(df$tableInternal,
+          file = CONST_NAME_INTERNAL_REPORT_FILE)
+  }
+
 
 }

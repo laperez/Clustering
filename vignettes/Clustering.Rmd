@@ -190,7 +190,7 @@ If we want to see graphically the representation of any metric as a function of 
 
 ```{r fig.show='hold', fig.width=7, fig.align ='center', warning=F }
 
-plot(df,"variation_information")
+Clustering::plot_clustering(df,"variation_information")
 
 ```
 

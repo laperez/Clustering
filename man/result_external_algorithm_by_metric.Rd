@@ -19,8 +19,15 @@ Method that returns a table with the algorithm and the metric indicated as param
 }
 \examples{
 
-df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = TRUE)
+result = clustering(
+               df = cluster::agriculture,
+               min = 4,
+               max = 5,
+               algorithm='gmm',
+               metrics=c("precision"),
+               variables = FALSE
+         )
 
-result_external_algorithm_by_metric(df,'daisy')
+result_external_algorithm_by_metric(result,'daisy')
 
 }

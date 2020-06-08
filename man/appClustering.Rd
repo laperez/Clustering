@@ -9,8 +9,3 @@ appClustering()
 \description{
 Method that allows us to execute the main algorithm in graphic interface mode instead of through the console.
 }
-\examples{
-
-appClustering()
-
-}

@@ -12,7 +12,7 @@ clustering(
   min = 3,
   max = 4,
   metrics = NULL,
-  variables = F
+  variables = FALSE
 )
 }
 \arguments{
@@ -75,19 +75,23 @@ for the set of variables as well as the most efficient number of clusters.
 \examples{
 
 clustering(
-    df = cluster::agriculture,
-    min = 4,
-    max = 5,
-    algorith='gmm',
-    variables = TRUE
+     df = cluster::agriculture,
+     min = 4,
+     max = 5,
+     algorithm='gmm',
+     metrics='precision',
+     variables = TRUE
 )
 
+\dontrun{
 clustering(
-   df = Clustering::weather,
-   min = 2
-   max = 3,
-   algorithm = c("gmm","kmeans_rcpp",
-   metrics = c("precision","recall")
+      df = Clustering::weather,
+      min = 2,
+      max = 3,
+      algorithm= c("gmm","kmeans_arma"),
+      metrics= c("precision","dunn"),
+      variables = FALSE
 )
+}
 
 }

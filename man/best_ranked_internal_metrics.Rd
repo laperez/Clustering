@@ -17,12 +17,15 @@ Method that calculates the best rated internal metrics.
 }
 \examples{
 
-df = clustering(df = cluster::agriculture, min = 4, max = 5, algorithm='gmm', variables = T)
+result = clustering(
+               df = cluster::agriculture,
+               min = 4,
+               max = 5,
+               algorithm='gmm',
+               metrics=c("dunn"),
+               variables = FALSE
+         )
 
-best_ranked_internal_metrics(df)
-
-df = clustering(df = Clustering::weather, min = 4, max = 5, algorithm = c("gmm", "kmeans_rcpp"), variables = F)
-
-best_ranked_internal_metrics(df)
+best_ranked_internal_metrics(result)
 
 }

@@ -4,7 +4,7 @@
 \alias{export_file_internal}
 \title{Method that exports the results of internal measurements in latex format to a file}
 \usage{
-export_file_internal(df, path)
+export_file_internal(df, path = NULL)
 }
 \arguments{
 \item{df}{is a dataframe that contains as a parameter a table in latex format with the results of the internal validations}
@@ -13,4 +13,18 @@ export_file_internal(df, path)
 }
 \description{
 Method that exports the results of internal measurements in latex format to a file
+}
+\examples{
+result = clustering(
+               df = cluster::agriculture,
+               min = 4,
+               max = 5,
+               algorithm='gmm',
+               metrics=c("dunn"),
+               variables = TRUE
+         )
+
+export_file_internal(result)
+on.exit(file.remove("InternalReport.txt"))
+
 }
