@@ -25,6 +25,6 @@ result = clustering(
          )
 
 export_file_internal(result)
-on.exit(file.remove("InternalReport.txt"))
+file.remove("internal_data.tex")
 
 }

@@ -14,7 +14,7 @@
 #' @return List containing the relation string,
 #'  a named vector for attributes and a data.frame
 #'  for the data section
-#' @keywords internal
+#' @noRd
 #'
 
 read_arff <- function(arff_file) {

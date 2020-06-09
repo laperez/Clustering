@@ -25,6 +25,6 @@ result = clustering(
          )
 
 export_file_external(result)
-on.exit(file.remove("ExtneralReport.txt"))
+file.remove("external_data.tex")
 
 }

@@ -2,17 +2,17 @@
 % Please edit documentation in R/app.R
 \name{plot_clustering}
 \alias{plot_clustering}
-\title{Method that graphically compares external evaluation metrics}
+\title{Method that graphically compares external and internal evaluation metrics.}
 \usage{
 plot_clustering(df, metric)
 }
 \arguments{
-\item{df}{df data matrix or data frame}
+\item{df}{data matrix or data frame with the result of running the clustering algorithm.}
 
-\item{metric}{string with the name of the metric select to evaluate}
+\item{metric}{string with the name of the metric select to evaluate.}
 }
 \description{
-Method that graphically compares external evaluation metrics
+Method that graphically compares external and internal evaluation metrics.
 }
 \examples{
 
@@ -25,6 +25,6 @@ result = clustering(
                variables = TRUE
          )
 
-plot_clustering(result,"precision")
+plot_clustering(result,c("precision"))
 
 }

@@ -53,8 +53,7 @@ appClustering <- function() {
 #'
 #'
 #' @return returns a matrix with the result of running all the metrics of the algorithms contained in the packages we indicated. We also obtain information with the types of metrics, algorithms and packages executed in addition to being able to export the results in latex format.
-#' \enumerate{
-#'     \itemize{
+#' \itemize{
 #'        \item result It is a list with the algorithms, metrics and variables defined in the execution of the algorithm.
 #'        \item hasInternalMetrics Boolean field to indicate if there are internal metrics such as: dunn, silhoutte and connectivity.
 #'        \item hasExternalMetrics Boolean field to indicate if there are external metrics such as: precision, recall, f-measure, entropy, variation information and fowlkes-mallows.
@@ -62,7 +61,6 @@ appClustering <- function() {
 #'        \item measures_execute Character vector with the measures executed. These measures have been mentioned in the definition of the parameters.
 #'        \item tableExternal It's a string of characters. It contains the results of the external evaluation measures in latex format. This table can be exported to a file using the \code{export_file_external}.
 #'        \item tableInternal It's a string of characters. It contains the results of the internal evaluation measures in latex format. This table can be exported to a file using the \code{export_file_internal}.
-#'     }
 #' }
 #'
 #'
@@ -139,7 +137,7 @@ appClustering <- function() {
 #'       df = Clustering::weather,
 #'       min = 2,
 #'       max = 3,
-#'       algorithm= c("gmm","kmeans_arma"),
+#'       algorithm= c("gmm","kmeans_armaa"),
 #'       metrics= c("precision","dunn"),
 #'       variables = FALSE
 #' )
@@ -419,8 +417,8 @@ execute_package_parallel <-
 
     # We start the process of creating clusters to perform parallel runs.
 
-    cl <- parallel::makeCluster(availableCores(), timeout = 60)
-    plan(cluster, workers = cl)
+    #cl <- parallel::makeCluster(availableCores(), timeout = 60)
+    #plan(cluster, workers = cl)
 
     numberColumns <-
       length(metrics_execute) + CONST_COLUMN_DEFAULT_TABLE
@@ -555,7 +553,7 @@ execute_package_parallel <-
                 #If the indicated parameter is the dataframe, we make the appropriate calculations.
 
                 result <-
-                  value(
+                  #value(
                     evaluate_all_column_dataset(
                       as.matrix(df),
                       measures_execute[j],
@@ -563,14 +561,14 @@ execute_package_parallel <-
                       CONST_TIME_DF,
                       metrics_execute
                     )
-                  )
+                  #)
 
               } else {
 
                 #We perform the calculations for each of the files.
 
                 result <-
-                  value(
+                  #value(
                     evaluate_all_column_dataset(
                       read_file(directory_files[m]),
                       measures_execute[j],
@@ -578,7 +576,7 @@ execute_package_parallel <-
                       directory_files[m],
                       metrics_execute
                     )
-                  )
+                  #)
               }
 
               name_file = ifelse(!is.null(df),
@@ -716,7 +714,7 @@ execute_package_parallel <-
     )
 
     # We stop the clusters created in the parallel execution.
-    on.exit(parallel::stopCluster(cl))
+    #on.exit(parallel::stopCluster(cl))
 
     return (result)
   }
@@ -1084,10 +1082,10 @@ print.result_internal_algorithm_by_metric <- function(x,...)
 }
 
 
-#' Method that graphically compares external evaluation metrics
+#' Method that graphically compares external and internal evaluation metrics.
 #'
-#' @param df df data matrix or data frame
-#' @param metric string with the name of the metric select to evaluate
+#' @param df data matrix or data frame with the result of running the clustering algorithm.
+#' @param metric string with the name of the metric select to evaluate.
 #'
 #' @importFrom
 #'
@@ -1108,7 +1106,7 @@ print.result_internal_algorithm_by_metric <- function(x,...)
 #'                variables = TRUE
 #'          )
 #'
-#' plot_clustering(result,"precision")
+#' plot_clustering(result,c("precision"))
 #'
 
 plot_clustering <- function(df,metric) {
@@ -1194,7 +1192,7 @@ plot_clustering <- function(df,metric) {
 #'          )
 #'
 #' export_file_external(result)
-#' on.exit(file.remove("ExtneralReport.txt"))
+#' file.remove("external_data.tex")
 #'
 
 export_file_external <- function(df, path=NULL) {
@@ -1248,7 +1246,7 @@ export_file_external <- function(df, path=NULL) {
 #'          )
 #'
 #' export_file_internal(result)
-#' on.exit(file.remove("InternalReport.txt"))
+#' file.remove("internal_data.tex")
 #'
 
 export_file_internal <- function(df, path=NULL) {
@@ -1274,10 +1272,10 @@ export_file_internal <- function(df, path=NULL) {
 
   if (!is.null(path)){
     print(df$tableInternal,
-          file = paste(path, CONST_NAME_INTERNAL_REPORT_FILE))
+          file = paste(path, CONST_NAME_INTERNAL_FILA_LATEX))
   } else {
     print(df$tableInternal,
-          file = CONST_NAME_INTERNAL_REPORT_FILE)
+          file = CONST_NAME_INTERNAL_FILA_LATEX)
   }
 
 
