@@ -177,6 +177,24 @@ external_validation = function(column_dataset_label,
 
   time_external = round(as.numeric(time),4)
 
+  if (is.infinite(as.numeric(entropy))) entropy <- 0
+  if (is.na(as.numeric(entropy))) entropy <- 0
+
+  if (is.infinite(as.numeric(variation_information))) variation_information <- 0
+  if (is.na(as.numeric(variation_information))) variation_information <- 0
+
+  if (is.infinite(as.numeric(precision))) precision <- 0
+  if (is.na(as.numeric(precision))) precision <- 0
+
+  if (is.infinite(as.numeric(recall))) recall <- 0
+  if (is.na(as.numeric(recall))) recall <- 0
+
+  if (is.infinite(as.numeric(f_measure))) f_measure <- 0
+  if (is.na(as.numeric(f_measure))) f_measure <- 0
+
+  if (is.infinite(as.numeric(fowlkes_mallows_index))) fowlkes_mallows_index <- 0
+  if (is.na(as.numeric(fowlkes_mallows_index))) fowlkes_mallows_index <- 0
+
   resultadoValores = list(
     "entropy" = format(round(as.numeric(entropy), digits = 4),scientific = F),
     "variation_information" = format(round(

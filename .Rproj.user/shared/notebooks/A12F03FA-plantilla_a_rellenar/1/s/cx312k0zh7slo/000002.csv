@@ -1,9 +1,0 @@
-"0","```r
-starwars %>% filter( gender %in% 'male' & height > 160 & species %in% 'Human') %>% group_by(skin_color) %>% summarise(number = n()) %>% top_n(n=2)
-
-  skin_color number
-  
-  fair           12
-  light           4
-
-```"

@@ -144,6 +144,7 @@ shinyUI(
             mainPanel(
                 tabsetPanel(
                     tabPanel("Summary",
+                             tags$br(),
                              withSpinner(DT::dataTableOutput("tableClustering"),color = "#4e5d6c"),
                              tags$br(),
                              withSpinner(DT::dataTableOutput("best_evaluation1"),color = "#4e5d6c"),

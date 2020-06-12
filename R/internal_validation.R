@@ -107,6 +107,14 @@ internal_validation = function(distance = NULL,
 
   time_internal = round(as.numeric(time), 4)
 
+  if (is.infinite(as.numeric(dunn))) dunn <- 0
+  if (is.na(as.numeric(dunn))) dunn <- 0
+
+  if (is.infinite(as.numeric(connectivity))) connectivity <- 0
+  if (is.na(as.numeric(connectivity))) connectivity <- 0
+
+  if (is.infinite(as.numeric(silhouette))) silhouette <- 0
+  if (is.na(as.numeric(silhouette))) silhouette <- 0
 
   result = list(
     "connectivity" = format(round(as.numeric(connectivity), digits = 4),scientific = F),

@@ -1,8 +1,0 @@
-"0","```r
-starwars %>% filter(species %in% c('Human','Gungan')) %>% group_by(gender) %>%  mutate(height = replace(height, which(is.na(height)), median(height,na.rm = TRUE))) %>% filter(height > mean(height)) %>% summarise(height = max(height))
-
-  gender height
-  female    167
-  male      224
-
-```"

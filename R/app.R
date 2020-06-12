@@ -1,11 +1,24 @@
+
+
+#' @title Clustering GUI.
 #'
-#' Method that allows us to execute the main algorithm in graphic interface mode instead of through the console.
+#' @description Method that allows us to execute the main algorithm in graphic interface mode instead of through the console.
+#'
+#' @details The operation of this method is to generate a graphical user.
+#' interface to be able to execute the clustering algorithm without knowing the parameters.
+#' Its operation is very simple, we can change the values and see the behavior quickly.
+#'
+#' @return GUI with the parameters of the algorithm and their representation in tables and graphs.
 #'
 #' @importFrom
 #' shiny runApp dataTableOutput renderDataTable runExample
 #'
 #' @export
 #' appClustering
+#'
+#' @examples
+#'
+#' appClustering()
 #'
 #'
 appClustering <- function() {
@@ -20,6 +33,7 @@ appClustering <- function() {
 
 #'
 #' @title Clustering algorithm.
+#'
 #' @description Discovering the behavior of variables in a set of clustering packages based on evaluation metrics.
 #'
 #' @param path The path of file. \code{NULL} It is only allowed to use path or df but not both at the same time. Only files in .dat, .csv or arff format are allowed.
@@ -52,7 +66,7 @@ appClustering <- function() {
 #' for the set of variables as well as the most efficient number of clusters.
 #'
 #'
-#' @return returns a matrix with the result of running all the metrics of the algorithms contained in the packages we indicated. We also obtain information with the types of metrics, algorithms and packages executed in addition to being able to export the results in latex format.
+#' @return a matrix with the result of running all the metrics of the algorithms contained in the packages we indicated. We also obtain information with the types of metrics, algorithms and packages executed in addition to being able to export the results in latex format.
 #' \itemize{
 #'        \item result It is a list with the algorithms, metrics and variables defined in the execution of the algorithm.
 #'        \item hasInternalMetrics Boolean field to indicate if there are internal metrics such as: dunn, silhoutte and connectivity.
@@ -209,10 +223,10 @@ clustering <- function(path = NULL,
   }
 
   if (!is.numeric(min))
-    stop ("The min field must be numeric")
+    stop("The min field must be numeric")
 
   if (!is.numeric(max))
-    stop ("The max field must be numeric")
+    stop("The max field must be numeric")
 
   if (min > max) {
     stop("The minimum cluster number must be less than the maximum cluster number")
@@ -267,19 +281,21 @@ clustering <- function(path = NULL,
 #' @keywords internal
 #'
 
-execute_datasets <- function (path,
-                              df,
-                              packages,
-                              algorithm,
-                              cluster_min,
-                              cluster_max,
-                              metrics,
-                              variables) {
+execute_datasets <- function(path,
+                             df,
+                             packages,
+                             algorithm,
+                             cluster_min,
+                             cluster_max,
+                             metrics,
+                             variables) {
   # Initialization of the parameter format
 
   on.exit(options(scipen = 999))
 
   formals(print.data.frame)$row.names <- F
+
+  cl <- match.call()
 
   if (is.null(algorithm)) {
     # We calculate the algorithms to be executed depending on the package
@@ -385,13 +401,14 @@ execute_datasets <- function (path,
 
   res <-
     list(
-      result = result$df_result,
+      result = as.data.frame(result$df_result),
       hasInternalMetrics = is_metric_internal,
       hasExternalMetrics = is_metric_external,
       algorithms_execute = algorithms_execute,
       measures_execute = measures_execute,
       tableExternal = tableExternal,
-      tableInternal = tableInternal
+      tableInternal = tableInternal,
+      call = cl
     )
 
   class(res) = "clustering"
@@ -401,24 +418,26 @@ execute_datasets <- function (path,
 
 
 execute_package_parallel <-
-  function (directory_files,
-            df,
-            algorithms_execute,
-            measures_execute,
-            cluster_min,
-            cluster_max,
-            metrics_execute,
-            variables,
-            number_algorithms,
-            numberClusters,
-            numberDataSets,
-            is_metric_external,
-            is_metric_internal) {
-
+  function(directory_files,
+           df,
+           algorithms_execute,
+           measures_execute,
+           cluster_min,
+           cluster_max,
+           metrics_execute,
+           variables,
+           number_algorithms,
+           numberClusters,
+           numberDataSets,
+           is_metric_external,
+           is_metric_internal) {
     # We start the process of creating clusters to perform parallel runs.
 
-    #cl <- parallel::makeCluster(availableCores(), timeout = 60)
-    #plan(cluster, workers = cl)
+    cl <-
+      parallel::makeCluster(availableCores() - 1,
+                            timeout = 60,
+                            setup_strategy = "sequential")
+    registerDoParallel(cl)
 
     numberColumns <-
       length(metrics_execute) + CONST_COLUMN_DEFAULT_TABLE
@@ -490,7 +509,7 @@ execute_package_parallel <-
 
       # From the algorithm we get the package
 
-      name_package = gsub("\\_", "\\\\_", algorithms_execute[i])
+      #name_package = gsub("\\_", "\\\\_", algorithms_execute[i])
 
       countMeasureAlgorithm = CONST_ZERO
 
@@ -512,8 +531,8 @@ execute_package_parallel <-
         name_measure = substr(measures_execute[j],
                               CONST_ZERO,
                               nchar(algorithms_execute[i]))
-        name_measure_latex = gsub("\\_", "\\\\_", measures_execute[j])
-        countRow = CONST_ZERO
+        #name_measure_latex = gsub("\\_", "\\\\_", measures_execute[j])
+        #countRow = CONST_ZERO
         if (strcmp(name_measure, algorithms_execute[i])) {
           if (strcmp(measures_execute[j], nameMeasureUsing) == CONST_FALSE) {
             nameMeasureUsing = measures_execute[j]
@@ -549,11 +568,10 @@ execute_package_parallel <-
               # We initialize the evaluation metrics
 
               if (!is.null(df)) {
-
                 #If the indicated parameter is the dataframe, we make the appropriate calculations.
 
                 result <-
-                  #value(
+                  value(
                     evaluate_all_column_dataset(
                       as.matrix(df),
                       measures_execute[j],
@@ -561,14 +579,13 @@ execute_package_parallel <-
                       CONST_TIME_DF,
                       metrics_execute
                     )
-                  #)
+                  )
 
               } else {
-
                 #We perform the calculations for each of the files.
 
                 result <-
-                  #value(
+                  value(
                     evaluate_all_column_dataset(
                       read_file(directory_files[m]),
                       measures_execute[j],
@@ -576,7 +593,7 @@ execute_package_parallel <-
                       directory_files[m],
                       metrics_execute
                     )
-                  #)
+                  )
               }
 
               name_file = ifelse(!is.null(df),
@@ -714,45 +731,63 @@ execute_package_parallel <-
     )
 
     # We stop the clusters created in the parallel execution.
-    #on.exit(parallel::stopCluster(cl))
+    on.exit(parallel::stopCluster(cl))
 
-    return (result)
+    return(result)
   }
 
 
-print.clustering <- function(x,...)
-{
-  cat("Result:	\n")
-  print(x$result)
-  cat("\n")
-  cat("Internal Metrics: \n")
-  print(x$hasInternalMetrics)
-  cat("\n")
-  cat("External Metrics: \n")
-  print(x$hasExternalMetrics)
-  cat("\n")
-  cat("Algorithms Execute: \n ")
-  print(x$algorithms_execute)
-  cat("\n")
-  cat("Measures Execute: \n ")
-  print(x$measures_execute)
-  cat("\n")
-  cat("External Table:\n")
-  print(x$tableExternal)
-  cat("\n")
-  cat("\nInternal Table:\n")
-  print(x$tableInternal)
-  cat("\n")
+  print.clustering <- function(x, ...)
+  {
+    cat("Result:	\n")
+    print(x$result)
+    cat("\n")
+    invisible(x)
+  }
 
-  invisible(x)
-}
+  summary.clustering <- function(object, ...)
+  {
+    class(object) <- "summary.clustering"
+    object
+  }
+
+  print.summary.clustering <- function(x, ...) {
+    cat("Object of class 'clustering'")
+    cat("Result:	\n")
+    print(x$result)
+    cat("\n")
+    cat("Internal Metrics:	\n")
+    print(x$hasInternalMetrics)
+    cat("\n")
+    cat("External Metrics:	\n")
+    print(x$hasExternalMetrics)
+    cat("\n")
+    cat("Algorithms:	\n")
+    print(x$algorithms_execute)
+    cat("\n")
+    cat("Algorithms:	\n")
+    print(x$algorithms_execute)
+    cat("\n")
+    cat("Algorithms:	\n")
+    print(x$measures_execute)
+    cat("\n")
+
+    invisible(x)
+  }
 
 
-#' Method that calculates the best rated external metrics.
+#'
+#' @title Best rated external metrics.
+#'
+#' @description method in charge of searching for each algorithm those that have the best external classification.
 #'
 #' @param df matrix or data frame with the result of running the clustering algorithm.
 #'
-#' @return returns a table with the external metrics that has the best rating.
+#' @description Method that looks for those external variables that are better classified,
+#' making use of the ranking column. In this way we discard the rest of the variables and
+#' only work with those that give the best response to the algorithm in question.
+#'
+#' @return Returns a data.frame with the best classified external variables.
 #'
 #' @export
 #' best_ranked_external_metrics
@@ -770,31 +805,41 @@ print.clustering <- function(x,...)
 #'
 #' best_ranked_external_metrics(df = result)
 #'
-
-best_ranked_external_metrics <- function (df) {
-  result <-
-    list("result" = calculate_best_external_variables_by_metrics(df$result))
-
-  class(result) <- "best_ranked_external_metrics"
-
-  result
-}
-
-print.best_ranked_external_metrics <- function(x,...)
-{
-  cat("Result:	\n")
-  print(x$result)
-  invisible(x)
-}
-
-#' Method that calculates the best rated internal metrics.
+#' \dontrun{
+#' best_ranked_external_metrics(df = result$result)
+#' }
 #'
-#' @param df data matrix or data frame with the result of running the clustering algorithm.
+
+  best_ranked_external_metrics <- function(df) {
+    result <-
+      list("result" = calculate_best_external_variables_by_metrics(df$result))
+
+    class(result) <- "best_ranked_external_metrics"
+
+    result
+  }
+
+  print.best_ranked_external_metrics <- function(x, ...)
+  {
+    cat("Result:	\n")
+    print(x$result)
+    invisible(x)
+  }
+
 #'
-#' @return returns a table with the internal metrics that has the best rating.
+#' @title Best rated internal metrics.
+#'
+#' @description method in charge of searching for each algorithm those that have the best internal classification.
+#'
+#' @param df matrix or data frame with the result of running the clustering algorithm.
+#'
+#' @description Method that looks for those internal variables that are better classified,
+#' making use of the ranking column. In this way we discard the rest of the variables and
+#' only work with those that give the best response to the algorithm in question.
+#'
+#' @return Returns a data.frame with the best classified internal variables.
 #'
 #' @export
-#'
 #' best_ranked_internal_metrics
 #'
 #' @examples
@@ -804,34 +849,45 @@ print.best_ranked_external_metrics <- function(x,...)
 #'                min = 4,
 #'                max = 5,
 #'                algorithm='gmm',
-#'                metrics=c("dunn"),
+#'                metrics=c("recall"),
 #'                variables = FALSE
 #'          )
 #'
-#' best_ranked_internal_metrics(result)
+#' best_ranked_internal_metrics(df = result)
+#'
+#' \dontrun{
+#' best_ranked_internal_metrics(df = result$result)
+#' }
 #'
 
-best_ranked_internal_metrics <- function (df) {
-  result <-
-    list("result" = calculate_best_internal_variables_by_metrics(df$result))
+  best_ranked_internal_metrics <- function(df) {
+    result <-
+      list("result" = calculate_best_internal_variables_by_metrics(df$result))
 
-  class(result) <- "best_ranked_internal_metrics"
+    class(result) <- "best_ranked_internal_metrics"
 
-  result
-}
+    result
+  }
 
-print.best_ranked_internal_metrics <- function(x, ...)
-{
-  cat("Result:	\n")
-  print(x$result, ...)
-  invisible(x)
-}
+  print.best_ranked_internal_metrics <- function(x, ...)
+  {
+    cat("Result:	\n")
+    print(x$result, ...)
+    invisible(x)
+  }
 
-#' Method that calculates which algorithm behaves best for the datasets provided.
+#'
+#' @tile Evaluate external validations by algorithm.
+#'
+#' @description Method that calculates which algorithm behaves best for the datasets provided.
 #'
 #' @param df data matrix or data frame with the result of running the clustering algorithm.
 #'
-#' @return returns a table with the best performing algorithm for the provided datasets.
+#' @details The operation of this method is to determine which algorithm has better behavior
+#' regardless of the measure of dissimilarity calculated, so we can determine which algorithm
+#' returns better results from the variables and measures of dissimilarity.
+#'
+#' @return a data.frame with all the algorithms that obtain the best results regardless of the dissimilarity measure used.
 #'
 #' @export
 #'
@@ -850,29 +906,40 @@ print.best_ranked_internal_metrics <- function(x, ...)
 #'
 #' evaluate_validation_external_by_metrics(result)
 #'
+#' \dontrun{
+#' evaluate_validation_external_by_metrics(result$result)
+#' }
+#'
 
-evaluate_validation_external_by_metrics <- function (df) {
-  df_best_ranked <- best_ranked_external_metrics(df)
-  result <-
-    list("result" = calculate_validation_external_by_metrics(df_best_ranked$result))
+  evaluate_validation_external_by_metrics <- function(df) {
+    df_best_ranked <- best_ranked_external_metrics(df)
+    result <-
+      list("result" = calculate_validation_external_by_metrics(df_best_ranked$result))
 
-  class(result) <- "evaluate_validation_external_by_metrics"
+    class(result) <- "evaluate_validation_external_by_metrics"
 
-  result
-}
+    result
+  }
 
-print.evaluate_validation_external_by_metrics <- function(x,...)
-{
-  cat("Result:	\n")
-  print(x$result, ...)
-  invisible(x)
-}
+  print.evaluate_validation_external_by_metrics <- function(x, ...)
+  {
+    cat("Result:	\n")
+    print(x$result, ...)
+    invisible(x)
+  }
 
-#' Method that calculates which algorithm behaves best for the datasets provided.
+#'
+#' @tile Evaluate internal validations by algorithm.
+#'
+#' @description Method that calculates which algorithm behaves best for the datasets provided.
 #'
 #' @param df data matrix or data frame with the result of running the clustering algorithm.
 #'
-#' @return returns a table with the best performing algorithm for the provided datasets.
+#' @details The operation of this method is to determine which algorithm has better behavior
+#' regardless of the measure of dissimilarity calculated, so we can determine which algorithm
+#' returns better results from the variables and measures of dissimilarity.
+#'
+#' @return a data.frame with all the algorithms that obtain the best results regardless of the dissimilarity measure used.
 #'
 #' @export
 #'
@@ -891,29 +958,40 @@ print.evaluate_validation_external_by_metrics <- function(x,...)
 #'
 #' evaluate_validation_internal_by_metrics(result)
 #'
+#' \dontrun{
+#' evaluate_validation_internal_by_metrics(result$result)
+#' }
+#'
 
-evaluate_validation_internal_by_metrics <- function (df) {
-  df_best_ranked <- best_ranked_internal_metrics(df)
-  result <-
-    list("result" = calculate_validation_internal_by_metrics(df_best_ranked$result))
+  evaluate_validation_internal_by_metrics <- function(df) {
+    df_best_ranked <- best_ranked_internal_metrics(df)
+    result <-
+      list("result" = calculate_validation_internal_by_metrics(df_best_ranked$result))
 
-  class(result) <- "evaluate_validation_internal_by_metrics"
+    class(result) <- "evaluate_validation_internal_by_metrics"
 
-  result
-}
+    result
+  }
 
-print.evaluate_validation_internal_by_metrics <- function(x,...)
-{
-  cat("Result:	\n")
-  print(x$result, ...)
-  invisible(x)
-}
+  print.evaluate_validation_internal_by_metrics <- function(x, ...)
+  {
+    cat("Result:	\n")
+    print(x$result, ...)
+    invisible(x)
+  }
 
-#' Method that calculates which algorithm and which metric behaves best for the datasets provided.
+#'
+#' @title Evaluation of the algorithms by measures of dissimilarity.
+#'
+#' @description Method that calculates which algorithm and which metric behaves best for the datasets provided.
 #'
 #' @param df data matrix or data frame with the result of running the clustering algorithm.
 #'
-#' @return returns a table with the algorithm and the best performing metric for the datasets.
+#' @details Method that calculates the behavior of dissimilarity measures by algorithm,
+#' so we can evaluate which of the different measures of dissimilarity used by the algorithms presents the best behavior.
+#' This method should be used to determine which dissimilarity measure has the best behavior for external evaluation measures.
+#'
+#' @return a data.frame with the algorithms classified by measures of dissimilarity.
 #'
 #' @export
 #'
@@ -933,30 +1011,37 @@ print.evaluate_validation_internal_by_metrics <- function(x,...)
 #' evaluate_best_validation_external_by_metrics(result)
 #'
 
-evaluate_best_validation_external_by_metrics <- function(df) {
-  df_best_ranked <- best_ranked_external_metrics(df)
-  result <-
-    list("result" = calculate_best_validation_external_by_metrics(df_best_ranked$result))
+  evaluate_best_validation_external_by_metrics <- function(df) {
+    df_best_ranked <- best_ranked_external_metrics(df)
+    result <-
+      list("result" = calculate_best_validation_external_by_metrics(df_best_ranked$result))
 
-  class(result) <- "evaluate_best_validation_external_by_metrics"
+    class(result) <- "evaluate_best_validation_external_by_metrics"
 
-  result
-}
-
-
-print.evaluate_best_validation_external_by_metrics <-
-  function(x,...)
-  {
-    cat("Result:	\n")
-    print(x$result, ...)
-    invisible(x)
+    result
   }
 
-#' Method that calculates which algorithm and which metric behaves best for the datasets provided.
+
+  print.evaluate_best_validation_external_by_metrics <-
+    function(x, ...)
+    {
+      cat("Result:	\n")
+      print(x$result, ...)
+      invisible(x)
+  }
+
+#'
+#' @title Evaluation of the algorithms by measures of dissimilarity.
+#'
+#' @description Method that calculates which algorithm and which metric behaves best for the datasets provided.
 #'
 #' @param df data matrix or data frame with the result of running the clustering algorithm.
 #'
-#' @return returns a table with the algorithm and the best performing metric for the datasets.
+#' @details Method that calculates the behavior of dissimilarity measures by algorithm,
+#' so we can evaluate which of the different measures of dissimilarity used by the algorithms presents the best behavior.
+#' This method should be used to determine which dissimilarity measure has the best behavior for intenal evaluation measures.
+#'
+#' @return a data.frame with the algorithms classified by measures of dissimilarity.
 #'
 #' @export
 #'
@@ -979,30 +1064,38 @@ print.evaluate_best_validation_external_by_metrics <-
 #'
 #' evaluate_best_validation_internal_by_metrics(result)
 
-evaluate_best_validation_internal_by_metrics <- function(df) {
-  df_best_ranked <- best_ranked_internal_metrics(df)
-  result <-
-    list("result" = calculate_best_validation_internal_by_metrics(df_best_ranked$result))
+  evaluate_best_validation_internal_by_metrics <- function(df) {
+    df_best_ranked <- best_ranked_internal_metrics(df)
+    result <-
+      list("result" = calculate_best_validation_internal_by_metrics(df_best_ranked$result))
 
-  class(result) <- "evaluate_best_validation_internal_by_metrics"
+    class(result) <- "evaluate_best_validation_internal_by_metrics"
 
-  result
-}
-
-print.evaluate_best_validation_internal_by_metrics <-
-  function(x,...)
-  {
-    cat("Result:	\n")
-    print(x$result, ...)
-    invisible(x)
+    result
   }
 
-#' Method that returns a table with the algorithm and the metric indicated as parameters.
+  print.evaluate_best_validation_internal_by_metrics <-
+    function(x, ...)
+    {
+      cat("Result:	\n")
+      print(x$result, ...)
+      invisible(x)
+  }
+
+#'
+#' @title External results by algorithm
+#'
+#' @description Method that returns a data.frame with the algorithm and the metric indicated as parameters.
 #'
 #' @param df data matrix or data frame with the result of running the clustering algorithm.
-#' @param algorithm on which we will calculate the results.
 #'
-#' @return returns a table with the algorithm and the metric indicated as parameter.
+#' @param algorithm It's a string with the algorithm we want to evaluate your results
+#'
+#' @return a data.frame with the results of the algorithm indicated as parameter.
+#'
+#' @details The functionality of this method is to return as a result a data.frame with the algorithm
+#' indicated as a parameter along with the rest of the dissimilarity measurements and the
+#' external evaluation metrics.
 #'
 #' @export
 #'
@@ -1022,29 +1115,49 @@ print.evaluate_best_validation_internal_by_metrics <-
 #' result_external_algorithm_by_metric(result,'daisy')
 #'
 
-result_external_algorithm_by_metric <- function(df, algorithm) {
-  df_ranked <- best_ranked_external_metrics(df)
-  result <-
-    list("result" = show_result_external_algorithm_by_metric(df_ranked$result, algorithm))
+  result_external_algorithm_by_metric <- function(df, algorithm) {
+    if (is.null(algorithm))
+      stop("The algorithm field must be filled in")
 
-  class(result) <- "result_external_algorithm_by_metric"
+    if (length(algorithm) > 1) {
+      stop("The algorithm field cannot contain more than one algorithm")
+    }
 
-  result
-}
+    if (!is.character(algorithm)) {
+      stop("TThe algorithm field must be a string")
+    }
 
-print.result_external_algorithm_by_metric <- function(x,...)
-{
-  cat("Result:	\n")
-  print(x$result, ...)
-  invisible(x)
-}
+    df_ranked <- best_ranked_external_metrics(df)
 
-#' Method that returns a table with the algorithm and the metric indicated as parameters.
+    result <-
+      list("result" = show_result_external_algorithm_by_metric(df_ranked$result, algorithm))
+
+    class(result) <- "result_external_algorithm_by_metric"
+
+    result
+  }
+
+  print.result_external_algorithm_by_metric <- function(x, ...)
+  {
+    cat("Result:	\n")
+    print(x$result, ...)
+    invisible(x)
+  }
+
+#'
+#' @title Internal results by algorithm
+#'
+#' @description Method that returns a data.frame with the algorithm and the metric indicated as parameters.
 #'
 #' @param df data matrix or data frame with the result of running the clustering algorithm.
-#' @param algorithm on which we will calorder(v1)culate the results.
 #'
-#' @return returns a table with the algorithm and the metric indicated as parameter.
+#' @param algorithm It's a string with the algorithm we want to evaluate your results
+#'
+#' @return a data.frame with the results of the algorithm indicated as parameter.
+#'
+#' @details The functionality of this method is to return as a result a data.frame with the algorithm
+#' indicated as a parameter along with the rest of the dissimilarity measurements and the
+#' internal evaluation metrics.
 #'
 #' @export
 #'
@@ -1064,28 +1177,49 @@ print.result_external_algorithm_by_metric <- function(x,...)
 #' result_internal_algorithm_by_metric(result,'gmm')
 #'
 
-result_internal_algorithm_by_metric <- function(df, algorithm) {
-  df_ranked <- best_ranked_internal_metrics(df)
-  result <-
-    list("result" = show_result_internal_algorithm_by_metric(df_ranked$result, algorithm))
+  result_internal_algorithm_by_metric <- function(df, algorithm) {
+    if (is.null(algorithm))
+      stop("The algorithm field must be filled in")
 
-  class(result) <- "result_internal_algorithm_by_metric"
+    if (length(algorithm) > 1) {
+      stop("The algorithm field cannot contain more than one algorithm")
+    }
 
-  result
-}
+    if (!is.character(algorithm)) {
+      stop("TThe algorithm field must be a string")
+    }
 
-print.result_internal_algorithm_by_metric <- function(x,...)
-{
-  cat("Result:	\n")
-  print(x$result, ...)
-  invisible(x)
-}
+    df_ranked <- best_ranked_internal_metrics(df)
+
+    result <-
+      list("result" = show_result_internal_algorithm_by_metric(df_ranked$result, algorithm))
+
+    class(result) <- "result_internal_algorithm_by_metric"
+
+    result
+  }
+
+  print.result_internal_algorithm_by_metric <- function(x, ...)
+  {
+    cat("Result:	\n")
+    print(x$result, ...)
+    invisible(x)
+  }
 
 
-#' Method that graphically compares external and internal evaluation metrics.
+#'
+#' @title Graphic representation of the evaluation measures.
+#'
+#' @description Graphical representation of the evaluation measures grouped by cluster.
 #'
 #' @param df data matrix or data frame with the result of running the clustering algorithm.
-#' @param metric string with the name of the metric select to evaluate.
+#'
+#' @param metric it's a string with the name of the metric select to evaluate.
+#'
+#' @details In certain cases the review or filtering of the data is necessary to select the data,
+#' that is why thanks to the graphic representations this task is much easier.
+#' Therefore with this method we will be able to filter the data by metrics
+#' and see the data in a graphical way.
 #'
 #' @importFrom
 #'
@@ -1109,73 +1243,82 @@ print.result_internal_algorithm_by_metric <- function(x,...)
 #' plot_clustering(result,c("precision"))
 #'
 
-plot_clustering <- function(df,metric) {
-  if (is.null(metric))
-    stop("Metric field must be filled in")
+  plot_clustering <- function(df, metric) {
+    if (is.null(metric))
+      stop("Metric field must be filled in")
 
-  if (!is.null(metric) &&
-      length(metric) > 1)
-    stop("The metric field only accepts one element")
+    if (!is.null(metric) &&
+        length(metric) > 1)
+      stop("The metric field only accepts one element")
 
-  if (!is.null(metric) &&
-      !is.character(metric))
-    stop("Metric field must be a string")
+    if (!is.null(metric) &&
+        !is.character(metric))
+      stop("Metric field must be a string")
 
-  '%not in%' <- Negate('%in%')
+    '%not in%' <- Negate('%in%')
 
-  if (metric %not in% colnames(df$result))
-    stop("The metric indicate does not exist in the dataframe")
+    if (metric %not in% colnames(df$result))
+      stop("The metric indicate does not exist in the dataframe")
 
-  isExternalMetrics <- is_External_Metrics(metric)
+    isExternalMetrics <- is_External_Metrics(metric)
 
-  isInternalMetrics <- is_Internal_Metrics(metric)
+    isInternalMetrics <- is_Internal_Metrics(metric)
 
-  if (isExternalMetrics == F &&
-      isInternalMetrics == F)
-    stop("The metric field indicated is not correct")
+    if (isExternalMetrics == F &&
+        isInternalMetrics == F)
+      stop("The metric field indicated is not correct")
 
-  df_best_ranked <- NULL
+    df_best_ranked <- NULL
 
-  if (is_External_Metrics(metric)) {
-    df_best_ranked <- best_ranked_external_metrics(df)
-  } else {
-    df_best_ranked <- best_ranked_internal_metrics(df)
-  }
-
-  #We calculate the maximum value of l metric. In case the value is infinite we set a limit.
-
-  maximum <- as.numeric(max_value_metric(df$result, metric))
-
-  maximum <-  ifelse(is.infinite(maximum), 10000, maximum)
-
-  interval <- maximum / 4
-
-  break_points <- (seq(0, maximum, by = interval))
-
-  exits_metric = F
-
-  for (col in colnames(df_best_ranked$result)) {
-    if (col == metric) {
-      exits_metric = T
+    if (isExternalMetrics) {
+      df_best_ranked <- best_ranked_external_metrics(df)
+    } else {
+      df_best_ranked <- best_ranked_internal_metrics(df)
     }
+
+    #We calculate the maximum value of l metric. In case the value is infinite we set a limit.
+
+    maximum <- as.numeric(max_value_metric(df$result, metric))
+
+    maximum <-  ifelse(is.infinite(maximum), 10000, maximum)
+
+    interval <- maximum / 4
+
+    break_points <- (seq(0, maximum, by = interval))
+
+    exits_metric = F
+
+    for (col in colnames(df_best_ranked$result)) {
+      if (col == metric) {
+        exits_metric = T
+      }
+    }
+
+    if (exits_metric) {
+      name_metric <- metric
+      metric <- paste("as.numeric(", metric, ")")
+
+      ggplot(df_best_ranked$result,
+             aes_string(x = "Clusters", y = metric, color = "Algorithm")) + ggplot2::geom_point() + xlab(toupper("Clustering")) + ylab(toupper(name_metric)) + labs(color = 'Algorithm') + ggplot2::scale_y_continuous(breaks = as.numeric(break_points),
+                                                                                                                                                                                                                       limits = c(0, maximum))
+    } else
+      stop("The metric indicate does not exist in the dataframe")
+
   }
 
-  if (exits_metric) {
-    name_metric <- metric
-    metric <- paste("as.numeric(", metric, ")")
-
-    ggplot(df_best_ranked$result,
-           aes_string(x = "Clusters", y = metric, color = "Algorithm")) + ggplot2::geom_point() + xlab(toupper("Clustering")) + ylab(toupper(name_metric)) + labs(color =                                                                                                                                                                   'Algorithm') + ggplot2::scale_y_continuous(breaks = as.numeric(break_points),
-                                                                                                                                                                                                                                                                                                                                                                                       limits = c(0, maximum))
-  } else
-    stop("The metric indicate does not exist in the dataframe")
-}
-
 #'
-#' Method that exports the results of external measurements in latex format to a file
+#' @title Export result of external metrics in latex.
 #'
-#' @param df is a dataframe that contains as a parameter a table in latex format with the results of the external validations
-#' @param path is the path to a directory where a file is to be stored in latex format
+#' @description Method that exports the results of internal measurements in latex format to a file.
+#'
+#' @param df is a dataframe that contains as a parameter a table in latex format with the results of the internal validations.
+#'
+#' @param path it's a string with the path to a directory where a file is to be stored in latex format.
+#'
+#' @details When we work in latex format and we need to create a table to export the results,
+#' with this method we can export the results of the clustering algorithm to latex.
+#'
+#' @details
 #'
 #' @export
 #'
@@ -1195,41 +1338,46 @@ plot_clustering <- function(df,metric) {
 #' file.remove("external_data.tex")
 #'
 
-export_file_external <- function(df, path=NULL) {
-  '%not in%' <- Negate('%in%')
+  export_file_external <- function(df, path = NULL) {
+    '%not in%' <- Negate('%in%')
 
-  if (is.null(df) ||
-      !is.list(df))
-    stop ("The df field must be a list")
+    if (is.null(df) ||
+        !is.list(df))
+      stop("The df field must be a list")
 
-  if (!df$hasExternalMetrics)
-    stop("The df field must have external evaluation metrics")
+    if (!df$hasExternalMetrics)
+      stop("The df field must have external evaluation metrics")
 
-  if (is.null(df$tableExternal) ||
-      !(is.list(df)))
-    stop ("The df field must be a list")
+    if (is.null(df$tableExternal) ||
+        !(is.list(df)))
+      stop("The df field must be a list")
 
-  if ("xtable" %not in% class(df$tableExternal))
-    stop ("The df$tableExternal field must be a dataframe or xtable")
+    if ("xtable" %not in% class(df$tableExternal))
+      stop("The df$tableExternal field must be a dataframe or xtable")
 
-  if (!is.null(path) &&
-      !dir.exists(path))
-    stop ("The path must be a valid directory")
+    if (!is.null(path) &&
+        !dir.exists(path))
+      stop("The path must be a valid directory")
 
-  if (!is.null(path)){
-    print(df$tableExternal,
-          file = paste(path, CONST_NAME_EXTERNAL_FILA_LATEX))
-  } else print(df$tableExternal,
-               file = CONST_NAME_EXTERNAL_FILA_LATEX)
-
-
-}
+    if (!is.null(path)) {
+      print(df$tableExternal,
+            file = paste(path, CONST_NAME_EXTERNAL_FILA_LATEX))
+    } else
+      print(df$tableExternal,
+            file = CONST_NAME_EXTERNAL_FILA_LATEX)
+  }
 
 #'
-#' Method that exports the results of internal measurements in latex format to a file
+#' @title Export result of internal metrics in latex.
 #'
-#' @param df is a dataframe that contains as a parameter a table in latex format with the results of the internal validations
-#' @param path is the path to a directory where a file is to be stored in latex format
+#' @description Method that exports the results of external measurements in latex format to a file.
+#'
+#' @param df is a dataframe that contains as a parameter a table in latex format with the results of the external validations.
+#'
+#' @param path it's a string with the path to a directory where a file is to be stored in latex format.
+#'
+#' @details When we work in latex format and we need to create a table to export the results,
+#' with this method we can export the results of the clustering algorithm to latex.
 #'
 #' @export
 #'
@@ -1249,34 +1397,32 @@ export_file_external <- function(df, path=NULL) {
 #' file.remove("internal_data.tex")
 #'
 
-export_file_internal <- function(df, path=NULL) {
-  '%not in%' <- Negate('%in%')
+  export_file_internal <- function(df, path = NULL) {
+    '%not in%' <- Negate('%in%')
 
-  if (is.null(df) ||
-      !is.list(df))
-    stop ("The df field must be a list")
+    if (is.null(df) ||
+        !is.list(df))
+      stop("The df field must be a list")
 
-  if (!df$hasInternalMetrics)
-    stop("The df field must have internal evaluation metrics")
+    if (!df$hasInternalMetrics)
+      stop("The df field must have internal evaluation metrics")
 
-  if (is.null(df$tableInternal) ||
-      !(is.list(df)))
-    stop ("The df field must be a list")
+    if (is.null(df$tableInternal) ||
+        !(is.list(df)))
+      stop("The df field must be a list")
 
-  if ("xtable" %not in% class(df$tableInternal))
-    stop ("The df$tableInternal field must be a dataframe or xtable")
+    if ("xtable" %not in% class(df$tableInternal))
+      stop("The df$tableInternal field must be a dataframe or xtable")
 
-  if (!is.null(path) &&
-      !dir.exists(path))
-    stop ("The path must be a valid directory")
+    if (!is.null(path) &&
+        !dir.exists(path))
+      stop("The path must be a valid directory")
 
-  if (!is.null(path)){
-    print(df$tableInternal,
-          file = paste(path, CONST_NAME_INTERNAL_FILA_LATEX))
-  } else {
-    print(df$tableInternal,
-          file = CONST_NAME_INTERNAL_FILA_LATEX)
-  }
-
-
+    if (!is.null(path)) {
+      print(df$tableInternal,
+            file = paste(path, CONST_NAME_INTERNAL_FILA_LATEX))
+    } else {
+      print(df$tableInternal,
+            file = CONST_NAME_INTERNAL_FILA_LATEX)
+    }
 }

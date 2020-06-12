@@ -665,12 +665,38 @@ shinyServer(function(input, output, session) {
                     # Render tables and graphics
 
                     output$tableClustering <-
-                        DT::renderDataTable(result,
-                                            options = list(
-                                                scrollX = T,
-                                                lengthChange = F,
-                                                scroller = T
-                                            ))
+                        DT::renderDataTable(DT::datatable(result,
+                                                          extensions = c('Buttons','ColReorder'),
+                                                          options = list(
+                                                              colReorder = TRUE,
+                                                              scrollX = T,
+                                                              lengthChange = F,
+                                                              scroller = T,
+                                                              dom = 'Bfrtip',
+                                                              buttons =
+                                                                  list(
+                                                                      list(
+                                                                          extend = 'copy',
+                                                                          buttons = c('copy'),
+                                                                          filename = 'Clustering'
+                                                                      ),
+                                                                      list(
+                                                                          extend = 'csv',
+                                                                          buttons = c('csv'),
+                                                                          filename = 'Clustering'
+                                                                      ),
+                                                                      list(
+                                                                          extend = 'pdf',
+                                                                          buttons = c('pdf'),
+                                                                          filename = 'Clustering'
+                                                                      ),
+                                                                      list(
+                                                                          extend = 'excel',
+                                                                          buttons = c('excel'),
+                                                                          filename = 'Clustering'
+                                                                      ))
+                                                          )))
+
 
 
                     if (df_result$hasExternalMetrics) {
@@ -678,14 +704,37 @@ shinyServer(function(input, output, session) {
                             Clustering::evaluate_best_validation_external_by_metrics(df_result)
 
                         output$best_evaluation1 <-
-                            DT::renderDataTable(
-                                result_external$result,
-                                options = list(
-                                    scroller = T,
-                                    scrollX = T,
-                                    lengthChange = F
-                                )
-                            )
+                            DT::renderDataTable(DT::datatable(result_external$result,
+                                                  extensions = c('Buttons','ColReorder'),
+                                                  options = list(
+                                                      colReorder = TRUE,
+                                                      scrollX = T,
+                                                      lengthChange = F,
+                                                      scroller = T,
+                                                      dom = 'Bfrtip',
+                                                      buttons =
+                                                          list(
+                                                              list(
+                                                                  extend = 'copy',
+                                                                  buttons = c('copy'),
+                                                                  filename = 'External'
+                                                              ),
+                                                              list(
+                                                                  extend = 'csv',
+                                                                  buttons = c('csv'),
+                                                                  filename = 'External'
+                                                              ),
+                                                              list(
+                                                                  extend = 'pdf',
+                                                                  buttons = c('pdf'),
+                                                                  filename = 'External'
+                                                              ),
+                                                              list(
+                                                                  extend = 'excel',
+                                                                  buttons = c('excel'),
+                                                                  filename = 'External'
+                                                              ))
+                                                  )))
 
                         printFirstTable = T
 
@@ -711,14 +760,37 @@ shinyServer(function(input, output, session) {
 
                         if (printFirstTable) {
                             output$best_evaluation2 <-
-                                DT::renderDataTable(
-                                    result_internal$result,
-                                    options = list(
-                                        scroller = T,
-                                        scrollX = T,
-                                        lengthChange = F
-                                    )
-                                )
+                                DT::renderDataTable(DT::datatable(result_internal$result,
+                                                  extensions = c('Buttons','ColReorder'),
+                                                  options = list(
+                                                      colReorder = TRUE,
+                                                      scrollX = T,
+                                                      lengthChange = F,
+                                                      scroller = T,
+                                                      dom = 'Bfrtip',
+                                                      buttons =
+                                                          list(
+                                                              list(
+                                                                  extend = 'copy',
+                                                                  buttons = c('copy'),
+                                                                  filename = 'Internal'
+                                                              ),
+                                                              list(
+                                                                  extend = 'csv',
+                                                                  buttons = c('csv'),
+                                                                  filename = 'Internal'
+                                                              ),
+                                                              list(
+                                                                  extend = 'pdf',
+                                                                  buttons = c('pdf'),
+                                                                  filename = 'Internal'
+                                                              ),
+                                                              list(
+                                                                  extend = 'excel',
+                                                                  buttons = c('excel'),
+                                                                  filename = 'Internal'
+                                                              ))
+                                                  )))
                             shinyjs::show("best_evaluation2")
                         } else {
                             output$best_evaluation1 <-
@@ -727,7 +799,9 @@ shinyServer(function(input, output, session) {
                                     options = list(
                                         scroller = T,
                                         scrollX = T,
-                                        lengthChange = F
+                                        lengthChange = F,
+                                        dom = 'Bfrtip',
+                                        buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
                                     )
                                 )
                         }
@@ -756,7 +830,9 @@ shinyServer(function(input, output, session) {
                                                                   options = list(
                                                                       scroller = T,
                                                                       scrollX = T,
-                                                                      lengthChange = F
+                                                                      lengthChange = F,
+                                                                      dom = 'Bfrtip',
+                                                                      buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
                                                                   ))
 
                     output$best_evaluation1 <-
@@ -764,14 +840,18 @@ shinyServer(function(input, output, session) {
                                             options = list(
                                                 scroller = T,
                                                 scrollX = T,
-                                                lengthChange = F
+                                                lengthChange = F,
+                                                dom = 'Bfrtip',
+                                                buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
                                             ))
                     output$best_evaluation2 <-
                         DT::renderDataTable(NULL,
                                             options = list(
                                                 scroller = T,
                                                 scrollX = T,
-                                                lengthChange = F
+                                                lengthChange = F,
+                                                dom = 'Bfrtip',
+                                                buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
                                             ))
                     shinyjs::show("best_evaluation2")
 
@@ -829,7 +909,9 @@ shinyServer(function(input, output, session) {
                                             options = list(
                                                 scroller = T,
                                                 scrollX = T,
-                                                lengthChange = F
+                                                lengthChange = F,
+                                                dom = 'Bfrtip',
+                                                buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
                                             ))
 
                     printFirstTable = F
@@ -844,7 +926,9 @@ shinyServer(function(input, output, session) {
                                 options = list(
                                     scroller = T,
                                     scrollX = T,
-                                    lengthChange = F
+                                    lengthChange = F,
+                                    dom = 'Bfrtip',
+                                    buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
                                 )
                             )
 
@@ -878,7 +962,9 @@ shinyServer(function(input, output, session) {
                                     options = list(
                                         scroller = T,
                                         scrollX = T,
-                                        lengthChange = F
+                                        lengthChange = F,
+                                        dom = 'Bfrtip',
+                                        buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
                                     )
                                 )
                             shinyjs::show("best_evaluation2")
@@ -889,7 +975,9 @@ shinyServer(function(input, output, session) {
                                     options = list(
                                         scroller = T,
                                         scrollX = T,
-                                        lengthChange = F
+                                        lengthChange = F,
+                                        dom = 'Bfrtip',
+                                        buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
                                     )
                                 )
                         }
@@ -916,21 +1004,27 @@ shinyServer(function(input, output, session) {
                                                                   options = list(
                                                                       scroller = T,
                                                                       scrollX = T,
-                                                                      lengthChange = F
+                                                                      lengthChange = F,
+                                                                      dom = 'Bfrtip',
+                                                                      buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
                                                                   ))
                     output$best_evaluation1 <-
                         DT::renderDataTable(NULL,
                                             options = list(
                                                 scroller = T,
                                                 scrollX = T,
-                                                lengthChange = F
+                                                lengthChange = F,
+                                                dom = 'Bfrtip',
+                                                buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
                                             ))
                     output$best_evaluation2 <-
                         DT::renderDataTable(NULL,
                                             options = list(
                                                 scroller = T,
                                                 scrollX = T,
-                                                lengthChange = F
+                                                lengthChange = F,
+                                                dom = 'Bfrtip',
+                                                buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
                                             ))
                     shinyjs::show("best_evaluation2")
 
