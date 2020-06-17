@@ -91,5 +91,4 @@ S3method(print, result_internal_algorithm_by_metric)
 S3method(summary, clustering)
 S3method(print, summary.clustering)
 S3method(sort, clustering)
-S3method(print, clustering_sort)
-
+S3method("[",clustering)

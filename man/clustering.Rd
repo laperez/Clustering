@@ -36,15 +36,13 @@ precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.}
 \item{variables}{an boolean which indicates that if we want to show as a result the variables of the datasets or the numerical value of the calculation of the metrics. The default value is \code{F}.}
 }
 \value{
-a matrix with the result of running all the metrics of the algorithms contained in the packages we indicated. We also obtain information with the types of metrics, algorithms and packages executed in addition to being able to export the results in latex format.
+a matrix with the result of running all the metrics of the algorithms contained in the packages we indicated. We also obtain information with the types of metrics, algorithms and packages executed.
 \itemize{
        \item result It is a list with the algorithms, metrics and variables defined in the execution of the algorithm.
        \item hasInternalMetrics Boolean field to indicate if there are internal metrics such as: dunn, silhoutte and connectivity.
        \item hasExternalMetrics Boolean field to indicate if there are external metrics such as: precision, recall, f-measure, entropy, variation information and fowlkes-mallows.
-       \item algorithms_execute Vector de caracteres con los algoritmos ejecutados. Dichos algoritmos han sido mencionados en la definición de los parámetros.
+       \item algorithms_execute Character vector with the algorithms executed. These algorithms have been mentioned in the definition of the parameters.
        \item measures_execute Character vector with the measures executed. These measures have been mentioned in the definition of the parameters.
-       \item tableExternal It's a string of characters. It contains the results of the external evaluation measures in latex format. This table can be exported to a file using the \code{export_file_external}.
-       \item tableInternal It's a string of characters. It contains the results of the internal evaluation measures in latex format. This table can be exported to a file using the \code{export_file_internal}.
 }
 }
 \description{

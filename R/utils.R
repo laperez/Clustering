@@ -172,15 +172,15 @@ read_file <- function(path) {
   return (result)
 }
 
-dataframe_by_metrics_evaluation <- function(data, external = T){
+dataframe_by_metrics_evaluation <- function(data, external = T) {
 
   columns <- colnames(data)
   index <- 2
   cols_remove <- NULL
 
   if (external){
-    cols_remove <- c('timeExternal')
-  } else cols_remove <- c('timeInternal')
+    cols_remove <- c('timeInternal')
+  } else cols_remove <- c('timeExternal')
 
   for (number_col in 6:length(columns)){
 

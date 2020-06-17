@@ -2,7 +2,7 @@
 % Please edit documentation in R/app.R
 \name{execute_datasets}
 \alias{execute_datasets}
-\title{Method of performing information processing.}
+\title{Evaluation clustering algorithm.}
 \usage{
 execute_datasets(
   path,
@@ -33,9 +33,9 @@ execute_datasets(
 \item{variables}{accepts Boolean values. If true as a result it shows the variable that behaves best otherwise it shows the value of the executed metric.}
 }
 \value{
-returns a matrix with the result of running all the metrics of the algorithms contained in the packages we indicated. It also provides two files called internal and external in latex format with the results of the execution.
+returns a matrix with the result of running all the metrics of the algorithms contained in the packages we indicated.
 }
 \description{
-Method of performing information processing.
+Method of performing information processing
 }
 \keyword{internal}

@@ -26,14 +26,9 @@ The additional argument in "..." is the 'by' argument, which is a array
          \code{Algorithm, Distance, Clusters, Dataset, Ranking, timeExternal, entropy, variation_information, precision, recall, f_measure, fowlkes_mallows_index, connectivity, dunn, silhouette, timeInternal}.
 }
 \examples{
-result = clustering(
-            df = cluster::agriculture,
-            min = 4,
-            max = 5,
-            algorithm='gmm',
-            metrics=c('dunn','precision'),
-            variables = FALSE
-         )
 
-sort(result, FALSE, 'dunn')
+library(clustering)
+
+sort(datasetTest, FALSE, 'dunn')
+
 }
