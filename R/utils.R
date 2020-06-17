@@ -172,6 +172,35 @@ read_file <- function(path) {
   return (result)
 }
 
+dataframe_by_metrics_evaluation <- function(data, external = T){
+
+  columns <- colnames(data)
+  index <- 2
+  cols_remove <- NULL
+
+  if (external){
+    cols_remove <- c('timeExternal')
+  } else cols_remove <- c('timeInternal')
+
+  for (number_col in 6:length(columns)){
+
+    if (external){
+      if (is_Internal_Metrics(columns[number_col])){
+        cols_remove[index]= columns[number_col]
+        index <- index+1
+      }
+    } else {
+      if (is_External_Metrics(columns[number_col])){
+        cols_remove[index]= columns[number_col]
+        index <- index+1
+      }
+    }
+  }
+
+  return (select(data, -cols_remove))
+
+}
+
 #'
 #'Method that converts a matrix into numerical format
 #'
@@ -187,9 +216,6 @@ convert_numeric_matrix <- function(datas){
   ncol(datas)
 
   for (iterator in 1:ncol(datas)){
-
-    #datas <- format(datas)
-    #datas <- trimws(datas, whitespace = "[\\h\\v]")
 
     if (class(datas[,iterator])=="character"){
 

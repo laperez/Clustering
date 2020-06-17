@@ -2,7 +2,7 @@
 % Please edit documentation in R/app.R
 \name{best_ranked_external_metrics}
 \alias{best_ranked_external_metrics}
-\title{Method that calculates the best rated external metrics.}
+\title{Best rated external metrics.}
 \usage{
 best_ranked_external_metrics(df)
 }
@@ -10,10 +10,14 @@ best_ranked_external_metrics(df)
 \item{df}{matrix or data frame with the result of running the clustering algorithm.}
 }
 \value{
-returns a table with the external metrics that has the best rating.
+Returns a data.frame with the best classified external variables.
 }
 \description{
-Method that calculates the best rated external metrics.
+method in charge of searching for each algorithm those that have the best external classification.
+
+Method that looks for those external variables that are better classified,
+making use of the ranking column. In this way we discard the rest of the variables and
+only work with those that give the best response to the algorithm in question.
 }
 \examples{
 
@@ -27,5 +31,9 @@ result = clustering(
          )
 
 best_ranked_external_metrics(df = result)
+
+\dontrun{
+best_ranked_external_metrics(df = result$result)
+}
 
 }

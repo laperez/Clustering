@@ -1,9 +1,9 @@
 {
-    "path" : "~/Desktop/Doctorado Ujaen/Paquetes R/clustering/R",
-    "sortOrder" : [
+    "path": "~/Desktop/Doctorado Ujaen/Paquetes R/clustering",
+    "sortOrder": [
         {
-            "ascending" : true,
-            "columnIndex" : 2
+            "columnIndex": 2,
+            "ascending": true
         }
     ]
 }

@@ -2,17 +2,23 @@
 % Please edit documentation in R/app.R
 \name{plot_clustering}
 \alias{plot_clustering}
-\title{Method that graphically compares external and internal evaluation metrics.}
+\title{Graphic representation of the evaluation measures.}
 \usage{
 plot_clustering(df, metric)
 }
 \arguments{
 \item{df}{data matrix or data frame with the result of running the clustering algorithm.}
 
-\item{metric}{string with the name of the metric select to evaluate.}
+\item{metric}{it's a string with the name of the metric select to evaluate.}
 }
 \description{
-Method that graphically compares external and internal evaluation metrics.
+Graphical representation of the evaluation measures grouped by cluster.
+}
+\details{
+In certain cases the review or filtering of the data is necessary to select the data,
+that is why thanks to the graphic representations this task is much easier.
+Therefore with this method we will be able to filter the data by metrics
+and see the data in a graphical way.
 }
 \examples{
 

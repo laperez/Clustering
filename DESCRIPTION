@@ -13,6 +13,6 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0
 Repository: CRAN
-Imports: advclust, amap, apcluster, cluster, ClusterR, data.table, doParallel, foreach, future, gama, ggplot2, gmp, pracma, pvclust, shiny, sqldf, stats, tools, utils, xtable
-Suggests: DT, dplyr, kableExtra, knitr, rmarkdown, shinyalert, shinyFiles, shinyjs, shinythemes, shinyWidgets, tidyverse, shinycssloaders
+Imports: advclust, amap, apcluster, cluster, ClusterR, data.table, doParallel, dplyr, foreach, future, gama, ggplot2, gmp, pracma, pvclust, shiny, sqldf, stats, tools, utils, xtable
+Suggests: DT, kableExtra, knitr, rmarkdown, shinyalert, shinyFiles, shinyjs, shinythemes, shinyWidgets, tidyverse, shinycssloaders
 VignetteBuilder: knitr

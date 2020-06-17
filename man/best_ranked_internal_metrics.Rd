@@ -2,18 +2,22 @@
 % Please edit documentation in R/app.R
 \name{best_ranked_internal_metrics}
 \alias{best_ranked_internal_metrics}
-\title{Method that calculates the best rated internal metrics.}
+\title{Best rated internal metrics.}
 \usage{
 best_ranked_internal_metrics(df)
 }
 \arguments{
-\item{df}{data matrix or data frame with the result of running the clustering algorithm.}
+\item{df}{matrix or data frame with the result of running the clustering algorithm.}
 }
 \value{
-returns a table with the internal metrics that has the best rating.
+Returns a data.frame with the best classified internal variables.
 }
 \description{
-Method that calculates the best rated internal metrics.
+method in charge of searching for each algorithm those that have the best internal classification.
+
+Method that looks for those internal variables that are better classified,
+making use of the ranking column. In this way we discard the rest of the variables and
+only work with those that give the best response to the algorithm in question.
 }
 \examples{
 
@@ -22,10 +26,14 @@ result = clustering(
                min = 4,
                max = 5,
                algorithm='gmm',
-               metrics=c("dunn"),
+               metrics=c("recall"),
                variables = FALSE
          )
 
-best_ranked_internal_metrics(result)
+best_ranked_internal_metrics(df = result)
+
+\dontrun{
+best_ranked_internal_metrics(df = result$result)
+}
 
 }

@@ -2,10 +2,18 @@
 % Please edit documentation in R/app.R
 \name{appClustering}
 \alias{appClustering}
-\title{Method that allows us to execute the main algorithm in graphic interface mode instead of through the console.}
+\title{Clustering GUI.}
 \usage{
 appClustering()
 }
+\value{
+GUI with the parameters of the algorithm and their representation in tables and graphs.
+}
 \description{
 Method that allows us to execute the main algorithm in graphic interface mode instead of through the console.
+}
+\details{
+The operation of this method is to generate a graphical user.
+interface to be able to execute the clustering algorithm without knowing the parameters.
+Its operation is very simple, we can change the values and see the behavior quickly.
 }

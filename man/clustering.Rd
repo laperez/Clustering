@@ -36,7 +36,7 @@ precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.}
 \item{variables}{an boolean which indicates that if we want to show as a result the variables of the datasets or the numerical value of the calculation of the metrics. The default value is \code{F}.}
 }
 \value{
-returns a matrix with the result of running all the metrics of the algorithms contained in the packages we indicated. We also obtain information with the types of metrics, algorithms and packages executed in addition to being able to export the results in latex format.
+a matrix with the result of running all the metrics of the algorithms contained in the packages we indicated. We also obtain information with the types of metrics, algorithms and packages executed in addition to being able to export the results in latex format.
 \itemize{
        \item result It is a list with the algorithms, metrics and variables defined in the execution of the algorithm.
        \item hasInternalMetrics Boolean field to indicate if there are internal metrics such as: dunn, silhoutte and connectivity.

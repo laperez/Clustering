@@ -1,11 +1,10 @@
 {
-    "dialog-state" : {
-        "caseSensitive" : true,
-        "filePatterns" : [
-        ],
-        "path" : "",
-        "projectRelative" : true,
-        "query" : "CONST_NAME_INTERNAL_REPORT_FILE",
-        "regex" : true
+    "dialog-state": {
+        "caseSensitive": true,
+        "filePatterns": [],
+        "path": "",
+        "projectRelative": true,
+        "query": "CONST_NAME_INTERNAL_REPORT_FILE",
+        "regex": true
     }
 }

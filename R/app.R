@@ -13,15 +13,45 @@
 #' @importFrom
 #' shiny runApp dataTableOutput renderDataTable runExample
 #'
+#' @importFrom
+#' utils install.packages
+#'
 #' @export
 #' appClustering
 #'
-#' @examples
-#'
-#' appClustering()
-#'
-#'
+
 appClustering <- function() {
+
+  # Verify that the following packages are installed
+
+  if (!requireNamespace("shinycssloaders")) {
+    install.packages("shinycssloaders")
+  }
+
+  if (!requireNamespace("shinyalert")) {
+    install.packages("shinyalert")
+  }
+
+  if (!requireNamespace("DT")) {
+    install.packages("DT")
+  }
+
+  if (!requireNamespace("shinyjs")) {
+    install.packages("shinyjs")
+  }
+
+  if (!requireNamespace("shinyWidgets")) {
+    install.packages("shinyWidgets")
+  }
+
+  if (!requireNamespace("shinyFiles")) {
+    install.packages("shinyFiles")
+  }
+
+  if (!requireNamespace("shinythemes")) {
+    install.packages("shinythemes")
+  }
+
   appDir <- system.file("shiny", "clustering", package = "Clustering")
   if (appDir == "") {
     stop("Could not find directory. Try re-installing `clustering`.",
@@ -297,6 +327,8 @@ execute_datasets <- function(path,
 
   cl <- match.call()
 
+  results <- NULL
+
   if (is.null(algorithm)) {
     # We calculate the algorithms to be executed depending on the package
 
@@ -365,7 +397,7 @@ execute_datasets <- function(path,
     # We carry out the calculations of all the algorithms and metrics for the files or datatsets
     # indicated at the beginning of the algorithm.
 
-    result <-
+    results <-
       execute_package_parallel(
         directory_files,
         df,
@@ -387,21 +419,29 @@ execute_datasets <- function(path,
 
   if (is_metric_external) {
     tableExternal <-
-      xtable(xtable(result$df_external), include.rownames = F)
+      xtable(xtable(results$df_external), include.rownames = F, digits = 4)
   }
 
   # If it contains internal metrics we create the table in latex format with the internal results obtained.
 
   if (is_metric_internal) {
     tableInternal <-
-      xtable(xtable(result$df_internal), include.rownames = F)
+      xtable(xtable(results$df_internal), include.rownames = F, digits = 4)
+  }
+
+  results <- as.data.frame(results$df_result, stringsAsFactors = F)
+
+  # Convert column to numeric
+
+  for (parse_column in 6:ncol(results)) {
+    results[,parse_column] = as.numeric(results[,parse_column]);
   }
 
   #We return a list with the result of the execution, algorithms, packages, tables in latex format with the separation of the results in internal and external
 
   res <-
     list(
-      result = as.data.frame(result$df_result),
+      result = results,
       hasInternalMetrics = is_metric_internal,
       hasExternalMetrics = is_metric_external,
       algorithms_execute = algorithms_execute,
@@ -736,7 +776,6 @@ execute_package_parallel <-
     return(result)
   }
 
-
   print.clustering <- function(x, ...)
   {
     cat("Result:	\n")
@@ -744,6 +783,88 @@ execute_package_parallel <-
     cat("\n")
     invisible(x)
   }
+
+  #'
+  #' @title Returns the clustering result sorted by a set of metrics.
+  #'
+  #' @description This function receives a clustering object and sorts the indicator columns by parameter.
+  #' By default it performs sorting by the algorithm field.
+  #'
+  #' @param x is an \code{clustering} object.
+  #'
+  #' @param decreasing A logical indicating if the sort should be increasing or decreasing. By default, decreasing.
+  #'
+  #' @param ... Additional parameters as "by", a String with the name of the evaluation measure to order by. Valid values are: \code{Algorithm, Distance, Clusters, Dataset, Ranking, timeExternal, entropy, variation_information, precision, recall, f_measure, fowlkes_mallows_index, connectivity, dunn, silhouette, timeInternal}.
+  #'
+  #' @details The additional argument in "..." is the 'by' argument, which is a array
+  #'          with the name of the evaluation measure to order by. Valid value are:
+  #'          \code{Algorithm, Distance, Clusters, Dataset, Ranking, timeExternal, entropy, variation_information, precision, recall, f_measure, fowlkes_mallows_index, connectivity, dunn, silhouette, timeInternal}.
+  #'
+  #' @return another \code{clustering} object with the evaluation measures sorted
+  #'
+  #' @importFrom
+  #'
+  #' dplyr arrange_at %>% select desc
+  #'
+  #' @examples
+  #' result = clustering(
+  #'             df = cluster::agriculture,
+  #'             min = 4,
+  #'             max = 5,
+  #'             algorithm='gmm',
+  #'             metrics=c('dunn','precision'),
+  #'             variables = FALSE
+  #'          )
+  #'
+  #' sort(result, FALSE, 'dunn')
+  #'
+
+  sort.clustering <- function(x, decreasing = TRUE, ...){
+
+    #Catch dots arguments
+    by <- c(...)
+
+    if (length(by) == 0) {
+      by <- "Algorithm"
+    }
+
+    if (decreasing){
+      result_sort <- x$result %>% arrange_at(by,desc)
+    } else {
+      result_sort <- x$result %>% arrange_at(by)
+    }
+
+    tableInternal <- NULL
+    tableExternal <- NULL
+
+    if (x$hasInternalMetrics){
+
+      tableInternal <-
+        xtable(xtable(dataframe_by_metrics_evaluation(result_sort,F)), digits=4, include.rownames = F)
+    }
+
+    if (x$hasExternalMetrics){
+      tableExternal <-
+        xtable(xtable(dataframe_by_metrics_evaluation(result_sort)), digits=4, include.rownames = F)
+    }
+
+    result <-
+      list(
+        result = result_sort,
+        hasInternalMetrics = x$hasInternalMetrics,
+        hasExternalMetrics = x$hasExternalMetrics,
+        algorithms_execute = x$algorithms_execute,
+        measures_execute = x$measures_execute,
+        tableExternal = tableExternal,
+        tableInternal = tableInternal,
+        call = x$call
+      )
+
+    class(result) <- "clustering";
+
+    return(result)
+  }
+
 
   summary.clustering <- function(object, ...)
   {
@@ -762,16 +883,23 @@ execute_package_parallel <-
     cat("External Metrics:	\n")
     print(x$hasExternalMetrics)
     cat("\n")
-    cat("Algorithms:	\n")
-    print(x$algorithms_execute)
+    cat("Number of Algorithms:	\n")
+    print(length(x$algorithms_execute))
     cat("\n")
-    cat("Algorithms:	\n")
-    print(x$algorithms_execute)
+    cat("Number of Measures:	\n")
+    print(length(x$measures_execute))
     cat("\n")
-    cat("Algorithms:	\n")
-    print(x$measures_execute)
+    cat("Total elements:	\n")
+    print(length(x$result))
     cat("\n")
 
+    invisible(x)
+  }
+
+  print.clustering_sort <- function(x, ...) {
+    cat("Result:	\n")
+    print(x$result)
+    cat("\n")
     invisible(x)
   }
 
@@ -877,7 +1005,7 @@ execute_package_parallel <-
   }
 
 #'
-#' @tile Evaluate external validations by algorithm.
+#' @title Evaluate external validations by algorithm.
 #'
 #' @description Method that calculates which algorithm behaves best for the datasets provided.
 #'
@@ -929,7 +1057,7 @@ execute_package_parallel <-
   }
 
 #'
-#' @tile Evaluate internal validations by algorithm.
+#' @title Evaluate internal validations by algorithm.
 #'
 #' @description Method that calculates which algorithm behaves best for the datasets provided.
 #'

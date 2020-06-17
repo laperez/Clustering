@@ -2,7 +2,7 @@
 % Please edit documentation in R/app.R
 \name{evaluate_best_validation_internal_by_metrics}
 \alias{evaluate_best_validation_internal_by_metrics}
-\title{Method that calculates which algorithm and which metric behaves best for the datasets provided.}
+\title{Evaluation of the algorithms by measures of dissimilarity.}
 \usage{
 evaluate_best_validation_internal_by_metrics(df)
 }
@@ -10,10 +10,15 @@ evaluate_best_validation_internal_by_metrics(df)
 \item{df}{data matrix or data frame with the result of running the clustering algorithm.}
 }
 \value{
-returns a table with the algorithm and the best performing metric for the datasets.
+a data.frame with the algorithms classified by measures of dissimilarity.
 }
 \description{
 Method that calculates which algorithm and which metric behaves best for the datasets provided.
+}
+\details{
+Method that calculates the behavior of dissimilarity measures by algorithm,
+so we can evaluate which of the different measures of dissimilarity used by the algorithms presents the best behavior.
+This method should be used to determine which dissimilarity measure has the best behavior for intenal evaluation measures.
 }
 \examples{
 

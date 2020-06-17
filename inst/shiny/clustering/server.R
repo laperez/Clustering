@@ -78,7 +78,7 @@ shinyServer(function(input, output, session) {
         if (!is.null(input$image1) &&
             input$image1 != "" && !is.null(df_result)) {
             output$plotImage1 <- renderPlot({
-                plot(df_result, input$image1)
+                Clustering::plot_clustering(df_result, input$image1)
             })
         }
     })
@@ -88,7 +88,7 @@ shinyServer(function(input, output, session) {
         if (!is.null(input$image2) &&
             input$image2 != "" && !is.null(df_result)) {
             output$plotImage2 <- renderPlot({
-                plot(df_result, input$image2)
+                Clustering::plot_clustering(df_result, input$image2)
             })
         }
     })
@@ -749,7 +749,7 @@ shinyServer(function(input, output, session) {
                                 choices = result,
                                 selected = result[1]
                             )
-                            plot(df_result, result[1])
+                            Clustering::plot_clustering(df_result, result[1])
 
                         })
                     }
@@ -817,7 +817,7 @@ shinyServer(function(input, output, session) {
                                 choices = result,
                                 selected = result[1]
                             )
-                            plot(df_result, result[1])
+                            Clustering::plot_clustering(df_result, result[1])
 
                         })
                     }
@@ -945,7 +945,7 @@ shinyServer(function(input, output, session) {
                                 choices = result,
                                 selected = result[1]
                             )
-                            plot(df_result, result[1])
+                            Clustering::plot_clustering(df_result, result[1])
 
                         })
                     }
@@ -993,7 +993,7 @@ shinyServer(function(input, output, session) {
                                 choices = result,
                                 selected = result[1]
                             )
-                            plot(df_result, result[1])
+                            Clustering::plot_clustering(df_result, result[1])
 
                         })
                     }
