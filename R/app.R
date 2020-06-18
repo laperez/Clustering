@@ -1,6 +1,5 @@
 
 
-
 #' @title Clustering GUI.
 #'
 #' @description Method that allows us to execute the main algorithm in graphic interface mode instead of through the console.
@@ -320,7 +319,6 @@ execute_datasets <- function(path,
                              cluster_max,
                              metrics,
                              variables) {
-
   # Initialization of the parameter format
 
   on.exit(options(scipen = 999))
@@ -693,7 +691,7 @@ execute_package_parallel <-
 
                 # We assign the value in the matrix
 
-                df_result[rowCount,] = result_information
+                df_result[rowCount, ] = result_information
 
                 # we increase the position of the matrix
 
@@ -712,7 +710,7 @@ execute_package_parallel <-
 
     rowCountLatex = rowCountLatex - CONST_ONE
 
-    result = list("df_result" = df_result[1:rowCount,])
+    result = list("df_result" = df_result[1:rowCount, ])
 
     # We stop the clusters created in the parallel execution.
     on.exit(parallel::stopCluster(cl))
@@ -758,6 +756,11 @@ print.clustering <- function(x, ...)
 #'
 
 sort.clustering <- function(x, decreasing = TRUE, ...) {
+  if (is.null(x))
+    stop("The x field must be filled")
+
+  if (class(x) != "clustering")
+    stop("The x field must be clustering type")
 
   #Catch dots arguments
   by <- c(...)
@@ -767,7 +770,12 @@ sort.clustering <- function(x, decreasing = TRUE, ...) {
   }
 
   if (decreasing) {
-    result_sort <- x$result %>% arrange_at(by, desc)
+    result_sort <-  tryCatch({
+      x$result %>% arrange_at(by, desc)
+    },
+    error = function(cond) {
+      stop("The ... received as a parameter is not correct")
+    })
   } else {
     result_sort <- x$result %>% arrange_at(by)
   }
@@ -802,7 +810,7 @@ sort.clustering <- function(x, decreasing = TRUE, ...) {
 #'
 #' @examples
 #'
-#' library(clustering)
+#' library(Clustering)
 #'
 #' datasetTest[precision > 0.03]
 #'
@@ -811,15 +819,28 @@ sort.clustering <- function(x, decreasing = TRUE, ...) {
 #' datasetTest[precision > 0.03 & dunn > 0.1]
 #'
 
-"[.clustering" <- function(clusteringObject, condition = T) {
+"[.clustering" <- function(clusteringObject, condition = NULL) {
+  if (is.null(clusteringObject))
+    stop("The clusteringObject field must be filled")
+
+  if (class(clusteringObject) != "clustering")
+    stop("The clusteringObject field must be clustering type")
+
+  if (is.null(condition))
+    stop("The condition field must be filled")
+
   filter <- substitute(condition)
 
   if (is.call(filter)) {
-    rulesToKeep <-  dplyr::filter(clusteringObject$result, eval(filter))
+    rulesToKeep <-  tryCatch({
+      dplyr::filter(clusteringObject$result, eval(filter))
+    },
+    error = function(cond) {
+      stop("The condition received as a parameter is not correct")
+    })
 
   } else {
     rulesToKeep <- clusteringObject$result
-
   }
 
   result <-
@@ -832,7 +853,6 @@ sort.clustering <- function(x, decreasing = TRUE, ...) {
     )
 
   class(result) <- "clustering"
-
 
   return(result)
 
@@ -864,6 +884,75 @@ print.summary.clustering <- function(x, ...) {
   cat("Total elements:	\n")
   print(length(x$result))
   cat("\n")
+
+  columns <- colnames(x$result)
+
+  if (CONST_TIME_INTERNAL %in% columns) {
+    cat("Mean time for evaluation of external metrics:	\n")
+    print(format(round(mean(x$result$timeExternal), digits = 4),scientific = F))
+    cat("\n")
+  }
+
+  if (CONST_ENTROPY_METRIC %in% columns) {
+    cat("Metric mean entropy:	\n")
+    print(format(round(mean(x$result$entropy), digits = 4),scientific = F))
+    cat("\n")
+  }
+
+  if (CONST_VARIATION_INFORMATION_METRIC %in% columns) {
+    cat("Metric mean variation_information:	\n")
+    print(format(round(mean(x$result$variation_information), digits = 4),scientific = F))
+    cat("\n")
+  }
+
+  if (CONST_PRECISION_METRIC %in% columns) {
+    cat("Metric mean precision:	\n")
+    print(format(round(mean(x$result$precision), digits = 4),scientific = F))
+    cat("\n")
+  }
+
+  if (CONST_RECALL_METRIC %in% columns) {
+    cat("Metric mean recall:	\n")
+    print(format(round(mean(x$result$recall), digits = 4),scientific = F))
+    cat("\n")
+  }
+
+  if (CONST_F_MEASURE_METRIC %in% columns) {
+    cat("Metric mean f_measure:	\n")
+    print(format(round(mean(x$result$f_measure), digits = 4),scientific = F))
+    cat("\n")
+  }
+
+  if (CONST_FOWLKES_MALLOWS_INDEX_METRIC %in% columns) {
+    cat("Metric mean fowlkes_mallows_index:	\n")
+    print(format(round(mean(x$result$fowlkes_mallows_index), digits = 4),scientific = F))
+    cat("\n")
+  }
+
+  if (CONST_CONNECTIVITY_METRIC %in% columns) {
+    cat("Metric mean connectivity:	\n")
+    print(format(round(mean(x$result$connectivity), digits = 4),scientific = F))
+    cat("\n")
+  }
+
+  if (CONST_DUNN_METRIC %in% columns) {
+    cat("Metric mean dunn:	\n")
+    print(format(round(mean(x$result$dunn), digits = 4),scientific = F))
+    cat("\n")
+  }
+
+  if (CONST_SILHOUETTE_METRIC %in% columns) {
+    cat("Metric mean silhouette:	\n")
+    print(format(round(mean(x$result$silhouette), digits = 4),scientific = F))
+    cat("\n")
+  }
+
+  if (CONST_TIME_INTERNAL %in% columns) {
+    cat("Mean time for evaluation of internal metrics:	\n")
+    print(format(round(mean(x$result$timeInternal), digits = 4),scientific = F))
+    cat("\n")
+  }
+
 
   invisible(x)
 }
@@ -1455,7 +1544,11 @@ export_file_external <- function(df, path = NULL) {
   tableExternal <- dataframe_by_metrics_evaluation(df$result)
 
   tableExternal <-
-    xtable(xtable(tableExternal, include.rownames = F, digits = 4))
+    xtable(xtable(
+      tableExternal,
+      include.rownames = F,
+      digits = 4
+    ))
 
   if (!is.null(path)) {
     print(tableExternal,
@@ -1509,10 +1602,14 @@ export_file_internal <- function(df, path = NULL) {
       !dir.exists(path))
     stop("The path must be a valid directory")
 
-  tableInternal <- dataframe_by_metrics_evaluation(df$result,F)
+  tableInternal <- dataframe_by_metrics_evaluation(df$result, F)
 
   tableInternal <-
-    xtable(xtable(tableInternal, include.rownames = F, digits = 4))
+    xtable(xtable(
+      tableInternal,
+      include.rownames = F,
+      digits = 4
+    ))
 
   if (!is.null(path)) {
     print(tableInternal,
