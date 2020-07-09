@@ -473,7 +473,6 @@ calculate_best_validation_internal_by_metrics <-
   function (df) {
     table_res <- data.table(df)
 
-
     fields <-
       paste(row_name_df_internal(colnames(table_res)), collapse = ",")
 
@@ -504,6 +503,80 @@ calculate_best_validation_internal_by_metrics <-
 
 
   }
+
+#' Method in charge of obtaining a table with the results of the algorithms grouped by clusters,
+#' calculating the maximum value of each external metrics
+#'
+#' @param df data matrix or data frame
+#'
+#' @return returns a table with the algorithms and the clusters
+#'
+#' @keywords internal
+#'
+
+show_result_external_algorithm_group_by_clustering <-
+    function (df) {
+      table_res <- data.table(df)
+
+      fields <-
+        paste(row_name_df_external(colnames(table_res)), collapse = ",")
+
+      metrics_external <- unlist(strsplit(fields,","));
+
+      query_fields <- "";
+
+      for (i in 6:length(metrics_external)){
+        query_fields <- paste(query_fields,", MAX(",metrics_external[i],") as ",metrics_external[i],sep = "")
+      }
+
+      query <-
+        paste("select Algorithm,Clusters ", query_fields, "from table_res group by Algorithm, Clusters", collapse = "")
+
+      calculate_result_external_algorithm_by_clusters <-
+        sqldf(
+          query
+        )
+
+      return (calculate_result_external_algorithm_by_clusters)
+    }
+
+
+#' Method in charge of obtaining a table with the results of the algorithms grouped by clusters,
+#' calculating the maximum value of each internal metrics
+#'
+#' @param df data matrix or data frame
+#'
+#' @return returns a table with the algorithms and the clusters
+#'
+#' @keywords internal
+#'
+
+show_result_internal_algorithm_group_by_clustering <-
+  function (df) {
+    table_res <- data.table(df)
+
+    fields <-
+      paste(row_name_df_internal(colnames(table_res)), collapse = ",")
+
+    metrics_internal <- unlist(strsplit(fields,","));
+
+    query_fields <- "";
+
+    for (i in 6:length(metrics_internal)){
+      query_fields <- paste(query_fields,", MAX(",metrics_internal[i],") as ",metrics_internal[i],sep = "")
+    }
+
+    query <-
+      paste("select Algorithm,Clusters ", query_fields, "from table_res group by Algorithm, Clusters", collapse = "")
+
+    calculate_result_internal_algorithm_by_clusters <-
+      sqldf(
+        query
+      )
+
+    return (calculate_result_internal_algorithm_by_clusters)
+  }
+
 
 #' Method that returns a table with the algorithm and the metric indicated as parameters
 #'

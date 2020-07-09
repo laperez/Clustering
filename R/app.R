@@ -1,5 +1,6 @@
 
 
+
 #' @title Clustering GUI.
 #'
 #' @description Method that allows us to execute the main algorithm in graphic interface mode instead of through the console.
@@ -691,7 +692,7 @@ execute_package_parallel <-
 
                 # We assign the value in the matrix
 
-                df_result[rowCount, ] = result_information
+                df_result[rowCount,] = result_information
 
                 # we increase the position of the matrix
 
@@ -710,7 +711,7 @@ execute_package_parallel <-
 
     rowCountLatex = rowCountLatex - CONST_ONE
 
-    result = list("df_result" = df_result[1:rowCount, ])
+    result = list("df_result" = df_result[1:rowCount,])
 
     # We stop the clusters created in the parallel execution.
     on.exit(parallel::stopCluster(cl))
@@ -889,67 +890,87 @@ print.summary.clustering <- function(x, ...) {
 
   if (CONST_TIME_INTERNAL %in% columns) {
     cat("Mean time for evaluation of external metrics:	\n")
-    print(format(round(mean(x$result$timeExternal), digits = 4),scientific = F))
+    print(format(round(
+      mean(x$result$timeExternal), digits = 4
+    ), scientific = F))
     cat("\n")
   }
 
   if (CONST_ENTROPY_METRIC %in% columns) {
     cat("Metric mean entropy:	\n")
-    print(format(round(mean(x$result$entropy), digits = 4),scientific = F))
+    print(format(round(mean(
+      x$result$entropy
+    ), digits = 4), scientific = F))
     cat("\n")
   }
 
   if (CONST_VARIATION_INFORMATION_METRIC %in% columns) {
     cat("Metric mean variation_information:	\n")
-    print(format(round(mean(x$result$variation_information), digits = 4),scientific = F))
+    print(format(round(
+      mean(x$result$variation_information), digits = 4
+    ), scientific = F))
     cat("\n")
   }
 
   if (CONST_PRECISION_METRIC %in% columns) {
     cat("Metric mean precision:	\n")
-    print(format(round(mean(x$result$precision), digits = 4),scientific = F))
+    print(format(round(mean(
+      x$result$precision
+    ), digits = 4), scientific = F))
     cat("\n")
   }
 
   if (CONST_RECALL_METRIC %in% columns) {
     cat("Metric mean recall:	\n")
-    print(format(round(mean(x$result$recall), digits = 4),scientific = F))
+    print(format(round(mean(
+      x$result$recall
+    ), digits = 4), scientific = F))
     cat("\n")
   }
 
   if (CONST_F_MEASURE_METRIC %in% columns) {
     cat("Metric mean f_measure:	\n")
-    print(format(round(mean(x$result$f_measure), digits = 4),scientific = F))
+    print(format(round(mean(
+      x$result$f_measure
+    ), digits = 4), scientific = F))
     cat("\n")
   }
 
   if (CONST_FOWLKES_MALLOWS_INDEX_METRIC %in% columns) {
     cat("Metric mean fowlkes_mallows_index:	\n")
-    print(format(round(mean(x$result$fowlkes_mallows_index), digits = 4),scientific = F))
+    print(format(round(
+      mean(x$result$fowlkes_mallows_index), digits = 4
+    ), scientific = F))
     cat("\n")
   }
 
   if (CONST_CONNECTIVITY_METRIC %in% columns) {
     cat("Metric mean connectivity:	\n")
-    print(format(round(mean(x$result$connectivity), digits = 4),scientific = F))
+    print(format(round(
+      mean(x$result$connectivity), digits = 4
+    ), scientific = F))
     cat("\n")
   }
 
   if (CONST_DUNN_METRIC %in% columns) {
     cat("Metric mean dunn:	\n")
-    print(format(round(mean(x$result$dunn), digits = 4),scientific = F))
+    print(format(round(mean(x$result$dunn), digits = 4), scientific = F))
     cat("\n")
   }
 
   if (CONST_SILHOUETTE_METRIC %in% columns) {
     cat("Metric mean silhouette:	\n")
-    print(format(round(mean(x$result$silhouette), digits = 4),scientific = F))
+    print(format(round(mean(
+      x$result$silhouette
+    ), digits = 4), scientific = F))
     cat("\n")
   }
 
   if (CONST_TIME_INTERNAL %in% columns) {
     cat("Mean time for evaluation of internal metrics:	\n")
-    print(format(round(mean(x$result$timeInternal), digits = 4),scientific = F))
+    print(format(round(
+      mean(x$result$timeInternal), digits = 4
+    ), scientific = F))
     cat("\n")
   }
 
@@ -1460,9 +1481,11 @@ plot_clustering <- function(df, metric) {
   df_best_ranked <- NULL
 
   if (isExternalMetrics) {
-    df_best_ranked <- best_ranked_external_metrics(df)
+    df_best_ranked <-
+      show_result_external_algorithm_group_by_clustering(df$result)
   } else {
-    df_best_ranked <- best_ranked_internal_metrics(df)
+    df_best_ranked <-
+      show_result_internal_algorithm_group_by_clustering(df$result)
   }
 
   #We calculate the maximum value of l metric. In case the value is infinite we set a limit.
@@ -1477,7 +1500,7 @@ plot_clustering <- function(df, metric) {
 
   exits_metric = F
 
-  for (col in colnames(df_best_ranked$result)) {
+  for (col in colnames(df_best_ranked)) {
     if (col == metric) {
       exits_metric = T
     }
@@ -1487,9 +1510,9 @@ plot_clustering <- function(df, metric) {
     name_metric <- metric
     metric <- paste("as.numeric(", metric, ")")
 
-    ggplot(df_best_ranked$result,
-           aes_string(x = "Clusters", y = metric, color = "Algorithm")) + ggplot2::geom_point() + xlab(toupper("Clustering")) + ylab(toupper(name_metric)) + labs(color = 'Algorithm') + ggplot2::scale_y_continuous(breaks = as.numeric(break_points),
-                                                                                                                                                                                                                     limits = c(0, maximum))
+    ggplot(df_best_ranked,
+           aes_string(x = "Clusters", y = metric)) + ggplot2::geom_bar(stat ="identity", aes_string(fill = "Algorithm")) + ggplot2::theme_minimal() + xlab(toupper("Clustering")) + ylab(toupper(name_metric))
+
   } else
     stop("The metric indicate does not exist in the dataframe")
 

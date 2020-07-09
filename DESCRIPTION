@@ -1,7 +1,7 @@
 Package: Clustering
 Type: Package
 Title: Execution of Multiple Clustering Algorithm
-Version: 1.6.1
+Version: 1.6
 Date: 2020-04-10
 Author: Luis Alfonso Perez Martos [aut, cre]
 Maintainer: Luis Alfonso Perez Martos <lapm0001@gmail.com>

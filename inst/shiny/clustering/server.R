@@ -698,8 +698,8 @@ shinyServer(function(input, output, session) {
                                                           )))
 
 
-
                     if (df_result$hasExternalMetrics) {
+
                         result_external <-
                             Clustering::evaluate_best_validation_external_by_metrics(df_result)
 
@@ -755,10 +755,12 @@ shinyServer(function(input, output, session) {
                     }
 
                     if (df_result$hasInternalMetrics) {
+
                         result_internal <-
                             Clustering::evaluate_best_validation_internal_by_metrics(df_result)
 
                         if (printFirstTable) {
+
                             output$best_evaluation2 <-
                                 DT::renderDataTable(DT::datatable(result_internal$result,
                                                   extensions = c('Buttons','ColReorder'),
@@ -791,8 +793,11 @@ shinyServer(function(input, output, session) {
                                                                   filename = 'Internal'
                                                               ))
                                                   )))
+
                             shinyjs::show("best_evaluation2")
+
                         } else {
+
                             output$best_evaluation1 <-
                                 DT::renderDataTable(
                                     result_internal$result,
@@ -826,6 +831,7 @@ shinyServer(function(input, output, session) {
                 # When you raise an exception, it initializes the table and hides the load component
 
                 error = function(e) {
+
                     output$tableClustering <- DT::renderDataTable(NULL,
                                                                   options = list(
                                                                       scroller = T,
