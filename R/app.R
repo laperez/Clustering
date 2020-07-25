@@ -1511,7 +1511,7 @@ plot_clustering <- function(df, metric) {
     metric <- paste("as.numeric(", metric, ")")
 
     ggplot(df_best_ranked,
-           aes_string(x = "Clusters", y = metric)) + ggplot2::geom_bar(stat ="identity", aes_string(fill = "Algorithm")) + ggplot2::theme_minimal() + xlab(toupper("Clustering")) + ylab(toupper(name_metric))
+           aes_string(x = "Clusters", y = metric, fill='Algorithm')) + ggplot2::geom_bar(position = 'dodge2', stat='identity') + ggplot2::theme_minimal() + xlab(toupper("Clustering")) + ylab(toupper(name_metric))
 
   } else
     stop("The metric indicate does not exist in the dataframe")
