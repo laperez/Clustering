@@ -1,6 +1,3 @@
-
-
-
 #' @title Clustering GUI.
 #'
 #' @description Method that allows us to execute the main algorithm in graphic interface mode instead of through the console.
@@ -100,8 +97,8 @@ appClustering <- function() {
 #' @return a matrix with the result of running all the metrics of the algorithms contained in the packages we indicated. We also obtain information with the types of metrics, algorithms and packages executed.
 #' \itemize{
 #'        \item result It is a list with the algorithms, metrics and variables defined in the execution of the algorithm.
-#'        \item hasInternalMetrics Boolean field to indicate if there are internal metrics such as: dunn, silhoutte and connectivity.
-#'        \item hasExternalMetrics Boolean field to indicate if there are external metrics such as: precision, recall, f-measure, entropy, variation information and fowlkes-mallows.
+#'        \item has_internal_metrics Boolean field to indicate if there are internal metrics such as: dunn, silhoutte and connectivity.
+#'        \item has_external_metrics Boolean field to indicate if there are external metrics such as: precision, recall, f-measure, entropy, variation information and fowlkes-mallows.
 #'        \item algorithms_execute Character vector with the algorithms executed. These algorithms have been mentioned in the definition of the parameters.
 #'        \item measures_execute Character vector with the measures executed. These measures have been mentioned in the definition of the parameters.
 #' }
@@ -424,8 +421,8 @@ execute_datasets <- function(path,
   res <-
     list(
       result = results,
-      hasInternalMetrics = is_metric_internal,
-      hasExternalMetrics = is_metric_external,
+      has_internal_metrics = is_metric_internal,
+      has_external_metrics = is_metric_external,
       algorithms_execute = algorithms_execute,
       measures_execute = measures_execute
     )
@@ -753,7 +750,9 @@ print.clustering <- function(x, ...)
 #'
 #' library(Clustering)
 #'
-#' sort(datasetTest, FALSE, 'dunn')
+#' result <- clustering(package = 'clusterr', df = Clustering::basketball, min=3, max=4)
+#'
+#' sort(result, FALSE, 'dunn')
 #'
 
 sort.clustering <- function(x, decreasing = TRUE, ...) {
@@ -784,8 +783,8 @@ sort.clustering <- function(x, decreasing = TRUE, ...) {
   result <-
     list(
       result = result_sort,
-      hasInternalMetrics = x$hasInternalMetrics,
-      hasExternalMetrics = x$hasExternalMetrics,
+      has_internal_metrics = x$has_internal_metrics,
+      has_external_metrics = x$has_external_metrics,
       algorithms_execute = x$algorithms_execute,
       measures_execute = x$measures_execute
     )
@@ -801,7 +800,7 @@ sort.clustering <- function(x, decreasing = TRUE, ...) {
 #' @description Generates a new \code{clustering} object containing the metrics that passed the filter
 #' specified.
 #'
-#' @param clusteringObject The \code{clusteringObject} object to filter.
+#' @param clustering The \code{clustering} object to filter.
 #'
 #' @param condition Expression to filter the \code{clustering} object
 #'
@@ -813,44 +812,39 @@ sort.clustering <- function(x, decreasing = TRUE, ...) {
 #'
 #' library(Clustering)
 #'
-#' datasetTest[precision > 0.03]
+#' result <- clustering(package = 'clusterr', df = Clustering::basketball, min=3, max=4)
 #'
-#' Also combine multiple variables:
-#'
-#' datasetTest[precision > 0.03 & dunn > 0.1]
+#' result[precision > 0.14 & dunn > 0.11]
 #'
 
-"[.clustering" <- function(clusteringObject, condition = NULL) {
-  if (is.null(clusteringObject))
-    stop("The clusteringObject field must be filled")
+"[.clustering" <- function(clustering, condition = T) {
+  if (is.null(clustering))
+    stop("The clustering field must be filled")
 
-  if (class(clusteringObject) != "clustering")
-    stop("The clusteringObject field must be clustering type")
+  if (class(clustering) != "clustering")
+    stop("The clustering field must be clustering type")
 
-  if (is.null(condition))
-    stop("The condition field must be filled")
-
-  filter <- substitute(condition)
+  filter <- substitute(condition,)
 
   if (is.call(filter)) {
     rulesToKeep <-  tryCatch({
-      dplyr::filter(clusteringObject$result, eval(filter))
+      dplyr::filter(clustering$result, eval(filter))
     },
     error = function(cond) {
       stop("The condition received as a parameter is not correct")
     })
 
   } else {
-    rulesToKeep <- clusteringObject$result
+    rulesToKeep <- clustering$result
   }
 
   result <-
     list(
       result = rulesToKeep,
-      hasInternalMetrics = clusteringObject$hasInternalMetrics,
-      hasExternalMetrics = clusteringObject$hasExternalMetrics,
-      algorithms_execute = clusteringObject$algorithms_execute,
-      measures_execute = clusteringObject$measures_execute
+      has_internal_metrics = clustering$has_internal_metrics,
+      has_external_metrics = clustering$has_external_metrics,
+      algorithms_execute = clustering$algorithms_execute,
+      measures_execute = clustering$measures_execute
     )
 
   class(result) <- "clustering"
@@ -871,10 +865,10 @@ print.summary.clustering <- function(x, ...) {
   print(x$result)
   cat("\n")
   cat("Internal Metrics:	\n")
-  print(x$hasInternalMetrics)
+  print(x$has_internal_metrics)
   cat("\n")
   cat("External Metrics:	\n")
-  print(x$hasExternalMetrics)
+  print(x$has_external_metrics)
   cat("\n")
   cat("Number of Algorithms:	\n")
   print(length(x$algorithms_execute))
@@ -1557,7 +1551,7 @@ export_file_external <- function(df, path = NULL) {
       !is.list(df))
     stop("The df field must be a list")
 
-  if (!df$hasExternalMetrics)
+  if (!df$has_external_metrics)
     stop("The df field must have external evaluation metrics")
 
   if (!is.null(path) &&
@@ -1618,7 +1612,7 @@ export_file_internal <- function(df, path = NULL) {
       !is.list(df))
     stop("The df field must be a list")
 
-  if (!df$hasInternalMetrics)
+  if (!df$has_internal_metrics)
     stop("The df field must have internal evaluation metrics")
 
   if (!is.null(path) &&

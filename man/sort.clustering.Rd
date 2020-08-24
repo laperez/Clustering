@@ -27,8 +27,10 @@ The additional argument in "..." is the 'by' argument, which is a array
 }
 \examples{
 
-library(clustering)
+library(Clustering)
 
-sort(datasetTest, FALSE, 'dunn')
+result <- clustering(package = 'clusterr', df = Clustering::basketball, min=3, max=4)
+
+sort(result, FALSE, 'dunn')
 
 }

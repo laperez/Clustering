@@ -39,8 +39,8 @@ precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.}
 a matrix with the result of running all the metrics of the algorithms contained in the packages we indicated. We also obtain information with the types of metrics, algorithms and packages executed.
 \itemize{
        \item result It is a list with the algorithms, metrics and variables defined in the execution of the algorithm.
-       \item hasInternalMetrics Boolean field to indicate if there are internal metrics such as: dunn, silhoutte and connectivity.
-       \item hasExternalMetrics Boolean field to indicate if there are external metrics such as: precision, recall, f-measure, entropy, variation information and fowlkes-mallows.
+       \item has_internal_metrics Boolean field to indicate if there are internal metrics such as: dunn, silhoutte and connectivity.
+       \item has_external_metrics Boolean field to indicate if there are external metrics such as: precision, recall, f-measure, entropy, variation information and fowlkes-mallows.
        \item algorithms_execute Character vector with the algorithms executed. These algorithms have been mentioned in the definition of the parameters.
        \item measures_execute Character vector with the measures executed. These measures have been mentioned in the definition of the parameters.
 }

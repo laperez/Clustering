@@ -648,11 +648,11 @@ shinyServer(function(input, output, session) {
 
                     # Check if has external or internal column
 
-                    if (isFALSE(df_result$hasInternalMetrics)) {
+                    if (isFALSE(df_result$has_internal_metrics)) {
                         columnnames <- columnnames[columnnames != "timeInternal"]
                     }
 
-                    if (isFALSE(df_result$hasExternalMetrics)) {
+                    if (isFALSE(df_result$has_external_metrics)) {
                         columnnames <- columnnames[columnnames != "timeExternal"]
                     }
 
@@ -698,7 +698,7 @@ shinyServer(function(input, output, session) {
                                                           )))
 
 
-                    if (df_result$hasExternalMetrics) {
+                    if (df_result$has_external_metrics) {
 
                         result_external <-
                             Clustering::evaluate_best_validation_external_by_metrics(df_result)
@@ -754,7 +754,7 @@ shinyServer(function(input, output, session) {
                         })
                     }
 
-                    if (df_result$hasInternalMetrics) {
+                    if (df_result$has_internal_metrics) {
 
                         result_internal <-
                             Clustering::evaluate_best_validation_internal_by_metrics(df_result)
@@ -896,11 +896,11 @@ shinyServer(function(input, output, session) {
 
                     # Verify if contain internal or external values.
 
-                    if (isFALSE(df_result$hasInternalMetrics)) {
+                    if (isFALSE(df_result$has_internal_metrics)) {
                         columnnames <- columnnames[columnnames != "timeInternal"]
                     }
 
-                    if (isFALSE(df_result$hasExternalMetrics)) {
+                    if (isFALSE(df_result$has_external_metrics)) {
                         columnnames <- columnnames[columnnames != "timeExternal"]
                     }
 
@@ -922,7 +922,7 @@ shinyServer(function(input, output, session) {
 
                     printFirstTable = F
 
-                    if (df_result$hasExternalMetrics) {
+                    if (df_result$has_external_metrics) {
                         result_external <-
                             Clustering::evaluate_best_validation_external_by_metrics(df_result)
 
@@ -957,7 +957,7 @@ shinyServer(function(input, output, session) {
                     }
 
 
-                    if (df_result$hasInternalMetrics) {
+                    if (df_result$has_internal_metrics) {
                         result_internal <-
                             Clustering::evaluate_best_validation_internal_by_metrics(df_result)
 

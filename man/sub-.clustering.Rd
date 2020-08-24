@@ -4,10 +4,10 @@
 \alias{[.clustering}
 \title{Filter metrics in a \code{clustering} object returning a new \code{clustering} object.}
 \usage{
-\method{[}{clustering}(clusteringObject, condition = T)
+\method{[}{clustering}(clustering, condition = T)
 }
 \arguments{
-\item{clusteringObject}{The \code{clusteringObject} object to filter.}
+\item{clustering}{The \code{clustering} object to filter.}
 
 \item{condition}{Expression to filter the \code{clustering} object}
 }
@@ -22,12 +22,10 @@ The evaluation metrics available are:
 }
 \examples{
 
-library(clustering)
+library(Clustering)
 
-datasetTest[precision > 0.03]
+result <- clustering(package = 'clusterr', df = Clustering::basketball, min=3, max=4)
 
-Also combine multiple variables:
-
-datasetTest[precision > 0.03 & dunn > 0.1]
+result[precision > 0.14 & dunn > 0.11]
 
 }
