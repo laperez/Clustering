@@ -76,7 +76,7 @@ This property tells us if we have made an external evaluation of the groups
 Algorithms executed
 
 ```{r echo=FALSE, warning=F }
-df$algorithms_execute
+df$algorithms_executed
 ```
 
 Similarity Metrics

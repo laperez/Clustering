@@ -423,8 +423,8 @@ execute_datasets <- function(path,
       result = results,
       has_internal_metrics = is_metric_internal,
       has_external_metrics = is_metric_external,
-      algorithms_execute = algorithms_execute,
-      measures_execute = measures_execute
+      algorithms_executed = algorithms_execute,
+      measures_executed = measures_execute
     )
 
   class(res) = "clustering"
@@ -785,8 +785,8 @@ sort.clustering <- function(x, decreasing = TRUE, ...) {
       result = result_sort,
       has_internal_metrics = x$has_internal_metrics,
       has_external_metrics = x$has_external_metrics,
-      algorithms_execute = x$algorithms_execute,
-      measures_execute = x$measures_execute
+      algorithms_executed = x$algorithms_execute,
+      measures_executed = x$measures_execute
     )
 
   class(result) <- "clustering"
@@ -843,8 +843,8 @@ sort.clustering <- function(x, decreasing = TRUE, ...) {
       result = rulesToKeep,
       has_internal_metrics = clustering$has_internal_metrics,
       has_external_metrics = clustering$has_external_metrics,
-      algorithms_execute = clustering$algorithms_execute,
-      measures_execute = clustering$measures_execute
+      algorithms_executed = clustering$algorithms_execute,
+      measures_executed = clustering$measures_execute
     )
 
   class(result) <- "clustering"
@@ -871,10 +871,10 @@ print.summary.clustering <- function(x, ...) {
   print(x$has_external_metrics)
   cat("\n")
   cat("Number of Algorithms:	\n")
-  print(length(x$algorithms_execute))
+  print(length(x$algorithms_executed))
   cat("\n")
   cat("Number of Measures:	\n")
-  print(length(x$measures_execute))
+  print(length(x$measures_executed))
   cat("\n")
   cat("Total elements:	\n")
   print(length(x$result))
@@ -1505,7 +1505,7 @@ plot_clustering <- function(df, metric) {
     metric <- paste("as.numeric(", metric, ")")
 
     ggplot(df_best_ranked,
-           aes_string(x = "Clusters", y = metric, fill='Algorithm')) + ggplot2::geom_bar(position = 'dodge2', stat='identity') + ggplot2::theme_minimal() + xlab(toupper("Clustering")) + ylab(toupper(name_metric))
+           aes_string(x = "Clusters", y = metric, fill='Algorithm')) + ggplot2::geom_bar(position = 'dodge2', stat='identity') + ggplot2::theme_minimal() + xlab(toupper("")) + ylab(toupper(name_metric))
 
   } else
     stop("The metric indicate does not exist in the dataframe")
