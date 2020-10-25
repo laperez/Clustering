@@ -344,7 +344,7 @@ execute_datasets <- function(path,
 
   # Character vector with the clustering evaluation measures
 
-  metrics_execute = metrics_calculate(metrics)
+  metrics_execute = metrics_calculate(metrics, variables)
 
   # We calculate if you have internal evaluation measures
 
@@ -669,7 +669,7 @@ execute_package_parallel <-
                       timeInternal
                     else
                       CONST_NULL,
-                    variables
+                    F
                   )
                 )
 
@@ -687,9 +687,87 @@ execute_package_parallel <-
                   ), scientific = F)
                 }
 
+                # NUEVO
+
+                if (variables) {
+                  information <- value(
+                    calculate_result(
+                      name_measure,
+                      measures_execute[j],
+                      k,
+                      name_file,
+                      c,
+                      timeExternal,
+                      if (CONST_ENTROPY_METRIC %in% metrics_execute)
+                        entropy
+                      else
+                        CONST_NULL,
+                      if (CONST_VARIATION_INFORMATION_METRIC %in% metrics_execute)
+                        variation_information
+                      else
+                        CONST_NULL,
+                      if (CONST_PRECISION_METRIC %in% metrics_execute)
+                        precision
+                      else
+                        CONST_NULL,
+                      if (CONST_RECALL_METRIC %in% metrics_execute)
+                        recall
+                      else
+                        CONST_NULL,
+                      if (CONST_FOWLKES_MALLOWS_INDEX_METRIC %in% metrics_execute)
+                        fowlkes_mallows_index
+                      else
+                        CONST_NULL,
+                      if (CONST_F_MEASURE_METRIC %in% metrics_execute)
+                        f_measure
+                      else
+                        CONST_NULL,
+                      if (CONST_DUNN_METRIC %in% metrics_execute)
+                        dunn
+                      else
+                        CONST_NULL,
+                      if (CONST_CONNECTIVITY_METRIC %in% metrics_execute)
+                        connectivity
+                      else
+                        CONST_NULL,
+                      if (CONST_SILHOUETTE_METRIC %in% metrics_execute)
+                        silhouette
+                      else
+                        CONST_NULL,
+                      if (CONST_TIME_INTERNAL %in% metrics_execute)
+                        timeInternal
+                      else
+                        CONST_NULL,
+                      T
+                    )
+                  )
+
+                  result_information_aux <-
+                    as.vector(unlist(information))
+
+                  pos_aux <- 6
+
+                  pos_init_aux <- length(information) + 1
+
+                  for (pos in pos_init_aux:numberColumns) {
+                    option_format <- options(digits = 4)
+                    on.exit(options(option_format))
+                    result_information[pos] = format(
+                      round(
+                        x = as.numeric(result_information_aux[pos_aux]),
+                        digits = 4
+                      ),
+                      scientific = F
+                    )
+                    pos_aux = pos_aux + 1
+                  }
+                }
+
+                # FIn del lo nuevo
+
                 # We assign the value in the matrix
 
-                df_result[rowCount,] = result_information
+                df_result[rowCount, ] = result_information
 
                 # we increase the position of the matrix
 
@@ -708,7 +786,7 @@ execute_package_parallel <-
 
     rowCountLatex = rowCountLatex - CONST_ONE
 
-    result = list("df_result" = df_result[1:rowCount,])
+    result = list("df_result" = df_result[1:rowCount, ])
 
     # We stop the clusters created in the parallel execution.
     on.exit(parallel::stopCluster(cl))
@@ -824,7 +902,7 @@ sort.clustering <- function(x, decreasing = TRUE, ...) {
   if (class(clustering) != "clustering")
     stop("The clustering field must be clustering type")
 
-  filter <- substitute(condition,)
+  filter <- substitute(condition, )
 
   if (is.call(filter)) {
     rulesToKeep <-  tryCatch({
@@ -1505,7 +1583,8 @@ plot_clustering <- function(df, metric) {
     metric <- paste("as.numeric(", metric, ")")
 
     ggplot(df_best_ranked,
-           aes_string(x = "Clusters", y = metric, fill='Algorithm')) + ggplot2::geom_bar(position = 'dodge2', stat='identity') + ggplot2::theme_minimal() + xlab(toupper("")) + ylab(toupper(name_metric))
+           aes_string(x = "Clusters", y = metric, fill = 'Algorithm')) + ggplot2::geom_bar(position = 'dodge2', stat =
+                                                                                             'identity') + ggplot2::theme_minimal() + xlab(toupper("")) + ylab(toupper(name_metric))
 
   } else
     stop("The metric indicate does not exist in the dataframe")

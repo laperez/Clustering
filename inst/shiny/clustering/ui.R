@@ -133,7 +133,7 @@ shinyUI(
                 ),
                 radioButtons(
                     "visible",
-                    label = h3("Do you want to show the variable?"),
+                    label = h3("Do you want to show the attributes of the dataset?"),
                     choices = list("Yes" = T, "No" = F),
                     inline = T
                 )

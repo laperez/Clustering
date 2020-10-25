@@ -29,6 +29,25 @@ row_name_df_internal = function(metrics) {
     if (tolower(metrics[iterate]) == CONST_SILHOUETTE_METRIC) {
       result = c(result, CONST_SILHOUETTE_METRIC)
     }
+
+    #Variables
+
+    if (tolower(metrics[iterate]) == tolower(CONST_TIME_INTERNAL_VAR)) {
+      result = c(result, CONST_TIME_INTERNAL_VAR)
+    }
+
+    if (tolower(metrics[iterate]) == tolower(CONST_CONNECTIVITY_METRIC_VAR)) {
+      result = c(result, CONST_CONNECTIVITY_METRIC_VAR)
+    }
+
+    if (tolower(metrics[iterate]) == tolower(CONST_DUNN_METRIC_VAR)) {
+      result = c(result, CONST_DUNN_METRIC_VAR)
+    }
+
+    if (tolower(metrics[iterate]) == tolower(CONST_SILHOUETTE_METRIC_VAR)) {
+      result = c(result, CONST_SILHOUETTE_METRIC_VAR)
+    }
+
   }
 
   return (result)

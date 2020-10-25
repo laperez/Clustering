@@ -18,6 +18,7 @@ row_name_df_external = function(metrics) {
   result = c(result, CONST_TIME_EXTERNAL)
 
   for (iterate in 1:length(metrics)) {
+
     if (tolower(metrics[iterate]) == CONST_ENTROPY_METRIC) {
       result = c(result, CONST_ENTROPY_METRIC)
     }
@@ -41,6 +42,36 @@ row_name_df_external = function(metrics) {
     if (tolower(metrics[iterate]) == CONST_FOWLKES_MALLOWS_INDEX_METRIC) {
       result = c(result, CONST_FOWLKES_MALLOWS_INDEX_METRIC)
     }
+
+    # Varibles
+    if (tolower(metrics[iterate]) == tolower(CONST_TIME_EXTERNAL_VAR)) {
+      result = c(result, CONST_TIME_EXTERNAL_VAR)
+    }
+
+    if (tolower(metrics[iterate]) == tolower(CONST_ENTROPY_METRIC_VAR)) {
+      result = c(result, CONST_ENTROPY_METRIC_VAR)
+    }
+
+    if (tolower(metrics[iterate]) == tolower(CONST_VARIATION_INFORMATION_METRIC_VAR)) {
+      result = c(result, CONST_VARIATION_INFORMATION_METRIC_VAR)
+    }
+
+    if (tolower(metrics[iterate]) == tolower(CONST_PRECISION_METRIC_VAR)) {
+      result = c(result, CONST_PRECISION_METRIC_VAR)
+    }
+
+    if (tolower(metrics[iterate]) == tolower(CONST_RECALL_METRIC_VAR)) {
+      result = c(result, CONST_RECALL_METRIC_VAR)
+    }
+
+    if (tolower(metrics[iterate]) == tolower(CONST_F_MEASURE_METRIC_VAR)) {
+      result = c(result, CONST_F_MEASURE_METRIC_VAR)
+    }
+
+    if (tolower(metrics[iterate]) == tolower(CONST_FOWLKES_MALLOWS_INDEX_METRIC_VAR)) {
+      result = c(result, CONST_FOWLKES_MALLOWS_INDEX_METRIC_VAR)
+    }
+
   }
 
   return (result)
