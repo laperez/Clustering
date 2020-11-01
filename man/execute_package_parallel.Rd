@@ -12,7 +12,7 @@ execute_package_parallel(
   cluster_min,
   cluster_max,
   metrics_execute,
-  variables,
+  attributes,
   number_algorithms,
   numberClusters,
   numberDataSets,
@@ -21,21 +21,33 @@ execute_package_parallel(
 )
 }
 \arguments{
-\item{directory_files}{It's a string with the route where the datasets are located.}
+\item{directory_files}{It's a string with the route where the datasets are
+located.}
 
-\item{df}{data matrix or data frame, or dissimilarity matrix, depending on the value of the argument.}
+\item{df}{data matrix or data frame, or dissimilarity matrix, depending on
+the value of the argument.}
 
-\item{algorithms_execute}{character vector with the algorithms to be executed. The algorithms implemented are: fuzzy_cm,fuzzy_gg,fuzzy_gk,hclust,apclusterK,agnes,clara,daisy,diana,fanny,mona,pam,gmm,kmeans_arma,kmeans_rcpp,mini_kmeans,gama,pvclust.}
+\item{algorithms_execute}{character vector with the algorithms to be
+executed. The algorithms implemented are: fuzzy_cm,fuzzy_gg,fuzzy_gk,hclust,
+apclusterK,agnes,clara,daisy,diana,fanny,mona,pam,gmm,kmeans_arma,
+kmeans_rcpp,mini_kmeans,gama,pvclust.}
 
-\item{measures_execute}{character array with the measurements of dissimilarity to be executed. Depending on the algorithm, one or the other is implemented. Among them we highlight: Euclidena, Manhattan, etc.}
+\item{measures_execute}{character array with the measurements of
+dissimilarity to be executed. Depending on the algorithm, one or the other is
+implemented. Among them we highlight: Euclidena, Manhattan, etc.}
 
 \item{cluster_min}{minimum number of clusters.}
 
-\item{cluster_max}{maximum number of clusters. cluster_max must be greater or equal cluster_min.}
+\item{cluster_max}{maximum number of clusters. cluster_max must be greater or
+equal cluster_min.}
 
-\item{metrics_execute}{character array defining the metrics to be executed. The night metrics implemented are: entropy, variation_information,precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.}
+\item{metrics_execute}{character array defining the metrics to be executed.
+The night metrics implemented are: entropy, variation_information,precision,
+recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.}
 
-\item{variables}{accepts Boolean values. If true as a result it shows the variable that behaves best otherwise it shows the value of the executed metric.}
+\item{attributes}{accepts Boolean values. If true as a result it shows the
+attribute that behaves best otherwise it shows the value of the executed
+metric.}
 
 \item{number_algorithms}{It's a numeric field with the number of algorithms.}
 
@@ -44,9 +56,11 @@ execute_package_parallel(
 \item{numberDataSets}{It's a numeric field with the number of datasets.}
 }
 \value{
-returns a list with the result matrix of evaluating the data from the indicated algorithms, metrics and number of clusters.
+returns a list with the result matrix of evaluating the data from the
+indicated algorithms, metrics and number of clusters.
 }
 \description{
-Method that evaluates clustering algorithm from a file directory or dataframe.
+Method that evaluates clustering algorithm from a file directory
+or dataframe.
 }
 \keyword{internal}

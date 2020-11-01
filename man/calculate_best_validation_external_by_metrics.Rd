@@ -2,7 +2,8 @@
 % Please edit documentation in R/validation.R
 \name{calculate_best_validation_external_by_metrics}
 \alias{calculate_best_validation_external_by_metrics}
-\title{Method that calculates which algorithm and which metric behaves best for the datasets provided}
+\title{Method that calculates which algorithm and which metric behaves best for the
+datasets provided}
 \usage{
 calculate_best_validation_external_by_metrics(df)
 }
@@ -10,9 +11,11 @@ calculate_best_validation_external_by_metrics(df)
 \item{df}{data matrix or data frame}
 }
 \value{
-returns a table with the algorithm and the best performing metric for the datasets
+returns a table with the algorithm and the best performing metric for
+the datasets
 }
 \description{
-Method that calculates which algorithm and which metric behaves best for the datasets provided
+Method that calculates which algorithm and which metric behaves best for the
+datasets provided
 }
 \keyword{internal}

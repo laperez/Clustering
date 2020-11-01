@@ -3,7 +3,8 @@
 \docType{data}
 \name{basketball}
 \alias{basketball}
-\title{This data set contains a series of statistics (5 attributes) about 96 basketball players:}
+\title{This data set contains a series of statistics (5 attributes) about 96
+basketball players:}
 \format{
 A data frame with 96 observations on 5 variables:
 \describe{

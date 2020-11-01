@@ -2,24 +2,29 @@
 % Please edit documentation in R/pam.R
 \name{pam_manhattan_method}
 \alias{pam_manhattan_method}
-\title{Method that runs the pam algorithm using the Manhattan metric to make an external or internal validation of the cluster}
+\title{Method that runs the pam algorithm using the Manhattan metric to make an
+external or internal validation of the cluster}
 \usage{
 pam_manhattan_method(dt, clusters, columnClass, metric)
 }
 \arguments{
 \item{clusters}{number of clusters}
 
-\item{columnClass}{is an integer with the number of columns, for example if a dataset has five column,
-we can select column four to calculate alidation}
+\item{columnClass}{is an integer with the number of columns, for example if a
+dataset has five column, we can select column four to calculate validation}
 
-\item{metric}{metrics avalaible in the package. The metrics implemented are: entropy, variation_information,precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.}
+\item{metric}{metrics avalaible in the package. The metrics implemented are:
+entropy, variation_information,precision,recall,f_measure,
+fowlkes_mallows_index,connectivity,dunn,silhouette.}
 
 \item{data}{matrix or data frame}
 }
 \value{
-returns a list with both the internal and external evaluation of the grouping
+returns a list with both the internal and external evaluation of the
+grouping
 }
 \description{
-Method that runs the pam algorithm using the Manhattan metric to make an external or internal validation of the cluster
+Method that runs the pam algorithm using the Manhattan metric to make an
+external or internal validation of the cluster
 }
 \keyword{internal}

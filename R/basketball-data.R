@@ -1,4 +1,5 @@
-#' This data set contains a series of statistics (5 attributes) about 96 basketball players:
+#' This data set contains a series of statistics (5 attributes) about 96
+#' basketball players:
 #'
 #' This data set contains a series of statistics about basketball players:
 #'

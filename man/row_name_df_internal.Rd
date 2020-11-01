@@ -2,7 +2,8 @@
 % Please edit documentation in R/internal_validation.R
 \name{row_name_df_internal}
 \alias{row_name_df_internal}
-\title{Method in charge of obtaining those metrics that are internal from those indicated}
+\title{Method in charge of obtaining those metrics that are internal from those
+indicated}
 \usage{
 row_name_df_internal(metrics)
 }
@@ -13,6 +14,7 @@ row_name_df_internal(metrics)
 returns an array with the metrics that are internal
 }
 \description{
-Method in charge of obtaining those metrics that are internal from those indicated
+Method in charge of obtaining those metrics that are internal from those
+indicated
 }
 \keyword{internal}

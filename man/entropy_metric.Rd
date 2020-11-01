@@ -7,11 +7,13 @@
 entropy_metric(conversion_data_frame, table_convert, column_dataset_label)
 }
 \arguments{
-\item{conversion_data_frame}{returns a double with the result of the entropy calculation}
+\item{conversion_data_frame}{returns a double with the result of the entropy
+calculation}
 
 \item{table_convert}{table conversion (variable - cluster)}
 
-\item{column_dataset_label}{array with the calculation of the clustering algorithm}
+\item{column_dataset_label}{array with the calculation of the clustering
+algorithm}
 }
 \value{
 returns a double with the result of the entropy calculation

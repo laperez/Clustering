@@ -2,7 +2,8 @@
 % Please edit documentation in R/algorithm.R
 \name{measure_calculate}
 \alias{measure_calculate}
-\title{Method that returns all the measures executed by the package from the indicated algorithms}
+\title{Method that returns all the measures executed by the package from the
+indicated algorithms}
 \usage{
 measure_calculate(algorithm)
 }
@@ -13,6 +14,7 @@ measure_calculate(algorithm)
 array with the measures we're going to run
 }
 \description{
-Method that returns all the measures executed by the package from the indicated algorithms
+Method that returns all the measures executed by the package from the
+indicated algorithms
 }
 \keyword{internal}

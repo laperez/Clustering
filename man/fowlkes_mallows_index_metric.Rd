@@ -9,9 +9,11 @@ fowlkes_mallows_index_metric(true_positive, false_positive, false_negative)
 \arguments{
 \item{true_positive}{array with matching elements of B is in the same cluster}
 
-\item{false_positive}{array with non matching element of B is in the same cluster}
+\item{false_positive}{array with non matching element of B is in the same
+cluster}
 
-\item{false_negative}{array with matching elements of B is not in the same cluster}
+\item{false_negative}{array with matching elements of B is not in the same
+cluster}
 }
 \value{
 returns a double with the fowlkes_mallows_index calculation

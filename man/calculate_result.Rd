@@ -2,7 +2,8 @@
 % Please edit documentation in R/validation.R
 \name{calculate_result}
 \alias{calculate_result}
-\title{Method that returns the value or variable depending on where it is in the calculated metrics}
+\title{Method that returns the value or variable depending on where it is in the
+calculated metrics}
 \usage{
 calculate_result(
   algorith,
@@ -27,7 +28,8 @@ calculate_result(
 \arguments{
 \item{algorith}{algorithm name}
 
-\item{distance}{name of the metric used to calculate the distance between points}
+\item{distance}{name of the metric used to calculate the distance between
+points}
 
 \item{cluster}{number of clusters}
 
@@ -35,34 +37,47 @@ calculate_result(
 
 \item{ranking}{position we want to obtain from the list of variables}
 
-\item{timeExternal}{array with the external validation calculation times of the clustering}
+\item{timeExternal}{array with the external validation calculation times of
+the clustering}
 
-\item{entropy}{array with the calculation of the entropy for each of the variables}
+\item{entropy}{array with the calculation of the entropy for each of the
+variables}
 
-\item{variation_information}{array with the calculation of the variation_information for each of the variables}
+\item{variation_information}{array with the calculation of the
+variation_information for each of the variables}
 
-\item{precision}{array with the calculation of the precision for each of the variables}
+\item{precision}{array with the calculation of the precision for each of the
+variables}
 
-\item{recall}{array with the calculation of the recall for each of the variables}
+\item{recall}{array with the calculation of the recall for each of the
+variables}
 
-\item{fowlkes_mallows_index}{array with the calculation of the fowlkes_mallows_index for each of the variables}
+\item{fowlkes_mallows_index}{array with the calculation of the
+fowlkes_mallows_index for each of the variables}
 
-\item{f_measure}{array with the calculation of the f_measure for each of the variables}
+\item{f_measure}{array with the calculation of the f_measure for each of the
+variables}
 
 \item{dunn}{array with the calculation of the dunn for each of the variables}
 
-\item{connectivity}{array with the calculation of the connectivity for each of the variables}
+\item{connectivity}{array with the calculation of the connectivity for each
+of the variables}
 
-\item{silhouette}{array with the calculation of the silhouette for each of the variables}
+\item{silhouette}{array with the calculation of the silhouette for each of
+the variables}
 
-\item{timeInternal}{array with the internal validation calculation times of the clustering}
+\item{timeInternal}{array with the internal validation calculation times of
+the clustering}
 
-\item{variables}{true if we want to show the value of the metric calculation and false if we want to show the variable}
+\item{variables}{true if we want to show the value of the metric calculation
+and false if we want to show the variable}
 }
 \value{
-returns an array with the calculation of each metric based on the indicated position
+returns an array with the calculation of each metric based on the
+indicated position
 }
 \description{
-Method that returns the value or variable depending on where it is in the calculated metrics
+Method that returns the value or variable depending on where it is in the
+calculated metrics
 }
 \keyword{internal}

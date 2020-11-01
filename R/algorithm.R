@@ -161,7 +161,8 @@ is_Internal_Metrics <- function(metrics) {
 
 }
 
-#' Method that returns how many external metrics there are in the array of metrics used in the calculation
+#' Method that returns how many external metrics there are in the array of
+#' metrics used in the calculation
 #'
 #' @param metrics array with the metrics used in the execution of the package
 #'
@@ -190,9 +191,11 @@ number_columnas_external <- function(metrics) {
 #' @param metrics array with the metrics used in the execution of the package
 #' @param info list with internal clustering information
 #' @param size internal number of columns
-#' @param variables Null returns the position of the variable, otherwise it returns the value of the variable
+#' @param variables Null returns the position of the variable, otherwise it
+#' returns the value of the variable
 #'
-#' @return array with the information from the calculation of the internal evaluation of the clustering
+#' @return array with the information from the calculation of the internal
+#' evaluation of the clustering
 #'
 #' @keywords internal
 #'
@@ -209,7 +212,8 @@ information_internal <- function (metrics, information, size, variables) {
   if (!is.null(variables))
     result[6] <- information$timeInternal
   else
-    result[6] <- format(round(as.numeric(information$timeInternal), digits = 4),scientific = F)
+    result[6] <- format(round(as.numeric(information$timeInternal), digits = 4),
+                        scientific = F)
 
   position <- 7
 
@@ -251,9 +255,11 @@ information_internal <- function (metrics, information, size, variables) {
 #' @param metrics array with the metrics used in the execution of the package
 #' @param info list with external clustering information
 #' @param size external number of columns
-#' @param variables Null returns the position of the variable, otherwise it returns the value of the variable
+#' @param variables Null returns the position of the variable, otherwise it
+#' returns the value of the variable
 #'
-#' @return array with the information from the calculation of the external evaluation of the clustering
+#' @return array with the information from the calculation of the external
+#' evaluation of the clustering
 #'
 #' @keywords internal
 #'
@@ -270,7 +276,8 @@ information_external <- function (metrics, information, size, variables) {
   if (!is.null(variables))
     result[6] <- information$timeExternal
   else
-    result[6] <- format(round(as.numeric(information$timeExternal), digits = 4),scientific = F)
+    result[6] <- format(round(as.numeric(information$timeExternal), digits = 4),
+                        scientific = F)
 
   position <- 7
 
@@ -289,7 +296,8 @@ information_external <- function (metrics, information, size, variables) {
         result[position] <- information$variation_information
       else
         result[position] <-
-          as.numeric(format(as.numeric(information$variation_information), digits = 4))
+          as.numeric(format(as.numeric(information$variation_information),
+                            digits = 4))
       position <- position + 1
     }
 
@@ -317,7 +325,8 @@ information_external <- function (metrics, information, size, variables) {
         result[position] <- information$fowlkes_mallows_index
       else
         result[position] <-
-          as.numeric(format(as.numeric(information$fowlkes_mallows_index), digits = 4))
+          as.numeric(format(as.numeric(information$fowlkes_mallows_index),
+                            digits = 4))
 
       position <- position + 1
     }
@@ -336,7 +345,8 @@ information_external <- function (metrics, information, size, variables) {
   return(result)
 }
 
-#' Method that returns how many internal metrics there are in the array of metrics used in the calculation
+#' Method that returns how many internal metrics there are in the array of
+#' metrics used in the calculation
 #'
 #' @param metrics array with the metrics used in the execution of the package
 #'
@@ -418,7 +428,8 @@ algorithms_package <- function(packages) {
 
 }
 
-#' Method that returns all the measures executed by the package from the indicated algorithms
+#' Method that returns all the measures executed by the package from the
+#' indicated algorithms
 #'
 #' @param algorithm algorithms array
 #'
@@ -581,7 +592,8 @@ measure_package <- function(package) {
 #'
 #' @param metrics array with the metrics used in the execution of the package
 #'
-#' @param variables boolean field that indicates if it should show the results of the variables
+#' @param variables boolean field that indicates if it should show the results
+#' of the variables
 #'
 #' @return list of metrics
 #'
@@ -607,17 +619,17 @@ metrics_calculate <- function(metrics,variables) {
           CONST_DUNN_METRIC,
           CONST_SILHOUETTE_METRIC,
           CONST_TIME_INTERNAL,
-          CONST_TIME_EXTERNAL_VAR,
-          CONST_ENTROPY_METRIC_VAR,
-          CONST_VARIATION_INFORMATION_METRIC_VAR,
-          CONST_PRECISION_METRIC_VAR,
-          CONST_RECALL_METRIC_VAR,
-          CONST_F_MEASURE_METRIC_VAR,
-          CONST_FOWLKES_MALLOWS_INDEX_METRIC_VAR,
-          CONST_CONNECTIVITY_METRIC_VAR,
-          CONST_DUNN_METRIC_VAR,
-          CONST_SILHOUETTE_METRIC_VAR,
-          CONST_TIME_INTERNAL_VAR
+          CONST_TIME_EXTERNAL_ATTR,
+          CONST_ENTROPY_METRIC_ATTR,
+          CONST_VARIATION_INFORMATION_METRIC_ATTR,
+          CONST_PRECISION_METRIC_ATTR,
+          CONST_RECALL_METRIC_ATTR,
+          CONST_F_MEASURE_METRIC_ATTR,
+          CONST_FOWLKES_MALLOWS_INDEX_METRIC_ATTR,
+          CONST_CONNECTIVITY_METRIC_ATTR,
+          CONST_DUNN_METRIC_ATTR,
+          CONST_SILHOUETTE_METRIC_ATTR,
+          CONST_TIME_INTERNAL_ATTR
 
         )
     } else {
@@ -683,49 +695,49 @@ metrics_calculate <- function(metrics,variables) {
     result <- c(result, CONST_TIME_INTERNAL)
 
     if (variables) {
-      result <- c(result, CONST_TIME_EXTERNAL_VAR)
+      result <- c(result, CONST_TIME_EXTERNAL_ATTR)
 
       if (length(metrics) > 0){
 
         if (CONST_ENTROPY_METRIC %in% tolower(metrics)) {
-          result <- c(result, CONST_ENTROPY_METRIC_VAR)
+          result <- c(result, CONST_ENTROPY_METRIC_ATTR)
         }
 
         if (CONST_VARIATION_INFORMATION_METRIC %in% tolower(metrics)) {
-          result <- c(result, CONST_VARIATION_INFORMATION_METRIC_VAR)
+          result <- c(result, CONST_VARIATION_INFORMATION_METRIC_ATTR)
         }
 
         if (CONST_PRECISION_METRIC  %in% tolower(metrics)) {
-          result <- c(result, CONST_PRECISION_METRIC_VAR)
+          result <- c(result, CONST_PRECISION_METRIC_ATTR)
         }
 
         if (CONST_RECALL_METRIC  %in% tolower(metrics)) {
-          result <- c(result, CONST_RECALL_METRIC_VAR)
+          result <- c(result, CONST_RECALL_METRIC_ATTR)
         }
 
         if (CONST_F_MEASURE_METRIC  %in% tolower(metrics)) {
-          result <- c(result, CONST_F_MEASURE_METRIC_VAR)
+          result <- c(result, CONST_F_MEASURE_METRIC_ATTR)
         }
 
         if (CONST_FOWLKES_MALLOWS_INDEX_METRIC  %in% tolower(metrics)) {
-          result <- c(result, CONST_FOWLKES_MALLOWS_INDEX_METRIC_VAR)
+          result <- c(result, CONST_FOWLKES_MALLOWS_INDEX_METRIC_ATTR)
         }
 
         if (CONST_CONNECTIVITY_METRIC %in% tolower(metrics)) {
-          result <- c(result, CONST_CONNECTIVITY_METRIC_VAR)
+          result <- c(result, CONST_CONNECTIVITY_METRIC_ATTR)
         }
 
         if (CONST_DUNN_METRIC %in% tolower(metrics)) {
-          result <- c(result, CONST_DUNN_METRIC_VAR)
+          result <- c(result, CONST_DUNN_METRIC_ATTR)
         }
 
         if (CONST_SILHOUETTE_METRIC %in% tolower(metrics)) {
-          result <- c(result, CONST_SILHOUETTE_METRIC_VAR)
+          result <- c(result, CONST_SILHOUETTE_METRIC_ATTR)
         }
 
       }
 
-      result <- c(result, CONST_TIME_INTERNAL_VAR)
+      result <- c(result, CONST_TIME_INTERNAL_ATTR)
     }
 
   }

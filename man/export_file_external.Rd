@@ -7,16 +7,20 @@
 export_file_external(df, path = NULL)
 }
 \arguments{
-\item{df}{is a dataframe that contains as a parameter a table in latex format with the results of the internal validations.}
+\item{df}{is a dataframe that contains as a parameter a table in latex format
+with the results of the internal validations.}
 
-\item{path}{it's a string with the path to a directory where a file is to be stored in latex format.}
+\item{path}{it's a string with the path to a directory where a file is to be
+stored in latex format.}
 }
 \description{
-Method that exports the results of internal measurements in latex format to a file.
+Method that exports the results of internal measurements in
+latex format to a file.
 }
 \details{
-When we work in latex format and we need to create a table to export the results,
-with this method we can export the results of the clustering algorithm to latex.
+When we work in latex format and we need to create a table to export
+the results, with this method we can export the results of the clustering
+algorithm to latex.
 
 
 }
@@ -27,7 +31,7 @@ result = clustering(
                max = 5,
                algorithm='gmm',
                metrics=c("precision"),
-               variables = TRUE
+               attributes = TRUE
          )
 
 export_file_external(result)

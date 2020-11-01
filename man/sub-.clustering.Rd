@@ -2,7 +2,8 @@
 % Please edit documentation in R/app.R
 \name{[.clustering}
 \alias{[.clustering}
-\title{Filter metrics in a \code{clustering} object returning a new \code{clustering} object.}
+\title{Filter metrics in a \code{clustering} object returning a new
+\code{clustering} object.}
 \usage{
 \method{[}{clustering}(clustering, condition = T)
 }
@@ -12,19 +13,24 @@
 \item{condition}{Expression to filter the \code{clustering} object}
 }
 \description{
-Generates a new \code{clustering} object containing the metrics that passed the filter
+Generates a new \code{clustering} object containing the metrics
+that passed the filter
 specified.
 }
 \details{
-This function allows you to filter the data set for a given evaluation metric.
+This function allows you to filter the data set for a given
+evaluation metric.
 The evaluation metrics available are:
-\code{Algorithm, Distance, Clusters, Dataset, Ranking, timeExternal, entropy, variation_information, precision, recall, f_measure, fowlkes_mallows_index, connectivity, dunn, silhouette, timeInternal}.
+\code{Algorithm, Distance, Clusters, Dataset, Ranking, timeExternal, entropy,
+variation_information, precision, recall, f_measure, fowlkes_mallows_index,
+connectivity, dunn, silhouette, timeInternal}.
 }
 \examples{
 
 library(Clustering)
 
-result <- clustering(package = 'clusterr', df = Clustering::basketball, min=3, max=4)
+result <- clustering(package = 'clusterr', df = Clustering::basketball,
+min=3, max=4)
 
 result[precision > 0.14 & dunn > 0.11]
 

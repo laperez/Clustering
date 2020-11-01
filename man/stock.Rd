@@ -3,11 +3,13 @@
 \docType{data}
 \name{stock}
 \alias{stock}
-\title{The data provided are daily stock prices from January 1988 through October 1991, for ten aerospace companies.}
+\title{The data provided are daily stock prices from January 1988 through October
+1991, for ten aerospace companies.}
 \format{
 A data frame with 950 observations on 10 variables:
 \describe{
-  The data provided are daily stock prices from January 1988 through October 1991, for ten aerospace companies.
+  The data provided are daily stock prices from January 1988 through October
+  1991, for ten aerospace companies.
   \item{Company1}{company1 details}
   \item{Company2}{company2 details}
   \item{Company3}{company3 details}
@@ -27,6 +29,7 @@ KEEL, <http://www.keel.es/>
 data(stock)
 }
 \description{
-The data provided are daily stock prices from January 1988 through October 1991, for ten aerospace companies.
+The data provided are daily stock prices from January 1988 through October
+1991, for ten aerospace companies.
 }
 \keyword{datasets}

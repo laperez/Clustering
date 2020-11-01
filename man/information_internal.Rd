@@ -11,12 +11,14 @@ information_internal(metrics, information, size, variables)
 
 \item{size}{internal number of columns}
 
-\item{variables}{Null returns the position of the variable, otherwise it returns the value of the variable}
+\item{variables}{Null returns the position of the variable, otherwise it
+returns the value of the variable}
 
 \item{info}{list with internal clustering information}
 }
 \value{
-array with the information from the calculation of the internal evaluation of the clustering
+array with the information from the calculation of the internal
+evaluation of the clustering
 }
 \description{
 Method that returns an array with the internal information of the cluster

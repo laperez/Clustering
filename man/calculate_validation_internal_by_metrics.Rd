@@ -10,7 +10,8 @@ calculate_validation_internal_by_metrics(df)
 \item{df}{data matrix or data frame}
 }
 \value{
-returns a table with the best performing algorithm for the provided datasets
+returns a table with the best performing algorithm for the provided
+datasets
 }
 \description{
 Method that calculates which algorithm behaves best for the datasets provided

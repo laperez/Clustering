@@ -2,12 +2,14 @@
 % Please edit documentation in R/external_validation.R
 \name{external_validation}
 \alias{external_validation}
-\title{Method that applicate differents external metrics about a data frame or matrix, for example precision, recall etc}
+\title{Method that applicate differents external metrics about a data frame or
+matrix, for example precision, recall etc}
 \usage{
 external_validation(column_dataset_label, clusters_vector, metric = CONST_NULL)
 }
 \arguments{
-\item{column_dataset_label}{array containing the distribution of the data in the cluster}
+\item{column_dataset_label}{array containing the distribution of the data in
+the cluster}
 
 \item{clusters_vector}{array that containe tha data grouped in cluster}
 
@@ -17,6 +19,7 @@ external_validation(column_dataset_label, clusters_vector, metric = CONST_NULL)
 returns a list of the external results initialized to zero
 }
 \description{
-Method that applicate differents external metrics about a data frame or matrix, for example precision, recall etc
+Method that applicate differents external metrics about a data frame or
+matrix, for example precision, recall etc
 }
 \keyword{internal}

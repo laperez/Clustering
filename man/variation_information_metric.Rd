@@ -7,12 +7,14 @@
 variation_information_metric(conversion_data_frame, table_convert)
 }
 \arguments{
-\item{conversion_data_frame}{returns a double with the result of the entropy calculation}
+\item{conversion_data_frame}{returns a double with the result of the entropy
+calculation}
 
 \item{table_convert}{table conversion (variable - cluster)}
 }
 \value{
-returns a double with the result of the variation information calculation
+returns a double with the result of the variation information
+calculation
 }
 \description{
 Method to calculate the variation information

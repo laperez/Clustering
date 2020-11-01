@@ -2,7 +2,8 @@
 % Please edit documentation in R/validation.R
 \name{show_result_external_algorithm_group_by_clustering}
 \alias{show_result_external_algorithm_group_by_clustering}
-\title{Method in charge of obtaining a table with the results of the algorithms grouped by clusters,
+\title{Method in charge of obtaining a table with the results of the algorithms
+grouped by clusters,
 calculating the maximum value of each external metrics}
 \usage{
 show_result_external_algorithm_group_by_clustering(df)
@@ -14,7 +15,8 @@ show_result_external_algorithm_group_by_clustering(df)
 returns a table with the algorithms and the clusters
 }
 \description{
-Method in charge of obtaining a table with the results of the algorithms grouped by clusters,
+Method in charge of obtaining a table with the results of the algorithms
+grouped by clusters,
 calculating the maximum value of each external metrics
 }
 \keyword{internal}

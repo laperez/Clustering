@@ -9,28 +9,38 @@
 \arguments{
 \item{x}{is an \code{clustering} object.}
 
-\item{decreasing}{A logical indicating if the sort should be increasing or decreasing. By default, decreasing.}
+\item{decreasing}{A logical indicating if the sort should be increasing or
+decreasing. By default, decreasing.}
 
-\item{...}{Additional parameters as "by", a String with the name of the evaluation measure to order by. Valid values are: \code{Algorithm, Distance, Clusters, Dataset, Ranking, timeExternal, entropy, variation_information, precision, recall, f_measure, fowlkes_mallows_index, connectivity, dunn, silhouette, timeInternal}.}
+\item{...}{Additional parameters as "by", a String with the name of the
+evaluation measure to order by. Valid values are: \code{Algorithm, Distance,
+Clusters, Dataset, Ranking, timeExternal, entropy, variation_information,
+precision, recall, f_measure, fowlkes_mallows_index, connectivity, dunn,
+silhouette, timeInternal}.}
 }
 \value{
 another \code{clustering} object with the evaluation measures sorted
 }
 \description{
-This function receives a clustering object and sorts the indicator columns by parameter.
+This function receives a clustering object and sorts the
+indicator columns by parameter.
 By default it performs sorting by the algorithm field.
 }
 \details{
-The additional argument in "..." is the 'by' argument, which is a array
-         with the name of the evaluation measure to order by. Valid value are:
-         \code{Algorithm, Distance, Clusters, Dataset, Ranking, timeExternal, entropy, variation_information, precision, recall, f_measure, fowlkes_mallows_index, connectivity, dunn, silhouette, timeInternal}.
+The additional argument in "..." is the 'by' argument, which is a
+array with the name of the evaluation measure to order by. Valid value are:
+\code{Algorithm, Distance, Clusters, Dataset, Ranking, timeExternal, entropy,
+variation_information, precision, recall, f_measure, fowlkes_mallows_index,
+connectivity, dunn, silhouette, timeInternal}.
 }
 \examples{
 
 library(Clustering)
 
-result <- clustering(package = 'clusterr', df = Clustering::basketball, min=3, max=4)
+result <-
+clustering(df = cluster::agriculture,min = 4, max = 4,algorithm='gmm',
+metrics='recall')
 
-sort(result, FALSE, 'dunn')
+sort(result, FALSE, 'recall')
 
 }

@@ -9,7 +9,8 @@ recall_metric(true_positive, false_negative)
 \arguments{
 \item{true_positive}{array with matching elements of B is in the same cluster}
 
-\item{false_negative}{array with matching elements of B is not in the same cluster}
+\item{false_negative}{array with matching elements of B is not in the same
+cluster}
 }
 \value{
 returns a double with the recall calculation

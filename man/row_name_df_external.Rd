@@ -2,7 +2,8 @@
 % Please edit documentation in R/external_validation.R
 \name{row_name_df_external}
 \alias{row_name_df_external}
-\title{Method in charge of obtaining those metrics that are external from those indicated}
+\title{Method in charge of obtaining those metrics that are external from those
+indicated}
 \usage{
 row_name_df_external(metrics)
 }
@@ -13,6 +14,7 @@ row_name_df_external(metrics)
 returns an array with the metrics that are external
 }
 \description{
-Method in charge of obtaining those metrics that are external from those indicated
+Method in charge of obtaining those metrics that are external from those
+indicated
 }
 \keyword{internal}

@@ -1,4 +1,5 @@
-#' Method in charge of calculating the average for all datasets using all the algorithms defined in the application.
+#' Method in charge of calculating the average for all datasets using all the
+#' algorithms defined in the application.
 #'
 #' @param data is a data frame or matrix
 #' @param method described the metrics used by each of the algorithms
@@ -6,7 +7,8 @@
 #' @param nameDataset specify the name of dataset like information
 #' @param metrics array with internal or external metrics
 #'
-#' @return a list with result of external and internal validation applying on algorithms
+#' @return a list with result of external and internal validation applying on
+#' algorithms
 #'
 #' @keywords internal
 #'

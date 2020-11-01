@@ -3,7 +3,8 @@
 #'
 #'  More information about 'mldr' package is found in this article:
 #'
-#'  F. Charte, D. Charte. Working with Multilabel Datasets in R: The mldr Package. The R Journal, 2015
+#'  F. Charte, D. Charte. Working with Multilabel Datasets in R: The mldr
+#'  Package. The R Journal, 2015
 #'
 
 
@@ -80,17 +81,6 @@ read_arff <- function(arff_file) {
 parse_attributes <- function(arff_attrs) {
   # Extract attribute definitions
 
-  #-----------------------------------------------------------------------------------------------------
-  # Finding adequate spaces to split the attribute definition into 3 parts:
-  #    @attribute attr_name {0, 1}   -> c("@attribute", "attr_name", "{0, 1}")
-  #    @attribute 'Attr. name' {0,1} -> c("@attribute", "'Attr. name'", "{0,1}")
-  #    @attribute 'David\'s attribute' {0,1} -> c("@attribute", "'David\'s attribute'", "{0,1}")
-  #-----------------------------------------------------------------------------------------------------
-  # Using the technique described under "Perl/PCRE Variation" in this StackOverflow answer:
-  #    (Regex Pattern to Match, Excluding when...) http://stackoverflow.com/a/23589204/5306389
-  # We capture any spacing character ignoring those within braces or single quotes,
-  # allowing the appearance of escaped single quotes (\').
-  #-----------------------------------------------------------------------------------------------------
   rgx <-
     "(?:{[^}\\s]*?(\\s+[^}\\s]*?)+}|(?<!\\\\)'[^'\\\\]*(?:\\\\.[^'\\\\]*)*(?<!\\\\)')(*SKIP)(*F)|\\s+"
   att_list <- strsplit(arff_attrs, rgx, perl = T)

@@ -3,11 +3,15 @@
 \docType{data}
 \name{weather}
 \alias{weather}
-\title{One of the most known testing data sets in machine learning. This data sets describes several situations where the weather is suitable or not to play sports, depending on the current outlook, temperature, humidity and wind.}
+\title{One of the most known testing data sets in machine learning. This data sets
+describes several situations where the weather is suitable or not to play
+sports, depending on the current outlook, temperature, humidity and wind.}
 \format{
 A data frame with 14 observations on 5 variables:
 \describe{
-  One of the most known testing data sets in machine learning. This data sets describes several situations where the weather is suitable or not to play sports, depending on the current outlook, temperature, humidity and wind.
+  One of the most known testing data sets in machine learning. This data sets
+  describes several situations where the weather is suitable or not to play
+  sports, depending on the current outlook, temperature, humidity and wind.
   \item{Outlook}{sunny, overcast, rainy}
   \item{Temperature}{hot, mild, cool}
   \item{Humidity}{high, normal}
@@ -22,6 +26,8 @@ KEEL, <http://www.keel.es/>
 data(weather)
 }
 \description{
-One of the most known testing data sets in machine learning. This data sets describes several situations where the weather is suitable or not to play sports, depending on the current outlook, temperature, humidity and wind.
+One of the most known testing data sets in machine learning. This data sets
+describes several situations where the weather is suitable or not to play
+sports, depending on the current outlook, temperature, humidity and wind.
 }
 \keyword{datasets}

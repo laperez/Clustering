@@ -4,10 +4,13 @@
 \alias{metrics_calculate}
 \title{Method in charge of verifying the implemented metrics}
 \usage{
-metrics_calculate(metrics)
+metrics_calculate(metrics, variables)
 }
 \arguments{
 \item{metrics}{array with the metrics used in the execution of the package}
+
+\item{variables}{boolean field that indicates if it should show the results
+of the variables}
 }
 \value{
 list of metrics

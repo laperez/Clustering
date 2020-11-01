@@ -2,21 +2,29 @@
 % Please edit documentation in R/agnes.R
 \name{agnes_euclidean_method}
 \alias{agnes_euclidean_method}
-\title{Method that runs the agnes algorithm using the euclidean metric to make an external or internal validation of the cluster.}
+\title{Method that runs the agnes algorithm using the euclidean metric to make an
+external or internal validation of the cluster.}
 \usage{
 agnes_euclidean_method(dt, clusters, metric)
 }
 \arguments{
-\item{dt}{matrix or data frame with the set of values to be applied to the algorithm.}
+\item{dt}{matrix or data frame with the set of values to be applied to the
+algorithm.}
 
-\item{clusters}{is an integer that indexes the number of clusters we want to create.}
+\item{clusters}{is an integer that indexes the number of clusters we want to
+create.}
 
-\item{metric}{is a characters vector with the metrics avalaible in the package. The metrics implemented are: entropy, variation_information,precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.}
+\item{metric}{is a characters vector with the metrics avalaible in the
+package. The metrics implemented are: entropy, variation_information,
+precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,
+silhouette.}
 }
 \value{
-returns a list with both the internal and external evaluation of the grouping.
+returns a list with both the internal and external evaluation of the
+grouping.
 }
 \description{
-Method that runs the agnes algorithm using the euclidean metric to make an external or internal validation of the cluster.
+Method that runs the agnes algorithm using the euclidean metric to make an
+external or internal validation of the cluster.
 }
 \keyword{internal}

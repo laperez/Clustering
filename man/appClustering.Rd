@@ -7,13 +7,17 @@
 appClustering()
 }
 \value{
-GUI with the parameters of the algorithm and their representation in tables and graphs.
+GUI with the parameters of the algorithm and their representation in
+tables and graphs.
 }
 \description{
-Method that allows us to execute the main algorithm in graphic interface mode instead of through the console.
+Method that allows us to execute the main algorithm in graphic
+interface mode instead of through the console.
 }
 \details{
 The operation of this method is to generate a graphical user.
-interface to be able to execute the clustering algorithm without knowing the parameters.
-Its operation is very simple, we can change the values and see the behavior quickly.
+interface to be able to execute the clustering algorithm without knowing the
+parameters.
+Its operation is very simple, we can change the values and see the behavior
+quickly.
 }

@@ -7,16 +7,19 @@
 best_ranked_external_metrics(df)
 }
 \arguments{
-\item{df}{matrix or data frame with the result of running the clustering algorithm.}
+\item{df}{matrix or data frame with the result of running the clustering
+algorithm.}
 }
 \value{
-Returns a data.frame with the best classified external variables.
+Returns a data.frame with the best classified external attribute.
 }
 \description{
-method in charge of searching for each algorithm those that have the best external classification.
+method in charge of searching for each algorithm those that have
+the best external classification.
 
-Method that looks for those external variables that are better classified,
-making use of the ranking column. In this way we discard the rest of the variables and
+Method that looks for those external attribute that are better
+classified, making use of the ranking column. In this way we discard the rest
+of the attribute and
 only work with those that give the best response to the algorithm in question.
 }
 \examples{
@@ -27,7 +30,7 @@ result = clustering(
                max = 5,
                algorithm='gmm',
                metrics=c("recall"),
-               variables = FALSE
+               attributes = FALSE
          )
 
 best_ranked_external_metrics(df = result)

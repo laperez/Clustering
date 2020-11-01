@@ -19,7 +19,8 @@ calculate_connectivity(
 
 \item{neighbSize}{number of neighbours}
 
-\item{method}{indicates the method for calculating distance between points. Default is euclidean}
+\item{method}{indicates the method for calculating distance between points.
+Default is euclidean}
 
 \item{datdf}{dataframe with original data}
 }

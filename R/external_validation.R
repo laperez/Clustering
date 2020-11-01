@@ -1,4 +1,5 @@
-#' Method in charge of obtaining those metrics that are external from those indicated
+#' Method in charge of obtaining those metrics that are external from those
+#' indicated
 #'
 #' @param metrics array with the metrics used in the calculation
 #'
@@ -44,32 +45,34 @@ row_name_df_external = function(metrics) {
     }
 
     # Varibles
-    if (tolower(metrics[iterate]) == tolower(CONST_TIME_EXTERNAL_VAR)) {
-      result = c(result, CONST_TIME_EXTERNAL_VAR)
+    if (tolower(metrics[iterate]) == tolower(CONST_TIME_EXTERNAL_ATTR)) {
+      result = c(result, CONST_TIME_EXTERNAL_ATTR)
     }
 
-    if (tolower(metrics[iterate]) == tolower(CONST_ENTROPY_METRIC_VAR)) {
-      result = c(result, CONST_ENTROPY_METRIC_VAR)
+    if (tolower(metrics[iterate]) == tolower(CONST_ENTROPY_METRIC_ATTR)) {
+      result = c(result, CONST_ENTROPY_METRIC_ATTR)
     }
 
-    if (tolower(metrics[iterate]) == tolower(CONST_VARIATION_INFORMATION_METRIC_VAR)) {
-      result = c(result, CONST_VARIATION_INFORMATION_METRIC_VAR)
+    if (tolower(metrics[iterate]) ==
+        tolower(CONST_VARIATION_INFORMATION_METRIC_ATTR)) {
+      result = c(result, CONST_VARIATION_INFORMATION_METRIC_ATTR)
     }
 
-    if (tolower(metrics[iterate]) == tolower(CONST_PRECISION_METRIC_VAR)) {
-      result = c(result, CONST_PRECISION_METRIC_VAR)
+    if (tolower(metrics[iterate]) == tolower(CONST_PRECISION_METRIC_ATTR)) {
+      result = c(result, CONST_PRECISION_METRIC_ATTR)
     }
 
-    if (tolower(metrics[iterate]) == tolower(CONST_RECALL_METRIC_VAR)) {
-      result = c(result, CONST_RECALL_METRIC_VAR)
+    if (tolower(metrics[iterate]) == tolower(CONST_RECALL_METRIC_ATTR)) {
+      result = c(result, CONST_RECALL_METRIC_ATTR)
     }
 
-    if (tolower(metrics[iterate]) == tolower(CONST_F_MEASURE_METRIC_VAR)) {
-      result = c(result, CONST_F_MEASURE_METRIC_VAR)
+    if (tolower(metrics[iterate]) == tolower(CONST_F_MEASURE_METRIC_ATTR)) {
+      result = c(result, CONST_F_MEASURE_METRIC_ATTR)
     }
 
-    if (tolower(metrics[iterate]) == tolower(CONST_FOWLKES_MALLOWS_INDEX_METRIC_VAR)) {
-      result = c(result, CONST_FOWLKES_MALLOWS_INDEX_METRIC_VAR)
+    if (tolower(metrics[iterate]) ==
+        tolower(CONST_FOWLKES_MALLOWS_INDEX_METRIC_ATTR)) {
+      result = c(result, CONST_FOWLKES_MALLOWS_INDEX_METRIC_ATTR)
     }
 
   }
@@ -78,9 +81,11 @@ row_name_df_external = function(metrics) {
 }
 
 
-#' Method that applicate differents external metrics about a data frame or matrix, for example precision, recall etc
+#' Method that applicate differents external metrics about a data frame or
+#' matrix, for example precision, recall etc
 #'
-#' @param column_dataset_label array containing the distribution of the data in the cluster
+#' @param column_dataset_label array containing the distribution of the data in
+#' the cluster
 #' @param clusters_vector array that containe tha data grouped in cluster
 #' @param metric array with external metric types
 #'
@@ -114,7 +119,8 @@ external_validation = function(column_dataset_label,
     stop ('Vector_cluster field must be numeric')
 
   if (length(column_dataset_label) != length(clusters_vector))
-    stop('The length of column_dataset_label must be the same as vector_clusters')
+    stop('The length of column_dataset_label must be the same
+         as vector_clusters')
 
   if (is.integer(column_dataset_label))
     column_dataset_label = as.numeric(column_dataset_label)
@@ -173,7 +179,8 @@ external_validation = function(column_dataset_label,
       fmeasure_metric (true_positive, false_positive, false_negative)
 
     fowlkes_mallows_index =
-      fowlkes_mallows_index_metric(true_positive, false_positive, false_negative)
+      fowlkes_mallows_index_metric(true_positive, false_positive,
+                                   false_negative)
 
   } else {
     for (me in metric) {
@@ -197,7 +204,8 @@ external_validation = function(column_dataset_label,
           fmeasure_metric (true_positive, false_positive, false_negative)
       if (me == CONST_FOWLKES_MALLOWS_INDEX_METRIC)
         fowlkes_mallows_index =
-          fowlkes_mallows_index_metric(true_positive, false_positive, false_negative)
+          fowlkes_mallows_index_metric(true_positive, false_positive,
+                                       false_negative)
     }
   }
 
@@ -232,9 +240,11 @@ external_validation = function(column_dataset_label,
       as.numeric(variation_information),
       digits = 4
     ),scientific = F),
-    "precision" = format(round(as.numeric(precision), digits = 4),scientific = F),
+    "precision" = format(round(as.numeric(precision), digits = 4),
+                         scientific = F),
     "recall" = format(round(as.numeric(recall), digits = 4),scientific = F),
-    "f_measure" = format(round(as.numeric(f_measure), digits = 4),scientific = F),
+    "f_measure" = format(round(as.numeric(f_measure), digits = 4),
+                         scientific = F),
     "fowlkes_mallows_index" = format(round(
       as.numeric(fowlkes_mallows_index),
       digits = 4
@@ -245,7 +255,8 @@ external_validation = function(column_dataset_label,
   return (resultadoValores)
 }
 
-#' Method in charge of creating a table from an array with the values of the variable used as a sample and another with the classification of the values
+#' Method in charge of creating a table from an array with the values of the
+#' variable used as a sample and another with the classification of the values
 #'
 #' @param clusters_vector array of the variable used for the classification
 #' @param column_dataset_label array with the grouping of the values
@@ -261,9 +272,11 @@ convert_table = function (clusters_vector, column_dataset_label) {
 
 #' Method to calculate the entropy
 #'
-#' @param conversion_data_frame returns a double with the result of the entropy calculation
+#' @param conversion_data_frame returns a double with the result of the entropy
+#' calculation
 #' @param table_convert table conversion (variable - cluster)
-#' @param column_dataset_label array with the calculation of the clustering algorithm
+#' @param column_dataset_label array with the calculation of the clustering
+#' algorithm
 #'
 #' @return returns a double with the result of the entropy calculation
 #'
@@ -293,10 +306,12 @@ entropy_metric =
 
 #' Method to calculate the variation information
 #'
-#' @param conversion_data_frame returns a double with the result of the entropy calculation
+#' @param conversion_data_frame returns a double with the result of the entropy
+#' calculation
 #' @param table_convert table conversion (variable - cluster)
 #'
-#' @return returns a double with the result of the variation information calculation
+#' @return returns a double with the result of the variation information
+#' calculation
 #'
 #' @keywords internal
 #'
@@ -314,12 +329,18 @@ variation_information_metric =
     for (iterate_row in 1:nrow(conversion_data_frame)) {
       for (iterate_col in 1:ncol(conversion_data_frame)) {
         if (conversion_data_frame[iterate_row, iterate_col] > 0.0) {
-          join_entropy = join_entropy + (-((conversion_data_frame[iterate_row, iterate_col] / sum(table_convert)) * log2(conversion_data_frame[iterate_row, iterate_col] / sum(table_convert))
+          join_entropy = join_entropy + (-((conversion_data_frame[iterate_row,
+              iterate_col] / sum(table_convert)) *
+                log2(conversion_data_frame[iterate_row, iterate_col] /
+                       sum(table_convert))
           ))
 
-          share_information = share_information + ((conversion_data_frame[iterate_row, iterate_col] / sum(table_convert)) * log2(as.numeric(
+          share_information = share_information +
+            ((conversion_data_frame[iterate_row, iterate_col] /
+                sum(table_convert)) * log2(as.numeric(
             as.bigz(
-              as.numeric(sum(table_convert)) * as.numeric(conversion_data_frame[iterate_row, iterate_col])
+              as.numeric(sum(table_convert)) *
+                as.numeric(conversion_data_frame[iterate_row, iterate_col])
             ) / as.bigz(as.numeric(sum(
               conversion_data_frame[iterate_row,]
             )) * as.numeric(sum(
@@ -336,9 +357,11 @@ variation_information_metric =
     entropy_cluster = sum(apply(conversion_data_frame, 1, function(x)
       - (sum(x) / sum(table_convert)) * log2(sum(x) / sum(table_convert))))
 
-    tmp_variation_information = (entropy_cluster + entropy_class) - 2.0 * share_information
+    tmp_variation_information = (entropy_cluster + entropy_class) - 2.0 *
+      share_information
 
-    variation_information = ifelse(is.nan(round(tmp_variation_information, 4)), 0, round(tmp_variation_information, 4))
+    variation_information = ifelse(is.nan(round(tmp_variation_information, 4)),
+                                   0, round(tmp_variation_information, 4))
 
     return (variation_information)
   }
@@ -346,7 +369,8 @@ variation_information_metric =
 #' Method to calculate the precision
 #'
 #' @param true_positive array with matching elements of B is in the same cluster
-#' @param false_positive array with non matching element of B is in the same cluster
+#' @param false_positive array with non matching element of B is in the same
+#' cluster
 #'
 #' @return returns a double with the precision calculation
 #'
@@ -356,7 +380,9 @@ variation_information_metric =
 precision_metric = function (true_positive, false_positive) {
   precision = 0.0
 
-  precision  = ifelse(is.nan(true_positive / (true_positive + false_positive)), 0, round(true_positive / (true_positive + false_positive), 4))
+  precision  = ifelse(is.nan(true_positive / (true_positive + false_positive)),
+                      0, round(true_positive / (true_positive + false_positive),
+                               4))
 
   return (precision)
 }
@@ -365,7 +391,8 @@ precision_metric = function (true_positive, false_positive) {
 #' Method to calculate the recall
 #'
 #' @param true_positive array with matching elements of B is in the same cluster
-#' @param false_negative array with matching elements of B is not in the same cluster
+#' @param false_negative array with matching elements of B is not in the same
+#' cluster
 #'
 #' @return returns a double with the recall calculation
 #'
@@ -375,7 +402,8 @@ precision_metric = function (true_positive, false_positive) {
 recall_metric = function(true_positive, false_negative) {
   recall = 0.0
 
-  recall = ifelse(is.nan(true_positive / (true_positive + false_negative)), 0 , round(true_positive / (true_positive + false_negative), 4))
+  recall = ifelse(is.nan(true_positive / (true_positive + false_negative)), 0,
+                  round(true_positive / (true_positive + false_negative), 4))
 
   return (recall)
 
@@ -384,8 +412,10 @@ recall_metric = function(true_positive, false_negative) {
 #' Method to calculate the f_measure
 #'
 #' @param true_positive array with matching elements of B is in the same cluster
-#' @param false_positive array with non matching element of B is in the same cluster
-#' @param false_negative array with matching elements of B is not in the same cluster
+#' @param false_positive array with non matching element of B is in the same
+#' cluster
+#' @param false_negative array with matching elements of B is not in the same
+#' cluster
 #'
 #' @return returns a double with the f_measure calculation
 #'
@@ -414,8 +444,10 @@ fmeasure_metric =
 #'
 #'
 #' @param true_positive array with matching elements of B is in the same cluster
-#' @param false_positive array with non matching element of B is in the same cluster
-#' @param false_negative array with matching elements of B is not in the same cluster
+#' @param false_positive array with non matching element of B is in the same
+#' cluster
+#' @param false_negative array with matching elements of B is not in the same
+#' cluster
 #'
 #' @return returns a double with the fowlkes_mallows_index calculation
 #'
@@ -428,7 +460,8 @@ fowlkes_mallows_index_metric =
            false_negative) {
     fowlkes_mallows_index = 0.0
 
-    fowlkes_mallows_index = sqrt((true_positive / ((true_positive + false_positive)
+    fowlkes_mallows_index = sqrt((true_positive / ((true_positive +
+                                                      false_positive)
     )) * (
       true_positive / (true_positive + false_negative)
     ))
@@ -473,9 +506,11 @@ initializeExternalValidation = function() {
       as.numeric(variation_information),
       digits = 4
     ),scientific = F),
-    "precision" = format(round(as.numeric(precision), digits = 4),scientific = F),
+    "precision" = format(round(as.numeric(precision), digits = 4),
+                         scientific = F),
     "recall" = format(round(as.numeric(recall), digits = 4),scientific = F),
-    "f_measure" = format(round(as.numeric(f_measure), digits = 4),scientific = F),
+    "f_measure" = format(round(as.numeric(f_measure), digits = 4),
+                         scientific = F),
     "fowlkes_mallows_index" = format(round(
       as.numeric(fowlkes_mallows_index),
       digits = 4

@@ -636,7 +636,7 @@ shinyServer(function(input, output, session) {
                             min = input$clustering[1],
                             max = input$clustering[2],
                             metrics = input$metrics,
-                            variables = visible
+                            attributes  = visible
                         )
 
                     columnnames <- colnames(df_result$result)
@@ -884,7 +884,7 @@ shinyServer(function(input, output, session) {
                             min = input$clustering[1],
                             max = input$clustering[2],
                             metrics = input$metrics,
-                            variables = visible
+                            attributes = visible
                         )
 
                     columnnames <- colnames(df_result$result)

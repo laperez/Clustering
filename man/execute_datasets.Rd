@@ -12,28 +12,40 @@ execute_datasets(
   cluster_min,
   cluster_max,
   metrics,
-  variables
+  attributes
 )
 }
 \arguments{
 \item{path}{path where the datasets are located.}
 
-\item{df}{data matrix or data frame, or dissimilarity matrix, depending on the value of the argument.}
+\item{df}{data matrix or data frame, or dissimilarity matrix, depending on
+the value of the argument.}
 
-\item{packages}{array defining the clustering package. The seven packages implemented are: cluster, ClusterR, advclust, amap, apcluster, gama, pvclust. By default runs all packages.}
+\item{packages}{array defining the clustering package. The seven packages
+implemented are: cluster, ClusterR, advclust, amap, apcluster, gama, pvclust.
+By default runs all packages.}
 
-\item{algorithm}{array with the algorithms that implement the package. The algorithms implemented are: fuzzy_cm,fuzzy_gg,fuzzy_gk,hclust,apclusterK,agnes,clara,daisy,diana,fanny,mona,pam,gmm,kmeans_arma,kmeans_rcpp,mini_kmeans,gama,pvclust.}
+\item{algorithm}{array with the algorithms that implement the package.
+The algorithms implemented are: fuzzy_cm,fuzzy_gg,fuzzy_gk,hclust,apclusterK,
+agnes,clara,daisy,diana,fanny,mona,pam,gmm,kmeans_arma,kmeans_rcpp,
+mini_kmeans,gama,pvclust.}
 
 \item{cluster_min}{minimum number of clusters. at least one must be.}
 
-\item{cluster_max}{maximum number of clusters. cluster_max must be greater or equal cluster_min.}
+\item{cluster_max}{maximum number of clusters. cluster_max must be greater or
+equal cluster_min.}
 
-\item{metrics}{array defining the metrics avalaible in the package. The night metrics implemented are: entropy, variation_information,precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.}
+\item{metrics}{array defining the metrics avalaible in the package. The night
+metrics implemented are: entropy, variation_information,precision,recall,
+f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.}
 
-\item{variables}{accepts Boolean values. If true as a result it shows the variable that behaves best otherwise it shows the value of the executed metric.}
+\item{attributes}{accepts Boolean values. If true as a result it shows the
+attribute that behaves best otherwise it shows the value of the executed
+metric.}
 }
 \value{
-returns a matrix with the result of running all the metrics of the algorithms contained in the packages we indicated.
+returns a matrix with the result of running all the metrics of the
+algorithms contained in the packages we indicated.
 }
 \description{
 Method of performing information processing

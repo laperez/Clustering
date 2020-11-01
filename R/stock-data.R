@@ -1,4 +1,5 @@
-#' The data provided are daily stock prices from January 1988 through October 1991, for ten aerospace companies.
+#' The data provided are daily stock prices from January 1988 through October
+#' 1991, for ten aerospace companies.
 #'
 #' @docType data
 #'
@@ -6,7 +7,8 @@
 #'
 #' @format A data frame with 950 observations on 10 variables:
 #' \describe{
-#'   The data provided are daily stock prices from January 1988 through October 1991, for ten aerospace companies.
+#'   The data provided are daily stock prices from January 1988 through October
+#'   1991, for ten aerospace companies.
 #'   \item{Company1}{company1 details}
 #'   \item{Company2}{company2 details}
 #'   \item{Company3}{company3 details}

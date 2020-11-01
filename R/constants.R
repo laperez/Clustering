@@ -63,47 +63,47 @@
 
   CONST_PRECISION_METRIC <- "precision"
 
-  CONST_PRECISION_METRIC_VAR <- "precisionVar"
+  CONST_PRECISION_METRIC_ATTR <- "precisionAttr"
 
   CONST_RECALL_METRIC <- "recall"
 
-  CONST_RECALL_METRIC_VAR <- "recallVar"
+  CONST_RECALL_METRIC_ATTR <- "recallAttr"
 
   CONST_ENTROPY_METRIC <- "entropy"
 
-  CONST_ENTROPY_METRIC_VAR <- "entropyVar"
+  CONST_ENTROPY_METRIC_ATTR <- "entropyAttr"
 
   CONST_VARIATION_INFORMATION_METRIC <- "variation_information"
 
-  CONST_VARIATION_INFORMATION_METRIC_VAR <- "variation_informationVar"
+  CONST_VARIATION_INFORMATION_METRIC_ATTR <- "variation_informationAttr"
 
   CONST_F_MEASURE_METRIC <- "f_measure"
 
-  CONST_F_MEASURE_METRIC_VAR <- "f_measureVar"
+  CONST_F_MEASURE_METRIC_ATTR <- "f_measureAttr"
 
   CONST_FOWLKES_MALLOWS_INDEX_METRIC <- "fowlkes_mallows_index"
 
-  CONST_FOWLKES_MALLOWS_INDEX_METRIC_VAR <- "fowlkes_mallows_indexVar"
+  CONST_FOWLKES_MALLOWS_INDEX_METRIC_ATTR <- "fowlkes_mallows_indexAttr"
 
   CONST_DUNN_METRIC <- "dunn"
 
-  CONST_DUNN_METRIC_VAR <- "dunnVar"
+  CONST_DUNN_METRIC_ATTR <- "dunnAttr"
 
   CONST_SILHOUETTE_METRIC <- "silhouette"
 
-  CONST_SILHOUETTE_METRIC_VAR <- "silhouetteVar"
+  CONST_SILHOUETTE_METRIC_ATTR <- "silhouetteAttr"
 
   CONST_CONNECTIVITY_METRIC <- "connectivity"
 
-  CONST_CONNECTIVITY_METRIC_VAR <- "connectivityVar"
+  CONST_CONNECTIVITY_METRIC_ATTR <- "connectivityAttr"
 
   CONST_TIME_EXTERNAL <- "timeExternal"
 
-  CONST_TIME_EXTERNAL_VAR <- "timeExternalVar"
+  CONST_TIME_EXTERNAL_ATTR <- "timeExternalAttr"
 
   CONST_TIME_INTERNAL <- "timeInternal"
 
-  CONST_TIME_INTERNAL_VAR <- "timeInternalVar"
+  CONST_TIME_INTERNAL_ATTR <- "timeInternalAttr"
 
   CONST_EUCLIDEAN <- "euclidean"
 

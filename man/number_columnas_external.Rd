@@ -2,7 +2,8 @@
 % Please edit documentation in R/algorithm.R
 \name{number_columnas_external}
 \alias{number_columnas_external}
-\title{Method that returns how many external metrics there are in the array of metrics used in the calculation}
+\title{Method that returns how many external metrics there are in the array of
+metrics used in the calculation}
 \usage{
 number_columnas_external(metrics)
 }
@@ -13,6 +14,7 @@ number_columnas_external(metrics)
 returns the number of occurrences
 }
 \description{
-Method that returns how many external metrics there are in the array of metrics used in the calculation
+Method that returns how many external metrics there are in the array of
+metrics used in the calculation
 }
 \keyword{internal}

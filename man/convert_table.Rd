@@ -2,7 +2,8 @@
 % Please edit documentation in R/external_validation.R
 \name{convert_table}
 \alias{convert_table}
-\title{Method in charge of creating a table from an array with the values of the variable used as a sample and another with the classification of the values}
+\title{Method in charge of creating a table from an array with the values of the
+variable used as a sample and another with the classification of the values}
 \usage{
 convert_table(clusters_vector, column_dataset_label)
 }
@@ -15,6 +16,7 @@ convert_table(clusters_vector, column_dataset_label)
 returns a table with the grouping of both arrays
 }
 \description{
-Method in charge of creating a table from an array with the values of the variable used as a sample and another with the classification of the values
+Method in charge of creating a table from an array with the values of the
+variable used as a sample and another with the classification of the values
 }
 \keyword{internal}

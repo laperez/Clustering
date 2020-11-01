@@ -7,18 +7,20 @@
 plot_clustering(df, metric)
 }
 \arguments{
-\item{df}{data matrix or data frame with the result of running the clustering algorithm.}
+\item{df}{data matrix or data frame with the result of running the clustering
+algorithm.}
 
 \item{metric}{it's a string with the name of the metric select to evaluate.}
 }
 \description{
-Graphical representation of the evaluation measures grouped by cluster.
+Graphical representation of the evaluation measures grouped by
+cluster.
 }
 \details{
-In certain cases the review or filtering of the data is necessary to select the data,
-that is why thanks to the graphic representations this task is much easier.
-Therefore with this method we will be able to filter the data by metrics
-and see the data in a graphical way.
+In certain cases the review or filtering of the data is necessary to
+select the data, that is why thanks to the graphic representations this task
+is much easier. Therefore with this method we will be able to filter the data
+by metrics and see the data in a graphical way.
 }
 \examples{
 
@@ -28,7 +30,7 @@ result = clustering(
                max = 5,
                algorithm='gmm',
                metrics=c("precision"),
-               variables = TRUE
+               attributes = TRUE
          )
 
 plot_clustering(result,c("precision"))

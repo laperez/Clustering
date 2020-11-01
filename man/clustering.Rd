@@ -12,60 +12,96 @@ clustering(
   min = 3,
   max = 4,
   metrics = NULL,
-  variables = FALSE
+  attributes = FALSE
 )
 }
 \arguments{
-\item{path}{The path of file. \code{NULL} It is only allowed to use path or df but not both at the same time. Only files in .dat, .csv or arff format are allowed.}
+\item{path}{The path of file. \code{NULL} It is only allowed to use path or
+df but not both at the same time. Only files in .dat, .csv or arff format are
+ allowed.}
 
-\item{df}{data matrix or data frame, or dissimilarity matrix. \code{NULL} If you want to use training and test \code{basketball} variables.}
+\item{df}{data matrix or data frame, or dissimilarity matrix. \code{NULL} If
+you want to use training and test \code{basketball} attributes.}
 
-\item{packages}{character vector with the packets running the algorithm. \code{NULL} The seven packages implemented are: cluster, ClusterR, advclust, amap, apcluster,
-gama, pvclust. \cr By default runs all packages.}
+\item{packages}{character vector with the packets running the algorithm.
+\code{NULL} The seven packages implemented are: cluster, ClusterR, advclust,
+amap, apcluster, gama, pvclust. \cr By default runs all packages.}
 
-\item{algorithm}{character vector with the algorithms implemented within the package. \code{NULL} The algorithms implemented are: fuzzy_cm,fuzzy_gg,fuzzy_gk,
-hclust,apclusterK,agnes,clara,daisy, \cr diana,fanny,mona,pam,gmm,kmeans_arma,kmeans_rcpp,mini_kmeans,gama,\cr pvclust.}
+\item{algorithm}{character vector with the algorithms implemented within the
+package. \code{NULL} The algorithms implemented are: fuzzy_cm,fuzzy_gg,
+fuzzy_gk,hclust,apclusterK,agnes,clara,daisy, \cr diana,fanny,mona,pam,gmm,
+kmeans_arma,kmeans_rcpp,mini_kmeans,gama,\cr pvclust.}
 
-\item{min}{An integer with the minimum number of clusters This data is necessary to indicate the minimum number of clusters when grouping the data. The default value is \code{3}.}
+\item{min}{An integer with the minimum number of clusters This data is
+necessary to indicate the minimum number of clusters when grouping the data.
+The default value is \code{3}.}
 
-\item{max}{An integer with the maximum number of clusters. This data is necessary to indicate the maximum number of clusters when grouping the data. The default value is \code{4}.}
+\item{max}{An integer with the maximum number of clusters. This data is
+necessary to indicate the maximum number of clusters when grouping the data.
+The default value is \code{4}.}
 
-\item{metrics}{Character vector with the metrics implemented to evaluate the distribution of the data in clusters. \code{NULL} The night metrics implemented are: entropy, variation_information,\cr
+\item{metrics}{Character vector with the metrics implemented to evaluate the
+distribution of the data in clusters. \code{NULL} The night metrics
+implemented are: entropy, variation_information,\cr
 precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.}
 
-\item{variables}{an boolean which indicates that if we want to show as a result the variables of the datasets or the numerical value of the calculation of the metrics. The default value is \code{F}.}
+\item{attributes}{an boolean which indicates that if we want to show as a
+result the attributes of the datasets or the numerical value of the
+calculation of the metrics. The default value is \code{F}.}
 }
 \value{
-a matrix with the result of running all the metrics of the algorithms contained in the packages we indicated. We also obtain information with the types of metrics, algorithms and packages executed.
+a matrix with the result of running all the metrics of the algorithms
+contained in the packages we indicated. We also obtain information with the
+types of metrics, algorithms and packages executed.
+
 \itemize{
-       \item result It is a list with the algorithms, metrics and variables defined in the execution of the algorithm.
-       \item has_internal_metrics Boolean field to indicate if there are internal metrics such as: dunn, silhoutte and connectivity.
-       \item has_external_metrics Boolean field to indicate if there are external metrics such as: precision, recall, f-measure, entropy, variation information and fowlkes-mallows.
-       \item algorithms_execute Character vector with the algorithms executed. These algorithms have been mentioned in the definition of the parameters.
-       \item measures_execute Character vector with the measures executed. These measures have been mentioned in the definition of the parameters.
+       \item result It is a list with the algorithms, metrics and variables
+       defined in the execution of the algorithm.
+       \item has_internal_metrics Boolean field to indicate if there are
+       internal metrics such as: dunn, silhoutte and connectivity.
+       \item has_external_metrics Boolean field to indicate if there are
+       external metrics such as: precision, recall, f-measure, entropy,
+       variation information and fowlkes-mallows.
+       \item algorithms_execute Character vector with the algorithms
+       executed. These algorithms have been mentioned in the definition of
+       the parameters.
+       \item measures_execute Character vector with the measures executed.
+       These measures have been mentioned in the definition of the
+       parameters.
 }
 }
 \description{
-Discovering the behavior of variables in a set of clustering packages based on evaluation metrics.
+Discovering the behavior of attributes in a set of clustering
+packages based on evaluation metrics.
 }
 \details{
-The operation of this algorithm is to evaluate how the variables of a dataset or a set of datasets behave in
-different grouping algorithms. To do this, it is necessary to indicate the type of evaluation you want to make on the
-distribution of the data. To be able to execute the algorithm it is necessary to indicate the number of clusters
-\code{min} and \code{max}, the algorithms \code{algorithm} or packages \code{packages} that we want to cluster,
-the metrics \code{metrics} and if we want that the results of evaluation are the own classified variables or numerical values \code{variables}.
+The operation of this algorithm is to evaluate how the attributes of
+a dataset or a set of datasets behave in different grouping algorithms. To do
+this, it is necessary to indicate the type of evaluation you want to make on
+the
+distribution of the data. To be able to execute the algorithm it is necessary
+to indicate the number of clusters
+\code{min} and \code{max}, the algorithms \code{algorithm} or packages
+\code{packages} that we want to cluster,
+the metrics \code{metrics} and if we want that the results of evaluation are
+the own classified attributes or numerical values \code{attributes}.
 }
 \section{How does this algorithm work?}{
 
-This algorithm improves and complements existing implementations of clustering algorithms.
+This algorithm improves and complements existing implementations of
+clustering algorithms.
 
-The approaches that exist, are many algorithms that run parallel to the algorithms, without being able to be compared
-between them. In addition, it was necessary to indicate which variable of the dataset is required to be executed.
-In addition, depending on the package there are some implementations or others to evaluate the groupings of data,
-so it is sometimes complicated to compare the groupings between different packages.
+The approaches that exist, are many algorithms that run parallel to the
+algorithms, without being able to be compared between them. In addition, it
+was necessary to indicate which variable of the dataset is required to be
+executed.
+In addition, depending on the package there are some implementations or
+others to evaluate the groupings of data, so it is sometimes complicated to
+compare the groupings between different packages.
 
-With this algorithm we can solve the problems mentioned above and determine which algorithm has the best behavior
-for the set of variables as well as the most efficient number of clusters.
+With this algorithm we can solve the problems mentioned above and determine
+which algorithm has the best behavior for the set of attributes as well as
+the most efficient number of clusters.
 }
 
 \examples{
@@ -76,7 +112,7 @@ clustering(
      max = 5,
      algorithm='gmm',
      metrics='precision',
-     variables = TRUE
+     attributes = TRUE
 )
 
 \dontrun{
@@ -86,7 +122,7 @@ clustering(
       max = 3,
       algorithm= c("gmm","kmeans_armaa"),
       metrics= c("precision","dunn"),
-      variables = FALSE
+      attributes = FALSE
 )
 }
 

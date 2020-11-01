@@ -2,7 +2,8 @@
 % Please edit documentation in R/evaluate_column_dataset.R
 \name{evaluate_all_column_dataset}
 \alias{evaluate_all_column_dataset}
-\title{Method in charge of calculating the average for all datasets using all the algorithms defined in the application.}
+\title{Method in charge of calculating the average for all datasets using all the
+algorithms defined in the application.}
 \usage{
 evaluate_all_column_dataset(datas, method, cluster, nameDataset, metrics)
 }
@@ -18,9 +19,11 @@ evaluate_all_column_dataset(datas, method, cluster, nameDataset, metrics)
 \item{data}{is a data frame or matrix}
 }
 \value{
-a list with result of external and internal validation applying on algorithms
+a list with result of external and internal validation applying on
+algorithms
 }
 \description{
-Method in charge of calculating the average for all datasets using all the algorithms defined in the application.
+Method in charge of calculating the average for all datasets using all the
+algorithms defined in the application.
 }
 \keyword{internal}

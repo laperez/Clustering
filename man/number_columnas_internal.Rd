@@ -2,7 +2,8 @@
 % Please edit documentation in R/algorithm.R
 \name{number_columnas_internal}
 \alias{number_columnas_internal}
-\title{Method that returns how many internal metrics there are in the array of metrics used in the calculation}
+\title{Method that returns how many internal metrics there are in the array of
+metrics used in the calculation}
 \usage{
 number_columnas_internal(metrics)
 }
@@ -13,6 +14,7 @@ number_columnas_internal(metrics)
 returns the number of occurrences
 }
 \description{
-Method that returns how many internal metrics there are in the array of metrics used in the calculation
+Method that returns how many internal metrics there are in the array of
+metrics used in the calculation
 }
 \keyword{internal}

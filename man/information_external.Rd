@@ -11,12 +11,14 @@ information_external(metrics, information, size, variables)
 
 \item{size}{external number of columns}
 
-\item{variables}{Null returns the position of the variable, otherwise it returns the value of the variable}
+\item{variables}{Null returns the position of the variable, otherwise it
+returns the value of the variable}
 
 \item{info}{list with external clustering information}
 }
 \value{
-array with the information from the calculation of the external evaluation of the clustering
+array with the information from the calculation of the external
+evaluation of the clustering
 }
 \description{
 Method that returns an array with the external information of the cluster

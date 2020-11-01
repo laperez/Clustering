@@ -2,7 +2,8 @@
 % Please edit documentation in R/validation.R
 \name{show_result_external_algorithm_by_metric}
 \alias{show_result_external_algorithm_by_metric}
-\title{Method that returns a table with the algorithm and the metric indicated as parameters}
+\title{Method that returns a table with the algorithm and the metric indicated as
+parameters}
 \usage{
 show_result_external_algorithm_by_metric(df, algorithm)
 }
@@ -12,9 +13,11 @@ show_result_external_algorithm_by_metric(df, algorithm)
 \item{algorithm}{on which we will calculate the results}
 }
 \value{
-returns a table with the algorithm and the metric indicated as parameter
+returns a table with the algorithm and the metric indicated as
+parameter
 }
 \description{
-Method that returns a table with the algorithm and the metric indicated as parameters
+Method that returns a table with the algorithm and the metric indicated as
+parameters
 }
 \keyword{internal}

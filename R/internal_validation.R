@@ -1,4 +1,5 @@
-#' Method in charge of obtaining those metrics that are internal from those indicated
+#' Method in charge of obtaining those metrics that are internal from those
+#' indicated
 #'
 #' @param metrics array with the metrics used in the calculation
 #'
@@ -30,22 +31,22 @@ row_name_df_internal = function(metrics) {
       result = c(result, CONST_SILHOUETTE_METRIC)
     }
 
-    #Variables
+    #Variable
 
-    if (tolower(metrics[iterate]) == tolower(CONST_TIME_INTERNAL_VAR)) {
-      result = c(result, CONST_TIME_INTERNAL_VAR)
+    if (tolower(metrics[iterate]) == tolower(CONST_TIME_INTERNAL_ATTR)) {
+      result = c(result, CONST_TIME_INTERNAL_ATTR)
     }
 
-    if (tolower(metrics[iterate]) == tolower(CONST_CONNECTIVITY_METRIC_VAR)) {
-      result = c(result, CONST_CONNECTIVITY_METRIC_VAR)
+    if (tolower(metrics[iterate]) == tolower(CONST_CONNECTIVITY_METRIC_ATTR)) {
+      result = c(result, CONST_CONNECTIVITY_METRIC_ATTR)
     }
 
-    if (tolower(metrics[iterate]) == tolower(CONST_DUNN_METRIC_VAR)) {
-      result = c(result, CONST_DUNN_METRIC_VAR)
+    if (tolower(metrics[iterate]) == tolower(CONST_DUNN_METRIC_ATTR)) {
+      result = c(result, CONST_DUNN_METRIC_ATTR)
     }
 
-    if (tolower(metrics[iterate]) == tolower(CONST_SILHOUETTE_METRIC_VAR)) {
-      result = c(result, CONST_SILHOUETTE_METRIC_VAR)
+    if (tolower(metrics[iterate]) == tolower(CONST_SILHOUETTE_METRIC_ATTR)) {
+      result = c(result, CONST_SILHOUETTE_METRIC_ATTR)
     }
 
   }
@@ -54,7 +55,8 @@ row_name_df_internal = function(metrics) {
 }
 
 
-#' Method that applicate differents internal metrics about a data frame or matrix, for example dunn, connectivity etc
+#' Method that applicate differents internal metrics about a data frame or
+#' matrix, for example dunn, connectivity etc
 #'
 #' @param distance dissimilarity matrix
 #' @param clusters_vector array that containe tha data grouped in cluster
@@ -136,7 +138,8 @@ internal_validation = function(distance = NULL,
   if (is.na(as.numeric(silhouette))) silhouette <- 0
 
   result = list(
-    "connectivity" = format(round(as.numeric(connectivity), digits = 4),scientific = F),
+    "connectivity" = format(round(as.numeric(connectivity), digits = 4),
+                            scientific = F),
     "dunn" = format(round(as.numeric(dunn), digits = 4),scientific = F),
     "silhouette" = format(round(
       as.numeric(silhouette),
@@ -258,9 +261,11 @@ initializeInternalValidation = function() {
 
 
   result = list(
-    "connectivity" = format(round(as.numeric(connectivity), digits = 4), scientific = F),
+    "connectivity" = format(round(as.numeric(connectivity), digits = 4),
+                            scientific = F),
     "dunn" = format(round(as.numeric(dunn), digits = 4), scientific = F),
-    "silhouette" = format(round(as.numeric(silhouette), digits = 4), scientific = F),
+    "silhouette" = format(round(as.numeric(silhouette), digits = 4),
+                          scientific = F),
     "time" = round(as.numeric(time), digits = 4)
   )
 
@@ -324,7 +329,8 @@ calculate_dunn <-
 #' @param clusters array that containe tha data grouped in cluster
 #' @param datdf dataframe with original data
 #' @param neighbSize number of neighbours
-#' @param method indicates the method for calculating distance between points. Default is euclidean
+#' @param method indicates the method for calculating distance between points.
+#' Default is euclidean
 #'
 #' @return returns a double with the result of the connectivity calculation
 #'
