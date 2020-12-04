@@ -17,7 +17,8 @@ execute_package_parallel(
   numberClusters,
   numberDataSets,
   is_metric_external,
-  is_metric_internal
+  is_metric_internal,
+  name_dataframe
 )
 }
 \arguments{
@@ -54,6 +55,12 @@ metric.}
 \item{numberClusters}{It's a numeric field with the difference between clusters.}
 
 \item{numberDataSets}{It's a numeric field with the number of datasets.}
+
+\item{is_metric_external}{boolean field to indicate whether to run external metrics.}
+
+\item{is_metric_internal}{boolean field to indicate whether to run internal metrics.}
+
+\item{name_dataframe}{name of data.frame when is fill.}
 }
 \value{
 returns a list with the result matrix of evaluating the data from the

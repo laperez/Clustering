@@ -1,5 +1,21 @@
 {
     "debugBreakpointsState": {
-        "breakpoints": []
+        "breakpoints": [
+            {
+                "id": 1,
+                "path": "~/Desktop/Doctorado Ujaen/Paquetes R/clustering/R/app.R",
+                "line_number": 936,
+                "function_steps": "2",
+                "function_name": "sort.clustering",
+                "state": 1,
+                "editor_state": 1,
+                "editor_line_number": 936,
+                "is_pending_debug_completion": false,
+                "needs_updated_steps": false,
+                "type": 0,
+                "is_package_breakpoint": true,
+                "package_name": "Clustering"
+            }
+        ]
     }
 }

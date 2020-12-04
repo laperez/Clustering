@@ -1,8 +1,8 @@
 Package: Clustering
 Type: Package
 Title: Execution of Multiple Clustering Algorithm
-Version: 1.7
-Date: 2020-10-25
+Version: 1.7.1
+Date: 2020-12-04
 Author: Luis Alfonso Perez Martos [aut, cre]
 Maintainer: Luis Alfonso Perez Martos <lapm0001@gmail.com>
 Description: The design of this package allows us to run different clustering packages and compare the results between them, to determine which algorithm behaves best from the data provided.
@@ -15,3 +15,4 @@ RoxygenNote: 7.1.1
 Repository: CRAN
 Imports: advclust, amap, apcluster, cluster, ClusterR, data.table, doParallel, dplyr, foreach, future, gama, ggplot2, gmp, pracma, pvclust, shiny, sqldf, stats, tools, utils, xtable
 Suggests: DT, kableExtra, knitr, rmarkdown, shinyalert, shinyFiles, shinyjs, shinythemes, shinyWidgets, tidyverse, shinycssloaders
+VignetteBuilder: knitr

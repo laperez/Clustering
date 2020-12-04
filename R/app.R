@@ -319,6 +319,12 @@ clustering <- function(path = NULL,
     stop("The attributes field must have only one element")
   }
 
+  name_dataframe <- CONST_TIME_DF
+
+  if (!is.null(df)){
+    name_dataframe <- unlist(strsplit(x = toString(match.call()),split = ","))[2]
+  }
+
   #Start of the main method that executes the datasets.
 
   execute_datasets(path,
@@ -328,7 +334,8 @@ clustering <- function(path = NULL,
                    min,
                    max,
                    metrics,
-                   attributes)
+                   attributes,
+                   name_dataframe)
 }
 
 
@@ -356,6 +363,7 @@ clustering <- function(path = NULL,
 #' @param attributes accepts Boolean values. If true as a result it shows the
 #' attribute that behaves best otherwise it shows the value of the executed
 #' metric.
+#' @param name_dataframe name of data.frame when df is fill.
 #'
 #' @return returns a matrix with the result of running all the metrics of the
 #' algorithms contained in the packages we indicated.
@@ -370,7 +378,8 @@ execute_datasets <- function(path,
                              cluster_min,
                              cluster_max,
                              metrics,
-                             attributes) {
+                             attributes,
+                             name_dataframe) {
   # Initialization of the parameter format
 
   on.exit(options(scipen = 999))
@@ -459,7 +468,8 @@ execute_datasets <- function(path,
         numberClusters,
         numberDataSets,
         is_metric_external,
-        is_metric_internal
+        is_metric_internal,
+        name_dataframe
       )
   }
 
@@ -518,6 +528,9 @@ execute_datasets <- function(path,
 #' @param number_algorithms It's a numeric field with the number of algorithms.
 #' @param numberClusters It's a numeric field with the difference between clusters.
 #' @param numberDataSets It's a numeric field with the number of datasets.
+#' @param is_metric_external boolean field to indicate whether to run external metrics.
+#' @param is_metric_internal boolean field to indicate whether to run internal metrics.
+#' @param name_dataframe name of data.frame when is fill.
 #'
 #' @return returns a list with the result matrix of evaluating the data from the
 #' indicated algorithms, metrics and number of clusters.
@@ -538,7 +551,8 @@ execute_package_parallel <-
            numberClusters,
            numberDataSets,
            is_metric_external,
-           is_metric_internal) {
+           is_metric_internal,
+           name_dataframe) {
     # We start the process of creating clusters to perform parallel runs.
 
     cl <-
@@ -649,14 +663,14 @@ execute_package_parallel <-
               if (!is.null(df)) {
                 # If the indicated parameter is the dataframe, we make the
                 # appropriate calculations.
-
+                nameLuis <- deparse(df);
                 result <-
                   value(
                     evaluate_all_column_dataset(
                       as.matrix(df),
                       measures_execute[j],
                       k,
-                      CONST_TIME_DF,
+                      name_dataframe,
                       metrics_execute
                     )
                   )
@@ -677,7 +691,7 @@ execute_package_parallel <-
               }
 
               name_file = ifelse(!is.null(df),
-                                 CONST_TIME_DF,
+                                 name_dataframe,
                                  directory_files[m])
 
               entropy = result$external$entropy

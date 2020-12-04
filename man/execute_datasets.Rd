@@ -12,7 +12,8 @@ execute_datasets(
   cluster_min,
   cluster_max,
   metrics,
-  attributes
+  attributes,
+  name_dataframe
 )
 }
 \arguments{
@@ -42,6 +43,8 @@ f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.}
 \item{attributes}{accepts Boolean values. If true as a result it shows the
 attribute that behaves best otherwise it shows the value of the executed
 metric.}
+
+\item{name_dataframe}{name of data.frame when df is fill.}
 }
 \value{
 returns a matrix with the result of running all the metrics of the

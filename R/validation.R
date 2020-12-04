@@ -456,14 +456,6 @@ calculate_best_validation_external_by_metrics <-
         query
       )
 
-    for (r in 1:nrow(calculate_best_external_by_metrics)) {
-      for (c in 3:ncol(calculate_best_external_by_metrics)) {
-        calculate_best_external_by_metrics[r,c] =
-          format(round(as.numeric(calculate_best_external_by_metrics[r,c]),
-                       digits = 4),scientific = F)
-      }
-    }
-
     return (calculate_best_external_by_metrics)
   }
 
@@ -543,14 +535,6 @@ calculate_best_validation_internal_by_metrics <-
       sqldf(
         query
       )
-
-    for (r in 1:nrow(calculate_best_internal_by_metrics)) {
-      for (c in 3:ncol(calculate_best_internal_by_metrics)) {
-        calculate_best_internal_by_metrics[r,c] =
-          format(round(as.numeric(calculate_best_internal_by_metrics[r,c]),
-                       digits = 4),scientific = F)
-      }
-    }
 
 
     return (calculate_best_internal_by_metrics)
@@ -673,16 +657,7 @@ show_result_external_algorithm_by_metric <-
 
     show_result_external_by_metrics <- sqldf(query)
 
-    for (r in 1:nrow(show_result_external_by_metrics)) {
-      for (c in 3:ncol(show_result_external_by_metrics)) {
-        show_result_external_by_metrics[r,c] = format(round(as.numeric(
-          show_result_external_by_metrics[r,c]), digits = 4),scientific = F)
-      }
-    }
-
-
     return (show_result_external_by_metrics)
-
 
   }
 
@@ -742,15 +717,6 @@ show_result_internal_algorithm_by_metric <-
             "') group by Algorithm, Clusters", collapse = "", sep = "")
 
     show_result_internal_by_metrics <- sqldf(query)
-
-    for (r in 1:nrow(show_result_internal_by_metrics)) {
-      for (c in 3:ncol(show_result_internal_by_metrics)) {
-        show_result_internal_by_metrics[r,c] =
-          format(round(as.numeric(as.numeric(
-            show_result_internal_by_metrics[r,c])), digits = 4),scientific = F)
-      }
-    }
-
 
     return (show_result_internal_by_metrics)
 
