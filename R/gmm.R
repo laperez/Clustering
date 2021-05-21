@@ -22,6 +22,8 @@ gmm_euclidean_method = function(dt, clusters, columnClass, metric) {
 
   start.time <- Sys.time()
 
+  on.exit(options(warn = -1))
+
   if ('data.frame' %in% class(dt))
     dt = as.matrix(dt)
 
@@ -134,6 +136,8 @@ gmm_euclidean_method = function(dt, clusters, columnClass, metric) {
 gmm_manhattan_method = function(dt, clusters, columnClass, metric) {
 
   start.time <- Sys.time()
+
+  on.exit(options(warn = -1))
 
   if ('data.frame' %in% class(dt))
     dt = as.matrix(dt)

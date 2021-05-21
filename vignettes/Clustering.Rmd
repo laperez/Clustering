@@ -2,7 +2,7 @@
 title: "Techniques for Evaluating Clustering Data in R. The **Clustering** Package"
 author: "Luis Alfonso Pérez, Ángel Miguel García Vico, Pedro González and Cristóbal J. Carmona"
 date: "10/11/2020"
-abstract: "Clustering is a class of frequently studied and applied unsupervised learning methods whose purpose is a division of data into groups of similar objects. This technique is quite common among researchers as it allows to obtain knowledge quickly and easily. The use of this technique is suitable for automatic data classification in order to reveal concentrations of data. This paper presents the **Clustering** package which contains a set of clustering algorithms with two objectives: first, grouping data in a homogeneous way by establishing differences between clusters; and second, generating a ranking between algorithms and the attributes analyzed in the dataset. This package contains references to other R packages without using external software. As a complement to the standard execution through the console, it incorporates a GUI through which we can execute the package without having to know the parameters."
+abstract: "Clustering is a class of frequently studied and applied unsupervised learning methods whose purpose is a division of data into groups of similar objects. This technique is quite common among researchers, as it allows them to categorise unlabelled data. The use of this technique is suitable for automatic data classification in order to reveal concentrations of data. This paper presents the **Clustering** package which contains a set of clustering algorithms with two objectives: first, grouping data in a homogeneous way by establishing differences between clusters; and second, generating a ranking between algorithms and the attributes analyzed in the dataset. This package contains references to other R packages without using external software. As a complement to the standard execution through the console, it incorporates a GUI (Graphical User Interface) through which we can execute the package without having to know the parameters."
 bibliography: bibliography.bib
 csl: template/ieee.csl
 output: 
@@ -32,14 +32,14 @@ library("Clustering")
 
 # Introduction
 
-Exploring the properties of information in order to generate groups is an unsupervised learning technique known as clustering [@Rmannkaur2013] [@Rmichaelgeorgevipin2000]. This technique is a concise data model where a set of data must be partitioned and introduced into groups or clusters. These clusters must meet two conditions: clusters must be as disparate as possible; and the elements that contain them as similar as possible. Throughout the literature related to clustering we can see that there are multiple fields where they can be applied, among which we highlight the following: Identifying tourists and analyzing their destination patterns from location-based social media data [@Rhasnatmehedisamiul2018]; developing clustering algorithms that maximize performance on 5G heterogeneous networks [@Rbalevigitlin2018]; the application of data mining techniques to agriculture data [@Rpatelhetaldharmendra2014]; weighting characteristics based on the strength between categories and within categories for the analysis of feelings [@Rwangyiliyoun2019]; music classification, genres and taste patterns [@Rvlegelslievens2017]; predicting the direction of fluctuation, maximum, minimum and closing prices of the daily exchange rate of bitcoins [@Rdennysmallquifernandes2019]; and \texttt{Clustering}  people in a given social network based on textual similarity [@Rsinghshakyabiswas2016].  
+Exploring the properties of information in order to generate groups is an unsupervised learning technique known as clustering [@Rmannkaur2013] [@Rmichaelgeorgevipin2000]. This technique is a concise data model where a set of data must be partitioned and introduced into groups or clusters. These clusters must meet two conditions: clusters must be as disparate as possible; and the elements that contain them as similar as possible. Throughout the literature related to clustering we can see that there are multiple fields where they can be applied, among which we highlight the following: Identifying tourists and analyzing their destination patterns from location-based social media data [@Rhasnatmehedisamiul2018]; developing clustering algorithms that maximize performance on 5G heterogeneous networks [@Rbalevigitlin2018]; the application of data mining techniques to agriculture data [@Rpatelhetaldharmendra2014]; weighting characteristics based on the strength between categories and within categories for the analysis of feelings [@Rwangyiliyoun2019]; music classification, genres and taste patterns [@Rvlegelslievens2017]; predicting the direction of fluctuation, maximum, minimum and closing prices of the daily exchange rate of bitcoin [@Rdennysmallquifernandes2019]; and \texttt{Clustering} people in a given social network based on textual similarity [@Rsinghshakyabiswas2016].  
 
-As a rule clustering algorithms are based on the optimization of an objective function, which is usually the weighted sum of the distance to the centers, although these functions may vary and in some cases consist of the definition of functions. In the literature we can group the data in different ways among which we highlight [@Rshraddhakm2014]: partitional, hierarchical or based on density. One of the best known algorithms that solves the clustering problem is the k-means [@Rmacqueen1967].  
+As a rule clustering algorithms are based on the optimization of an objective function, which is usually the weighted sum of the distance to the centers. In the literature we can group the data in different ways among which we highlight [@Rshraddhakm2014]: partitional, hierarchical or based on density. One of the best known algorithms that solves the clustering problem is the k-means [@Rmacqueen1967].  
 
-A wide variety of frameworks have been presented in the literature based on clustering algorithms such as: Weka [@Rnarendraamanratnesh2012], ClustVis [@Rtaunojaak2015] and Keel [@Ralbertojulianjoaquinjesusfrancisco2009], among others. Also within R there is a specific Cluster task view. Inside the Cluster task view we can see two well differentiated parts: on the one hand we have the most outstanding packages by functionality and in the other hand we observe the ordered set of packages that work with clusters. Among the set of packages we highlight the following: **ClusterR** [@Rsculley2010] [@Rmouselimis2020], **apcluster** [@Rfreydueck2007] [@Rbodenhoferkothmeierhochreiter2011], **cluster** [@Rmaechlerrousseeuwhuberthornik2019], **advclust** [@Rfariasubiernaelorzasantamarialaso2011] as well as alternatives to the traditional implementation of k-means and agglomerative hierarchical clustering.
+A wide variety of frameworks have been presented in the literature based on clustering algorithms such as: Weka [@Rnarendraamanratnesh2012], ClustVis [@Rtaunojaak2015] and Keel [@Ralbertojulianjoaquinjesusfrancisco2009], , among others. Also within R there is a specific Cluster task view. Inside the Cluster task view we can see two well differentiated parts: on the one hand we have the most outstanding packages by functionality and in the other hand we observe the ordered set of packages that work with clusters. Among the set of packages we highlight the following: **ClusterR** [@Rsculley2010] [@Rmouselimis2020], **apcluster** [@Rfreydueck2007] [@Rbodenhoferkothmeierhochreiter2011], **cluster** [@Rmaechlerrousseeuwhuberthornik2019], **advclust** [@Rfariasubiernaelorzasantamarialaso2011] as well as alternatives to the traditional implementation of k-means and agglomerative hierarchical clustering.
 Usually the task of comparing clustering algorithms is tedious, as it must be performed manually. This is quite time-consuming and in some cases there can be problems in transmitting the results. Similarly, when evaluating the distribution of data in clusters, it is necessary to indicate a categorical variable, so the selection of one variable or another from a data set can influence the results.  
 
-This paper presents the **Clustering** package. It is a package that allows us to compare multiple clustering algorithms simultaneously and assess the accuracy of the results. The purpose of this package is to allow the evaluation of a set of datasets in order to determine which attributes are most suitable for clustering. So, we can perform evaluations of the clusters created, how they have been distributed, whether the distributions are uniform and how they have been categorized from the data.  
+This paper presents the **Clustering** package. It is a package that allows us to compare multiple clustering algorithms simultaneously and assess the quality of clusters. The purpose of this package is to allow the evaluation of a set of datasets in order to determine which attributes are most suitable for clustering. So, we can perform evaluations of the clusters created, how they have been distributed, whether the distributions are uniform and how they have been categorized from the data. This package does not return the distribution of the data in the clusters, but uses it internally to evaluate the quality of the distribution.  
 
 The structure of this contribution is as follows: Firstly, in section \nameref{sec:clustering} we present the concepts of clustering, types of clustering and similarity measures. Section \nameref{sec:seccion2} presents the definition of the evaluation measures in order to value the distribution of the data in the clusters. Finally, Section \nameref{sec:seccion3} describes the structure of the package and presents a complete example about the use of the package.
 
@@ -56,7 +56,7 @@ This is a base definition of clustering so variations in the problem definition 
 There are a variety of clustering algorithms that can be classified into: hierarchical, partitioning, density-based, grid-based and probability distribution [@Rpatibandlalakshmiveeranjaneyulu2018].
 
 
-* Hierarchical clustering: Creates a hierarchical breakdown of data into a dendogram that recursively divides the data set into smaller and smaller groups. It can be created in two ways: bottom-up or top-down [@Rjainmurtyflynn1999]. With the bottom-up method trees are known as agglomerative, as the objects are successively combined according to the measurements, until they are all joined into one or meet a completion condition. In the case of top-down, it is known as divisive, where all the objects are in the same group, and as we iterate they are divided into smaller subsets until each object is in an individual group or fulfills a condition of completion. An example of this type of clustering can be found in Figure ~\ref{hierarchical}. Some hierarchical grouping algorithms that belong to this sorting mode are: CURE [@Rguharastogishim2001], CHAMELEON [@Rdongweijingjingjici2019], and BIRCH [@Rtianraghumiron1996].  
+* Hierarchical clustering: Hierarchical clustering: creates a hierarchical breakdown of data into a dendogram that recursively divides the data set into smaller and smaller groups. It can be created in two ways: bottom-up or top-down [@Rjainmurtyflynn1999]. With the bottom-up method trees are known as agglomerative, as the objects are successively combined according to the measurements, until they are all joined into one or meet a completion condition. In the case of top-down, it is known as divisive, where all the objects are in the same group, and as we iterate they are divided into smaller subsets until each object is in an individual group or fulfills a condition of completion. An example of this type of clustering can be found in Figure ~\ref{hierarchical}. Some hierarchical grouping algorithms that belong to this sorting mode are: CURE [@Rguharastogishim2001], CHAMELEON [@Rdongweijingjingjici2019], and BIRCH [@Rtianraghumiron1996].  
 \newpage
 <center>
 ![Hierarchical Clustering. \label{hierarchical}](img/hierarchical.pdf){height='185px'}
@@ -88,7 +88,7 @@ Many distance measures have been proposed in the literature for data clustering.
 As measures of dissimilarity in clustering we highlight the following:  
 
 
-* Minkowski: Is a metric in a normalized vector space which can be considered as a generalization of both the Euclidean distance and the Manhattan distance [@Rganmawu2007].
+* Minkowski: Minkowski: Minkowski: Is a metric in a normalized vector space which can be considered as a generalization of both the Euclidean distance and the Manhattan distance [@Rganmawu2007].
     \begin{equation}
         d_{min} = (\sum_{i=1}^{n}|x_i - y_i|^m)^\frac{1}{m}, m\geq 1
     \end{equation}
@@ -106,12 +106,12 @@ As measures of dissimilarity in clustering we highlight the following:
         d_{mah}= \sqrt{(x-y)S^-1(x-y)^T}
     \end{equation}
     where S is the covariance matrix of the dataset.
-* Pearson correlation: Pearson correlation: A statistically based metric that measures the linear correlation between two variables, x and y [@Rinstitute2015].
+* Pearson correlation: A statistically based metric that measures the linear correlation between two variables, x and y [@Rinstitute2015].
     \begin{equation}
         Pearson(x,y)= \frac{\sum_{i=1}^n(x_i-\mu_x)(y_i-\mu_y)}{\sqrt{\sum_{i=1}^n(x_i-y_i)^2}\sqrt{\sum_{i=1}^n(x_i-y_i)^2}}
     \end{equation}
     where $\mu_x$ and $\mu_y$ are the means for x and y respectively.
-* Jaccard Index: Is a classical similarity measure performed on sets with several practical applications in information retrieval, data mining, machine learning, and many more [@Rsven2016] [@Rjasminenittinmadhura2016]. t measures the similarity of the two data elements as the intersection divided by the union of the data elements, as shown below.
+* Jaccard Index: Is a classical similarity measure performed on sets with several practical applications in information retrieval, data mining, machine learning, and many more [@Rsven2016] [@Rjasminenittinmadhura2016]. It measures the similarity of the two data elements as the intersection divided by the union of the data elements, as shown below.
     \begin{equation}
         J(A,B) = \frac{A \cap B}{A \cup B}
     \end{equation}
@@ -129,55 +129,67 @@ As measures of dissimilarity in clustering we highlight the following:
 
 Clustering validation is a technique for finding a set of clusters that best fits natural partitions without any class information. The results of a clustering algorithm are known as cluster validity. The following criteria must therefore be taken into account when investigating the validity of clusters. The first criterion is based on external measures, which involves evaluating the results of a base algorithm in a pre-specified structure which is imposed on a data set and reflects our intuition about the structure of clustering of the data set. The second criterion is based on internal measures where the results of a clustering algorithm is evaluated in terms of the quantity involved in the vectors of the dataset itself (e.g. the proximity matrix). And there is a third criterion, known as the relative criterion, whose purpose is to compare the results of execution of an algorithm with another using different parameters.  
 
-When we talk about criteria based on internal measures we must take into account the criteria of compactness and separation [@Rmariayannismichalis2001] [@Rgordonsja2011] as can be seen in Figure \ref{cohesion}:  
 
+* External measures: Within external measures there are some measures to evaluate clustering results. Among these we highlight:
+   * Entropy: Evaluates the distribution of categories in a cluster [@Rhyunsoohaesun2007].
+    \begin{equation}
+        Entropy(j) =  \sum_{j=1}^{m} \frac{|C_{j}|}{n}E_{j}
+    \end{equation}
+    Where $C_{j}$ the cluster size is j, n is the number of clusters, and m is the total number of data points. To calculate the \texttt{entropy} of a data set we need to calculate the class distribution of the objects in each group as follows.
+    \begin{equation}
+        E_{j} =  \sum_{i} p_{ij}log(p_{ij})
+    \end{equation}
+    Where $p_{ij}$ is the probability of a point in the cluster $i$ of being classified as class $j$.
+   * Recall: Indicates the proximity of the measurement results to the true value [@Rjanuszyousef2019].
+    \begin{equation}
+         Recall(i,j) = \frac{n_{ij}}{|C_{i}|}
+    \end{equation}
+    $n_{ij}$ is the number of objects of class i that are in cluster j and $n_{i}$ is the number of objects in cluster i.
+   * Precision: Refers to the dispersion of the set of values obtained from repeated measurements of one magnitude [@Rjanuszyousef2019].
+        \begin{equation}
+            Precision(i,j) = \frac{n_{ij}}{|C_{j}|}
+        \end{equation}
+    $n_{j}$ is the number of objects in cluster j.
+   * F-measure: Merges the concepts of accuracy and recall of the information retrieved. Therefore, we calculate the cluster accuracy and recall for each class as.
+    \begin{equation}
+        F-measure(i,j) = \frac{2 * (Precision(i,j) * Recall(i,j))}{(Precision(i,j) + Recall(i,j))}
+    \end{equation}
+   * Fowlkes-Mallows Index: It is a measure of comparison of hierarchical clustering. However, it can be used in flat clustering since it consists of the calculation of an index $B_{i}$ for each level i = 2 ,..., n-1 of the hierarchy [@Rsimonenguyenjameskarin2016]. The measure $B_{i}$ is easily generalizable. It can therefore be said that Fowlkes is a measure that can be interpreted as the geometric mean of accuracy (ratio between the number of relevant objects recovered and the total number of objects recovered).
+    \begin{equation}
+        Fowlkes(i,j) = \sqrt{Precision(i,j) * Recall(i,j)}
+    \end{equation}
+   * Variation information: Variation in information or distance of shared information is a measure of the distance between two groups [@Rsimonenguyenjameskarin2016]. This measure is closely related to mutual information (mutual dependence between the two variables) [@Rzengyouxiaofeishengchun2005].
+    \begin{equation}
+       VI(|C_{i}|,|C_{j}|) = 2H(C_{i},C_{j}) - H(C_{i}) - H(C_{j})
+    \end{equation}
+    $H(C_{i},C_{j})$ is the joint \texttt{entropy} of two clusters, $H(C_{i})$ is the \texttt{entropy} of $C_{i}$ and $H(C_{j})$ is the \texttt{entropy} of $C_{j}$.
+	
+If we look at Figure ~\ref{external} we can group \texttt{Entropy, Recall, Precision, F-Measure, Fowlkes-Mallows Index and Variation information} into three families [@Rpalaciogaliano2019]:  
+
+	![External validation methods. \label{external}](img/external.pdf){height='260'}
+	
+* Matching Sets: Used to compare two partitions of data. Consists of those methods that identify the relationship between each cluster detected in C and its natural correspondence to the classes in the reference result defined by P (clustering result prediction).  
+	Several measures can be defined for measuring the similarity between the clusters in C, obtained by the clustering algorithm, and the clusters in P, corresponding to our prior (external) knowledge. The metrics included in this method are: \texttt{Precision, Recall} and \texttt{F-measure}.  
+
+* Peer-to-peer Correlation: Based on the correlation between pairs, i.e., they seek to measure the similarity between two partitions under equal conditions, such as the result of a grouping process for the same set, but by means of two different methods $ C_{i} $ and $ C_{j} $. It is assumed that the examples that are in the same cluster in $ C_{i} $ should be in the same class in $ C_{j} $, and vice-versa. In our package we use the metric: \texttt{Fowlkes-Mallows Index}.  
+
+* Measures Based on Information Theory: A third family is based on Information Theory concepts, such as the existing uncertainty in the prediction of the natural classes provided by partition C. This family includes basic measures such as \texttt{Entropy} and \texttt{Variation Information}.	
+
+* Internal measures: When we talk about criteria based on internal measures we must take into account the criteria of compactness and separation [@Rmariayannismichalis2001] [@Rgordonsja2011] as can be seen in Figure \ref{cohesion}:
+
+![Representation of cohesion and separation in clustering [@Rpalaciogaliano2019]. \label{cohesion}](img/cohesion.png){height='80px'}
 
 * Compactness; the members of each cluster should be as close to each other as possible. A common measure of compactness is variance, which should be minimized.
 * Separation; the clusters themselves should be widely spaced. There are three common approaches to measuring the distance between two different clusters:  
   * Single linkage: Measures the distance between the closest members of the clusters.
   * Complete linkage: Measures the distance between the most distant members.
-  * Comparison of centroids: Measures the distance between the centers of the clusters.  
+  * Comparison of centroids: Measures the distance between the centers of the clusters. 
+  
+These criteria are graphically represented in the Figure \ref{separation}.
 
-These criteria are graphically represented in the Figure \ref{separation}.  
+![Intercluster distance [@Rarnoldeanwothers2002]. \label{separation}](img/separation.png){height='223px'
 
-![Intercluster distance [@Rarnoldeanwothers2002]. \label{separation}](img/separation.png){height='223px'}  
- 
-
-Within external measures there are some measures to evaluate clustering results. Among these we highlight:  
-
-* Entropy: Entropy: Evaluates the distribution of categories in a cluster [@Rhyunsoohaesun2007].
-    \begin{equation}
-        Entropy(j) =  \sum_{j=1}^{m} \frac{|C_{j}|}{n}E_{j}
-    \end{equation}
-    Where $n_{j}$ the cluster size is j, n is the number of clusters, and m is the total number of data points. To calculate the \texttt{entropy} of a data set we need to calculate the class distribution of the objects in each group as follows.
-    \begin{equation}
-        E_{j} =  \sum_{i} p_{ij}log(p_{ij})
-    \end{equation}
-    Where $p_{ij}$ is the probability of a point in the cluster $i$ of being classified as class $j$.
-* Recall: Indicates the proximity of the measurement results to the true value [@Rjanuszyousef2019].
-    \begin{equation}
-         Recall(i,j) = \frac{n_{ij}}{|C_{i}|}
-    \end{equation}
-    $n_{ij}$ is the number of objects of class i that are in cluster j and $n_{i}$ is the number of objects in cluster i.
-* Precision: Refers to the dispersion of the set of values obtained from repeated measurements of one magnitude [@Rjanuszyousef2019].
-        \begin{equation}
-            Precision(i,j) = \frac{n_{ij}}{|C_{j}|}
-        \end{equation}
-     $n_{j}$ is the number of objects in cluster j.
-* F-measure: Merges the concepts of accuracy and recall of the information retrieved. Therefore, we calculate the cluster accuracy and recall for each class as.
-    \begin{equation}
-        F-measure(i,j) = \frac{2 * (Precision(i,j) * Recall(i,j))}{(Precision(i,j) + Recall(i,j))}
-    \end{equation}
-* Fowlkes-Mallows Index: It is a measure of comparison of hierarchical clustering. However, it can be used in flat clustering since it consists of the calculation of an index $B_{i}$ for each level i = 2 ,..., n-1 of the hierarchy [@Rsimonenguyenjameskarin2016]. The measure $B_{i}$ is easily generalizable. It can therefore be said that Fowlkes is a measure that can be interpreted as the geometric mean of accuracy (ratio between the number of relevant objects recovered and the total number of objects recovered).
-    \begin{equation}
-        Fowlkes(i,j) = \sqrt{Precision(i,j) * Recall(i,j)}
-    \end{equation}
-* Variation information: Variation in information or distance of shared information is a measure of the distance between two groups [@Rsimonenguyenjameskarin2016]. This measure is closely related to mutual information (mutual dependence between the two variables) [@Rzengyouxiaofeishengchun2005].
-    \begin{equation}
-       VI(|C_{i}|,|C_{j}|) = 2H(C_{i},C_{j}) - H(C_{i}) - H(C_{j})
-    \end{equation}
-    $H(C_{i},C_{j})$ is the joint \texttt{entropy} of two clusters, $H(C_{i})$ is the \texttt{entropy} of $C_{i}$ and $H(C_{j})$ is the \texttt{entropy} of $C_{j}$.  
-As with the external measures, we will now list the most relevant internal measures:  
+We will now list the most relevant internal measures:
 
 * Connectivity: This measure reflects the extent to which items placed in the same group are considered their closest neighbors in the data space, i.e. the degree of connection of the clusters should be minimal [@Rdeborahbaskarankannan2010].
     \begin{equation}
@@ -188,7 +200,7 @@ As with the external measures, we will now list the most relevant internal measu
     \begin{equation}
     Dunn =  min_{1_\leq i\leq k} \left( min_{i+1\leq j \leq k}  \left( \frac{dist(C_i,C_j)}{max_{1_\leq l \leq k} diam(C_{k})} \right) \right)
     \end{equation}
-   Where $dist(C_{i},C_{j})$ is distance between clusters $C_{i}$ and $C_{j}$ and $diam(C_{k})$ is the cluster diameter $C_{k}$.  
+   Where $dist(C_{i},C_{j})$ is distance between clusters $C_{i}$ and $C_{j}$ and $diam(C_{k})$ is the cluster diameter $C_{k}$.
 * Silhouette index: The silhouette value is a measure of how similar an object is to its own cluster (cohesion) compared to other clusters (separation) [@Rarturadam2015].
     \begin{equation}
         S = \frac{1}{N}\sum_{i=0}^{N}\frac{b_{i} - a_{i}}{max(a_{i},b_{i})}
@@ -197,20 +209,8 @@ As with the external measures, we will now list the most relevant internal measu
     $$ b_{i} = \min\limits_{l \in H, l\neq j}^{} \frac{1}{|C_{l}|} \sum_{y \in C_{l}}^{} \| y - x_{i} \| $$ with
     $$ x_{i} \in C_{j}, H = \{h: 1 \leq h \leq K\}$$  
 
-If we look at Figure ~\ref{external} we can group \texttt{Entropy, Recall, Precision, F-Measure, Fowlkes-Mallows Index and Variation information} into three families [@Rpalaciogaliano2019]:  
 
-![External validation methods. \label{external}](img/external.pdf){height='260'}
-
-* Matching Sets: Used to compare two partitions of data. Consists of those methods that identify the relationship between each cluster detected in C and its natural correspondence to the classes in the reference result defined by P (clustering result prediction).  
-Several measures can be defined for measuring the similarity between the clusters in C, obtained by the clustering algorithm, and the clusters in P, corresponding to our prior (external) knowledge. The metrics included in this method are: \texttt{Precision, Recall} and \texttt{F-measure}.  
-
-* Peer-to-peer Correlation: Based on the correlation between pairs, i.e., they seek to measure the similarity between two partitions under equal conditions, such as the result of a grouping process for the same set, but by means of two different methods $ C_{i} $ and $ C_{j} $. It is assumed that the examples that are in the same cluster in $ C_{i} $ should be in the same class in $ C_{j} $, and vice-versa. In our package we use the metric: \texttt{Fowlkes-Mallows Index}.  
-
-* Measures Based on Information Theory: A third family is based on Information Theory concepts, such as the existing uncertainty in the prediction of the natural classes provided by partition C. This family includes basic measures such as \texttt{Entropy} and \texttt{Variation Information}.
-
-Internal evaluation metrics (see Figure ~\ref{cohesion}) do not require external information, so they are focused on measuring cohesion (how close the elements are to each other) and separation (they quantify the level of separation between clusters).
-
-![Representation of cohesion and separation in clustering [@Rpalaciogaliano2019]. \label{cohesion}](img/cohesion.png){height='80px'}
+Internal evaluation metrics do not require external information, so they are focused on measuring cohesion (how close the elements are to each other) and separation (they quantify the level of separation between clusters).
 
 According to the Figure ~\ref{internal}, the internal \texttt{Dunn, Silhouette} and \texttt{Connectivity} metrics are based on the concepts mentioned above so we can group them as partitioning methods.
 
@@ -218,7 +218,7 @@ According to the Figure ~\ref{internal}, the internal \texttt{Dunn, Silhouette} 
 
 # The **Clustering** package \label{sec:seccion3} 
 
-The **Clustering** package has been written entirely in R language. The package include other packages with hierarchical, partitional and agglomerative algorithms. The package has been provided with the ability to read data in different formats such as CSV, \href{https://sci2s.ugr.es/keel/references.php}{KEEL}, \href{https://www.cs.waikato.ac.nz/ml/weka/}{ARFF (Weka)} and \texttt{data.frame} objects. This package implements functionality not developed until now. In current implementations we cannot run several algorithms simultaneously. This option is very useful to compare the results of several algorithms. Another very useful option, not found until now is the ability to run all the dissimilarity measures implemented for an algorithm in the same run, e.g., running the K-means algorithm for the Euclidean and Manhattan dissimilarity measures simultaneously. This perspective is quite interesting when it comes to know what measure to use in the execution of the algorithm. In order to evaluate the quality of the clusters we find packages that perform external or internal evaluations, but there was no implementation that give us a joint evaluation of both. Finishing the review we find that when evaluating the quality of clusters it is necessary to indicate an attribute of the dataset used in the execution. Depending on the chosen attribute, results may vary, so it would be important to have methods that give us the result of running each of the quality measures by attribute, the measure of dissimilarity in the case of it existing, the number of clusters and algorithm. With this **Clustering** package we will be able to execute simultaneously several algorithms for each of the implemented dissimilarity measures. In addition, when evaluating the results of the executions we have a set of measures that are executed together, which until now was done one execution per measure. It is possible to incorporate new measures quickly in the future. In addition, when running the algorithm all the attributes of the dataset will be executed for each of the quality metrics. The results of the executions are visually displayed so that you can draw conclusions quickly.
+The **Clustering** package has been written entirely in R language. The package include other packages with hierarchical, partitional and agglomerative algorithms. The package has been provided with the ability to read data in different formats such as CSV, \href{https://sci2s.ugr.es/keel/references.php}{KEEL}, \href{https://www.cs.waikato.ac.nz/ml/weka/}{ARFF (Weka)} and \texttt{data.frame} objects. The package does not return the distribution of the data in the clusters. In addition, it implements functionality not developed until now. In current implementations we cannot run several algorithms simultaneously. This option is very useful to compare the results of several algorithms. Another very useful option, not found until now is the ability to run all the dissimilarity measures implemented for an algorithm in the same run, e.g., running the K-means algorithm for the Euclidean and Manhattan dissimilarity measures simultaneously. This perspective is quite interesting when it comes to know what measure to use in the execution of the algorithm. In order to evaluate the quality of the clusters we find packages that perform external or internal evaluations, but there was no implementation that give us a joint evaluation of both. Finishing the review we find that when evaluating the quality of clusters it is necessary to indicate an attribute of the dataset used in the execution. Depending on the chosen attribute, results may vary, so it would be important to have methods that give us the result of running each of the quality measures by attribute, the measure of dissimilarity in the case of it existing, the number of clusters and algorithm. With this **Clustering** package we will be able to execute simultaneously several algorithms for each of the implemented dissimilarity measures. In addition, when evaluating the results of the executions we have a set of measures that are executed together, which until now was done one execution per measure. It is possible to incorporate new measures quickly in the future. In addition, when running the algorithm all the attributes of the dataset will be executed for each of the quality metrics. The results of the executions are visually displayed so that you can draw conclusions quickly.
 
 ## Package algorithms  
 
@@ -236,17 +236,17 @@ These are the algorithms included in the packages that have been mentioned most 
 The main class of the package is the \texttt{Clustering} object.  
 
 * \texttt{clustering()}: This object stores the results of the **Clustering** package execution and contains the following properties: 
-    * \texttt{result.} It represents the \texttt{data.frame} with the results. In each column we have represented the evaluation metrics used to evaluate the clusters. We can see the execution time of these metrics, datasets, the correspondence between the evaluation metric calculation and the dataset attribute, the measures of similarity and the algorithms.
-    * \texttt{has\_internal\_metrics.} It is a boolean operator that indicates whether internal evaluation measures have been used or not.
-    * \texttt{has\_external\_metrics.} It is a boolean operator that indicates whether external evaluation measures have been used or not.
-    * \texttt{algorithms\_executed.} It represents a character vector with the algorithms executed independently of the package.
+    * \texttt{result.} It represents the \texttt{data.frame} with the results. In each column we have represented the evaluation metrics used to evaluate the clusters. We can see the execution time of these metrics, datasets, the correspondence between the evaluation metric calculation and the dataset attribute, the measures of similarity and the algorithms. 
+    * \texttt{has\_internal\_metrics.} It is a boolean operator that indicates whether internal evaluation measures have been used or not. 
+    * \texttt{has\_external\_metrics.} It is a boolean operator that indicates whether external evaluation measures have been used or not. 
+    * \texttt{algorithms\_executed.} It represents a vector of characters with the algorithms executed independently of the package. 
     * \texttt{measures\_executed.} It represents a vector of characters with the measures of similarity used by the algorithms indicated.  
 
-This class exports the well-known S3 methods \texttt{print()} and \texttt{summary()} that show the data structure without codification, and a summary with basic information about the dataset respectively. We can perform sorting and filtering operations for further processing of the results. In any case if we need to perform filtering operations we can overload the operator ('[') in order to perform such operations in an easier way.
+This class exports the well-known S3 methods \texttt{print()} and \texttt{summary()} that show the data structure without codification, and a summary with basic information about the dataset respectively. We can perform sorting and filtering operations for further processing of the results. In any case if we need to perform filtering operations we can overload the operator ('[') in order to perform such operations in an easier way. The '[' operator makes use of the \texttt{filter} method of the **dplyr package.
 
 * External metrics: For external metrics we have a set of methods by which we can determine the behavior of the algorithms based on the best attribute of the data set, measures of dissimilarity and the number of clusters. The methods are as follows:
     * \texttt{best\_ranked\_external\_metrics()}: With the execution of this method we obtain which attribute of the data set has better behavior by algorithm, measure of dissimilarity and number of clusters.
-    * \texttt{evaluate\_best\_validation\_external\_by\_metrics()}: This method should be used to group the data by algorithm and dissimilarity measure, instead of obtaining the best attribute from the data set.
+    * \texttt{evaluate\_best\_validation\_external\_by\_metrics()}:This method should be used to group the data by algorithm and dissimilarity measure, instead of obtaining the best attribute from the data set.
     * \texttt{evaluate\_validation\_external\_by\_metrics()}: Method for grouping the results of the execution by algorithms.
     * \texttt{result\_external\_algorithm\_by\_metric()}: It is used for obtaining the results of an algorithm indicated as a parameter grouped by number of clusters.
     
@@ -315,11 +315,11 @@ result <- Clustering::clustering(df = basketball, min = 3, max = 5, algorithm = 
 The attributes resulting from the execution of the method are:  
 
 * \texttt{Algorithm:} Indicates the clustering algorithm used in the data processing.
-  \item \texttt{Distance:} Is the measure of similarity used by the algorithm to calculate the similarity between the data.
+* \texttt{Distance:} Is the measure of similarity used by the algorithm to calculate the similarity between the data.
 * \texttt{Clusters:} Is the number of clusters used by the algorithm. Used in Partitional Clustering.
 * \texttt{Dataset:} Is the name of the \texttt{data.frame} \texttt{dataframe} appears by default, but if instead of using the \texttt{df} parameter in the clustering method we use path (directory with files with extension dat), in the column must appear the names of the processed datasets.
-* \texttt{timeExternal:} Time taken to implement external evaluation measures.
-* \texttt{metrics:} Each metric indicated in the execution is presented in individual columns. In this case we have both external (\texttt{entropy}) and internal (\texttt{dunn}) metrics.
+* \texttt{TimeExternal:} Time taken to implement external evaluation measures.
+* \texttt{Metrics:} Each metric indicated in the execution is presented in individual columns. In this case we have both external (\texttt{entropy}) and internal (\texttt{dunn}) metrics.
   Note: in the metric field we indicate all the measurements we wish to evaluate. The metrics implemented are: \texttt{entropy}, \texttt{recall}, \texttt{precision}, \texttt{f\_measure}, \texttt{fowlkes\_mallows\_index}, \texttt{connectivity}, \texttt{dunn} and \texttt{silhouette}.
 * \texttt{timeInternal:} Time taken to implement internal evaluation measures.
 * \texttt{timeExternalAttr:} Time taken to implement external evaluation measures by attribute.
@@ -332,77 +332,78 @@ In Table ~\ref{tab:clustering} we have the results of the execution of the \text
 \hline
 \scriptsize  Algorithm & \scriptsize  Distance  &  \scriptsize Clusters & \scriptsize  Dataset & \scriptsize tE  & \scriptsize entropy & \scriptsize  dunn  & \scriptsize tI & \scriptsize tEAttr  & \scriptsize enAttr & \scriptsize duAttr & \scriptsize tIAttr \\
 \hline
-\scriptsize     gmm   & \scriptsize   gmm\_euclidean & \scriptsize    3    & \scriptsize basketball & \scriptsize    0.0042  &  \scriptsize 0.2374  & \scriptsize 0.1096 & \scriptsize    0.0004  &  \scriptsize    5  & \scriptsize    2  & \scriptsize    1  & \scriptsize    1 \\
-\scriptsize     gmm   & \scriptsize   gmm\_euclidean  & \scriptsize    3   &  \scriptsize basketball  & \scriptsize    0.0046  &  \scriptsize 0.2120  & \scriptsize 0.1096 & \scriptsize    0.0004 &   \scriptsize    1  & \scriptsize    4 &  \scriptsize    2 &  \scriptsize    2 \\
-\scriptsize     gmm   & \scriptsize   gmm\_euclidean & \scriptsize    3   &  \scriptsize basketball & \scriptsize    0.0079  &  \scriptsize 0.0064  &\scriptsize 0.1096 & \scriptsize    0.0005 &   \scriptsize    3  &  \scriptsize    3  &  \scriptsize    3  & \scriptsize    3 \\
-\scriptsize     gmm   & \scriptsize   gmm\_euclidean & \scriptsize    3 &  \scriptsize basketball & \scriptsize    0.0081  &  \scriptsize 0.0032  & \scriptsize 0.1096 & \scriptsize    0.0005 &   \scriptsize    2  & \scriptsize    5  & \scriptsize    4  & \scriptsize    4 \\
-\scriptsize     gmm   & \scriptsize   gmm\_euclidean & \scriptsize    3     & \scriptsize basketball & \scriptsize    0.0089  &  \scriptsize 0.0000 &  \scriptsize 0.1096 & \scriptsize    0.0006 &   \scriptsize    4  & \scriptsize    1  & \scriptsize    5  & \scriptsize    5 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0030 & \scriptsize 0.2374 & \scriptsize 0.1096 & \scriptsize 0.000 & \scriptsize 5 & \scriptsize 2 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0030 & \scriptsize 0.2120 & \scriptsize 0.1096 & \scriptsize 0.000 & \scriptsize 2 & \scriptsize 4 & \scriptsize 2 & \scriptsize 2 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0050 & \scriptsize 0.0064 & \scriptsize 0.1096 & \scriptsize 0.000 & \scriptsize 3 & \scriptsize 3 & \scriptsize 3 & \scriptsize 4 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0060 & \scriptsize 0.0032 & \scriptsize 0.1096 & \scriptsize 0.001 & \scriptsize 1 & \scriptsize 5 & \scriptsize 4 & \scriptsize 5 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0090 & \scriptsize 0.0000 & \scriptsize 0.1096 & \scriptsize 0.001 & \scriptsize 4 & \scriptsize 1 & \scriptsize 5 & \scriptsize 3 \\
 \cline{3-12}
-\scriptsize     gmm   & \scriptsize   gmm\_euclidean & \scriptsize    4     & \scriptsize basketball  & \scriptsize    0.0041  & \scriptsize 0.3734 &  \scriptsize 0.1233 & \scriptsize    0.0004 &   \scriptsize    5 & \scriptsize    2  & \scriptsize    1  & \scriptsize    4 \\
-\scriptsize     gmm   & \scriptsize   gmm\_euclidean & \scriptsize    4     & \scriptsize basketball & \scriptsize    0.0041 &   \scriptsize 0.2983 & \scriptsize 0.1233 & \scriptsize    0.0004 &   \scriptsize    2 & \scriptsize    4 &  \scriptsize    2 &  \scriptsize    5 \\
-\scriptsize     gmm   & \scriptsize   gmm\_euclidean & \scriptsize    4     & \scriptsize basketball & \scriptsize    0.0071  &  \scriptsize 0.0064 &  \scriptsize 0.1233 & \scriptsize    0.0004 &   \scriptsize    4 &  \scriptsize    3 &  \scriptsize    3 &  \scriptsize    1 \\
-\scriptsize     gmm   & \scriptsize   gmm\_euclidean & \scriptsize    4     & \scriptsize basketball & \scriptsize    0.0071   & \scriptsize 0.0032 &  \scriptsize 0.1233 & \scriptsize    0.0004 &   \scriptsize    1 &  \scriptsize    5  & \scriptsize    4  & \scriptsize    2 \\
-\scriptsize     gmm   & \scriptsize   gmm\_euclidean & \scriptsize    4     & \scriptsize basketball & \scriptsize    0.0193   & \scriptsize 0.0000 &  \scriptsize 0.1233 & \scriptsize    0.0005 &   \scriptsize    3 &  \scriptsize    1 &  \scriptsize    5 &  \scriptsize    3 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0040 & \scriptsize 0.3161 & \scriptsize 0.1646 & \scriptsize 0.000 & \scriptsize 4 & \scriptsize 2 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0050 & \scriptsize 0.3085 & \scriptsize 0.1646 & \scriptsize 0.000 & \scriptsize 2 & \scriptsize 4 & \scriptsize 2 & \scriptsize 2 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0060 & \scriptsize 0.0064 & \scriptsize 0.1646 & \scriptsize 0.000 & \scriptsize 3 & \scriptsize 3 & \scriptsize 3 & \scriptsize 5 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0060 & \scriptsize 0.0032 & \scriptsize 0.1646 & \scriptsize 0.000 & \scriptsize 1 & \scriptsize 5 & \scriptsize 4 & \scriptsize 3 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0070 & \scriptsize 0.0000 & \scriptsize 0.1646 & \scriptsize 0.001 & \scriptsize 5 & \scriptsize 1 & \scriptsize 5 & \scriptsize 4 \\
 \cline{3-12}
-\scriptsize     gmm   & \scriptsize   gmm\_euclidean & \scriptsize    5     & \scriptsize basketball & \scriptsize    0.0044   & \scriptsize 0.4175 &  \scriptsize 0.1619 & \scriptsize    0.0004 &   \scriptsize    3 &  \scriptsize    2  & \scriptsize    1  & \scriptsize    1 \\
-\scriptsize     gmm   & \scriptsize    gmm\_euclidean & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0045  &  \scriptsize 0.3857 & \scriptsize 0.1619 & \scriptsize    0.0004 & \scriptsize   1  & \scriptsize    4  & \scriptsize    2  & \scriptsize    4 \\
-\scriptsize     gmm   & \scriptsize    gmm\_euclidean & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0079  &  \scriptsize 0.0064 & \scriptsize 0.1619 & \scriptsize    0.0004 & \scriptsize   4  & \scriptsize    3  & \scriptsize    3  & \scriptsize    5 \\
-\scriptsize     gmm   & \scriptsize    gmm\_euclidean & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0079  &  \scriptsize 0.0032 & \scriptsize 0.1619 & \scriptsize    0.0005 & \scriptsize   2  & \scriptsize    5  & \scriptsize    4  & \scriptsize    3 \\
-\scriptsize     gmm   & \scriptsize    gmm\_euclidean & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0091  &  \scriptsize 0.0000 & \scriptsize 0.1619 & \scriptsize    0.0005 & \scriptsize   5  & \scriptsize    1  & \scriptsize    5  & \scriptsize    2 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0050 & \scriptsize 0.4175 & \scriptsize 0.1619 & \scriptsize 0.000 & \scriptsize 5 & \scriptsize 2 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0050 & \scriptsize 0.3857 & \scriptsize 0.1619 & \scriptsize 0.000 & \scriptsize 1 & \scriptsize 4 & \scriptsize 2 & \scriptsize 2 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0070 & \scriptsize 0.0064 & \scriptsize 0.1619 & \scriptsize 0.000 & \scriptsize 3 & \scriptsize 3 & \scriptsize 3 & \scriptsize 5 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0070 & \scriptsize 0.0032 & \scriptsize 0.1619 & \scriptsize 0.000 & \scriptsize 2 & \scriptsize 5 & \scriptsize 4 & \scriptsize 3 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0080 & \scriptsize 0.0000 & \scriptsize 0.1619 & \scriptsize 0.001 & \scriptsize 4 & \scriptsize 1 & \scriptsize 5 & \scriptsize 4 \\
 \cline{2-12}
-\scriptsize     gmm   & \scriptsize    gmm\_manhattan & \scriptsize    3    & \scriptsize basketball & \scriptsize    0.0030  &  \scriptsize 0.2498 & \scriptsize 0.1151 & \scriptsize    0.0004 & \scriptsize   3  & \scriptsize    2  & \scriptsize    1  & \scriptsize    4 \\
-\scriptsize     gmm   & \scriptsize    gmm\_manhattan & \scriptsize    3    & \scriptsize basketball & \scriptsize    0.0036  &  \scriptsize 0.2201 & \scriptsize 0.1151 & \scriptsize    0.0004 & \scriptsize   2  & \scriptsize    4  & \scriptsize    2  & \scriptsize    1 \\
-\scriptsize     gmm   & \scriptsize    gmm\_manhattan & \scriptsize    3    & \scriptsize basketball & \scriptsize    0.0067  &  \scriptsize 0.0064 & \scriptsize 0.1151 & \scriptsize    0.0004 & \scriptsize   5  & \scriptsize    3  & \scriptsize    3  & \scriptsize    5 \\
-\scriptsize     gmm   & \scriptsize    gmm\_manhattan & \scriptsize    3    & \scriptsize basketball & \scriptsize    0.0073  &  \scriptsize 0.0032 & \scriptsize 0.1151 & \scriptsize    0.0005 & \scriptsize   1  & \scriptsize    5  & \scriptsize    4  & \scriptsize    2 \\
-\scriptsize     gmm   & \scriptsize    gmm\_manhattan & \scriptsize    3    & \scriptsize basketball & \scriptsize    0.0075  &  \scriptsize 0.0000 & \scriptsize 0.1151 & \scriptsize    0.0005 & \scriptsize   4  & \scriptsize    1  & \scriptsize    5  & \scriptsize    3 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0020 & \scriptsize 0.2363 & \scriptsize 0.1183 & \scriptsize 0.000 & \scriptsize 5 & \scriptsize 2 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0020 & \scriptsize 0.2129 & \scriptsize 0.1183 & \scriptsize 0.000 & \scriptsize 1 & \scriptsize 4 & \scriptsize 2 & \scriptsize 5 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0040 & \scriptsize 0.0064 & \scriptsize 0.1183 & \scriptsize 0.000 & \scriptsize 3 & \scriptsize 3 & \scriptsize 3 & \scriptsize 2 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0050 & \scriptsize 0.0032 & \scriptsize 0.1183 & \scriptsize 0.000 & \scriptsize 2 & \scriptsize 5 & \scriptsize 4 & \scriptsize 3 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0050 & \scriptsize 0.0000 & \scriptsize 0.1183 & \scriptsize 0.001 & \scriptsize 4 & \scriptsize 1 & \scriptsize 5 & \scriptsize 4 \\
 \cline{3-12}
-\scriptsize     gmm   & \scriptsize    gmm\_manhattan & \scriptsize    4    & \scriptsize basketball & \scriptsize    0.0034  &  \scriptsize 0.3563 & \scriptsize 0.1179 & \scriptsize    0.0004 & \scriptsize   4  & \scriptsize    2  & \scriptsize    1  & \scriptsize    4 \\
-\scriptsize     gmm   & \scriptsize    gmm\_manhattan & \scriptsize    4    & \scriptsize basketball & \scriptsize    0.0049  &  \scriptsize 0.2919 & \scriptsize 0.1179 & \scriptsize    0.0004 & \scriptsize   2  & \scriptsize    4  & \scriptsize    2  & \scriptsize    1 \\
-\scriptsize     gmm   & \scriptsize    gmm\_manhattan & \scriptsize    4    & \scriptsize basketball & \scriptsize    0.0068  &  \scriptsize 0.0064 & \scriptsize 0.1179 & \scriptsize    0.0004 & \scriptsize   5  & \scriptsize    3  & \scriptsize    3  & \scriptsize    2 \\
-\scriptsize     gmm   & \scriptsize    gmm\_manhattan & \scriptsize    4    & \scriptsize basketball & \scriptsize    0.0073  &  \scriptsize 0.0032 & \scriptsize 0.1179 & \scriptsize    0.0005 & \scriptsize   1  & \scriptsize    5  & \scriptsize    4  & \scriptsize    5 \\
-\scriptsize     gmm   & \scriptsize    gmm\_manhattan & \scriptsize    4    & \scriptsize basketball & \scriptsize    0.0076  &  \scriptsize 0.0000 & \scriptsize 0.1179 & \scriptsize    0.0007 & \scriptsize   3  & \scriptsize    1  & \scriptsize    5  & \scriptsize    3 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0020 & \scriptsize 0.3161 & \scriptsize 0.1348 & \scriptsize 0.001 & \scriptsize 4 & \scriptsize 2 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0020 & \scriptsize 0.3085 & \scriptsize 0.1348 & \scriptsize 0.001 & \scriptsize 1 & \scriptsize 4 & \scriptsize 2 & \scriptsize 2 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0040 & \scriptsize 0.0064 & \scriptsize 0.1348 & \scriptsize 0.001 & \scriptsize 3 & \scriptsize 3 & \scriptsize 3 & \scriptsize 3 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0040 & \scriptsize 0.0032 & \scriptsize 0.1348 & \scriptsize 0.001 & \scriptsize 2 & \scriptsize 5 & \scriptsize 4 & \scriptsize 4 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0050 & \scriptsize 0.0000 & \scriptsize 0.1348 & \scriptsize 0.001 & \scriptsize 5 & \scriptsize 1 & \scriptsize 5 & \scriptsize 5 \\
 \cline{3-12}
-\rowcolor{green} \scriptsize     gmm   & \scriptsize    gmm\_manhattan & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0032  &  \scriptsize 0.4290 & \scriptsize 0.1141 & \scriptsize    0.0004 & \scriptsize   4  & \scriptsize    2  & \scriptsize    1  & \scriptsize    1 \\
-\scriptsize     gmm   & \scriptsize    gmm\_manhattan & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0036  &  \scriptsize 0.3887 & \scriptsize 0.1141 & \scriptsize    0.0004 & \scriptsize   1  & \scriptsize    4  & \scriptsize    2  & \scriptsize    5 \\
-\scriptsize     gmm   & \scriptsize    gmm\_manhattan & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0072  &  \scriptsize 0.0064 & \scriptsize 0.1141 & \scriptsize    0.0005 & \scriptsize   3  & \scriptsize    3  & \scriptsize    3  & \scriptsize    4 \\
-\scriptsize     gmm   & \scriptsize    gmm\_manhattan & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0079  &  \scriptsize 0.0032 & \scriptsize 0.1141 & \scriptsize    0.0007 & \scriptsize   2  & \scriptsize    5  & \scriptsize    4  & \scriptsize    2 \\
-\scriptsize     gmm   & \scriptsize    gmm\_manhattan & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0084  &  \scriptsize 0.0000 & \scriptsize 0.1141 & \scriptsize    0.0011 & \scriptsize   5  & \scriptsize    1  & \scriptsize    5  & \scriptsize    3 \\
+\rowcolor{green}
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0030 & \scriptsize 0.4258 & \scriptsize 0.1322 & \scriptsize 0.000 & \scriptsize 4 & \scriptsize 2 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0040 & \scriptsize 0.3892 & \scriptsize 0.1322 & \scriptsize 0.000 & \scriptsize 1 & \scriptsize 4 & \scriptsize 2 & \scriptsize 5 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0050 & \scriptsize 0.0064 & \scriptsize 0.1322 & \scriptsize 0.000 & \scriptsize 3 & \scriptsize 3 & \scriptsize 3 & \scriptsize 2 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0050 & \scriptsize 0.0032 & \scriptsize 0.1322 & \scriptsize 0.000 & \scriptsize 2 & \scriptsize 5 & \scriptsize 4 & \scriptsize 3 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0080 & \scriptsize 0.0000 & \scriptsize 0.1322 & \scriptsize 0.001 & \scriptsize 5 & \scriptsize 1 & \scriptsize 5 & \scriptsize 4 \\
 \cline{1-12}
-\scriptsize   fanny   & \scriptsize  fanny\_euclidean & \scriptsize    3    & \scriptsize basketball & \scriptsize    0.0107  &  \scriptsize 0.2069 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   5  & \scriptsize    4  & \scriptsize    1  & \scriptsize    1 \\
-\scriptsize   fanny   & \scriptsize  fanny\_euclidean & \scriptsize    3    & \scriptsize basketball & \scriptsize    0.0114  &  \scriptsize 0.1675 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   2  & \scriptsize    2  & \scriptsize    2  & \scriptsize    2 \\
-\scriptsize   fanny   & \scriptsize  fanny\_euclidean & \scriptsize    3    & \scriptsize basketball & \scriptsize    0.0140  &  \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   4  & \scriptsize    3  & \scriptsize    3  & \scriptsize    3 \\
-\scriptsize   fanny   & \scriptsize  fanny\_euclidean & \scriptsize    3    & \scriptsize basketball & \scriptsize    0.0159  &  \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   1  & \scriptsize    5  & \scriptsize    4  & \scriptsize    4 \\
-\scriptsize   fanny   & \scriptsize  fanny\_euclidean & \scriptsize    3    & \scriptsize basketball & \scriptsize    0.0161  &  \scriptsize 0.0000 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   3  & \scriptsize    1  & \scriptsize    5  & \scriptsize    5 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0060 & \scriptsize 0.2069 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 5 & \scriptsize 4 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0060 & \scriptsize 0.1675 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 1 & \scriptsize 2 & \scriptsize 2 & \scriptsize 2 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0080 & \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 4 & \scriptsize 3 & \scriptsize 3 & \scriptsize 3 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0080 & \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 2 & \scriptsize 5 & \scriptsize 4 & \scriptsize 4 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0090 & \scriptsize 0.0000 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 3 & \scriptsize 1 & \scriptsize 5 & \scriptsize 5 \\
 \cline{3-12}
-\scriptsize   fanny   & \scriptsize  fanny\_euclidean & \scriptsize    4    & \scriptsize basketball & \scriptsize    0.0123  &  \scriptsize 0.2069 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   3  & \scriptsize    4  & \scriptsize    1  & \scriptsize    1 \\
-\scriptsize   fanny   & \scriptsize  fanny\_euclidean & \scriptsize    4    & \scriptsize basketball & \scriptsize    0.0128  &  \scriptsize 0.1675 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   1  & \scriptsize    2  & \scriptsize    2  & \scriptsize    2 \\
-\scriptsize   fanny   & \scriptsize  fanny\_euclidean & \scriptsize    4    & \scriptsize basketball & \scriptsize    0.0157  &  \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   4  & \scriptsize    3  & \scriptsize    3  & \scriptsize    3 \\
-\scriptsize   fanny   & \scriptsize  fanny\_euclidean & \scriptsize    4    & \scriptsize basketball & \scriptsize    0.0157  &  \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   2  & \scriptsize    5  & \scriptsize    4  & \scriptsize    4 \\
-\scriptsize   fanny   & \scriptsize  fanny\_euclidean & \scriptsize    4    & \scriptsize basketball & \scriptsize    0.0178  &  \scriptsize 0.0000 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   5  & \scriptsize    1  & \scriptsize    5  & \scriptsize    5 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0070 & \scriptsize 0.2069 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 5 & \scriptsize 4 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0070 & \scriptsize 0.1675 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 1 & \scriptsize 2 & \scriptsize 2 & \scriptsize 2 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0090 & \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 3 & \scriptsize 3 & \scriptsize 3 & \scriptsize 3 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0090 & \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 2 & \scriptsize 5 & \scriptsize 4 & \scriptsize 4 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0090 & \scriptsize 0.0000 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 4 & \scriptsize 1 & \scriptsize 5 & \scriptsize 5 \\
 \cline{3-12}
-\scriptsize   fanny   & \scriptsize  fanny\_euclidean & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0167  &  \scriptsize 0.2069 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   3  & \scriptsize    4  & \scriptsize    1  & \scriptsize    1 \\
-\scriptsize   fanny   & \scriptsize  fanny\_euclidean & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0189  &  \scriptsize 0.1675 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   2  & \scriptsize    2  & \scriptsize    2  & \scriptsize    2 \\
-\scriptsize   fanny   & \scriptsize  fanny\_euclidean & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0219  &  \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   4  & \scriptsize    3  & \scriptsize    3  & \scriptsize    3 \\
-\scriptsize   fanny   & \scriptsize  fanny\_euclidean & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0272  &  \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   1  & \scriptsize    5  & \scriptsize    4  & \scriptsize    4 \\
-\scriptsize   fanny   & \scriptsize  fanny\_euclidean & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0286  &  \scriptsize 0.0000 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   5  & \scriptsize    1  & \scriptsize    5  & \scriptsize    5 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0080 & \scriptsize 0.2069 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 4 & \scriptsize 4 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0080 & \scriptsize 0.1675 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 1 & \scriptsize 2 & \scriptsize 2 & \scriptsize 2 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0099 & \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 3 & \scriptsize 3 & \scriptsize 3 & \scriptsize 3 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0100 & \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 2 & \scriptsize 5 & \scriptsize 4 & \scriptsize 4 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0110 & \scriptsize 0.0000 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 5 & \scriptsize 1 & \scriptsize 5 & \scriptsize 5 \\
 \cline{2-12}
-\scriptsize   fanny   & \scriptsize  fanny\_manhattan & \scriptsize    3    & \scriptsize basketball & \scriptsize    0.0165  &  \scriptsize 0.2143 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   3  & \scriptsize    4  & \scriptsize    1  & \scriptsize    1 \\
-\scriptsize   fanny   & \scriptsize  fanny\_manhattan & \scriptsize    3    & \scriptsize basketball & \scriptsize    0.0184  &  \scriptsize 0.1658 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   1  & \scriptsize    2  & \scriptsize    2  & \scriptsize    2 \\
-\scriptsize   fanny   & \scriptsize  fanny\_manhattan & \scriptsize    3    & \scriptsize basketball & \scriptsize    0.0196  &  \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   4  & \scriptsize    3  & \scriptsize    3  & \scriptsize    3 \\
-\scriptsize   fanny   & \scriptsize  fanny\_manhattan & \scriptsize    3    & \scriptsize basketball & \scriptsize    0.0247  &  \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   5  & \scriptsize    5  & \scriptsize    4  & \scriptsize    4 \\
-\scriptsize   fanny   & \scriptsize  fanny\_manhattan & \scriptsize    3    & \scriptsize basketball & \scriptsize    0.0719  &  \scriptsize 0.0000 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   2  & \scriptsize    1  & \scriptsize    5  & \scriptsize    5 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0069 & \scriptsize 0.2143 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 2 & \scriptsize 4 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0090 & \scriptsize 0.1658 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 1 & \scriptsize 2 & \scriptsize 2 & \scriptsize 2 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0090 & \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 4 & \scriptsize 3 & \scriptsize 3 & \scriptsize 3 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0090 & \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 5 & \scriptsize 5 & \scriptsize 4 & \scriptsize 4 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0109 & \scriptsize 0.0000 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 3 & \scriptsize 1 & \scriptsize 5 & \scriptsize 5 \\
 \cline{3-12}
-\scriptsize   fanny   & \scriptsize  fanny\_manhattan & \scriptsize    4    & \scriptsize basketball & \scriptsize    0.0152  &  \scriptsize 0.2143 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   4  & \scriptsize    4  & \scriptsize    1  & \scriptsize    1 \\
-\scriptsize   fanny   & \scriptsize  fanny\_manhattan & \scriptsize    4    & \scriptsize basketball & \scriptsize    0.0159  &  \scriptsize 0.1658 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   1  & \scriptsize    2  & \scriptsize    2  & \scriptsize    2 \\
-\scriptsize   fanny   & \scriptsize  fanny\_manhattan & \scriptsize    4    & \scriptsize basketball & \scriptsize    0.0183  &  \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   5  & \scriptsize    3  & \scriptsize    3  & \scriptsize    3 \\
-\scriptsize   fanny   & \scriptsize  fanny\_manhattan & \scriptsize    4    & \scriptsize basketball & \scriptsize    0.0189  &  \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   2  & \scriptsize    5  & \scriptsize    4  & \scriptsize    4 \\
-\scriptsize   fanny   & \scriptsize  fanny\_manhattan & \scriptsize    4    & \scriptsize basketball & \scriptsize    0.0193  &  \scriptsize 0.0000 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   3  & \scriptsize    1  & \scriptsize    5  & \scriptsize    5 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0070 & \scriptsize 0.2143 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 3 & \scriptsize 4 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0080 & \scriptsize 0.1658 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 1 & \scriptsize 2 & \scriptsize 2 & \scriptsize 2 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0090 & \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 5 & \scriptsize 3 & \scriptsize 3 & \scriptsize 3 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0097 & \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 2 & \scriptsize 5 & \scriptsize 4 & \scriptsize 4 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0100 & \scriptsize 0.0000 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 4 & \scriptsize 1 & \scriptsize 5 & \scriptsize 5 \\
 \cline{3-12}
-\scriptsize   fanny   & \scriptsize  fanny\_manhattan & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0178  &  \scriptsize 0.2143 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   4  & \scriptsize    4  & \scriptsize    1  & \scriptsize    1 \\
-\scriptsize   fanny   & \scriptsize  fanny\_manhattan & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0183  &  \scriptsize 0.1658 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   1  & \scriptsize    2  & \scriptsize    2  & \scriptsize    2 \\
-\scriptsize   fanny   & \scriptsize  fanny\_manhattan & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0207  &  \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   3  & \scriptsize    3  & \scriptsize    3  & \scriptsize    3 \\
-\scriptsize   fanny   & \scriptsize  fanny\_manhattan & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0211  &  \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   2  & \scriptsize    5  & \scriptsize    4  & \scriptsize    4 \\
-\scriptsize   fanny   & \scriptsize  fanny\_manhattan & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0211  &  \scriptsize 0.0000 & \scriptsize 0.0000 & \scriptsize    0.0000 & \scriptsize   5  & \scriptsize    1  & \scriptsize    5  & \scriptsize    5 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0090 & \scriptsize 0.2143 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 4 & \scriptsize 4 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0090 & \scriptsize 0.1658 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 2 & \scriptsize 2 & \scriptsize 2 & \scriptsize 2 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0110 & \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 5 & \scriptsize 3 & \scriptsize 3 & \scriptsize 3 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0110 & \scriptsize 0.0032 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 1 & \scriptsize 5 & \scriptsize 4 & \scriptsize 4 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0110 & \scriptsize 0.0000 & \scriptsize 0.0000 & \scriptsize 0.000 & \scriptsize 3 & \scriptsize 1 & \scriptsize 5 & \scriptsize 5 \\
 \hline
 \caption{Results of running the main method of the package.}
 \label{tab:clustering}
@@ -413,11 +414,11 @@ To make compression easier we have extracted the values of the \texttt{gmm} algo
 \hline
 \scriptsize  Algorithm & \scriptsize  Distance  &  \scriptsize Clusters & \scriptsize  Dataset & \scriptsize tE & \scriptsize entropy & \scriptsize  dunn  & \scriptsize tI & \scriptsize tEAttr & \scriptsize enAttr & \scriptsize duAttr & \scriptsize tIAttr  \\
 \hline
-\scriptsize     gmm   & \scriptsize    gmm\_manhattan & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0032  &  \scriptsize 0.4290 & \scriptsize 0.1141 & \scriptsize    0.0004 & \scriptsize   4  & \scriptsize    2  & \scriptsize    1  & \scriptsize    1 \\
-\scriptsize     gmm   & \scriptsize    gmm\_manhattan & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0036  &  \scriptsize 0.3887 & \scriptsize 0.1141 & \scriptsize    0.0004 & \scriptsize   1  & \scriptsize    4  & \scriptsize    2  & \scriptsize    5 \\
-\scriptsize     gmm   & \scriptsize    gmm\_manhattan & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0072  &  \scriptsize 0.0064 & \scriptsize 0.1141 & \scriptsize    0.0005 & \scriptsize   3  & \scriptsize    3  & \scriptsize    3  & \scriptsize    4 \\
-\scriptsize     gmm   & \scriptsize    gmm\_manhattan & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0079  &  \scriptsize 0.0032 & \scriptsize 0.1141 & \scriptsize    0.0007 & \scriptsize   2  & \scriptsize    5  & \scriptsize    4  & \scriptsize    2 \\
-\scriptsize     gmm   & \scriptsize    gmm\_manhattan & \scriptsize    5    & \scriptsize basketball & \scriptsize    0.0084  &  \scriptsize 0.0000 & \scriptsize 0.1141 & \scriptsize    0.0011 & \scriptsize   5  & \scriptsize    1  & \scriptsize    5  & \scriptsize    3 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0030 & \scriptsize 0.4258 & \scriptsize 0.1322 & \scriptsize 0.000 & \scriptsize 4 & \scriptsize 2 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0040 & \scriptsize 0.3892 & \scriptsize 0.1322 & \scriptsize 0.000 & \scriptsize 1 & \scriptsize 4 & \scriptsize 2 & \scriptsize 5 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0050 & \scriptsize 0.0064 & \scriptsize 0.1322 & \scriptsize 0.000 & \scriptsize 3 & \scriptsize 3 & \scriptsize 3 & \scriptsize 2 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0050 & \scriptsize 0.0032 & \scriptsize 0.1322 & \scriptsize 0.000 & \scriptsize 2 & \scriptsize 5 & \scriptsize 4 & \scriptsize 3 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0080 & \scriptsize 0.0000 & \scriptsize 0.1322 & \scriptsize 0.001 & \scriptsize 5 & \scriptsize 1 & \scriptsize 5 & \scriptsize 4 \\
 \hline
 \caption{Example of calculation of the attributes of a dataset by algorithm, means and cluster number.}
 \label{tab:clusteringExample}
@@ -438,28 +439,28 @@ Clustering::best_ranked_external_metrics(result)
 \hline
 \scriptsize Algorithm  & \scriptsize     Distance    &  \scriptsize Clusters &  \scriptsize  Dataset   & \scriptsize timeExternal  & \scriptsize entropy   & \scriptsize timeExternalAttr & \scriptsize entropyAttr \\
 \hline
-\scriptsize   gmm      & \scriptsize   gmm\_euclidean & \scriptsize     3     & \scriptsize basketball  & \scriptsize     0.0104    & \scriptsize 0.2374 &  \scriptsize        5        & \scriptsize      2 \\
-\scriptsize   gmm      & \scriptsize   gmm\_euclidean & \scriptsize     4     & \scriptsize basketball  & \scriptsize     0.0147    & \scriptsize 0.3734 &  \scriptsize        2        & \scriptsize      2\\
-\scriptsize   gmm      & \scriptsize   gmm\_euclidean & \scriptsize     5     & \scriptsize basketball  & \scriptsize     0.0058    & \scriptsize 0.4175 &  \scriptsize        5        & \scriptsize      2 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0030 & \scriptsize 0.2374 & \scriptsize 5 & \scriptsize 2 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0040 & \scriptsize 0.3161 & \scriptsize 4 & \scriptsize 2 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0050 & \scriptsize 0.4175 & \scriptsize 5 & \scriptsize 2 \\
 \cline{2-8}
-\scriptsize   gmm      & \scriptsize   gmm\_manhattan & \scriptsize     3     & \scriptsize basketball  & \scriptsize     0.0066    & \scriptsize 0.2498 &  \scriptsize        5        & \scriptsize      2 \\
-\scriptsize   gmm      & \scriptsize   gmm\_manhattan & \scriptsize     4     & \scriptsize basketball  & \scriptsize     0.0083    & \scriptsize 0.3563 &  \scriptsize        4        & \scriptsize      2 \\
-\scriptsize   gmm      & \scriptsize   gmm\_manhattan & \scriptsize     5     & \scriptsize basketball  & \scriptsize     0.0045    & \scriptsize 0.4290 &  \scriptsize        5        & \scriptsize      2 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0020 & \scriptsize 0.2363 & \scriptsize 5 & \scriptsize 2 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0020 & \scriptsize 0.3161 & \scriptsize 4 & \scriptsize 2 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0030 & \scriptsize 0.4258 & \scriptsize 4 & \scriptsize 2 \\
 \hline
-\scriptsize fanny      & \scriptsize fanny\_euclidean & \scriptsize     3     & \scriptsize basketball  & \scriptsize     0.0177    & \scriptsize 0.2069 &  \scriptsize        5        & \scriptsize      4 \\
-\scriptsize fanny      & \scriptsize fanny\_euclidean & \scriptsize     4     & \scriptsize basketball  & \scriptsize     0.0148    & \scriptsize 0.2069 &  \scriptsize        5        & \scriptsize      4 \\
-\scriptsize fanny      & \scriptsize fanny\_euclidean & \scriptsize     5     & \scriptsize basketball  & \scriptsize     0.0199    & \scriptsize 0.2069 &  \scriptsize        1        & \scriptsize      4 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0060 & \scriptsize 0.2069 & \scriptsize 5 & \scriptsize 4 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0070 & \scriptsize 0.2069 & \scriptsize 5 & \scriptsize 4 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0080 & \scriptsize 0.2069 & \scriptsize 4 & \scriptsize 4 \\
 \cline{2-8}
-\scriptsize fanny      & \scriptsize fanny\_manhattan & \scriptsize     3     & \scriptsize basketball  & \scriptsize     0.0311    & \scriptsize 0.2143 &  \scriptsize        3        & \scriptsize      4 \\
-\scriptsize fanny      & \scriptsize fanny\_manhattan & \scriptsize     4     & \scriptsize basketball  & \scriptsize     0.0210    & \scriptsize 0.2143 &  \scriptsize        4        & \scriptsize      4 \\
-\scriptsize fanny      & \scriptsize fanny\_manhattan & \scriptsize     5     & \scriptsize basketball  & \scriptsize     0.0222    & \scriptsize 0.2143 &  \scriptsize        2        & \scriptsize      4 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0069 & \scriptsize 0.2143 & \scriptsize 2 & \scriptsize 4 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.0070 & \scriptsize 0.2143 & \scriptsize 3 & \scriptsize 4 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.0090 & \scriptsize 0.2143 & \scriptsize 4 & \scriptsize 4 \\
 \hline
 \end{tabular}
 \caption{Results of the execution of the \texttt{best\_ranked\_external\_metrics()}.}
 \label{tab:clusteringbestrankedexternalmetrics}
 \end{table}
 
-In the calculation of the \texttt{entropy} the results are in the interval [0,1]. For this example we have the best attributes in \texttt{entropy} grouped by algorithm, measure of dissimilarity and cluster number. When grouping the data, we choose the one with the highest value. We perform the same calculation for internal measurements.
+In the calculation of the \texttt{entropy} the results are in the interval [0,1]. For this example we have the best attributes in \texttt{entropy} grouped by algorithm, measure of dissimilarity and cluster number. When grouping the data, we choose the one with the highest value. We perform the same calculation for internal measurements. The results of the execution of the \texttt{best\_ranked\_internal\_metrics()} method in the Table ~\ref{tab:clusteringbestrankedinternalmetrics}.
 
 ```{r, fig.align='center', echo=TRUE, eval=FALSE }
 Clustering::best_ranked_internal_metrics(result)
@@ -469,29 +470,29 @@ Clustering::best_ranked_internal_metrics(result)
 \hline
 \scriptsize  Algorithm & \scriptsize     Distance     & \scriptsize Clusters & \scriptsize  Dataset  & \scriptsize timeInternal & \scriptsize  dunn  & \scriptsize dunnAttr & \scriptsize timeInternalAttr \\
 \hline
-\scriptsize     gmm    & \scriptsize   gmm\_euclidean & \scriptsize    3     & \scriptsize basketball & \scriptsize    0.0009    & \scriptsize 0.1096 & \scriptsize    1     & \scriptsize        5 \\
-\scriptsize     gmm    & \scriptsize   gmm\_euclidean & \scriptsize    4     & \scriptsize basketball & \scriptsize    0.0008    & \scriptsize 0.1233 & \scriptsize    1     & \scriptsize        4 \\
-\scriptsize     gmm    & \scriptsize   gmm\_euclidean & \scriptsize    5     & \scriptsize basketball & \scriptsize    0.0005    & \scriptsize 0.1619 & \scriptsize    1     & \scriptsize        2 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.000 & \scriptsize 0.1096 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.000 & \scriptsize 0.1646 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.000 & \scriptsize 0.1619 & \scriptsize 1 & \scriptsize 1 \\
 \cline{2-8}
-\scriptsize     gmm    & \scriptsize   gmm\_manhattan & \scriptsize    3     & \scriptsize basketball & \scriptsize    0.0006    & \scriptsize 0.1151 & \scriptsize    1     & \scriptsize        1 \\
-\scriptsize     gmm    & \scriptsize   gmm\_manhattan & \scriptsize    4     & \scriptsize basketball & \scriptsize    0.0005    & \scriptsize 0.1179 & \scriptsize    1     & \scriptsize        2 \\
-\scriptsize     gmm    & \scriptsize   gmm\_manhattan & \scriptsize    5     & \scriptsize basketball & \scriptsize    0.0006    & \scriptsize 0.1141 & \scriptsize    1     & \scriptsize        5 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.000 & \scriptsize 0.1183 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.001 & \scriptsize 0.1348 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.000 & \scriptsize 0.1322 & \scriptsize 1 & \scriptsize 1 \\
 \hline
-\scriptsize   fanny    & \scriptsize fanny\_euclidean & \scriptsize    3     & \scriptsize basketball & \scriptsize    0.0000    & \scriptsize 0.0000 & \scriptsize    1     & \scriptsize        1 \\
-\scriptsize   fanny    & \scriptsize fanny\_euclidean & \scriptsize    4     & \scriptsize basketball & \scriptsize    0.0000    & \scriptsize 0.0000 & \scriptsize    1     & \scriptsize        1 \\
-\scriptsize   fanny    & \scriptsize fanny\_euclidean & \scriptsize    5     & \scriptsize basketball & \scriptsize    0.0000    & \scriptsize 0.0000 & \scriptsize    1     & \scriptsize        1 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.000 & \scriptsize 0.0000 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.000 & \scriptsize 0.0000 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.000 & \scriptsize 0.0000 & \scriptsize 1 & \scriptsize 1 \\
 \cline{2-8}
-\scriptsize   fanny    & \scriptsize fanny\_manhattan & \scriptsize    3     & \scriptsize basketball & \scriptsize    0.0000    & \scriptsize 0.0000 & \scriptsize    1     & \scriptsize        1 \\
-\scriptsize   fanny    & \scriptsize fanny\_manhattan & \scriptsize    4     & \scriptsize basketball & \scriptsize    0.0000    & \scriptsize 0.0000 & \scriptsize    1     & \scriptsize        1 \\
-\scriptsize   fanny    & \scriptsize fanny\_manhattan & \scriptsize    5     & \scriptsize basketball & \scriptsize    0.0000    & \scriptsize 0.0000 & \scriptsize    1     & \scriptsize        1 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.000 & \scriptsize 0.0000 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 4 & \scriptsize basketball & \scriptsize 0.000 & \scriptsize 0.0000 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 5 & \scriptsize basketball & \scriptsize 0.000 & \scriptsize 0.0000 & \scriptsize 1 & \scriptsize 1 \\
 \hline
 \caption{Results of the execution of the \texttt{best\_ranked\_internal\_metrics()}.}
 \label{tab:clusteringbestrankedinternalmetrics}
 \end{longtable}
 
-We already have the best attributes for each execution, and have available methods for grouping the measures of dissimilarity from the algorithms. When grouping the results by measures of dissimilarity and algorithm we do not use a specific grouping algorithm, but rather we keep those values whose value is the maximum depending on the type of metric. In this case we see that for the \texttt{fanny} algorithm with dissimilarity measure \texttt{Euclidean} and taking into account the number of clusters, the value closest in \texttt{entropy} to 1 is 0.2090. For the rest of the algorithms the same process is followed. 
+We already have the best attributes for each execution, and have available methods for grouping the measures of dissimilarity from the algorithms. When grouping the results by measures of dissimilarity and algorithm we do not use a specific grouping algorithm, but rather we keep those values whose value is the maximum depending on the type of metric. In this case we see that for the \texttt{fanny} algorithm with dissimilarity measure \texttt{Euclidean} and taking into account the number of clusters, the value closest in \texttt{entropy} to 1 is 0.2143. For the rest of the algorithms the same process is followed. 
 
-* \texttt{evaluate\_best\_validation\_external\_by\_metrics()}: With this method we intend to demonstrate whether the choice of measurement of similarity has an influence. The results obtained in Table ~\ref{tab:evaluatebestvalidationexternalbymetrics} are obtained by filtering the values of \texttt{best\_ranked\_external\_metrics()}  and aggregating them by algorithm and measure of dissimilarity.
+* \texttt{evaluate\_best\_validation\_external\_by\_metrics()}:  With this method we intend to demonstrate whether the choice of measurement of similarity has an influence. The results obtained in Table ~\ref{tab:evaluatebestvalidationexternalbymetrics} are obtained by filtering the values of \texttt{best\_ranked\_external\_metrics()} and aggregating them by algorithm and measure of dissimilarity.
 
 ```{r, fig.align='center', echo=TRUE, eval=FALSE }
 Clustering::evaluate_best_validation_external_by_metrics(result)
@@ -502,22 +503,22 @@ Clustering::evaluate_best_validation_external_by_metrics(result)
 \hline
 \scriptsize  Algorithm & \scriptsize    Distance     & \scriptsize timeExternal & \scriptsize entropy & \scriptsize timeExternalAttr & \scriptsize entropyAttr \\
 \hline
-\scriptsize   fanny    & \scriptsize fanny\_euclidean & \scriptsize    0.0199    & \scriptsize  0.2069 & \scriptsize        5         & \scriptsize     4 \\
+\scriptsize fanny & \scriptsize fanny\_euclidean & \scriptsize 0.008 & \scriptsize 0.2069 & \scriptsize 5 & \scriptsize 4 \\
 \cline{2-6}
-\scriptsize   fanny    & \scriptsize fanny\_manhattan & \scriptsize    0.0311    & \scriptsize  0.2143 & \scriptsize        4         & \scriptsize     4 \\
+\scriptsize fanny & \scriptsize fanny\_manhattan & \scriptsize 0.009 & \scriptsize 0.2143 & \scriptsize 4 & \scriptsize 4 \\
 \hline
-\scriptsize    gmm     & \scriptsize  gmm\_euclidean  & \scriptsize    0.0147    & \scriptsize  0.4175 & \scriptsize        5         & \scriptsize     2 \\
+\scriptsize   gmm & \scriptsize   gmm\_euclidean & \scriptsize 0.005 & \scriptsize 0.4175 & \scriptsize 5 & \scriptsize 2 \\
 \cline{2-6}
-\scriptsize    gmm     & \scriptsize  gmm\_manhattan  & \scriptsize    0.0083    & \scriptsize   0.4290 & \scriptsize        5         & \scriptsize     2 \\
+\scriptsize   gmm & \scriptsize   gmm\_manhattan & \scriptsize 0.003 & \scriptsize 0.4258 & \scriptsize 5 & \scriptsize 2 \\
 \hline
 \caption{Results of execute \texttt{evaluate\_best\_validation\_external\_by\_metrics()}.}
 \label{tab:evaluatebestvalidationexternalbymetrics}
 \end{longtable}  
 
-If we observe Table ~\ref{tab:clusteringbestrankedexternalmetrics} we can see that rows three and six give us the highest value for the \texttt{gmm} algorithm and the measures \texttt{Euclidean} and \texttt{Manhattan}. In the case of \texttt{fanny} all the attributes return the same value, so we choose those whose execution time is lower. 
+If we observe Table ~\ref{tab:clusteringbestrankedexternalmetrics} we can see that rows three and six give us the highest value for the \texttt{gmm} algorithm and the measures \texttt{Euclidean} and \texttt{Manhattan}. 
 
 
-* \texttt{evaluate\_validation\_external\_by\_metrics()}: If we want to go further and wish to determine the best algorithm from the attributes, we can do so in the following way.
+* \texttt{evaluate\_validation\_external\_by\_metrics()}: If we want to go further and wish to determine the best algorithm from the attributes, we can do so in the following way (see Table ~\ref{tab:evaluatevalidationexternalbymetrics}).
 
 ```{r, fig.align='center', echo=TRUE, eval=FALSE }
 Clustering::evaluate_validation_external_by_metrics(result)
@@ -527,8 +528,8 @@ Clustering::evaluate_validation_external_by_metrics(result)
 \hline
 \scriptsize Algorithm & \scriptsize timeExternal & \scriptsize entropy & \scriptsize timeExternalAttr & \scriptsize entropyAttr \\
 \hline
-\scriptsize   fanny   & \scriptsize    0.0311    & \scriptsize 0.2143  & \scriptsize        5         & \scriptsize     4 \\
-\scriptsize    gmm    & \scriptsize    0.0147    & \scriptsize 0.4290  & \scriptsize        5         & \scriptsize     2  \\
+\scriptsize fanny & \scriptsize 0.009 & \scriptsize 0.2143 & \scriptsize 5 & \scriptsize 4 \\
+\scriptsize   gmm & \scriptsize 0.005 & \scriptsize 0.4258 & \scriptsize 5 & \scriptsize 2 \\
 \hline
 \caption{Results of \texttt{evaluate\_validation\_external\_by\_metrics()} method.}
 \label{tab:evaluatevalidationexternalbymetrics}
@@ -537,7 +538,7 @@ Clustering::evaluate_validation_external_by_metrics(result)
 With \texttt{evaluate\_validation\_external\_by\_metrics} we can see that the best suited algorithm for the dataset is \texttt{gmm} algorithm, as the value of \texttt{entropy} is closer to 1.
 
 
-* \texttt{result\_external\_algorithm\_by\_metric()}: This method has been incorporated to filter the results of the clustering object from an algorithm in order to be able to choose a suitable cluster.  
+* \texttt{result\_external\_algorithm\_by\_metric()}: This method has been incorporated to filter the results of the clustering object from an algorithm in order to be able to choose a suitable cluster. The results are shown in the Table ~\ref{tab:resultexternalalgorithmbymetric}.  
 
 ```{r, fig.align='center', echo=TRUE, eval=FALSE }
 Clustering::result_external_algorithm_by_metric(result,'gmm')
@@ -547,15 +548,15 @@ Clustering::result_external_algorithm_by_metric(result,'gmm')
 \hline
 \scriptsize Algorithm & \scriptsize Clusters & \scriptsize timeExternal & \scriptsize entropy & \scriptsize timeExternalAttr & \scriptsize entropyAttr  \\
 \hline
-\scriptsize    gmm    & \scriptsize     3    & \scriptsize    0.0104    & \scriptsize 0.2498  & \scriptsize         5        & \scriptsize       2 \\
-\scriptsize    gmm    & \scriptsize     4    & \scriptsize    0.0147    & \scriptsize 0.3734  & \scriptsize         4        & \scriptsize       2 \\
-\scriptsize    gmm    & \scriptsize     5    & \scriptsize    0.0058    & \scriptsize  0.4290  & \scriptsize         5        & \scriptsize       2 \\
+\scriptsize gmm & \scriptsize 3 & \scriptsize 0.003 & \scriptsize 0.2374 & \scriptsize 5 & \scriptsize 2 \\
+\scriptsize gmm & \scriptsize 4 & \scriptsize 0.004 & \scriptsize 0.3161 & \scriptsize 4 & \scriptsize 2 \\
+\scriptsize gmm & \scriptsize 5 & \scriptsize 0.005 & \scriptsize 0.4258 & \scriptsize 5 & \scriptsize 2 \\
 \hline
 \caption{Results of the execution of the \texttt{result\_external\_algorithm\_by\_metric()}.}
 \label{tab:resultexternalalgorithmbymetric}
 \end{longtable}  
 
-* \texttt{plot\_clustering()}: Mechanism for representing the evaluation metrics based on the number of clusters, accelerating the process of choosing the best results, as shown below. In Figure we can see that, in the representation of dunn metric, no fanny algorithm appears. This is because the dunn values for fanny algorithm are zeros.
+* \texttt{plot\_clustering()}: Mechanism for representing the evaluation metrics based on the number of clusters, accelerating the process of choosing the best results, as shown in Figure ~\ref{fig:clustering}. In Figure ~\ref{fig:clustering} we can see that, in the representation of dunn metric, no fanny algorithm appears. This is because the dunn values for fanny algorithm are zeros.
 
 <div id="fig:coolFig">
 ![](img/entropy.png){#fig:entropy width='50%'}
@@ -573,7 +574,7 @@ All these operations that we have carried out to evaluate the external measures 
 
 To conclude the definition of the methods of the package it is always necessary to have a functionality that allows us to sort, filter the information or export the results. To do this we will detail the methods used:
 
-* \texttt{sort(clustering\_object,column\_name):} Sometimes we need to sort the columns in order to find the maximum and minimum value. An example might be to sort the \texttt{entropy} column in ascending order to find the maximum and minimum value for the data set. The easiest way to perform the sorting by column is as follows:
+* \texttt{sort(clustering\_object,column\_name):} Sometimes we need to sort the columns in order to find the maximum and minimum value. An example might be to sort the \texttt{entropy} column in ascending order to find the maximum and minimum value for the data set. The easiest way to perform the sorting by column is as follows (see Table ~\ref{tab:resultsorting}):
 
 ```{r, fig.align='center', echo=TRUE, eval=FALSE }
 result <- Clustering::clustering(df = Clustering::basketball, min = 3, max=3, 
@@ -586,31 +587,31 @@ sort(result,T,'entropy')
 \hline
 \scriptsize  Algorithm & \scriptsize  Distance  &  \scriptsize Clusters & \scriptsize  Dataset & \scriptsize tE & \scriptsize entropy & \scriptsize  dunn  & \scriptsize tI & \scriptsize tEAttr & \scriptsize enAttr & \scriptsize duAttr & \scriptsize tIAttr  \\
 \hline
-\scriptsize gmm & \scriptsize gmm\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0026 & \scriptsize 0.2498 & \scriptsize 0.1151 & \scriptsize 0.0004 & \scriptsize 5 & \scriptsize 2 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize gmm & \scriptsize gmm\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.005 & \scriptsize 0.2374 & \scriptsize 0.1096 & \scriptsize 0.000 & \scriptsize 4 & \scriptsize 2 & \scriptsize 1 & \scriptsize 5 \\
 \cline{2-12}
-\scriptsize gmm & \scriptsize gmm\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0040 & \scriptsize 0.2374 & \scriptsize 0.1096 & \scriptsize 0.0004 & \scriptsize 5 & \scriptsize 2 & \scriptsize 1 & \scriptsize 1 \\
+\scriptsize gmm & \scriptsize gmm\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.002 & \scriptsize 0.2363 & \scriptsize 0.1183 & \scriptsize 0.000 & \scriptsize 5 & \scriptsize 2 & \scriptsize 1 & \scriptsize 1 \\
 \cline{2-12}
-\scriptsize gmm & \scriptsize gmm\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0033 & \scriptsize 0.2201 & \scriptsize 0.1151 & \scriptsize 0.0004 & \scriptsize 2 & \scriptsize 4 & \scriptsize 2 & \scriptsize 2 \\
+\scriptsize gmm & \scriptsize gmm\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.003 & \scriptsize 0.2129 & \scriptsize 0.1183 & \scriptsize 0.000 & \scriptsize 1 & \scriptsize 4 & \scriptsize 2 & \scriptsize 2 \\
 \cline{2-12}
-\scriptsize gmm & \scriptsize gmm\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0041 & \scriptsize 0.2120 & \scriptsize 0.1096 & \scriptsize 0.0004 & \scriptsize 1 & \scriptsize 4 & \scriptsize 2 & \scriptsize 2 \\
+\scriptsize gmm & \scriptsize gmm\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.005 & \scriptsize 0.2120 & \scriptsize 0.1096 & \scriptsize 0.000 & \scriptsize 1 & \scriptsize 4 & \scriptsize 2 & \scriptsize 1 \\
 \cline{2-12}
-\scriptsize gmm & \scriptsize gmm\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0074 & \scriptsize 0.0064 & \scriptsize 0.1096 & \scriptsize 0.0004 & \scriptsize 3 & \scriptsize 3 & \scriptsize 3 & \scriptsize 5 \\
+\scriptsize gmm & \scriptsize gmm\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.007 & \scriptsize 0.0064 & \scriptsize 0.1096 & \scriptsize 0.000 & \scriptsize 5 & \scriptsize 3 & \scriptsize 3 & \scriptsize 2 \\
 \cline{2-12}
-\scriptsize gmm & \scriptsize gmm\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0059 & \scriptsize 0.0064 & \scriptsize 0.1151 & \scriptsize 0.0004 & \scriptsize 3 & \scriptsize 3 & \scriptsize 3 & \scriptsize 3 \\
+\scriptsize gmm & \scriptsize gmm\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.005 & \scriptsize 0.0064 & \scriptsize 0.1183 & \scriptsize 0.000 & \scriptsize 4 & \scriptsize 3 & \scriptsize 3 & \scriptsize 3 \\
 \cline{2-12}
-\scriptsize gmm & \scriptsize gmm\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0074 & \scriptsize 0.0032 & \scriptsize 0.1096 & \scriptsize 0.0004 & \scriptsize 2 & \scriptsize 5 & \scriptsize 4 & \scriptsize 3 \\
+\scriptsize gmm & \scriptsize gmm\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.008 & \scriptsize 0.0032 & \scriptsize 0.1096 & \scriptsize 0.000 & \scriptsize 2 & \scriptsize 5 & \scriptsize 4 & \scriptsize 3 \\
 \cline{2-12}
-\scriptsize gmm & \scriptsize gmm\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0061 & \scriptsize 0.0032 & \scriptsize 0.1151 & \scriptsize 0.0004 & \scriptsize 1 & \scriptsize 5 & \scriptsize 4 & \scriptsize 4 \\
+\scriptsize gmm & \scriptsize gmm\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.006 & \scriptsize 0.0032 & \scriptsize 0.1183 & \scriptsize 0.000 & \scriptsize 2 & \scriptsize 5 & \scriptsize 4 & \scriptsize 4 \\
 \cline{2-12}
-\scriptsize gmm & \scriptsize gmm\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0083 & \scriptsize 0.0000 & \scriptsize 0.1096 & \scriptsize 0.0006 & \scriptsize 4 & \scriptsize 1 & \scriptsize 5 & \scriptsize 4 \\
+\scriptsize gmm & \scriptsize gmm\_euclidean & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.009 & \scriptsize 0.0000 & \scriptsize 0.1096 & \scriptsize 0.001 & \scriptsize 3 & \scriptsize 1 & \scriptsize 5 & \scriptsize 4 \\
 \cline{2-12}
-\scriptsize gmm & \scriptsize gmm\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.0065 & \scriptsize 0.0000 & \scriptsize 0.1151 & \scriptsize 0.0004 & \scriptsize 4 & \scriptsize 1 & \scriptsize 5 & \scriptsize 5 \\
+\scriptsize gmm & \scriptsize gmm\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.006 & \scriptsize 0.0000 & \scriptsize 0.1183 & \scriptsize 0.001 & \scriptsize 3 & \scriptsize 1 & \scriptsize 5 & \scriptsize 5 \\
 \hline
 \caption{Sort results by \texttt{entropy} column.}
 \label{tab:resultsorting}
 \end{longtable}
 
-* \texttt{"[.clustering":} There are times when we need to apply filters on a series of columns for a set of values. This process can be carried out using third party packages (\texttt{dplyr}), but due to its great usefulness we have incorporated this functionality. We must filter it in the following way: \texttt{clustering\_object [column\_1 operator value\_1 conditional\_1 .... column\_n operator value\_n]}. Example of filtering:
+* \texttt{"[.clustering":} There are times when we need to apply filters on a series of columns for a set of values. This process can be carried out using third party packages (\texttt{dplyr}), but due to its great usefulness we have incorporated this functionality. We must filter it in the following way: \texttt{clustering\_object [column\_1 operator value\_1 conditional\_1 .... column\_n operator value\_n]}. Example of filtering in Table ~\ref{tab:filtering}:
 
 ```{r, fig.align='center', echo=TRUE, eval=FALSE }
 result[entropy > 0.11 & dunn > 0.11 & entropyAttr == 2]
@@ -620,13 +621,13 @@ result[entropy > 0.11 & dunn > 0.11 & entropyAttr == 2]
 \hline
 \scriptsize  Algorithm & \scriptsize  Distance  &  \scriptsize Clusters & \scriptsize  Dataset & \scriptsize tE & \scriptsize entropy & \scriptsize  dunn  & \scriptsize tI & \scriptsize tEAttr & \scriptsize enAttr & \scriptsize duAttr & \scriptsize tIAttr  \\
 \hline
-\scriptsize    gmm     & \scriptsize  gmm\_manhattan & \scriptsize      3  & \scriptsize   basketball  & \scriptsize   0.0067  & \scriptsize  0.2498  & \scriptsize 0.1151  & \scriptsize    0.0008     & \scriptsize     5       & \scriptsize       2    & \scriptsize      1      & \scriptsize      3 \\
+\scriptsize gmm & \scriptsize gmm\_manhattan & \scriptsize 3 & \scriptsize basketball & \scriptsize 0.002 & \scriptsize 0.2363 & \scriptsize 0.1183 & \scriptsize 0 & \scriptsize 5 & \scriptsize 2 & \scriptsize 1 & \scriptsize 1 \\
 \hline
 \caption{Filtering information by different criteria.}
 \label{tab:filtering}
 \end{longtable}
 
-* \texttt{export\_file\_external():} Exports the results of the clustering object to \LaTeX format. This method is very useful when working with documents in \LaTeX format.
+* \texttt{export\_file\_external():} Exports the results of the clustering object to \LaTeX\ format. This method is very useful when working with documents in \LaTeX\ format.
 * \texttt{export\_file\_internal():} This method is similar to the previous one, but only exports the internal metrics.
 
 # Graphical User Interface of the **Clustering** package  
@@ -637,16 +638,16 @@ As mentioned throughout this paper, the **Clustering** package provides a GUI in
 Clustering::appClustering()
 ```
 
-The execution will open our default browser with the interface. As it can be observed in Figure ~\ref{layoutApp}, we have a layout with header, side menu and main menu. In the header menu we can choose to see the results numerically or in graphical mode. In the left menu we can see the different parameters with which we can run our algorithm, and finally in the central menu we can see the result of running the clustering algorithm.  
+The execution will open our default browser with the interface. As it can be observed in Figure ~\ref{fig:layoutApp}, we have a layout with header, side menu and main menu. In the header menu we can choose to see the results numerically or in graphical mode. In the left menu we can see the different parameters with which we can run our algorithm, and finally in the central menu we can see the result of running the clustering algorithm.  
 
 ![Clustering app user interface. \label{layoutApp}](img/app){height='270px'}
 
-The operation of the application is very simple, as can be seen in Figure ~\ref{app1} and we will proceed to explain it step by step.
-As can be seen in Figure ~\ref{app1} we have two well differentiated parts:
+The operation of the application is very simple, as can be seen in Figure ~\ref{fig:layoutApp1} and we will proceed to explain it step by step.
+As can be seen in Figure ~\ref{fig:layoutApp1} we have two well differentiated parts:
 
 ![Clustering app user interface. \label{app1}](img/app1){height='330px'}
 
-* In this section we can find the different parameters used by the clustering function to filter the information.  
+* In this section we can find the different parameters used by the clustering function to filter the information:  
   * Marked in red, we can indicate if we want to work with test datasets or indicate a directory of dataset files to be processed.
   * In blue we have the packages that implement the clustering algorithms mentioned throughout the paper. We can mark all packages or a subset of them. When a package is marked, all the algorithms implemented within the selected package are marked.
   * In yellow we have the algorithms implemented by the packages. If we mark an algorithm it will automatically mark its corresponding package in the package combo.
@@ -655,17 +656,17 @@ As can be seen in Figure ~\ref{app1} we have two well differentiated parts:
   * Finally we show the attributes of the dataset that correspond to the values indicated in each of the metrics.
 \clearpage
 * In the main layout we have the options for representing the data.  
-  * If we click on the summary tab as shown in Figure ~\ref{tab_summary}, we can see the data represented in tables. If we wish we can export the results in the following formats: CSV, PDF and XLS. We also have the option of copying the data.  
+  * If we click on the summary tab as shown in Figure ~\ref{fig:tab_summary}, we can see the data represented in tables. If we wish we can export the results in the following formats: CSV, PDF and XLS. We also have the option of copying the data.  
 
 ![**Clustering** package execution summary tab.. \label{tab_summary}](img/tab_summary)
 
-  * To view the data in graphical mode as shown in Figure ~\ref{tab_graph}, we mark the Plot tab. In the Figure we can see represented the internal and external evaluation metrics and depending on the type of evaluation we can filter individually by metrics to see the data represented graphically.  
+  * To view the data in graphical mode as shown in Figure ~\ref{fig:tab_graph}, we mark the Plot tab. In the Figure we can see represented the internal and external evaluation metrics and depending on the type of evaluation we can filter individually by metrics to see the data represented graphically.  
 
 ![Tab with graphical representation of metrics. \label{tab_graph}](img/tab_graph){height='340px'}
 
 \newpage
 # Conclusion
 
-In this paper we have introduced the **Clustering** package. The package has dependencies on other packages, as seen throughout the paper. It allows to read and load of datasets in KEEL, CSV or ARFF format. We offer the functionality of loading a \texttt{data.frame} in memory or using test datasets. As a complement, the package has been enhanced with the inclusion of a graphical interface that allows the user to run the package in a simple way without the need to know the parameters. With the package we contribute to choosing which variable of a dataset is the one that obtains the best value when we evaluate the clusters, as well as applying relative criteria that allow us to compare the execution results of an algorithm with another one using different parameters. The development of the package will be continued with the inclusion of new algorithms, functionalities and improvement of the interface, and therefore we encourage developers to contribute to the improvement of the package with the inclusion of new algorithms or functionalities or the inclusion of new proposals to complement the package.
+In this paper we have introduced the \pkg{Clustering} package. The package has dependencies on other packages, as seen throughout the paper. It allows to read and load of datasets in KEEL, CSV or ARFF format. We offer the functionality of loading a \texttt{data.frame} in memory or using test datasets. As a complement, the package has been enhanced with the inclusion of a graphical interface that allows the user to run the package in a simple way without the need to know the parameters. With the package we contribute to choosing which variable of a dataset is the one that obtains the best value when we evaluate the clusters, as well as applying relative criteria that allow us to compare the execution results of an algorithm with another one using different parameters. The development of the package will be continued with the inclusion of new algorithms, functionalities and improvement of the interface, and therefore we encourage developers to contribute to the improvement of the package with the inclusion of new algorithms or functionalities or the inclusion of new proposals to complement the package.
 
 # References

@@ -233,7 +233,10 @@ clustering <- function(path = NULL,
                        max = 4,
                        metrics = NULL,
                        attributes = FALSE) {
+
   ## Validation of input parameters
+
+  on.exit(options(scipen = 999))
 
   if (is.null(path) && is.null(df)) {
     stop("You must fill in at least one of the fields: path or df")
@@ -380,9 +383,8 @@ execute_datasets <- function(path,
                              metrics,
                              attributes,
                              name_dataframe) {
-  # Initialization of the parameter format
 
-  on.exit(options(scipen = 999))
+  # Initialization of the parameter format
 
   formals(print.data.frame)$row.names <- F
 

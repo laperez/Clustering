@@ -19,7 +19,10 @@
 #'
 
 fuzzy_cm_method = function(dt, clusters, columnClass, metric) {
+
   start.time <- Sys.time()
+
+  on.exit(options(warn = -1))
 
   if ('data.frame' %in% class(dt))
     dt = as.matrix(dt)
@@ -104,7 +107,10 @@ fuzzy_cm_method = function(dt, clusters, columnClass, metric) {
 #'
 
 fuzzy_gg_method = function(dt, clusters, columnClass, metric) {
+
   start.time <- Sys.time()
+
+  on.exit(options(warn = -1))
 
   if ('data.frame' %in% class(dt))
     dt = as.matrix(dt)
@@ -188,7 +194,10 @@ fuzzy_gg_method = function(dt, clusters, columnClass, metric) {
 #'
 
 fuzzy_gk_method = function(dt, clusters, columnClass, metric) {
+
   start.time <- Sys.time()
+
+  on.exit(options(warn = -1))
 
   if ('data.frame' %in% class(dt))
     dt = as.matrix(dt)

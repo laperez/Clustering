@@ -17,7 +17,10 @@
 
 
 agnes_euclidean_method = function(dt, clusters, metric) {
+
   start.time <- Sys.time()
+
+  on.exit(options(warn = -1))
 
   if ('data.frame' %in% class(dt))
     dt = as.matrix(dt)
@@ -103,7 +106,10 @@ agnes_euclidean_method = function(dt, clusters, metric) {
 #'
 
 agnes_manhattan_method = function(dt, clusters, metric) {
+
   start.time <- Sys.time()
+
+  on.exit(options(warn = -1))
 
   if ('data.frame' %in% class(dt))
     dt = as.matrix(dt)
