@@ -8,13 +8,13 @@ export_file_internal(df, path = NULL)
 }
 \arguments{
 \item{df}{is a dataframe that contains as a parameter a table in latex format
-with the results of the external validations.}
+with the results of the internal validations.}
 
 \item{path}{it's a string with the path to a directory where a file is to be
 stored in latex format.}
 }
 \description{
-Method that exports the results of external measurements in
+Method that exports the results of internal measurements in
 latex format to a file.
 }
 \details{

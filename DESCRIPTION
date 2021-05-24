@@ -1,8 +1,8 @@
 Package: Clustering
 Type: Package
-Title: Execution of Multiple Clustering Algorithm
-Version: 1.7.1
-Date: 2020-12-04
+Title: Techniques for Evaluating Clustering
+Version: 1.7.2
+Date: 2021-05-24
 Author: Luis Alfonso Perez Martos [aut, cre]
 Maintainer: Luis Alfonso Perez Martos <lapm0001@gmail.com>
 Description: The design of this package allows us to run different clustering packages and compare the results between them, to determine which algorithm behaves best from the data provided.

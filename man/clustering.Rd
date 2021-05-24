@@ -104,26 +104,3 @@ which algorithm has the best behavior for the set of attributes as well as
 the most efficient number of clusters.
 }
 
-\examples{
-
-clustering(
-     df = cluster::agriculture,
-     min = 4,
-     max = 5,
-     algorithm='gmm',
-     metrics='precision',
-     attributes = TRUE
-)
-
-\dontrun{
-clustering(
-      df = Clustering::weather,
-      min = 2,
-      max = 3,
-      algorithm= c("gmm","kmeans_armaa"),
-      metrics= c("precision","dunn"),
-      attributes = FALSE
-)
-}
-
-}
