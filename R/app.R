@@ -213,15 +213,6 @@ appClustering <- function() {
 #'      attributes = TRUE
 #' )
 #'
-#'\dontrun{
-#' clustering(
-#'       df = Clustering::weather,
-#'       min = 2,
-#'       max = 3,
-#'       algorithm= c("gmm","kmeans_armaa"),
-#'       metrics= c("precision","dunn"),
-#'       attributes = FALSE
-#' )
 #' }
 #'
 
@@ -1749,11 +1740,11 @@ plot_clustering <- function(df, metric) {
 #'
 #' @title Export result of external metrics in latex.
 #'
-#' @description Method that exports the results of internal measurements in
+#' @description Method that exports the results of external measurements in
 #' latex format to a file.
 #'
 #' @param df is a dataframe that contains as a parameter a table in latex format
-#' with the results of the internal validations.
+#' with the results of the external validations.
 #'
 #' @param path it's a string with the path to a directory where a file is to be
 #' stored in latex format.
@@ -1816,11 +1807,11 @@ export_file_external <- function(df, path = NULL) {
 #'
 #' @title Export result of internal metrics in latex.
 #'
-#' @description Method that exports the results of external measurements in
+#' @description Method that exports the results of internal measurements in
 #' latex format to a file.
 #'
 #' @param df is a dataframe that contains as a parameter a table in latex format
-#' with the results of the external validations.
+#' with the results of the internal validations.
 #'
 #' @param path it's a string with the path to a directory where a file is to be
 #' stored in latex format.
