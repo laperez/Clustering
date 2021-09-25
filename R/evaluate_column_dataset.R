@@ -168,10 +168,6 @@ evaluate_all_column_dataset = function(datas,
         resultado = apclusterK_minkowski(datas, cluster, i, metrics)
       }
 
-      if (method == 'gama_euclidean') {
-        resultado = gama(datas, cluster, i, metrics)
-      }
-
       result <- list(
         "entropy" = ifelse(
           !is.nan(resultado$external$entropy),

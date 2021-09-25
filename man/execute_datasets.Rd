@@ -23,13 +23,13 @@ execute_datasets(
 the value of the argument.}
 
 \item{packages}{array defining the clustering package. The seven packages
-implemented are: cluster, ClusterR, advclust, amap, apcluster, gama, pvclust.
+implemented are: cluster, ClusterR, advclust, amap, apcluster, pvclust.
 By default runs all packages.}
 
 \item{algorithm}{array with the algorithms that implement the package.
 The algorithms implemented are: fuzzy_cm,fuzzy_gg,fuzzy_gk,hclust,apclusterK,
 agnes,clara,daisy,diana,fanny,mona,pam,gmm,kmeans_arma,kmeans_rcpp,
-mini_kmeans,gama,pvclust.}
+mini_kmeans,pvclust.}
 
 \item{cluster_min}{minimum number of clusters. at least one must be.}
 

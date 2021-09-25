@@ -25,12 +25,12 @@ you want to use training and test \code{basketball} attributes.}
 
 \item{packages}{character vector with the packets running the algorithm.
 \code{NULL} The seven packages implemented are: cluster, ClusterR, advclust,
-amap, apcluster, gama, pvclust. \cr By default runs all packages.}
+amap, apcluster, pvclust. \cr By default runs all packages.}
 
 \item{algorithm}{character vector with the algorithms implemented within the
 package. \code{NULL} The algorithms implemented are: fuzzy_cm,fuzzy_gg,
 fuzzy_gk,hclust,apclusterK,agnes,clara,daisy, \cr diana,fanny,mona,pam,gmm,
-kmeans_arma,kmeans_rcpp,mini_kmeans,gama,\cr pvclust.}
+kmeans_arma,kmeans_rcpp,mini_kmeans,\cr pvclust.}
 
 \item{min}{An integer with the minimum number of clusters This data is
 necessary to indicate the minimum number of clusters when grouping the data.

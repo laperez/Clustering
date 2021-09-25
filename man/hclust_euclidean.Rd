@@ -2,7 +2,7 @@
 % Please edit documentation in R/hclust.R
 \name{hclust_euclidean}
 \alias{hclust_euclidean}
-\title{Method that runs the gama hcluster using the Euclidean metric to make an
+\title{Method that runs the hclust using the Euclidean metric to make an
 external or internal validation of the cluster.}
 \usage{
 hclust_euclidean(dt, clusters, columnClass, metric)
@@ -27,7 +27,7 @@ returns a list with both the internal and external evaluation of the
 grouping.
 }
 \description{
-Method that runs the gama hcluster using the Euclidean metric to make an
+Method that runs the hclust using the Euclidean metric to make an
 external or internal validation of the cluster.
 }
 \keyword{internal}

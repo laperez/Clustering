@@ -57,7 +57,6 @@ shinyUI(
                         "Apcluster" = "apcluster",
                         "ClusterR" = "clusterr",
                         "Cluster" = "cluster",
-                        "Gama" = "gama",
                         "Pvclust" = "pvclust"
                     ),
                     options = list(
@@ -78,7 +77,6 @@ shinyUI(
                         "Daisy" = "daisy",
                         "Diana" = "diana",
                         "Fanny" = "fanny",
-                        "Gama" = "gama",
                         "Gmm" = "gmm",
                         "Fuzzy CM" = "fuzzy_cm",
                         "Fuzzy GG" = "fuzzy_gg",

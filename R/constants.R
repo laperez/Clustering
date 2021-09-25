@@ -43,8 +43,6 @@
 
   CONST_MINI_KMEANS <- "mini_kmeans"
 
-  CONST_GAMA <- "gama"
-
   CONST_PVCLUST <- "pvclust"
 
   CONST_ALGORITHM_ADVCLUST <- 'advclust'
@@ -56,8 +54,6 @@
   CONST_ALGORITHM_CLUSTER <- "cluster"
 
   CONST_ALGORITHM_CLUSTERR <- "clusterr"
-
-  CONST_ALGORITHM_GAMA <- "gama"
 
   CONST_ALGORITHM_PVCLUST <- "pvclust"
 
@@ -164,8 +160,6 @@
   CONST_GMM_EUCLIDEAN <- "gmm_euclidean"
 
   CONST_GMM_MANHATTAN <- "gmm_manhattan"
-
-  CONST_GAMA_EUCLIDEAN <- "gama_euclidean"
 
   CONST_PVCLUST_EUCLIDEAN <-"pvclust_euclidean"
 

@@ -13,7 +13,6 @@ packages <- function() {
       CONST_ALGORITHM_APCLUSTER,
       CONST_ALGORITHM_CLUSTER,
       CONST_ALGORITHM_CLUSTERR,
-      CONST_ALGORITHM_GAMA,
       CONST_ALGORITHM_PVCLUST
     )
   )
@@ -45,7 +44,6 @@ algorithms <- function() {
       CONST_KMEANS_ARMA,
       CONST_KMEANS_RCPP,
       CONST_MINI_KMEANS,
-      CONST_GAMA,
       CONST_PVCLUST
     )
   )
@@ -389,7 +387,6 @@ algorithms_package <- function(packages) {
     algorithms <- c(algorithms, algorithm_apcluster())
     algorithms <- c(algorithms, algorithm_cluster())
     algorithms <- c(algorithms, algorithm_clusterr())
-    algorithms <- c(algorithms, algorithm_gama())
     algorithms <- c(algorithms, algorithm_pvclust())
 
   } else {
@@ -412,10 +409,6 @@ algorithms_package <- function(packages) {
 
       if (tolower(packages[iterate]) == CONST_ALGORITHM_CLUSTERR) {
         algorithms <- c(algorithms, algorithm_clusterr())
-      }
-
-      if (tolower(packages[iterate]) == CONST_ALGORITHM_GAMA) {
-        algorithms <- c(algorithms, algorithm_gama())
       }
 
       if (tolower(packages[iterate]) == CONST_ALGORITHM_PVCLUST) {
@@ -515,10 +508,6 @@ measure_calculate <- function(algorithm) {
       result <- c(result, CONST_MINI_KMEANS)
     }
 
-    if (tolower(algorithm[iterate]) == tolower(CONST_GAMA)) {
-      result <- c(result, CONST_GAMA_EUCLIDEAN)
-    }
-
     if (tolower(algorithm[iterate]) == tolower(CONST_PVCLUST)) {
       result <- c(result, CONST_PVCLUST_EUCLIDEAN)
       result <- c(result, CONST_PVLCUST_CORRELATION)
@@ -549,7 +538,6 @@ measure_package <- function(package) {
     result <- c(result, measure_apcluster())
     result <- c(result, measure_cluster())
     result <- c(result, measure_clusterr())
-    result <- c(result, measure_gama())
     result <- c(result, measure_pvclust())
   } else {
     for (iterate in 1:length(package)) {
@@ -571,10 +559,6 @@ measure_package <- function(package) {
 
       if (tolower(package[iterate]) == CONST_ALGORITHM_CLUSTERR) {
         result <- c(result, measure_clusterr())
-      }
-
-      if (tolower(package[iterate]) == CONST_ALGORITHM_GAMA) {
-        result <- c(result, measure_gama())
       }
 
       if (tolower(package[iterate]) == CONST_ALGORITHM_PVCLUST) {
@@ -834,18 +818,6 @@ measure_clusterr <- function() {
 
 }
 
-#' Metrics of the gama algorithm
-#'
-#' @return list with the metrics
-#'
-#' @keywords internal
-#'
-
-measure_gama <- function() {
-  return(c(CONST_GAMA_EUCLIDEAN))
-
-}
-
 #' Metrics of the pvclust algorithm
 #'
 #' @return list with the metrics
@@ -928,17 +900,6 @@ algorithm_clusterr <- function() {
            CONST_KMEANS_RCPP,
            CONST_MINI_KMEANS))
 
-}
-
-#' gama package algorithms
-#'
-#' @return list with the algorithms
-#'
-#' @keywords internal
-#'
-
-algorithm_gama <- function() {
-  return(c(CONST_ALGORITHM_GAMA))
 }
 
 #' pvclust package algorithms

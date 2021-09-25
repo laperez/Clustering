@@ -24,10 +24,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.cap = "", fig.path = "Plot")
-library("Clustering")
-```
+
 
 
 # Introduction
@@ -291,11 +288,10 @@ Once the way to provide the data has been defined the next step is to be able to
 
 Once the definition of the input attributes of the \texttt{clustering} function has been completed, we will carry out a test. To do this we will use the \texttt{data.frame} Basketball (this dataset contains five attributes representing the statistics of a set of 96 basketball players). The attributes are: \texttt{assists per minute, height, time played, age and points per minute}. In the output data of the \texttt{clustering} function, these attributes are numbered from left to right in ascending order starting with one. The idea of doing it this way is to give it a homogeneity instead of using the names of the attributes from the dataset. As algorithms used in the execution we will use \texttt{gmm} and \texttt{fanny} (included in the **ClusterR** and **cluster** packages). We will indicate a range of partitions between 3 and 5 and evaluate \texttt{entropy} as an external evaluation measure and \texttt{dunn} as an internal one.
 
-```{r, fig.align='center', echo=TRUE, eval=FALSE }
 
+```r
 result <- Clustering::clustering(df = basketball, min = 3, max = 5, algorithm = c('gmm',
                         'fanny'), metrics = c('entropy','dunn'), attributes = T)
-
 ```
 
 The attributes resulting from the execution of the method are:  
@@ -414,9 +410,9 @@ The name of the column \texttt{tE} corresponds to \texttt{timeExternal}, \texttt
 In order to summarize the information this package provides a series of mechanisms that allow us to summarize the information from the result obtained by the clustering method in such a way that we can obtain the best results and attributes for one or several data sets. The mechanisms used are the following:  
 
 * \texttt{best\_ranked\_external\_metrics()}: Method used for selecting from the data set attributes those that obtain the best result in the evaluation of the measure. We will now use this mechanism on the previous results.
-```{r, fig.align='center', echo=TRUE, eval=FALSE }
-Clustering::best_ranked_external_metrics(result)
 
+```r
+Clustering::best_ranked_external_metrics(result)
 ```
 \newpage
 \begin{table}[h!]
@@ -448,9 +444,9 @@ Clustering::best_ranked_external_metrics(result)
 
 In the calculation of the \texttt{entropy} the results are in the interval [0,1]. For this example we have the best attributes in \texttt{entropy} grouped by algorithm, measure of dissimilarity and cluster number. When grouping the data, we choose the one with the highest value. We perform the same calculation for internal measurements. The results of the execution of the \texttt{best\_ranked\_internal\_metrics()} method in the Table \ref{tab:clusteringbestrankedinternalmetrics}.
 
-```{r, fig.align='center', echo=TRUE, eval=FALSE }
-Clustering::best_ranked_internal_metrics(result)
 
+```r
+Clustering::best_ranked_internal_metrics(result)
 ```
 \begin{longtable}{| p{1.3cm} | p{2.1cm} | p{0.9cm} | p{1.1cm} | p{1.6cm} | p{0.8cm} | p{1.3cm} | p{1.9cm} |}
 \hline
@@ -480,9 +476,9 @@ We already have the best attributes for each execution, and have available metho
 
 * \texttt{evaluate\_best\_validation\_external\_by\_metrics()}:  With this method we intend to demonstrate whether the choice of measurement of similarity has an influence. The results obtained in Table \ref{tab:evaluatebestvalidationexternalbymetrics} are obtained by filtering the values of \texttt{best\_ranked\_external\_metrics()} and aggregating them by algorithm and measure of dissimilarity.
 
-```{r, fig.align='center', echo=TRUE, eval=FALSE }
-Clustering::evaluate_best_validation_external_by_metrics(result)
 
+```r
+Clustering::evaluate_best_validation_external_by_metrics(result)
 ```
 \newpage
 \begin{longtable}{| p{1.2cm} | p{2.2cm} |  p{1.8cm} | p{0.8cm} | p{2.1cm} | p{1.9cm} |}
@@ -506,7 +502,8 @@ If we observe Table \ref{tab:clusteringbestrankedexternalmetrics} we can see tha
 
 * \texttt{evaluate\_validation\_external\_by\_metrics()}: If we want to go further and wish to determine the best algorithm from the attributes, we can do so in the following way (see Table \ref{tab:evaluatevalidationexternalbymetrics}).
 
-```{r, fig.align='center', echo=TRUE, eval=FALSE }
+
+```r
 Clustering::evaluate_validation_external_by_metrics(result)
 ```
 
@@ -526,7 +523,8 @@ With \texttt{evaluate\_validation\_external\_by\_metrics} we can see that the be
 
 * \texttt{result\_external\_algorithm\_by\_metric()}: This method has been incorporated to filter the results of the clustering object from an algorithm in order to be able to choose a suitable cluster. The results are shown in the Table \ref{tab:resultexternalalgorithmbymetric}.  
 
-```{r, fig.align='center', echo=TRUE, eval=FALSE }
+
+```r
 Clustering::result_external_algorithm_by_metric(result,'gmm')
 ```
 
@@ -562,7 +560,8 @@ To conclude the definition of the methods of the package it is always necessary 
 
 * \texttt{sort(clustering\_object,column\_name):} Sometimes we need to sort the columns in order to find the maximum and minimum value. An example might be to sort the \texttt{entropy} column in ascending order to find the maximum and minimum value for the data set. The easiest way to perform the sorting by column is as follows (see Table \ref{tab:resultsorting}):
 
-```{r, fig.align='center', echo=TRUE, eval=FALSE }
+
+```r
 result <- Clustering::clustering(df = Clustering::basketball, min = 3, max=3, 
           algorithm = c('gmm'), metrics = c('entropy','dunn'), attributes = T);
 
@@ -599,7 +598,8 @@ sort(result,T,'entropy')
 
 * \texttt{"[.clustering":} There are times when we need to apply filters on a series of columns for a set of values. This process can be carried out using third party packages (\texttt{dplyr}), but due to its great usefulness we have incorporated this functionality. We must filter it in the following way: \texttt{clustering\_object [column\_1 operator value\_1 conditional\_1 .... column\_n operator value\_n]}. Example of filtering in Table \ref{tab:filtering}:
 
-```{r, fig.align='center', echo=TRUE, eval=FALSE }
+
+```r
 result[entropy > 0.11 & dunn > 0.11 & entropyAttr == 2]
 ```
 
@@ -620,7 +620,8 @@ result[entropy > 0.11 & dunn > 0.11 & entropyAttr == 2]
 
 As mentioned throughout this paper, the **Clustering** package provides a GUI in order to work with clustering algorithms and to be able to evaluate and run the results more comfortably. The user interface is run by executing the following instruction:  
 
-```{r, fig.align='center', echo=TRUE, eval=FALSE }
+
+```r
 Clustering::appClustering()
 ```
 

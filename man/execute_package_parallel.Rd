@@ -31,7 +31,7 @@ the value of the argument.}
 \item{algorithms_execute}{character vector with the algorithms to be
 executed. The algorithms implemented are: fuzzy_cm,fuzzy_gg,fuzzy_gk,hclust,
 apclusterK,agnes,clara,daisy,diana,fanny,mona,pam,gmm,kmeans_arma,
-kmeans_rcpp,mini_kmeans,gama,pvclust.}
+kmeans_rcpp,mini_kmeans,pvclust.}
 
 \item{measures_execute}{character array with the measurements of
 dissimilarity to be executed. Depending on the algorithm, one or the other is

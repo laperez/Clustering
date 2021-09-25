@@ -129,7 +129,6 @@ shinyServer(function(input, output, session) {
                         "daisy",
                         "diana",
                         "fanny",
-                        "gama",
                         "gmm",
                         "fuzzy_cm",
                         "fuzzy_gg",
@@ -160,7 +159,7 @@ shinyServer(function(input, output, session) {
                       "kmeans_arma",
                       "kmeans_rcpp",
                       "mini_kmeans")
-                gama_algorithm <- c("gama")
+
                 pvclcust_algorithm <- c("pvclust")
 
                 '%notin%' <- Negate('%in%')
@@ -170,7 +169,6 @@ shinyServer(function(input, output, session) {
                 countAlgorithmApcluster <- 0
                 countAlgorithmCluster <- 0
                 countAlgorithmClusterR <- 0
-                countAlgorithmGama <- 0
                 countAlgorithmPvclust <- 0
 
                 for (a in 1:length(algorithm_clustering)) {
@@ -193,10 +191,6 @@ shinyServer(function(input, output, session) {
 
                         if (algorithm_clustering[a] %in% clusterr_algorithm) {
                             countAlgorithmClusterR <- countAlgorithmClusterR + 1
-                        }
-
-                        if (algorithm_clustering[a] %in% gama_algorithm) {
-                            countAlgorithmGama <- countAlgorithmGama + 1
                         }
 
                         if (algorithm_clustering[a] %in% pvclcust_algorithm) {
@@ -223,10 +217,6 @@ shinyServer(function(input, output, session) {
 
                 if (countAlgorithmClusterR == length(clusterr_algorithm)) {
                     selectedPackage = selectedPackage[selectedPackage != 'clusterr']
-                }
-
-                if (countAlgorithmGama == length(gama_algorithm)) {
-                    selectedPackage = selectedPackage[selectedPackage != 'gama']
                 }
 
                 if (countAlgorithmPvclust == length(pvclcust_algorithm)) {
@@ -281,16 +271,6 @@ shinyServer(function(input, output, session) {
                             }
                         } else {
                             selectedPackage = c(selectedPackage, "clusterr")
-                        }
-                    }
-
-                    if (input$algorithm[a] %in% gama_algorithm) {
-                        if (!is.null(input$packages)) {
-                            if ("gama" %notin% input$packages) {
-                                selectedPackage = c(selectedPackage, "gama")
-                            }
-                        } else {
-                            selectedPackage = c(selectedPackage, "gama")
                         }
                     }
 
@@ -354,7 +334,6 @@ shinyServer(function(input, output, session) {
                       "kmeans_arma",
                       "kmeans_rcpp",
                       "mini_kmeans")
-                gama_algorithm <- c("gama")
                 pvclcust_algorithm <- c("pvclust")
 
                 '%notin%' <- Negate('%in%')
@@ -365,7 +344,6 @@ shinyServer(function(input, output, session) {
                         "apcluster",
                         "clusterr",
                         "cluster",
-                        "gama",
                         "pvclust"
                     )
 
@@ -409,14 +387,6 @@ shinyServer(function(input, output, session) {
                                 if (clusterr_algorithm[alg] %in% input$algorithm) {
                                     selectedAlgorithm <-
                                         selectedAlgorithm[selectedAlgorithm != clusterr_algorithm[alg]]
-                                }
-                            }
-                        }
-                        if (tolower(packages_clustering[p]) == tolower("gama")) {
-                            for (alg in 1:length(gama_algorithm)) {
-                                if (gama_algorithm[alg] %in% input$algorithm) {
-                                    selectedAlgorithm <-
-                                        selectedAlgorithm[selectedAlgorithm != gama_algorithm[alg]]
                                 }
                             }
                         }
@@ -499,20 +469,6 @@ shinyServer(function(input, output, session) {
                         } else {
                             selectedAlgorithm <- c(selectedAlgorithm,
                                                    clusterr_algorithm)
-                        }
-                    }
-
-                    if (tolower(input$packages[n]) == tolower("gama")) {
-                        if (length(input$algorithm) > 0) {
-                            for (alg in 1:length(gama_algorithm)) {
-                                if (gama_algorithm[alg] %notin% input$algorithm) {
-                                    selectedAlgorithm <- c(selectedAlgorithm,
-                                                           gama_algorithm[alg])
-                                }
-                            }
-                        } else {
-                            selectedAlgorithm <- c(selectedAlgorithm,
-                                                   gama_algorithm)
                         }
                     }
 
