@@ -79,12 +79,12 @@ appClustering <- function() {
 #'
 #' @param packages character vector with the packets running the algorithm.
 #' \code{NULL} The seven packages implemented are: cluster, ClusterR, advclust,
-#' amap, apcluster, gama, pvclust. \cr By default runs all packages.
+#' amap, apcluster, pvclust. \cr By default runs all packages.
 #'
 #' @param algorithm character vector with the algorithms implemented within the
 #' package. \code{NULL} The algorithms implemented are: fuzzy_cm,fuzzy_gg,
 #' fuzzy_gk,hclust,apclusterK,agnes,clara,daisy, \cr diana,fanny,mona,pam,gmm,
-#' kmeans_arma,kmeans_rcpp,mini_kmeans,gama,\cr pvclust.
+#' kmeans_arma,kmeans_rcpp,mini_kmeans,\cr pvclust.
 #'
 #' @param min An integer with the minimum number of clusters This data is
 #' necessary to indicate the minimum number of clusters when grouping the data.
@@ -151,9 +151,6 @@ appClustering <- function() {
 #'
 #' @importFrom
 #' pvclust pvclust pvpick
-#'
-#' @importFrom
-#' gama gama
 #'
 #' @importFrom
 #' amap hcluster
@@ -326,13 +323,13 @@ clustering <- function(path = NULL,
 #' the value of the argument.
 #'
 #' @param packages Array defining the clustering package. The seven packages
-#' implemented are: cluster, ClusterR, advclust, amap, apcluster, gama, pvclust.
+#' implemented are: cluster, ClusterR, advclust, amap, apcluster, pvclust.
 #' By default runs all packages.
 #'
 #' @param algorithm Array with the algorithms that implement the package.
 #' The algorithms implemented are: fuzzy_cm,fuzzy_gg,fuzzy_gk,hclust,apclusterK,
 #' agnes,clara,daisy,diana,fanny,mona,pam,gmm,kmeans_arma,kmeans_rcpp,
-#' mini_kmeans,gama,pvclust.
+#' mini_kmeans, pvclust.
 #'
 #' @param cluster_min Minimum number of clusters. at least one must be.
 #'
@@ -497,7 +494,7 @@ execute_datasets <- function(path,
 #' @param algorithms_execute Character vector with the algorithms to be
 #' executed. The algorithms implemented are: fuzzy_cm,fuzzy_gg,fuzzy_gk,hclust,
 #' apclusterK,agnes,clara,daisy,diana,fanny,mona,pam,gmm,kmeans_arma,
-#' kmeans_rcpp,mini_kmeans,gama,pvclust.
+#' kmeans_rcpp,mini_kmeans, pvclust.
 #'
 #' @param measures_execute Character array with the measurements of
 #' dissimilarity to be executed. Depending on the algorithm, one or the other is

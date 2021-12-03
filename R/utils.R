@@ -387,7 +387,6 @@ refactorName <- function(nameMeasure) {
                  pam_manhattan={"manhattan"},
                  gmm_euclidean={"euclidean"},
                  gmm_manhattan={"manhattan"},
-                 gama_euclidean={"euclidean"},
                  pvclust_euclidean={"euclidean"},
                  pvclust_correlation={"pvclust_correlation"}
                  ));
