@@ -1,9 +1,10 @@
+#'
 #' Method in charge of obtaining those metrics that are internal from those
-#' indicated
+#' indicated.
 #'
-#' @param metrics array with the metrics used in the calculation
+#' @param metrics Array with the metrics used in the calculation.
 #'
-#' @return returns an array with the metrics that are internal
+#' @return Return an array with the metrics that are internal.
 #'
 #' @keywords internal
 #'
@@ -19,15 +20,15 @@ row_name_df_internal = function(metrics) {
   result = c(result, CONST_TIME_INTERNAL)
 
   for (iterate in 1:length(metrics)) {
-    if (tolower(metrics[iterate]) == CONST_CONNECTIVITY_METRIC) {
+    if (tolower(metrics[iterate]) == tolower(CONST_CONNECTIVITY_METRIC)) {
       result = c(result, CONST_CONNECTIVITY_METRIC)
     }
 
-    if (tolower(metrics[iterate]) == CONST_DUNN_METRIC) {
+    if (tolower(metrics[iterate]) == tolower(CONST_DUNN_METRIC)) {
       result = c(result, CONST_DUNN_METRIC)
     }
 
-    if (tolower(metrics[iterate]) == CONST_SILHOUETTE_METRIC) {
+    if (tolower(metrics[iterate]) == tolower(CONST_SILHOUETTE_METRIC)) {
       result = c(result, CONST_SILHOUETTE_METRIC)
     }
 
@@ -55,16 +56,21 @@ row_name_df_internal = function(metrics) {
 }
 
 
+#'
 #' Method that applicate differents internal metrics about a data frame or
-#' matrix, for example dunn, connectivity etc
+#' matrix, for example dunn, connectivity etc.
 #'
-#' @param distance dissimilarity matrix
-#' @param clusters_vector array that containe tha data grouped in cluster
-#' @param dataf dataframe with original data
-#' @param method indicates the method for calculating distance between points
-#' @param metric array with external metric types
+#' @param distance Dissimilarity matrix.
 #'
-#' @return returns a list of the internal results initialized to zero
+#' @param clusters_vector Array that containe tha data grouped in cluster.
+#'
+#' @param dataf Dataframe with original data.
+#'
+#' @param method Indicates the method for calculating distance between points.
+#'
+#' @param metric Array with external metric types.
+#'
+#' @return Return a list of the internal results initialized to zero.
 #'
 #' @keywords internal
 #'
@@ -154,14 +160,18 @@ internal_validation = function(distance = NULL,
 }
 
 
-#' Method to calculate the connectivity
 #'
-#' @param distance dissimilarity matrix
-#' @param clusters_vector array that containe tha data grouped in cluster
-#' @param dt dataframe with original data
-#' @param method indicates the method for calculating distance between points
+#' Method to calculate the connectivity.
 #'
-#' @return returns a double with the result of the connectivity calculation
+#' @param distance Dissimilarity matrix.
+#'
+#' @param clusters_vector Array that containe tha data grouped in cluster.
+#'
+#' @param dt Dataframe with original data.
+#'
+#' @param method Indicates the method for calculating distance between points.
+#'
+#' @return Return a double with the result of the connectivity calculation.
 #'
 #' @keywords internal
 #'
@@ -187,14 +197,18 @@ connectivity_metric =
 
   }
 
-#' Method to calculate the dunn
 #'
-#' @param distance dissimilarity matrix
-#' @param clusters_vector array that containe tha data grouped in cluster
-#' @param dt dataframe with original data
-#' @param method indicates the method for calculating distance between points
+#' Method to calculate the dunn.
 #'
-#' @return returns a double with the result of the dunn calculation
+#' @param distance Dissimilarity matrix.
+#'
+#' @param clusters_vector Array that containe tha data grouped in cluster.
+#'
+#' @param dt Dataframe with original data.
+#'
+#' @param method Indicates the method for calculating distance between points.
+#'
+#' @return Return a double with the result of the dunn calculation.
 #'
 #' @keywords internal
 #'
@@ -214,12 +228,14 @@ dunn_metric = function(dist, clusters_vector, dt, me) {
   return (dunn)
 }
 
-#' Method to calculate the silhouette
 #'
-#' @param distance dissimilarity matrix
-#' @param clusters_vector array that containe tha data grouped in cluster
+#' Method to calculate the silhouette.
 #'
-#' @return returns a double with the result of the silhouette calculation
+#' @param distance Dissimilarity matrix.
+#'
+#' @param clusters_vector Array that containe tha data grouped in cluster.
+#'
+#' @return Return a double with the result of the silhouette calculation.
 #'
 #' @keywords internal
 #'
@@ -240,9 +256,9 @@ silhouette_metric = function (clusters_vector, distance) {
 }
 
 #'
-#'Method that return a list of external validation initialized to zero
+#'Method that return a list of external validation initialized to zero.
 #'
-#'@return a list of all values set to zero
+#'@return A list of all values set to zero.
 #'
 #'@keywords internal
 #'
@@ -273,14 +289,18 @@ initializeInternalValidation = function() {
 
 }
 
-#' Method to calculate the dunn
 #'
-#' @param distance dissimilarity matrix
-#' @param clusters array that containe tha data grouped in cluster
-#' @param datadf dataframe with original data
-#' @param method indicates the method for calculating distance between points
+#' Method to calculate the dunn.
 #'
-#' @return returns a double with the result of the dunn calculation
+#' @param distance Dissimilarity matrix.
+#'
+#' @param clusters Array that containe tha data grouped in cluster.
+#'
+#' @param datadf Dataframe with original data.
+#'
+#' @param method Indicate the method for calculating distance between points.
+#'
+#' @return Return a double with the result of the dunn calculation
 #'
 #' @keywords internal
 #'
@@ -323,16 +343,21 @@ calculate_dunn <-
   }
 
 
-#' Method to calculate the connectivity
 #'
-#' @param distance dissimilarity matrix
-#' @param clusters array that containe tha data grouped in cluster
-#' @param datdf dataframe with original data
-#' @param neighbSize number of neighbours
-#' @param method indicates the method for calculating distance between points.
-#' Default is euclidean
+#' Method to calculate the Connectivity
 #'
-#' @return returns a double with the result of the connectivity calculation
+#' @param distance Dissimilarity matrix.
+#'
+#' @param clusters Array that containe tha data grouped in cluster.
+#'
+#' @param datdf Dataframe with original data.
+#'
+#' @param neighbSize Number of neighbours.
+#'
+#' @param method Indicates the method for calculating distance between points.
+#' Default is euclidean.
+#'
+#' @return Return a double with the result of the connectivity calculation.
 #'
 #' @keywords internal
 #'
@@ -368,3 +393,47 @@ calculate_connectivity <-
     conn <- sum(same * matrix(1 / 1:neighbSize, nrow = nr, ncol = nc))
     return(conn)
   }
+
+#'
+#'Method for filtering internal columns of a dataset.
+#'
+#'@param df data frame with clustering results.
+#'
+#'@return dafa frame filtered with the columns of the internal measurements.
+#'
+
+transform_dataset_internal = function(df) {
+
+  nameColumns <- colnames(df)
+
+  numberOcurrenceTime <- which(nameColumns == CONST_TIME_EXTERNAL)
+
+  numberOcurrenceTimeAttr <- which(nameColumns == CONST_TIME_EXTERNAL_ATTR)
+
+  if (length(numberOcurrenceTime) > 1){
+
+    c <- c()
+
+    #' Exists internal measure
+
+    for (iterate in 1:length(nameColumns)) {
+
+      if (nameColumns[iterate] %in% c(CONST_ALGORITHM,CONST_DISTANCE,CONST_CLUSTERS,CONST_DATASET,CONST_RANKING)){
+        c <- append(c,iterate)
+      } else {
+
+        if (iterate >= numberOcurrenceTime[2] && iterate < numberOcurrenceTimeAttr[1]){
+          c <- append(c,iterate)
+        } else {
+          if (iterate >= numberOcurrenceTimeAttr[2]){
+            c <- append(c,iterate)
+          }
+        }
+      }
+    }
+
+    nameColumns <- c
+  }
+
+  return (select(df, nameColumns))
+}

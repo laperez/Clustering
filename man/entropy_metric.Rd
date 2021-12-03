@@ -2,23 +2,23 @@
 % Please edit documentation in R/external_validation.R
 \name{entropy_metric}
 \alias{entropy_metric}
-\title{Method to calculate the entropy}
+\title{Method to calculate the entropy.}
 \usage{
 entropy_metric(conversion_data_frame, table_convert, column_dataset_label)
 }
 \arguments{
-\item{conversion_data_frame}{returns a double with the result of the entropy
-calculation}
+\item{conversion_data_frame}{A double with the result of the entropy
+calculation.}
 
-\item{table_convert}{table conversion (variable - cluster)}
+\item{table_convert}{Table conversion (variable - cluster).}
 
-\item{column_dataset_label}{array with the calculation of the clustering
-algorithm}
+\item{column_dataset_label}{Array with the calculation of the clustering
+algorithm.}
 }
 \value{
-returns a double with the result of the entropy calculation
+Return a double with the result of the entropy calculation.
 }
 \description{
-Method to calculate the entropy
+Method to calculate the entropy.
 }
 \keyword{internal}

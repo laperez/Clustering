@@ -3,19 +3,21 @@
 \name{calculate_best_validation_external_by_metrics}
 \alias{calculate_best_validation_external_by_metrics}
 \title{Method that calculates which algorithm and which metric behaves best for the
-datasets provided}
+datasets provided.}
 \usage{
-calculate_best_validation_external_by_metrics(df)
+calculate_best_validation_external_by_metrics(df, metric)
 }
 \arguments{
-\item{df}{data matrix or data frame}
+\item{df}{Data matrix or data frame.}
+
+\item{metric}{String with the metric.}
 }
 \value{
-returns a table with the algorithm and the best performing metric for
-the datasets
+Return a table with the algorithm and the best performing metric for
+the datasets.
 }
 \description{
 Method that calculates which algorithm and which metric behaves best for the
-datasets provided
+datasets provided.
 }
 \keyword{internal}

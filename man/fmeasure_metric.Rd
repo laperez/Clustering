@@ -2,23 +2,23 @@
 % Please edit documentation in R/external_validation.R
 \name{fmeasure_metric}
 \alias{fmeasure_metric}
-\title{Method to calculate the f_measure}
+\title{Method to calculate the f_measure.}
 \usage{
 fmeasure_metric(true_positive, false_positive, false_negative)
 }
 \arguments{
-\item{true_positive}{array with matching elements of B is in the same cluster}
+\item{true_positive}{Array with matching elements of B is in the same cluster.}
 
-\item{false_positive}{array with non matching element of B is in the same
-cluster}
+\item{false_positive}{Array with non matching element of B is in the same
+cluster.}
 
-\item{false_negative}{array with matching elements of B is not in the same
-cluster}
+\item{false_negative}{Array with matching elements of B is not in the same
+cluster.}
 }
 \value{
-returns a double with the f_measure calculation
+Returns a double with the f_measure calculation.
 }
 \description{
-Method to calculate the f_measure
+Method to calculate the f_measure.
 }
 \keyword{internal}

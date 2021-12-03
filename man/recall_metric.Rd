@@ -2,20 +2,20 @@
 % Please edit documentation in R/external_validation.R
 \name{recall_metric}
 \alias{recall_metric}
-\title{Method to calculate the recall}
+\title{Method to calculate the recall.}
 \usage{
 recall_metric(true_positive, false_negative)
 }
 \arguments{
-\item{true_positive}{array with matching elements of B is in the same cluster}
+\item{true_positive}{Array with matching elements of B is in the same cluster.}
 
-\item{false_negative}{array with matching elements of B is not in the same
-cluster}
+\item{false_negative}{Array with matching elements of B is not in the same
+cluster.}
 }
 \value{
-returns a double with the recall calculation
+Returns a double with the recall calculation.
 }
 \description{
-Method to calculate the recall
+Method to calculate the recall.
 }
 \keyword{internal}

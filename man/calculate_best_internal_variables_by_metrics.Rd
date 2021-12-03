@@ -2,17 +2,17 @@
 % Please edit documentation in R/validation.R
 \name{calculate_best_internal_variables_by_metrics}
 \alias{calculate_best_internal_variables_by_metrics}
-\title{Method that calculates the best rated internal metrics}
+\title{Method that calculates the best rated internal metrics.}
 \usage{
 calculate_best_internal_variables_by_metrics(df)
 }
 \arguments{
-\item{df}{data matrix or data frame}
+\item{df}{Data matrix or data frame.}
 }
 \value{
-returns a table with the internal metrics that has the best rating
+Return a table with the internal metrics that has the best rating.
 }
 \description{
-Method that calculates the best rated internal metrics
+Method that calculates the best rated internal metrics.
 }
 \keyword{internal}

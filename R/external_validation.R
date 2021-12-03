@@ -1,9 +1,10 @@
+#'
 #' Method in charge of obtaining those metrics that are external from those
-#' indicated
+#' indicated.
 #'
-#' @param metrics array with the metrics used in the calculation
+#' @param metrics Array with the metrics used in the calculation.
 #'
-#' @return returns an array with the metrics that are external
+#' @return Return an array with the metrics that are external.
 #'
 #' @keywords internal
 #'
@@ -18,35 +19,40 @@ row_name_df_external = function(metrics) {
   result = c(result, CONST_RANKING)
   result = c(result, CONST_TIME_EXTERNAL)
 
+  insertTime <- 0
+
   for (iterate in 1:length(metrics)) {
 
-    if (tolower(metrics[iterate]) == CONST_ENTROPY_METRIC) {
+    if (tolower(metrics[iterate]) == tolower(CONST_ENTROPY_METRIC)) {
       result = c(result, CONST_ENTROPY_METRIC)
     }
 
-    if (tolower(metrics[iterate]) == CONST_VARIATION_INFORMATION_METRIC) {
+    if (tolower(metrics[iterate]) == tolower(CONST_VARIATION_INFORMATION_METRIC)) {
       result = c(result, CONST_VARIATION_INFORMATION_METRIC)
     }
 
-    if (tolower(metrics[iterate]) == CONST_PRECISION_METRIC) {
+    if (tolower(metrics[iterate]) == tolower(CONST_PRECISION_METRIC)) {
       result = c(result, CONST_PRECISION_METRIC)
     }
 
-    if (tolower(metrics[iterate]) == CONST_RECALL_METRIC) {
+    if (tolower(metrics[iterate]) == tolower(CONST_RECALL_METRIC)) {
       result = c(result, CONST_RECALL_METRIC)
     }
 
-    if (tolower(metrics[iterate]) == CONST_F_MEASURE_METRIC) {
+    if (tolower(metrics[iterate]) == tolower(CONST_F_MEASURE_METRIC)) {
       result = c(result, CONST_F_MEASURE_METRIC)
     }
 
-    if (tolower(metrics[iterate]) == CONST_FOWLKES_MALLOWS_INDEX_METRIC) {
+    if (tolower(metrics[iterate]) == tolower(CONST_FOWLKES_MALLOWS_INDEX_METRIC)) {
       result = c(result, CONST_FOWLKES_MALLOWS_INDEX_METRIC)
     }
 
     # Varibles
     if (tolower(metrics[iterate]) == tolower(CONST_TIME_EXTERNAL_ATTR)) {
-      result = c(result, CONST_TIME_EXTERNAL_ATTR)
+      if (insertTime == 0) {
+        result = c(result, CONST_TIME_EXTERNAL_ATTR)
+        insertTime <- 1
+      }
     }
 
     if (tolower(metrics[iterate]) == tolower(CONST_ENTROPY_METRIC_ATTR)) {
@@ -81,15 +87,18 @@ row_name_df_external = function(metrics) {
 }
 
 
+#'
 #' Method that applicate differents external metrics about a data frame or
 #' matrix, for example precision, recall etc
 #'
-#' @param column_dataset_label array containing the distribution of the data in
-#' the cluster
-#' @param clusters_vector array that containe tha data grouped in cluster
-#' @param metric array with external metric types
+#' @param column_dataset_label Array containing the distribution of the data in
+#' the cluster.
 #'
-#' @return returns a list of the external results initialized to zero
+#' @param clusters_vector Array that containe tha data grouped in cluster.
+#'
+#' @param metric Array with external metric types.
+#'
+#' @return Return a list of the external results initialized to zero.
 #'
 #' @keywords internal
 #'
@@ -255,13 +264,15 @@ external_validation = function(column_dataset_label,
   return (resultadoValores)
 }
 
+#'
 #' Method in charge of creating a table from an array with the values of the
-#' variable used as a sample and another with the classification of the values
+#' variable used as a sample and another with the classification of the values.
 #'
-#' @param clusters_vector array of the variable used for the classification
-#' @param column_dataset_label array with the grouping of the values
+#' @param clusters_vector Array of the variable used for the classification.
 #'
-#' @return returns a table with the grouping of both arrays
+#' @param column_dataset_label Array with the grouping of the values.
+#'
+#' @return Return a table with the grouping of both arrays.
 #'
 #' @keywords internal
 #'
@@ -270,15 +281,18 @@ convert_table = function (clusters_vector, column_dataset_label) {
   return (table (clusters_vector, column_dataset_label))
 }
 
-#' Method to calculate the entropy
 #'
-#' @param conversion_data_frame returns a double with the result of the entropy
-#' calculation
-#' @param table_convert table conversion (variable - cluster)
-#' @param column_dataset_label array with the calculation of the clustering
-#' algorithm
+#' Method to calculate the entropy.
 #'
-#' @return returns a double with the result of the entropy calculation
+#' @param conversion_data_frame A double with the result of the entropy
+#' calculation.
+#'
+#' @param table_convert Table conversion (variable - cluster).
+#'
+#' @param column_dataset_label Array with the calculation of the clustering
+#' algorithm.
+#'
+#' @return Return a double with the result of the entropy calculation.
 #'
 #' @keywords internal
 #'
@@ -304,14 +318,16 @@ entropy_metric =
   }
 
 
-#' Method to calculate the variation information
 #'
-#' @param conversion_data_frame returns a double with the result of the entropy
-#' calculation
-#' @param table_convert table conversion (variable - cluster)
+#' Method to calculate the variation information.
 #'
-#' @return returns a double with the result of the variation information
-#' calculation
+#' @param conversion_data_frame Return a double with the result of the entropy
+#' calculation.
+#'
+#' @param table_convert Table conversion (variable - cluster).
+#'
+#' @return Returns a double with the result of the variation information
+#' calculation.
 #'
 #' @keywords internal
 #'
@@ -366,13 +382,15 @@ variation_information_metric =
     return (variation_information)
   }
 
-#' Method to calculate the precision
 #'
-#' @param true_positive array with matching elements of B is in the same cluster
-#' @param false_positive array with non matching element of B is in the same
-#' cluster
+#' Method to calculate the precision.
 #'
-#' @return returns a double with the precision calculation
+#' @param true_positive Array with matching elements of B is in the same cluster.
+#'
+#' @param false_positive Array with non matching element of B is in the same
+#' cluster.
+#'
+#' @return Returns a double with the precision calculation.
 #'
 #' @keywords internal
 #'
@@ -388,13 +406,15 @@ precision_metric = function (true_positive, false_positive) {
 }
 
 
-#' Method to calculate the recall
 #'
-#' @param true_positive array with matching elements of B is in the same cluster
-#' @param false_negative array with matching elements of B is not in the same
-#' cluster
+#' Method to calculate the recall.
 #'
-#' @return returns a double with the recall calculation
+#' @param true_positive Array with matching elements of B is in the same cluster.
+#'
+#' @param false_negative Array with matching elements of B is not in the same
+#' cluster.
+#'
+#' @return Returns a double with the recall calculation.
 #'
 #' @keywords internal
 #'
@@ -409,15 +429,18 @@ recall_metric = function(true_positive, false_negative) {
 
 }
 
-#' Method to calculate the f_measure
 #'
-#' @param true_positive array with matching elements of B is in the same cluster
-#' @param false_positive array with non matching element of B is in the same
-#' cluster
-#' @param false_negative array with matching elements of B is not in the same
-#' cluster
+#' Method to calculate the f_measure.
 #'
-#' @return returns a double with the f_measure calculation
+#' @param true_positive Array with matching elements of B is in the same cluster.
+#'
+#' @param false_positive Array with non matching element of B is in the same
+#' cluster.
+#'
+#' @param false_negative Array with matching elements of B is not in the same
+#' cluster.
+#'
+#' @return Returns a double with the f_measure calculation.
 #'
 #' @keywords internal
 #'
@@ -440,16 +463,19 @@ fmeasure_metric =
     return (fmeasure)
   }
 
-#' Method to calculate the fowlkes and mallows
+#'
+#' Method to calculate the fowlkes and mallows.
 #'
 #'
-#' @param true_positive array with matching elements of B is in the same cluster
-#' @param false_positive array with non matching element of B is in the same
-#' cluster
-#' @param false_negative array with matching elements of B is not in the same
-#' cluster
+#' @param true_positive Array with matching elements of B is in the same cluster.
 #'
-#' @return returns a double with the fowlkes_mallows_index calculation
+#' @param false_positive Array with non matching element of B is in the same
+#' cluster.
+#'
+#' @param false_negative Array with matching elements of B is not in the same
+#' cluster.
+#'
+#' @return Returns a double with the fowlkes_mallows_index calculation.
 #'
 #' @keywords internal
 #'
@@ -472,15 +498,13 @@ fowlkes_mallows_index_metric =
 
   }
 
-
 #'
-#'Method that return a list of internal validation initialized to zero
+#'Method that return a list of internal validation initialized to zero.
 #'
-#'@return a list of all values set to zero
+#'@return A list of all values set to zero.
 #'
 #'@keywords internal
 #'
-
 
 initializeExternalValidation = function() {
   entropy = 0
@@ -523,11 +547,11 @@ initializeExternalValidation = function() {
 }
 
 #'
-#'Method for calculating entropy
+#'Method for calculating entropy.
 #'
-#'@param x_vec with datas to calculate entropy
+#'@param x_vec With datas to calculate entropy.
 #'
-#'@return an array with the calculate
+#'@return An array with the calculate.
 #'
 #'@keywords internal
 #'
@@ -546,4 +570,48 @@ entropy_formula = function(x_vec) {
   }
 
   return(vec)
+}
+
+#'
+#'Method for filtering external columns of a dataset.
+#'
+#'@param df Data frame with clustering results.
+#'
+#'@return Dafa frame filtered with the columns of the external measurements.
+#'
+
+transform_dataset = function(df) {
+
+  nameColumns <- colnames(df)
+
+  numberOcurrenceTime <- which(nameColumns == CONST_TIME_EXTERNAL)
+
+  numberOcurrenceTimeAttr <- which(nameColumns == CONST_TIME_EXTERNAL_ATTR)
+
+  if (length(numberOcurrenceTime) > 1){
+
+    c <- c()
+
+    #' Exists internal measure
+
+    for (iterate in 1:length(nameColumns)) {
+
+      if (nameColumns[iterate] %in% c(CONST_ALGORITHM,CONST_DISTANCE,CONST_CLUSTERS,CONST_DATASET,CONST_RANKING)){
+        c <- append(c,iterate)
+      } else {
+
+        if (iterate < numberOcurrenceTime[2]){
+          c <- append(c,iterate)
+        } else {
+          if (iterate >= numberOcurrenceTimeAttr[1] && iterate < numberOcurrenceTimeAttr[2]){
+            c <- append(c,iterate)
+          }
+        }
+      }
+    }
+
+    nameColumns <- c
+  }
+
+  return (select(df, nameColumns))
 }

@@ -2,29 +2,22 @@
 % Please edit documentation in R/app.R
 \name{result_external_algorithm_by_metric}
 \alias{result_external_algorithm_by_metric}
-\title{External results by algorithm}
+\title{External results by algorithm.}
 \usage{
-result_external_algorithm_by_metric(df, algorithm)
+result_external_algorithm_by_metric(df, metric)
 }
 \arguments{
 \item{df}{data matrix or data frame with the result of running the clustering
 algorithm.}
 
-\item{algorithm}{It's a string with the algorithm we want to evaluate your
-results}
+\item{metric}{It's a string with the metric we want to evaluate your results.}
 }
 \value{
-a data.frame with the results of the algorithm indicated as parameter.
+A data.frame with the results of the algorithm indicated as parameter.
 }
 \description{
-Method that returns a data.frame with the algorithm and the
-metric indicated as parameters.
-}
-\details{
-The functionality of this method is to return as a result a
-data.frame with the algorithm indicated as a parameter along with the rest of
-the dissimilarity measurements and the
-external evaluation metrics.
+It is used for obtaining the results of an algorithm indicated
+as a parameter grouped by number of clusters.
 }
 \examples{
 
@@ -33,10 +26,9 @@ result = clustering(
                min = 4,
                max = 5,
                algorithm='gmm',
-               metrics=c("precision"),
-               attributes = FALSE
+               metrics=c("Precision")
          )
 
-result_external_algorithm_by_metric(result,'daisy')
+result_external_algorithm_by_metric(result,'Precision')
 
 }

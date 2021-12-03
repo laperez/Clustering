@@ -2,17 +2,17 @@
 % Please edit documentation in R/utils.R
 \name{convert_numeric_matrix}
 \alias{convert_numeric_matrix}
-\title{Method that converts a matrix into numerical format}
+\title{Method that converts a matrix into numerical format.}
 \usage{
 convert_numeric_matrix(datas)
 }
 \arguments{
-\item{datas}{information matrix}
+\item{datas}{information matrix.}
 }
 \value{
-return a matrix in numeric format
+return a matrix in numeric format.
 }
 \description{
-Method that converts a matrix into numerical format
+Method that converts a matrix into numerical format.
 }
 \keyword{internal}

@@ -3,18 +3,18 @@
 \name{row_name_df_external}
 \alias{row_name_df_external}
 \title{Method in charge of obtaining those metrics that are external from those
-indicated}
+indicated.}
 \usage{
 row_name_df_external(metrics)
 }
 \arguments{
-\item{metrics}{array with the metrics used in the calculation}
+\item{metrics}{Array with the metrics used in the calculation.}
 }
 \value{
-returns an array with the metrics that are external
+Return an array with the metrics that are external.
 }
 \description{
 Method in charge of obtaining those metrics that are external from those
-indicated
+indicated.
 }
 \keyword{internal}

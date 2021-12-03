@@ -2,19 +2,19 @@
 % Please edit documentation in R/internal_validation.R
 \name{silhouette_metric}
 \alias{silhouette_metric}
-\title{Method to calculate the silhouette}
+\title{Method to calculate the silhouette.}
 \usage{
 silhouette_metric(clusters_vector, distance)
 }
 \arguments{
-\item{clusters_vector}{array that containe tha data grouped in cluster}
+\item{clusters_vector}{Array that containe tha data grouped in cluster.}
 
-\item{distance}{dissimilarity matrix}
+\item{distance}{Dissimilarity matrix.}
 }
 \value{
-returns a double with the result of the silhouette calculation
+Return a double with the result of the silhouette calculation.
 }
 \description{
-Method to calculate the silhouette
+Method to calculate the silhouette.
 }
 \keyword{internal}

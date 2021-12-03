@@ -2,16 +2,16 @@
 % Please edit documentation in R/app.R
 \name{evaluate_best_validation_internal_by_metrics}
 \alias{evaluate_best_validation_internal_by_metrics}
-\title{Evaluation of the algorithms by measures of dissimilarity.}
+\title{Evaluates algorithms by measures of dissimilarity based on a metric.}
 \usage{
-evaluate_best_validation_internal_by_metrics(df)
+evaluate_best_validation_internal_by_metrics(df, metric)
 }
 \arguments{
-\item{df}{data matrix or data frame with the result of running the clustering
+\item{df}{Data matrix or data frame with the result of running the clustering
 algorithm.}
 }
 \value{
-a data.frame with the algorithms classified by measures of
+A data.frame with the algorithms classified by measures of
 dissimilarity.
 }
 \description{
@@ -19,11 +19,8 @@ Method that calculates which algorithm and which metric behaves
 best for the datasets provided.
 }
 \details{
-Method that calculates the behavior of dissimilarity measures by
-algorithm, so we can evaluate which of the different measures of
-dissimilarity used by the algorithms presents the best behavior.
-This method should be used to determine which dissimilarity measure has the
-best behavior for intenal evaluation measures.
+This method groups the data by algorithm and distance measure,
+instead of obtaining the best attribute from the data set.
 }
 \examples{
 
@@ -37,9 +34,8 @@ result = clustering(
                min = 4,
                max = 5,
                algorithm='gmm',
-               metrics=c("connectivity"),
-               attributes = TRUE
+               metrics=c("Connectivity")
          )
 
-evaluate_best_validation_internal_by_metrics(result)
+evaluate_best_validation_internal_by_metrics(result,"Connectivity")
 }

@@ -8,15 +8,15 @@ matrix, for example precision, recall etc}
 external_validation(column_dataset_label, clusters_vector, metric = CONST_NULL)
 }
 \arguments{
-\item{column_dataset_label}{array containing the distribution of the data in
-the cluster}
+\item{column_dataset_label}{Array containing the distribution of the data in
+the cluster.}
 
-\item{clusters_vector}{array that containe tha data grouped in cluster}
+\item{clusters_vector}{Array that containe tha data grouped in cluster.}
 
-\item{metric}{array with external metric types}
+\item{metric}{Array with external metric types.}
 }
 \value{
-returns a list of the external results initialized to zero
+Return a list of the external results initialized to zero.
 }
 \description{
 Method that applicate differents external metrics about a data frame or

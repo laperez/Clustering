@@ -15,7 +15,8 @@ specify_decimal <-
 
 
 
-#' Method that return a list of files that exists in a directory
+#'
+#'  Method that return a list of files that exists in a directory
 #'
 #' @param directory of the directory
 #'
@@ -102,6 +103,7 @@ detect_definition_attribute = function(path) {
 #'
 
 number_variables_dataset <- function(path) {
+
   files <- path_dataset(path)
 
   number_variables <- 0
@@ -154,6 +156,7 @@ extension_file <- function(path) {
 #'
 
 read_file <- function(path) {
+
   result <- CONST_NULL
 
   if (extension_file(path) == CONST_FORMAT_ARFF_FILE) {
@@ -172,15 +175,32 @@ read_file <- function(path) {
   return (result)
 }
 
+#'
+#'
+#'Method to filter only the external measurement columns
+#'
+#'@param data information matrix.
+#'
+#'@param external boolean indicating whether it is an external measurement.
+#'
+#'@return returns a data frame with the filtered columns.
+#'
+#'@keywords internal
+#'
+
 dataframe_by_metrics_evaluation <- function(data, external = T) {
+
+  if (external) {
+    data <- transform_dataset(data)
+  } else {
+    data <- transform_dataset_internal(data)
+  }
 
   columns <- colnames(data)
   index <- 2
   cols_remove <- NULL
 
-  if (external){
-    cols_remove <- c('timeInternal')
-  } else cols_remove <- c('timeExternal')
+  cols_remove <- c('Time')
 
   for (number_col in 6:length(columns)){
 
@@ -202,11 +222,11 @@ dataframe_by_metrics_evaluation <- function(data, external = T) {
 }
 
 #'
-#'Method that converts a matrix into numerical format
+#'Method that converts a matrix into numerical format.
 #'
-#'@param datas information matrix
+#'@param datas information matrix.
 #'
-#'@return return a matrix in numeric format
+#'@return return a matrix in numeric format.
 #'
 #'@keywords internal
 #'
@@ -233,4 +253,142 @@ convert_numeric_matrix <- function(datas){
   }
 
   return (datas)
+}
+
+#'
+#'
+#'Method for filtering clustering results.
+#'
+#'@param result data.frame with clustering results.
+#'
+#'@return a matrix with the filtered columns.
+#'
+#'@keywords internal
+#'
+
+resultClustering <- function(result) {
+
+  colname <- colnames(result)
+  colname <- colname[!colname %in% c(CONST_PRECISION_METRIC_ATTR,
+                                     CONST_RECALL_METRIC_ATTR,
+                                     CONST_ENTROPY_METRIC_ATTR,
+                                     CONST_VARIATION_INFORMATION_METRIC_ATTR,
+                                     CONST_F_MEASURE_METRIC_ATTR,
+                                     CONST_FOWLKES_MALLOWS_INDEX_METRIC_ATTR,
+                                     CONST_DUNN_METRIC,
+                                     CONST_DUNN_METRIC_ATTR,
+                                     CONST_SILHOUETTE_METRIC,
+                                     CONST_SILHOUETTE_METRIC_ATTR,
+                                     CONST_CONNECTIVITY_METRIC,
+                                     CONST_CONNECTIVITY_METRIC_ATTR,
+                                     CONST_TIME_INTERNAL_ATTR)]
+
+  return (select(result, colname))
+
+}
+
+#'
+#'Method to convert columns to ordinal.
+#'
+#'@param df data frame with the results.
+#'
+#'@return convert data frame to Ordinal.
+#'
+#'
+
+convert_toOrdinal <- function(df) {
+
+  nameColumns <- colnames(df)
+
+  for (iterate in 1:length(nameColumns)) {
+
+    if (tolower(nameColumns[iterate]) == tolower(CONST_RANKING)){
+      df$Var = toOrdinal(as.numeric(df$Var))
+    }
+
+    if (tolower(nameColumns[iterate]) == tolower(CONST_PRECISION_METRIC_ATTR)){
+      df$PrecisionAtt = toOrdinal(as.numeric(df$PrecisionAtt))
+    }
+
+    if (tolower(nameColumns[iterate]) == tolower(CONST_RECALL_METRIC_ATTR)){
+      df$RecallAtt = toOrdinal(as.numeric(df$RecallAtt))
+    }
+
+    if (tolower(nameColumns[iterate]) == tolower(CONST_ENTROPY_METRIC_ATTR)){
+      df$EntropyAtt = toOrdinal(as.numeric(df$EntropyAtt))
+    }
+
+    if (tolower(nameColumns[iterate]) == tolower(CONST_VARIATION_INFORMATION_METRIC_ATTR)){
+      df$Variation_informationAtt = toOrdinal(as.numeric(df$Variation_informationAtt))
+    }
+
+    if (tolower(nameColumns[iterate]) == tolower(CONST_F_MEASURE_METRIC_ATTR)){
+      df$F_measureAtt = toOrdinal(as.numeric(df$F_measureAtt))
+    }
+
+    if (tolower(nameColumns[iterate]) == tolower(CONST_FOWLKES_MALLOWS_INDEX_METRIC_ATTR)){
+      df$Fowlkes_mallows_indexAtt = toOrdinal(as.numeric(df$Fowlkes_mallows_indexAtt))
+    }
+
+    if (tolower(nameColumns[iterate]) == tolower(CONST_DUNN_METRIC_ATTR)){
+      df$DunnAtt = toOrdinal(as.numeric(df$DunnAtt))
+    }
+
+    if (tolower(nameColumns[iterate]) == tolower(CONST_SILHOUETTE_METRIC_ATTR)){
+      df$SilhouetteAtt = toOrdinal(as.numeric(df$SilhouetteAtt))
+    }
+
+    if (tolower(nameColumns[iterate]) == tolower(CONST_CONNECTIVITY_METRIC_ATTR)){
+      df$ConnectivityAtt = toOrdinal(as.numeric(df$ConnectivityAtt))
+    }
+
+    if (tolower(nameColumns[iterate]) == tolower(CONST_TIME_EXTERNAL_ATTR)){
+      df$TimeAtt = toOrdinal(as.numeric(df$TimeAtt))
+    }
+  }
+
+  return (df)
+}
+
+#'
+#'
+#'Method for refactoring the distance measurement name.
+#'
+#'@param nameMeasure name of the distance measure
+#'
+#'@return a string with the refactored measure name
+#'
+#'@keywords internal
+#'
+
+refactorName <- function(nameMeasure) {
+
+    return (switch(nameMeasure,
+                 kmeans_rcpp={"-"},
+                 kmeans_arma={"-"},
+                 mini_kmeans={"-"},
+                 pearson_correlation={"correlation"},
+                 hclust_euclidean={"euclidean"},
+                 apclusterK_euclidean={"euclidean"},
+                 apclusterK_manhattan={"manhattan"},
+                 apclusterK_minkowski={"minkowski"},
+                 agnes_euclidean={"euclidean"},
+                 agnes_manhattan={"manhattan"},
+                 clara_euclidean={"euclidean"},
+                 clara_manhattan={"manhattan"},
+                 daisy_manhattan={"manhattan"},
+                 daisy_gower={"gower"},
+                 daisy_euclidean={"euclidean"},
+                 diana_euclidean={"euclidean"},
+                 fanny_euclidean={"euclidean"},
+                 fanny_manhattan={"fanny_manhattan"},
+                 mona={"-"},
+                 pam_euclidean={"euclidean"},
+                 pam_manhattan={"manhattan"},
+                 gmm_euclidean={"euclidean"},
+                 gmm_manhattan={"manhattan"},
+                 gama_euclidean={"euclidean"},
+                 pvclust_euclidean={"euclidean"},
+                 pvclust_correlation={"pvclust_correlation"}
+                 ));
 }

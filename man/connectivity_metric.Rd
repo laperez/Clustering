@@ -2,23 +2,23 @@
 % Please edit documentation in R/internal_validation.R
 \name{connectivity_metric}
 \alias{connectivity_metric}
-\title{Method to calculate the connectivity}
+\title{Method to calculate the connectivity.}
 \usage{
 connectivity_metric(distance, clusters_vector, dt, method)
 }
 \arguments{
-\item{distance}{dissimilarity matrix}
+\item{distance}{Dissimilarity matrix.}
 
-\item{clusters_vector}{array that containe tha data grouped in cluster}
+\item{clusters_vector}{Array that containe tha data grouped in cluster.}
 
-\item{dt}{dataframe with original data}
+\item{dt}{Dataframe with original data.}
 
-\item{method}{indicates the method for calculating distance between points}
+\item{method}{Indicates the method for calculating distance between points.}
 }
 \value{
-returns a double with the result of the connectivity calculation
+Return a double with the result of the connectivity calculation.
 }
 \description{
-Method to calculate the connectivity
+Method to calculate the connectivity.
 }
 \keyword{internal}

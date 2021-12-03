@@ -8,19 +8,19 @@ make an external or internal validation of the cluster.}
 aggExCluster_euclidean(dt, clusters, metric)
 }
 \arguments{
-\item{dt}{matrix or data frame with the set of values to be applied to the
+\item{dt}{Matrix or data frame with the set of values to be applied to the
 algorithm.}
 
-\item{clusters}{is an integer that indexes the number of clusters we want to
+\item{clusters}{It's an integer that indexes the number of clusters we want to
 create.}
 
-\item{metric}{is a characters vector with the metrics avalaible in the
-package. The metrics implemented are: entropy, variation_information,
-precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,
-silhouette.}
+\item{metric}{It's a characters vector with the metrics avalaible in the
+package. The metrics implemented are: Entropy, Variation_information,
+Precision,Recall,F_measure,Fowlkes_mallows_index,Connectivity,Dunn,
+Silhouette.}
 }
 \value{
-returns a list with both the internal and external evaluation of the
+Return a list with both the internal and external evaluation of the
 grouping.
 }
 \description{

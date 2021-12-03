@@ -2,14 +2,14 @@
 % Please edit documentation in R/external_validation.R
 \name{initializeExternalValidation}
 \alias{initializeExternalValidation}
-\title{Method that return a list of internal validation initialized to zero}
+\title{Method that return a list of internal validation initialized to zero.}
 \usage{
 initializeExternalValidation()
 }
 \value{
-a list of all values set to zero
+A list of all values set to zero.
 }
 \description{
-Method that return a list of internal validation initialized to zero
+Method that return a list of internal validation initialized to zero.
 }
 \keyword{internal}

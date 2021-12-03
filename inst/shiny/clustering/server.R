@@ -14,7 +14,7 @@ fillComboExternalGraphs <- function(metrics) {
 
     if (length(metrics) > 0) {
         for (m in 1:length(metrics)) {
-            if (metrics[m] %not in% c(
+            if (tolower(metrics[m]) %not in% c(
                 "entropy",
                 "precision",
                 "recall",
@@ -39,7 +39,7 @@ fillComboInternalGraphs <- function(metrics) {
 
     if (length(metrics) > 0) {
         for (m in 1:length(metrics)) {
-            if (metrics[m] %not in% c("connectivity",
+            if (tolower(metrics[m]) %not in% c("connectivity",
                                       "dunn",
                                       "silhouette")) {
                 result <- result[result != metrics[m]]
@@ -550,19 +550,15 @@ shinyServer(function(input, output, session) {
                        type = "error")
         } else {
 
-            visible = F
-
             printFirstTable = F
-
-            if (input$visible == "TRUE")
-                visible = T
 
             # We check if the user has marked that the data should be uploaded from a directory
             # or a dataframe
 
             if (input$typeExecution == "data") {
-                data = NULL
 
+
+                data = NULL
 
                 if (input$datasetTest == "basketball") {
                     data = Clustering::basketball
@@ -591,106 +587,47 @@ shinyServer(function(input, output, session) {
                             algorithm = input$algorithm,
                             min = input$clustering[1],
                             max = input$clustering[2],
-                            metrics = input$metrics,
-                            attributes  = visible
+                            metrics = input$metrics
                         )
-
-                    columnnames <- colnames(df_result$result)
-
-                    # Exclude ranking column.
-
-                    columnnames <-
-                        columnnames[columnnames != "Ranking"]
-
-                    # Check if has external or internal column
-
-                    if (isFALSE(df_result$has_internal_metrics)) {
-                        columnnames <- columnnames[columnnames != "timeInternal"]
-                    }
-
-                    if (isFALSE(df_result$has_external_metrics)) {
-                        columnnames <- columnnames[columnnames != "timeExternal"]
-                    }
-
-                    # Select only values classified like first
-
-                    result <-
-                        dplyr::filter(as.data.frame(df_result$result),
-                                      Ranking == 1) %>% select(columnnames)
-
-                    # Render tables and graphics
-
-                    output$tableClustering <-
-                        DT::renderDataTable(DT::datatable(result,
-                                                          extensions = c('Buttons','ColReorder'),
-                                                          options = list(
-                                                              colReorder = TRUE,
-                                                              scrollX = T,
-                                                              lengthChange = F,
-                                                              scroller = T,
-                                                              dom = 'Bfrtip',
-                                                              buttons =
-                                                                  list(
-                                                                      list(
-                                                                          extend = 'copy',
-                                                                          buttons = c('copy'),
-                                                                          filename = 'Clustering'
-                                                                      ),
-                                                                      list(
-                                                                          extend = 'csv',
-                                                                          buttons = c('csv'),
-                                                                          filename = 'Clustering'
-                                                                      ),
-                                                                      list(
-                                                                          extend = 'pdf',
-                                                                          buttons = c('pdf'),
-                                                                          filename = 'Clustering'
-                                                                      ),
-                                                                      list(
-                                                                          extend = 'excel',
-                                                                          buttons = c('excel'),
-                                                                          filename = 'Clustering'
-                                                                      ))
-                                                          )))
 
 
                     if (df_result$has_external_metrics) {
 
                         result_external <-
-                            Clustering::evaluate_best_validation_external_by_metrics(df_result)
+                            Clustering::best_ranked_external_metrics(df_result)
 
                         output$best_evaluation1 <-
                             DT::renderDataTable(DT::datatable(result_external$result,
-                                                  extensions = c('Buttons','ColReorder'),
-                                                  options = list(
-                                                      colReorder = TRUE,
-                                                      scrollX = T,
-                                                      lengthChange = F,
-                                                      scroller = T,
-                                                      dom = 'Bfrtip',
-                                                      buttons =
-                                                          list(
-                                                              list(
-                                                                  extend = 'copy',
-                                                                  buttons = c('copy'),
-                                                                  filename = 'External'
-                                                              ),
-                                                              list(
-                                                                  extend = 'csv',
-                                                                  buttons = c('csv'),
-                                                                  filename = 'External'
-                                                              ),
-                                                              list(
-                                                                  extend = 'pdf',
-                                                                  buttons = c('pdf'),
-                                                                  filename = 'External'
-                                                              ),
-                                                              list(
-                                                                  extend = 'excel',
-                                                                  buttons = c('excel'),
-                                                                  filename = 'External'
-                                                              ))
-                                                  )))
+                                                              extensions = c('Buttons','ColReorder'),
+                                                              options = list(
+                                                                  colReorder = TRUE,
+                                                                  scrollX = T,
+                                                                  lengthChange = F,
+                                                                  scroller = T,
+                                                                  dom = 'Bfrtip',
+                                                                  buttons =
+                                                                      list(
+                                                                          list(
+                                                                              extend = 'copy',
+                                                                              buttons = c('copy'),
+                                                                              filename = 'External'
+                                                                          ),
+                                                                          list(
+                                                                              extend = 'csv',
+                                                                              buttons = c('csv'),
+                                                                              filename = 'External'
+                                                                          ),
+                                                                          list(
+                                                                              extend = 'pdf',
+                                                                              buttons = c('pdf'),
+                                                                              filename = 'External'
+                                                                          ),
+                                                                          list(
+                                                                              extend = 'excel',
+                                                                              buttons = c('excel'),
+                                                                              filename = 'External'
+                                                                          ))
+                                                              )))
 
                         printFirstTable = T
 
@@ -705,6 +642,7 @@ shinyServer(function(input, output, session) {
                                 choices = result,
                                 selected = result[1]
                             )
+
                             Clustering::plot_clustering(df_result, result[1])
 
                         })
@@ -713,42 +651,42 @@ shinyServer(function(input, output, session) {
                     if (df_result$has_internal_metrics) {
 
                         result_internal <-
-                            Clustering::evaluate_best_validation_internal_by_metrics(df_result)
+                            Clustering::best_ranked_internal_metrics(df_result)
 
                         if (printFirstTable) {
 
                             output$best_evaluation2 <-
                                 DT::renderDataTable(DT::datatable(result_internal$result,
-                                                  extensions = c('Buttons','ColReorder'),
-                                                  options = list(
-                                                      colReorder = TRUE,
-                                                      scrollX = T,
-                                                      lengthChange = F,
-                                                      scroller = T,
-                                                      dom = 'Bfrtip',
-                                                      buttons =
-                                                          list(
-                                                              list(
-                                                                  extend = 'copy',
-                                                                  buttons = c('copy'),
-                                                                  filename = 'Internal'
-                                                              ),
-                                                              list(
-                                                                  extend = 'csv',
-                                                                  buttons = c('csv'),
-                                                                  filename = 'Internal'
-                                                              ),
-                                                              list(
-                                                                  extend = 'pdf',
-                                                                  buttons = c('pdf'),
-                                                                  filename = 'Internal'
-                                                              ),
-                                                              list(
-                                                                  extend = 'excel',
-                                                                  buttons = c('excel'),
-                                                                  filename = 'Internal'
-                                                              ))
-                                                  )))
+                                                                  extensions = c('Buttons','ColReorder'),
+                                                                  options = list(
+                                                                      colReorder = TRUE,
+                                                                      scrollX = T,
+                                                                      lengthChange = F,
+                                                                      scroller = T,
+                                                                      dom = 'Bfrtip',
+                                                                      buttons =
+                                                                          list(
+                                                                              list(
+                                                                                  extend = 'copy',
+                                                                                  buttons = c('copy'),
+                                                                                  filename = 'Internal'
+                                                                              ),
+                                                                              list(
+                                                                                  extend = 'csv',
+                                                                                  buttons = c('csv'),
+                                                                                  filename = 'Internal'
+                                                                              ),
+                                                                              list(
+                                                                                  extend = 'pdf',
+                                                                                  buttons = c('pdf'),
+                                                                                  filename = 'Internal'
+                                                                              ),
+                                                                              list(
+                                                                                  extend = 'excel',
+                                                                                  buttons = c('excel'),
+                                                                                  filename = 'Internal'
+                                                                              ))
+                                                                  )))
 
                             shinyjs::show("best_evaluation2")
 
@@ -778,6 +716,7 @@ shinyServer(function(input, output, session) {
                                 choices = result,
                                 selected = result[1]
                             )
+
                             Clustering::plot_clustering(df_result, result[1])
 
                         })
@@ -788,14 +727,6 @@ shinyServer(function(input, output, session) {
 
                 error = function(e) {
 
-                    output$tableClustering <- DT::renderDataTable(NULL,
-                                                                  options = list(
-                                                                      scroller = T,
-                                                                      scrollX = T,
-                                                                      lengthChange = F,
-                                                                      dom = 'Bfrtip',
-                                                                      buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
-                                                                  ))
 
                     output$best_evaluation1 <-
                         DT::renderDataTable(NULL,
@@ -839,8 +770,7 @@ shinyServer(function(input, output, session) {
                             algorithm = input$algorithm,
                             min = input$clustering[1],
                             max = input$clustering[2],
-                            metrics = input$metrics,
-                            attributes = visible
+                            metrics = input$metrics
                         )
 
                     columnnames <- colnames(df_result$result)
@@ -848,17 +778,11 @@ shinyServer(function(input, output, session) {
                     #Exclude ranking column
 
                     columnnames <-
-                        columnnames[columnnames != "Ranking"]
+                        columnnames[columnnames != "Var"]
 
                     # Verify if contain internal or external values.
 
-                    if (isFALSE(df_result$has_internal_metrics)) {
-                        columnnames <- columnnames[columnnames != "timeInternal"]
-                    }
-
-                    if (isFALSE(df_result$has_external_metrics)) {
-                        columnnames <- columnnames[columnnames != "timeExternal"]
-                    }
+                    columnnames[columnnames != c("Time","TimeAtt")]
 
                     result <-
                         dplyr::select(as.data.frame(df_result$result),
@@ -907,6 +831,7 @@ shinyServer(function(input, output, session) {
                                 choices = result,
                                 selected = result[1]
                             )
+
                             Clustering::plot_clustering(df_result, result[1])
 
                         })
@@ -955,6 +880,7 @@ shinyServer(function(input, output, session) {
                                 choices = result,
                                 selected = result[1]
                             )
+
                             Clustering::plot_clustering(df_result, result[1])
 
                         })

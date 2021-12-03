@@ -7,31 +7,30 @@
 \method{sort}{clustering}(x, decreasing = TRUE, ...)
 }
 \arguments{
-\item{x}{is an \code{clustering} object.}
+\item{x}{It's an \code{clustering} object.}
 
 \item{decreasing}{A logical indicating if the sort should be increasing or
 decreasing. By default, decreasing.}
 
 \item{...}{Additional parameters as "by", a String with the name of the
 evaluation measure to order by. Valid values are: \code{Algorithm, Distance,
-Clusters, Dataset, Ranking, timeExternal, entropy, variation_information,
-precision, recall, f_measure, fowlkes_mallows_index, connectivity, dunn,
-silhouette, timeInternal}.}
+Clusters, Data, Var, Time, Entropy, Variation_information,
+Precision, Recall, F_measure, Fowlkes_mallows_index, Connectivity, Dunn,
+Silhouette and TimeAtt}.}
 }
 \value{
-another \code{clustering} object with the evaluation measures sorted
+Another \code{clustering} object with the evaluation measures sorted
 }
 \description{
 This function receives a clustering object and sorts the
-indicator columns by parameter.
-By default it performs sorting by the algorithm field.
+columns by parameter. By default it performs sorting by the algorithm field.
 }
 \details{
 The additional argument in "..." is the 'by' argument, which is a
 array with the name of the evaluation measure to order by. Valid value are:
-\code{Algorithm, Distance, Clusters, Dataset, Ranking, timeExternal, entropy,
-variation_information, precision, recall, f_measure, fowlkes_mallows_index,
-connectivity, dunn, silhouette, timeInternal}.
+\code{Algorithm, Distance, Clusters, Data, Var, Time, Entropy,
+Variation_information, Precision, Recall, F_measure, Fowlkes_mallows_index,
+Connectivity, Dunn, Silhouette, TimeAtt}.
 }
 \examples{
 
@@ -39,8 +38,8 @@ library(Clustering)
 
 result <-
 clustering(df = cluster::agriculture,min = 4, max = 4,algorithm='gmm',
-metrics='recall')
+metrics='Recall')
 
-sort(result, FALSE, 'recall')
+sort(result, FALSE, 'Recall')
 
 }

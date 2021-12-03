@@ -2,18 +2,18 @@
 % Please edit documentation in R/validation.R
 \name{calculate_validation_external_by_metrics}
 \alias{calculate_validation_external_by_metrics}
-\title{Method that calculates which algorithm behaves best for the datasets provided}
+\title{Method that calculates which algorithm behaves best for the datasets provided.}
 \usage{
 calculate_validation_external_by_metrics(df)
 }
 \arguments{
-\item{df}{data matrix or data frame}
+\item{df}{Data matrix or data frame.}
 }
 \value{
-returns a table with the best performing algorithm for the provided
-datasets
+Return a table with the best performing algorithm for the provided
+datasets.
 }
 \description{
-Method that calculates which algorithm behaves best for the datasets provided
+Method that calculates which algorithm behaves best for the datasets provided.
 }
 \keyword{internal}

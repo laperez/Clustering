@@ -2,21 +2,21 @@
 % Please edit documentation in R/external_validation.R
 \name{variation_information_metric}
 \alias{variation_information_metric}
-\title{Method to calculate the variation information}
+\title{Method to calculate the variation information.}
 \usage{
 variation_information_metric(conversion_data_frame, table_convert)
 }
 \arguments{
-\item{conversion_data_frame}{returns a double with the result of the entropy
-calculation}
+\item{conversion_data_frame}{Return a double with the result of the entropy
+calculation.}
 
-\item{table_convert}{table conversion (variable - cluster)}
+\item{table_convert}{Table conversion (variable - cluster).}
 }
 \value{
-returns a double with the result of the variation information
-calculation
+Returns a double with the result of the variation information
+calculation.
 }
 \description{
-Method to calculate the variation information
+Method to calculate the variation information.
 }
 \keyword{internal}

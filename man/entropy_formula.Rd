@@ -2,17 +2,17 @@
 % Please edit documentation in R/external_validation.R
 \name{entropy_formula}
 \alias{entropy_formula}
-\title{Method for calculating entropy}
+\title{Method for calculating entropy.}
 \usage{
 entropy_formula(x_vec)
 }
 \arguments{
-\item{x_vec}{with datas to calculate entropy}
+\item{x_vec}{With datas to calculate entropy.}
 }
 \value{
-an array with the calculate
+An array with the calculate.
 }
 \description{
-Method for calculating entropy
+Method for calculating entropy.
 }
 \keyword{internal}

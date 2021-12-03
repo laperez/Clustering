@@ -7,10 +7,10 @@
 export_file_internal(df, path = NULL)
 }
 \arguments{
-\item{df}{is a dataframe that contains as a parameter a table in latex format
+\item{df}{It's a dataframe that contains as a parameter a table in latex format
 with the results of the internal validations.}
 
-\item{path}{it's a string with the path to a directory where a file is to be
+\item{path}{It's a string with the path to a directory where a file is to be
 stored in latex format.}
 }
 \description{
@@ -28,8 +28,7 @@ result = clustering(
                min = 4,
                max = 5,
                algorithm='gmm',
-               metrics=c("dunn"),
-               attributes = TRUE
+               metrics=c("Dunn")
          )
 
 export_file_internal(result)

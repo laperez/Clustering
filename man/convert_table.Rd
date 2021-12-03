@@ -3,20 +3,20 @@
 \name{convert_table}
 \alias{convert_table}
 \title{Method in charge of creating a table from an array with the values of the
-variable used as a sample and another with the classification of the values}
+variable used as a sample and another with the classification of the values.}
 \usage{
 convert_table(clusters_vector, column_dataset_label)
 }
 \arguments{
-\item{clusters_vector}{array of the variable used for the classification}
+\item{clusters_vector}{Array of the variable used for the classification.}
 
-\item{column_dataset_label}{array with the grouping of the values}
+\item{column_dataset_label}{Array with the grouping of the values.}
 }
 \value{
-returns a table with the grouping of both arrays
+Return a table with the grouping of both arrays.
 }
 \description{
 Method in charge of creating a table from an array with the values of the
-variable used as a sample and another with the classification of the values
+variable used as a sample and another with the classification of the values.
 }
 \keyword{internal}

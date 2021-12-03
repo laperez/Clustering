@@ -3,21 +3,21 @@
 \name{show_result_external_algorithm_by_metric}
 \alias{show_result_external_algorithm_by_metric}
 \title{Method that returns a table with the algorithm and the metric indicated as
-parameters}
+parameters.}
 \usage{
-show_result_external_algorithm_by_metric(df, algorithm)
+show_result_external_algorithm_by_metric(df, metric)
 }
 \arguments{
-\item{df}{data matrix or data frame}
+\item{df}{Data matrix or data frame.}
 
-\item{algorithm}{on which we will calculate the results}
+\item{metric}{String with the metric.}
 }
 \value{
-returns a table with the algorithm and the metric indicated as
-parameter
+Return a table with the algorithm and the metric indicated as
+parameter.
 }
 \description{
 Method that returns a table with the algorithm and the metric indicated as
-parameters
+parameters.
 }
 \keyword{internal}

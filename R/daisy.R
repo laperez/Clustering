@@ -1,22 +1,22 @@
-#' Method that runs the daisy algorithm using the euclidean metric to make an
-#' external or internal validation of the cluster.
 #'
-#' @param dt matrix or data frame with the set of values to be applied to the
+#' Method that runs the daisy algorithm using the Euclidean metric to
+#' make an external or internal validation of the cluster.
+#'
+#' @param dt Matrix or data frame with the set of values to be applied to the
 #' algorithm.
-#' @param clusters is an integer that indexes the number of clusters we want to
-#' create.
-#' @param columnClass is an integer with the number of columns, for example if a
-#' dataset has five column, we can select column four to calculate validation.
-#' @param metric is a characters vector with the metrics avalaible in the
-#' package. The metrics implemented are: entropy, variation_information,
-#' precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,
-#' silhouette.
 #'
-#' @return returns a list with both the internal and external evaluation of the
+#' @param clusters It's an integer that indexes the number of clusters we want to
+#' create.
+#'
+#' @param metric It's a characters vector with the metrics avalaible in the
+#' package. The metrics implemented are: Entropy, Variation_information,
+#' Precision,Recall,F_measure,Fowlkes_mallows_index,Connectivity,Dunn,
+#' Silhouette.
+#'
+#' @return Return a list with both the internal and external evaluation of the
 #' grouping.
 #'
 #' @keywords internal
-#'
 
 daisy_euclidean_method = function(dt, clusters, columnClass, metric) {
 
@@ -96,25 +96,25 @@ daisy_euclidean_method = function(dt, clusters, columnClass, metric) {
 
 }
 
-#' Method that runs the daisy algorithm using the manhattan metric to make an
-#' external or internal validation of the cluster.
 #'
-#' @param dt matrix or data frame with the set of values to be applied to the
+#' Method that runs the daisy algorithm using the Manhattan metric to
+#' make an external or internal validation of the cluster.
+#'
+#' @param dt Matrix or data frame with the set of values to be applied to the
 #' algorithm.
-#' @param clusters is an integer that indexes the number of clusters we want to
-#' create.
-#' @param columnClass is an integer with the number of columns, for example if a
-#' dataset has five column, we can select column four to calculate validation.
-#' @param metric is a characters vector with the metrics avalaible in the
-#' package. The metrics implemented are: entropy, variation_information,
-#' precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,
-#' silhouette.
 #'
-#' @return returns a list with both the internal and external evaluation of the
+#' @param clusters It's an integer that indexes the number of clusters we want to
+#' create.
+#'
+#' @param metric It's a characters vector with the metrics avalaible in the
+#' package. The metrics implemented are: Entropy, Variation_information,
+#' Precision,Recall,F_measure,Fowlkes_mallows_index,Connectivity,Dunn,
+#' Silhouette.
+#'
+#' @return Return a list with both the internal and external evaluation of the
 #' grouping.
 #'
 #' @keywords internal
-#'
 
 daisy_manhattan_method = function(dt, clusters, columnClass, metric) {
 
@@ -203,25 +203,25 @@ daisy_manhattan_method = function(dt, clusters, columnClass, metric) {
 
 }
 
-#' Method that runs the daisy algorithm using the gower metric to make an
-#' external or internal validation of the cluster.
 #'
-#' @param dt matrix or data frame with the set of values to be applied to the
+#' Method that runs the daisy algorithm using the Gower metric to
+#' make an external or internal validation of the cluster.
+#'
+#' @param dt Matrix or data frame with the set of values to be applied to the
 #' algorithm.
-#' @param clusters is an integer that indexes the number of clusters we want to
-#' create.
-#' @param columnClass is an integer with the number of columns, for example if a
-#' dataset has five column, we can select column four to calculate validation.
-#' @param metric is a characters vector with the metrics avalaible in the
-#' package. The metrics implemented are: entropy, variation_information,
-#' precision,recall,f_measure,fowlkes_mallows_index,connectivity,dunn,
-#' silhouette.
 #'
-#' @return returns a list with both the internal and external evaluation of the
+#' @param clusters It's an integer that indexes the number of clusters we want to
+#' create.
+#'
+#' @param metric It's a characters vector with the metrics avalaible in the
+#' package. The metrics implemented are: Entropy, Variation_information,
+#' Precision,Recall,F_measure,Fowlkes_mallows_index,Connectivity,Dunn,
+#' Silhouette.
+#'
+#' @return Return a list with both the internal and external evaluation of the
 #' grouping.
 #'
 #' @keywords internal
-#'
 
 daisy_gower_method = function(dt, clusters, columnClass, metric) {
 

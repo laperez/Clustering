@@ -8,19 +8,19 @@ algorithms defined in the application.}
 evaluate_all_column_dataset(datas, method, cluster, nameDataset, metrics)
 }
 \arguments{
-\item{method}{described the metrics used by each of the algorithms}
+\item{method}{Described the metrics used by each of the algorithms.}
 
-\item{cluster}{number of clusters}
+\item{cluster}{Number of clusters.}
 
-\item{nameDataset}{specify the name of dataset like information}
+\item{nameDataset}{Specify the name of dataset like information.}
 
-\item{metrics}{array with internal or external metrics}
+\item{metrics}{Array with internal or external metrics.}
 
-\item{data}{is a data frame or matrix}
+\item{data}{It's a data frame or matrix.}
 }
 \value{
-a list with result of external and internal validation applying on
-algorithms
+A list with result of external and internal validation applying on
+algorithms.
 }
 \description{
 Method in charge of calculating the average for all datasets using all the

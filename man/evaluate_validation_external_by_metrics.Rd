@@ -11,7 +11,7 @@ evaluate_validation_external_by_metrics(df)
 algorithm.}
 }
 \value{
-a data.frame with all the algorithms that obtain the best results
+A data.frame with all the algorithms that obtain the best results
 regardless of the dissimilarity measure used.
 }
 \description{
@@ -19,10 +19,7 @@ Method that calculates which algorithm behaves best for the
 datasets provided.
 }
 \details{
-The operation of this method is to determine which algorithm has
-better behavior regardless of the measure of dissimilarity calculated, so we
-can determine which algorithm eturns better results from the attributes and
-measures of dissimilarity.
+It groups the results of the execution by algorithms.
 }
 \examples{
 
@@ -31,14 +28,10 @@ result = clustering(
                min = 4,
                max = 5,
                algorithm='kmeans_arma',
-               metrics=c("precision"),
-               attributes = TRUE
+               metrics=c("Precision")
          )
 
 evaluate_validation_external_by_metrics(result)
 
-\dontrun{
-evaluate_validation_external_by_metrics(result$result)
-}
 
 }

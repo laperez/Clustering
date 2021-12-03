@@ -2,23 +2,23 @@
 % Please edit documentation in R/internal_validation.R
 \name{calculate_dunn}
 \alias{calculate_dunn}
-\title{Method to calculate the dunn}
+\title{Method to calculate the dunn.}
 \usage{
 calculate_dunn(distance = NULL, clusters, datadf = NULL, method = "euclidean")
 }
 \arguments{
-\item{distance}{dissimilarity matrix}
+\item{distance}{Dissimilarity matrix.}
 
-\item{clusters}{array that containe tha data grouped in cluster}
+\item{clusters}{Array that containe tha data grouped in cluster.}
 
-\item{datadf}{dataframe with original data}
+\item{datadf}{Dataframe with original data.}
 
-\item{method}{indicates the method for calculating distance between points}
+\item{method}{Indicate the method for calculating distance between points.}
 }
 \value{
-returns a double with the result of the dunn calculation
+Return a double with the result of the dunn calculation
 }
 \description{
-Method to calculate the dunn
+Method to calculate the dunn.
 }
 \keyword{internal}

@@ -2,19 +2,19 @@
 % Please edit documentation in R/validation.R
 \name{max_value_metric}
 \alias{max_value_metric}
-\title{Method that return max value of metric}
+\title{Method that return max value of metric.}
 \usage{
-max_value_metric(df, metric)
+max_value_metric(df, metric, isExternalMetric)
 }
 \arguments{
-\item{df}{data matrix or data frame}
+\item{df}{Data matrix or data frame.}
 
-\item{metric}{metric to evaluate}
+\item{metric}{Metric to evaluate.}
 }
 \value{
-a value with maximum column
+A value with maximum column.
 }
 \description{
-Method that return max value of metric
+Method that return max value of metric.
 }
 \keyword{internal}

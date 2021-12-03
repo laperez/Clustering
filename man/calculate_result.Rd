@@ -3,7 +3,7 @@
 \name{calculate_result}
 \alias{calculate_result}
 \title{Method that returns the value or variable depending on where it is in the
-calculated metrics}
+calculated metrics.}
 \usage{
 calculate_result(
   algorith,
@@ -18,66 +18,66 @@ calculate_result(
   recall,
   fowlkes_mallows_index,
   f_measure,
+  timeInternal,
   dunn,
   connectivity,
   silhouette,
-  timeInternal,
   variables
 )
 }
 \arguments{
-\item{algorith}{algorithm name}
+\item{algorith}{Algorithm name.}
 
-\item{distance}{name of the metric used to calculate the distance between
-points}
+\item{distance}{Name of the metric used to calculate the distance between
+points.}
 
-\item{cluster}{number of clusters}
+\item{cluster}{Number of clusters.}
 
-\item{dataset}{name of dataset}
+\item{dataset}{Name of dataset.}
 
-\item{ranking}{position we want to obtain from the list of variables}
+\item{ranking}{Position we want to obtain from the list of variables.}
 
-\item{timeExternal}{array with the external validation calculation times of
-the clustering}
+\item{timeExternal}{Array with the external validation calculation times of
+the clustering.}
 
-\item{entropy}{array with the calculation of the entropy for each of the
-variables}
+\item{entropy}{Array with the calculation of the entropy for each of the
+variables.}
 
-\item{variation_information}{array with the calculation of the
-variation_information for each of the variables}
+\item{variation_information}{Array with the calculation of the
+variation_information for each of the variables.}
 
-\item{precision}{array with the calculation of the precision for each of the
-variables}
+\item{precision}{Array with the calculation of the precision for each of the
+variables.}
 
-\item{recall}{array with the calculation of the recall for each of the
-variables}
+\item{recall}{Array with the calculation of the recall for each of the
+variables.}
 
-\item{fowlkes_mallows_index}{array with the calculation of the
-fowlkes_mallows_index for each of the variables}
+\item{fowlkes_mallows_index}{Array with the calculation of the
+fowlkes_mallows_index for each of the variables.}
 
-\item{f_measure}{array with the calculation of the f_measure for each of the
-variables}
+\item{f_measure}{Array with the calculation of the f_measure for each of the
+variables.}
 
-\item{dunn}{array with the calculation of the dunn for each of the variables}
+\item{timeInternal}{Array with the internal validation calculation times of
+the clustering.}
 
-\item{connectivity}{array with the calculation of the connectivity for each
-of the variables}
+\item{dunn}{Array with the calculation of the dunn for each of the variables.}
 
-\item{silhouette}{array with the calculation of the silhouette for each of
-the variables}
+\item{connectivity}{Array with the calculation of the connectivity for each
+of the variables.}
 
-\item{timeInternal}{array with the internal validation calculation times of
-the clustering}
+\item{silhouette}{Array with the calculation of the silhouette for each of
+the variables.}
 
-\item{variables}{true if we want to show the value of the metric calculation
-and false if we want to show the variable}
+\item{variables}{True if we want to show the value of the metric calculation
+and false if we want to show the variable.}
 }
 \value{
-returns an array with the calculation of each metric based on the
-indicated position
+Returns an array with the calculation of each metric based on the
+indicated position.
 }
 \description{
 Method that returns the value or variable depending on where it is in the
-calculated metrics
+calculated metrics.
 }
 \keyword{internal}

@@ -108,15 +108,15 @@ shinyUI(
                     "metrics",
                     label = h3("Metrics"),
                     choices = list(
-                        "Connectivity" = "connectivity",
-                        "Dunn" = "dunn",
-                        "Entropy" = "entropy",
-                        "Fowlkes Mallows Index" = "fowlkes_mallows_index",
-                        "F-measure" = "f_measure",
-                        "Precision" = "precision",
-                        "Recall" = "recall",
-                        "Silhouette" = "silhouette",
-                        "Variation Information" = "variation_information"
+                        "Connectivity" = "Connectivity",
+                        "Dunn" = "Dunn",
+                        "Entropy" = "Entropy",
+                        "Fowlkes Mallows Index" = "Fowlkes_mallows_index",
+                        "F-measure" = "F_measure",
+                        "Precision" = "Precision",
+                        "Recall" = "Recall",
+                        "Silhouette" = "Silhouette",
+                        "Variation Information" = "Variation_information"
                     ),
                     options = list(
                         `actions-box` = T,
@@ -127,13 +127,7 @@ shinyUI(
                         style = "height: 15px;"
                     ),
                     multiple = T,
-                    selected = "precision"
-                ),
-                radioButtons(
-                    "visible",
-                    label = h3("Do you want to show the attributes of the dataset?"),
-                    choices = list("Yes" = T, "No" = F),
-                    inline = T
+                    selected = "Precision"
                 )
 
             ),

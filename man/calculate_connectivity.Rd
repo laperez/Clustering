@@ -2,7 +2,7 @@
 % Please edit documentation in R/internal_validation.R
 \name{calculate_connectivity}
 \alias{calculate_connectivity}
-\title{Method to calculate the connectivity}
+\title{Method to calculate the Connectivity}
 \usage{
 calculate_connectivity(
   distance = NULL,
@@ -13,21 +13,21 @@ calculate_connectivity(
 )
 }
 \arguments{
-\item{distance}{dissimilarity matrix}
+\item{distance}{Dissimilarity matrix.}
 
-\item{clusters}{array that containe tha data grouped in cluster}
+\item{clusters}{Array that containe tha data grouped in cluster.}
 
-\item{neighbSize}{number of neighbours}
+\item{neighbSize}{Number of neighbours.}
 
-\item{method}{indicates the method for calculating distance between points.
-Default is euclidean}
+\item{method}{Indicates the method for calculating distance between points.
+Default is euclidean.}
 
-\item{datdf}{dataframe with original data}
+\item{datdf}{Dataframe with original data.}
 }
 \value{
-returns a double with the result of the connectivity calculation
+Return a double with the result of the connectivity calculation.
 }
 \description{
-Method to calculate the connectivity
+Method to calculate the Connectivity
 }
 \keyword{internal}

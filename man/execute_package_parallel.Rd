@@ -25,30 +25,26 @@ execute_package_parallel(
 \item{directory_files}{It's a string with the route where the datasets are
 located.}
 
-\item{df}{data matrix or data frame, or dissimilarity matrix, depending on
+\item{df}{Data matrix or data frame, or dissimilarity matrix, depending on
 the value of the argument.}
 
-\item{algorithms_execute}{character vector with the algorithms to be
+\item{algorithms_execute}{Character vector with the algorithms to be
 executed. The algorithms implemented are: fuzzy_cm,fuzzy_gg,fuzzy_gk,hclust,
 apclusterK,agnes,clara,daisy,diana,fanny,mona,pam,gmm,kmeans_arma,
-kmeans_rcpp,mini_kmeans,pvclust.}
+kmeans_rcpp,mini_kmeans,gama,pvclust.}
 
-\item{measures_execute}{character array with the measurements of
+\item{measures_execute}{Character array with the measurements of
 dissimilarity to be executed. Depending on the algorithm, one or the other is
 implemented. Among them we highlight: Euclidena, Manhattan, etc.}
 
-\item{cluster_min}{minimum number of clusters.}
+\item{cluster_min}{Minimum number of clusters.}
 
-\item{cluster_max}{maximum number of clusters. cluster_max must be greater or
+\item{cluster_max}{Maximum number of clusters. cluster_max must be greater or
 equal cluster_min.}
 
-\item{metrics_execute}{character array defining the metrics to be executed.
-The night metrics implemented are: entropy, variation_information,precision,
-recall,f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.}
-
-\item{attributes}{accepts Boolean values. If true as a result it shows the
-attribute that behaves best otherwise it shows the value of the executed
-metric.}
+\item{metrics_execute}{Character array defining the metrics to be executed.
+The night metrics implemented are: Entropy, Variation_information, Precision,
+Recall, F_measure, Fowlkes_mallows_index, Connectivity, Dunn and Silhouette.}
 
 \item{number_algorithms}{It's a numeric field with the number of algorithms.}
 
@@ -56,14 +52,14 @@ metric.}
 
 \item{numberDataSets}{It's a numeric field with the number of datasets.}
 
-\item{is_metric_external}{boolean field to indicate whether to run external metrics.}
+\item{is_metric_external}{Boolean field to indicate whether to run external metrics.}
 
-\item{is_metric_internal}{boolean field to indicate whether to run internal metrics.}
+\item{is_metric_internal}{Boolean field to indicate whether to run internal metrics.}
 
-\item{name_dataframe}{name of data.frame when is fill.}
+\item{name_dataframe}{Name of data.frame when is fill.}
 }
 \value{
-returns a list with the result matrix of evaluating the data from the
+Returns a list with the result matrix of evaluating the data from the
 indicated algorithms, metrics and number of clusters.
 }
 \description{

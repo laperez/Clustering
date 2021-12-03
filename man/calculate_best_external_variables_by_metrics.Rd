@@ -2,17 +2,17 @@
 % Please edit documentation in R/validation.R
 \name{calculate_best_external_variables_by_metrics}
 \alias{calculate_best_external_variables_by_metrics}
-\title{Method that calculates the best rated external metrics}
+\title{Method that calculates the best rated external metrics.}
 \usage{
 calculate_best_external_variables_by_metrics(df)
 }
 \arguments{
-\item{df}{data matrix or data frame}
+\item{df}{Data matrix or data frame.}
 }
 \value{
-returns a table with the external metrics that has the best rating
+Return a table with the external metrics that has the best rating.
 }
 \description{
-Method that calculates the best rated external metrics
+Method that calculates the best rated external metrics.
 }
 \keyword{internal}

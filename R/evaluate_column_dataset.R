@@ -1,14 +1,19 @@
+#'
 #' Method in charge of calculating the average for all datasets using all the
 #' algorithms defined in the application.
 #'
-#' @param data is a data frame or matrix
-#' @param method described the metrics used by each of the algorithms
-#' @param cluster number of clusters
-#' @param nameDataset specify the name of dataset like information
-#' @param metrics array with internal or external metrics
+#' @param data It's a data frame or matrix.
 #'
-#' @return a list with result of external and internal validation applying on
-#' algorithms
+#' @param method Described the metrics used by each of the algorithms.
+#'
+#' @param cluster Number of clusters.
+#'
+#' @param nameDataset Specify the name of dataset like information.
+#'
+#' @param metrics Array with internal or external metrics.
+#'
+#' @return A list with result of external and internal validation applying on
+#' algorithms.
 #'
 #' @keywords internal
 #'
@@ -166,6 +171,10 @@ evaluate_all_column_dataset = function(datas,
 
       if (method == 'apclusterK_minkowski') {
         resultado = apclusterK_minkowski(datas, cluster, i, metrics)
+      }
+
+      if (method == 'gama_euclidean') {
+        resultado = gama(datas, cluster, i, metrics)
       }
 
       result <- list(
@@ -359,10 +368,10 @@ evaluate_all_column_dataset = function(datas,
   )
 
   internal = list(
+    "timeInternal" = timeInternal,
     "connectivity" = connectivity,
     "dunn" = dunn,
-    "silhouette" = silhouette,
-    "timeInternal" = timeInternal
+    "silhouette" = silhouette
   )
 
   result = list("external" = external, "internal" = internal)

@@ -10,20 +10,17 @@
 \arguments{
 \item{clustering}{The \code{clustering} object to filter.}
 
-\item{condition}{Expression to filter the \code{clustering} object}
+\item{condition}{Expression to filter the \code{clustering} object.}
 }
 \description{
-Generates a new \code{clustering} object containing the metrics
-that passed the filter
-specified.
+Generates a new filtered \code{clustering} object.
 }
 \details{
 This function allows you to filter the data set for a given
-evaluation metric.
-The evaluation metrics available are:
-\code{Algorithm, Distance, Clusters, Dataset, Ranking, timeExternal, entropy,
-variation_information, precision, recall, f_measure, fowlkes_mallows_index,
-connectivity, dunn, silhouette, timeInternal}.
+evaluation metric. The evaluation metrics available are:
+\code{Algorithm, Distance, Clusters, Data, Var, Time, Entropy,
+Variation_information, Precision, Recall, F_measure, Fowlkes_mallows_index,
+Connectivity, Dunn, Silhouette and TimeAtt}.
 }
 \examples{
 
@@ -32,6 +29,6 @@ library(Clustering)
 result <- clustering(package = 'clusterr', df = Clustering::basketball,
 min=3, max=4)
 
-result[precision > 0.14 & dunn > 0.11]
+result[Precision > 0.14 & Dunn > 0.11]
 
 }

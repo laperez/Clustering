@@ -5,11 +5,11 @@
 
   CONST_CLUSTERS <- "Clusters"
 
-  CONST_DATASET <- "Dataset"
+  CONST_DATASET <- "Data"
 
   CONST_TIME <- "Time"
 
-  CONST_RANKING <- "Ranking"
+  CONST_RANKING <- "Var"
 
   CONST_FUZZY_CM <- "fuzzy_cm"
 
@@ -43,6 +43,8 @@
 
   CONST_MINI_KMEANS <- "mini_kmeans"
 
+  CONST_GAMA <- "gama"
+
   CONST_PVCLUST <- "pvclust"
 
   CONST_ALGORITHM_ADVCLUST <- 'advclust'
@@ -55,51 +57,53 @@
 
   CONST_ALGORITHM_CLUSTERR <- "clusterr"
 
+  CONST_ALGORITHM_GAMA <- "gama"
+
   CONST_ALGORITHM_PVCLUST <- "pvclust"
 
-  CONST_PRECISION_METRIC <- "precision"
+  CONST_PRECISION_METRIC <- "Precision"
 
-  CONST_PRECISION_METRIC_ATTR <- "precisionAttr"
+  CONST_PRECISION_METRIC_ATTR <- "PrecisionAtt"
 
-  CONST_RECALL_METRIC <- "recall"
+  CONST_RECALL_METRIC <- "Recall"
 
-  CONST_RECALL_METRIC_ATTR <- "recallAttr"
+  CONST_RECALL_METRIC_ATTR <- "RecallAtt"
 
-  CONST_ENTROPY_METRIC <- "entropy"
+  CONST_ENTROPY_METRIC <- "Entropy"
 
-  CONST_ENTROPY_METRIC_ATTR <- "entropyAttr"
+  CONST_ENTROPY_METRIC_ATTR <- "EntropyAtt"
 
-  CONST_VARIATION_INFORMATION_METRIC <- "variation_information"
+  CONST_VARIATION_INFORMATION_METRIC <- "Variation_information"
 
-  CONST_VARIATION_INFORMATION_METRIC_ATTR <- "variation_informationAttr"
+  CONST_VARIATION_INFORMATION_METRIC_ATTR <- "Variation_informationAtt"
 
-  CONST_F_MEASURE_METRIC <- "f_measure"
+  CONST_F_MEASURE_METRIC <- "F_measure"
 
-  CONST_F_MEASURE_METRIC_ATTR <- "f_measureAttr"
+  CONST_F_MEASURE_METRIC_ATTR <- "F_measureAtt"
 
-  CONST_FOWLKES_MALLOWS_INDEX_METRIC <- "fowlkes_mallows_index"
+  CONST_FOWLKES_MALLOWS_INDEX_METRIC <- "Fowlkes_mallows_index"
 
-  CONST_FOWLKES_MALLOWS_INDEX_METRIC_ATTR <- "fowlkes_mallows_indexAttr"
+  CONST_FOWLKES_MALLOWS_INDEX_METRIC_ATTR <- "Fowlkes_mallows_indexAtt"
 
-  CONST_DUNN_METRIC <- "dunn"
+  CONST_DUNN_METRIC <- "Dunn"
 
-  CONST_DUNN_METRIC_ATTR <- "dunnAttr"
+  CONST_DUNN_METRIC_ATTR <- "DunnAtt"
 
-  CONST_SILHOUETTE_METRIC <- "silhouette"
+  CONST_SILHOUETTE_METRIC <- "Silhouette"
 
-  CONST_SILHOUETTE_METRIC_ATTR <- "silhouetteAttr"
+  CONST_SILHOUETTE_METRIC_ATTR <- "SilhouetteAtt"
 
-  CONST_CONNECTIVITY_METRIC <- "connectivity"
+  CONST_CONNECTIVITY_METRIC <- "Connectivity"
 
-  CONST_CONNECTIVITY_METRIC_ATTR <- "connectivityAttr"
+  CONST_CONNECTIVITY_METRIC_ATTR <- "ConnectivityAtt"
 
-  CONST_TIME_EXTERNAL <- "timeExternal"
+  CONST_TIME_EXTERNAL <- "Time"
 
-  CONST_TIME_EXTERNAL_ATTR <- "timeExternalAttr"
+  CONST_TIME_EXTERNAL_ATTR <- "TimeAtt"
 
-  CONST_TIME_INTERNAL <- "timeInternal"
+  CONST_TIME_INTERNAL <- "Time"
 
-  CONST_TIME_INTERNAL_ATTR <- "timeInternalAttr"
+  CONST_TIME_INTERNAL_ATTR <- "TimeAtt"
 
   CONST_EUCLIDEAN <- "euclidean"
 
@@ -160,6 +164,8 @@
   CONST_GMM_EUCLIDEAN <- "gmm_euclidean"
 
   CONST_GMM_MANHATTAN <- "gmm_manhattan"
+
+  CONST_GAMA_EUCLIDEAN <- "gama_euclidean"
 
   CONST_PVCLUST_EUCLIDEAN <-"pvclust_euclidean"
 

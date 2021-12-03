@@ -29,10 +29,9 @@ result = clustering(
                min = 4,
                max = 5,
                algorithm='gmm',
-               metrics=c("precision"),
-               attributes = TRUE
+               metrics=c("Precision")
          )
 
-plot_clustering(result,c("precision"))
+plot_clustering(result,c("Precision"))
 
 }

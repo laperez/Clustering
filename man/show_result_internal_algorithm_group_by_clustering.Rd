@@ -3,18 +3,18 @@
 \name{show_result_internal_algorithm_group_by_clustering}
 \alias{show_result_internal_algorithm_group_by_clustering}
 \title{Method in charge of obtaining a table with the results of the algorithms
-grouped by clusters, calculating the maximum value of each internal metrics}
+grouped by clusters, calculating the maximum value of each internal metrics.}
 \usage{
 show_result_internal_algorithm_group_by_clustering(df)
 }
 \arguments{
-\item{df}{data matrix or data frame}
+\item{df}{Data matrix or data frame.}
 }
 \value{
-returns a table with the algorithms and the clusters
+Return a table with the algorithms and the clusters.
 }
 \description{
 Method in charge of obtaining a table with the results of the algorithms
-grouped by clusters, calculating the maximum value of each internal metrics
+grouped by clusters, calculating the maximum value of each internal metrics.
 }
 \keyword{internal}

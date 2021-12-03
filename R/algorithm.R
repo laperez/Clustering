@@ -13,6 +13,7 @@ packages <- function() {
       CONST_ALGORITHM_APCLUSTER,
       CONST_ALGORITHM_CLUSTER,
       CONST_ALGORITHM_CLUSTERR,
+      CONST_ALGORITHM_GAMA,
       CONST_ALGORITHM_PVCLUST
     )
   )
@@ -44,6 +45,7 @@ algorithms <- function() {
       CONST_KMEANS_ARMA,
       CONST_KMEANS_RCPP,
       CONST_MINI_KMEANS,
+      CONST_GAMA,
       CONST_PVCLUST
     )
   )
@@ -56,7 +58,7 @@ algorithms <- function() {
 #' @keywords internal
 #'
 
-metrics <- function() {
+metrics_validate <- function() {
   return (
     c(
       CONST_ENTROPY_METRIC,
@@ -127,7 +129,7 @@ is_External_Metrics <- function(metrics) {
 
 
   for (iterate in 1:length(metrics)) {
-    if (tolower(metrics[iterate]) %in% metrics_external())
+    if (tolower(metrics[iterate]) %in% tolower(metrics_external()))
       return (T)
 
   }
@@ -150,7 +152,7 @@ is_Internal_Metrics <- function(metrics) {
 
 
   for (iterate in 1:length(metrics)) {
-    if (tolower(metrics[iterate]) %in% metrics_internal())
+    if (tolower(metrics[iterate]) %in% tolower(metrics_internal()))
       return (T)
   }
 
@@ -173,7 +175,7 @@ number_columnas_external <- function(metrics) {
   numberColumnasExternal <- 0
 
   for (iterate in 1:length(metrics)) {
-    if (tolower(metrics[iterate] %in% metrics_external())) {
+    if (tolower(metrics[iterate] %in% tolower(metrics_external()))) {
       numberColumnasExternal <- numberColumnasExternal + 1
     }
 
@@ -387,6 +389,7 @@ algorithms_package <- function(packages) {
     algorithms <- c(algorithms, algorithm_apcluster())
     algorithms <- c(algorithms, algorithm_cluster())
     algorithms <- c(algorithms, algorithm_clusterr())
+    algorithms <- c(algorithms, algorithm_gama())
     algorithms <- c(algorithms, algorithm_pvclust())
 
   } else {
@@ -409,6 +412,10 @@ algorithms_package <- function(packages) {
 
       if (tolower(packages[iterate]) == CONST_ALGORITHM_CLUSTERR) {
         algorithms <- c(algorithms, algorithm_clusterr())
+      }
+
+      if (tolower(packages[iterate]) == CONST_ALGORITHM_GAMA) {
+        algorithms <- c(algorithms, algorithm_gama())
       }
 
       if (tolower(packages[iterate]) == CONST_ALGORITHM_PVCLUST) {
@@ -508,6 +515,10 @@ measure_calculate <- function(algorithm) {
       result <- c(result, CONST_MINI_KMEANS)
     }
 
+    if (tolower(algorithm[iterate]) == tolower(CONST_GAMA)) {
+      result <- c(result, CONST_GAMA_EUCLIDEAN)
+    }
+
     if (tolower(algorithm[iterate]) == tolower(CONST_PVCLUST)) {
       result <- c(result, CONST_PVCLUST_EUCLIDEAN)
       result <- c(result, CONST_PVLCUST_CORRELATION)
@@ -538,6 +549,7 @@ measure_package <- function(package) {
     result <- c(result, measure_apcluster())
     result <- c(result, measure_cluster())
     result <- c(result, measure_clusterr())
+    result <- c(result, measure_gama())
     result <- c(result, measure_pvclust())
   } else {
     for (iterate in 1:length(package)) {
@@ -559,6 +571,10 @@ measure_package <- function(package) {
 
       if (tolower(package[iterate]) == CONST_ALGORITHM_CLUSTERR) {
         result <- c(result, measure_clusterr())
+      }
+
+      if (tolower(package[iterate]) == CONST_ALGORITHM_GAMA) {
+        result <- c(result, measure_gama())
       }
 
       if (tolower(package[iterate]) == CONST_ALGORITHM_PVCLUST) {
@@ -599,10 +615,10 @@ metrics_calculate <- function(metrics,variables) {
           CONST_RECALL_METRIC,
           CONST_F_MEASURE_METRIC,
           CONST_FOWLKES_MALLOWS_INDEX_METRIC,
+          CONST_TIME_INTERNAL,
           CONST_CONNECTIVITY_METRIC,
           CONST_DUNN_METRIC,
           CONST_SILHOUETTE_METRIC,
-          CONST_TIME_INTERNAL,
           CONST_TIME_EXTERNAL_ATTR,
           CONST_ENTROPY_METRIC_ATTR,
           CONST_VARIATION_INFORMATION_METRIC_ATTR,
@@ -610,11 +626,10 @@ metrics_calculate <- function(metrics,variables) {
           CONST_RECALL_METRIC_ATTR,
           CONST_F_MEASURE_METRIC_ATTR,
           CONST_FOWLKES_MALLOWS_INDEX_METRIC_ATTR,
+          CONST_TIME_INTERNAL_ATTR,
           CONST_CONNECTIVITY_METRIC_ATTR,
           CONST_DUNN_METRIC_ATTR,
-          CONST_SILHOUETTE_METRIC_ATTR,
-          CONST_TIME_INTERNAL_ATTR
-
+          CONST_SILHOUETTE_METRIC_ATTR
         )
     } else {
       result <-
@@ -626,102 +641,127 @@ metrics_calculate <- function(metrics,variables) {
           CONST_RECALL_METRIC,
           CONST_F_MEASURE_METRIC,
           CONST_FOWLKES_MALLOWS_INDEX_METRIC,
+          CONST_TIME_INTERNAL,
           CONST_CONNECTIVITY_METRIC,
           CONST_DUNN_METRIC,
-          CONST_SILHOUETTE_METRIC,
-          CONST_TIME_INTERNAL
+          CONST_SILHOUETTE_METRIC
         )
     }
 
   } else {
+
     result <- c(result, CONST_TIME_EXTERNAL)
+
+    exitsInternal <- 0;
 
     if (length(metrics) > 0){
 
-      if (CONST_ENTROPY_METRIC %in% tolower(metrics)) {
+      if (tolower(CONST_ENTROPY_METRIC) %in% tolower(metrics)) {
         result <- c(result, CONST_ENTROPY_METRIC)
       }
 
-      if (CONST_VARIATION_INFORMATION_METRIC %in% tolower(metrics)) {
+      if (tolower(CONST_VARIATION_INFORMATION_METRIC) %in% tolower(metrics)) {
         result <- c(result, CONST_VARIATION_INFORMATION_METRIC)
       }
 
-      if (CONST_PRECISION_METRIC  %in% tolower(metrics)) {
+      if (tolower(CONST_PRECISION_METRIC)  %in% tolower(metrics)) {
         result <- c(result, CONST_PRECISION_METRIC)
       }
 
-      if (CONST_RECALL_METRIC  %in% tolower(metrics)) {
+      if (tolower(CONST_RECALL_METRIC)  %in% tolower(metrics)) {
         result <- c(result, CONST_RECALL_METRIC)
       }
 
-      if (CONST_F_MEASURE_METRIC  %in% tolower(metrics)) {
+      if (tolower(CONST_F_MEASURE_METRIC)  %in% tolower(metrics)) {
         result <- c(result, CONST_F_MEASURE_METRIC)
       }
 
-      if (CONST_FOWLKES_MALLOWS_INDEX_METRIC  %in% tolower(metrics)) {
+      if (tolower(CONST_FOWLKES_MALLOWS_INDEX_METRIC)  %in% tolower(metrics)) {
         result <- c(result, CONST_FOWLKES_MALLOWS_INDEX_METRIC)
       }
 
-      if (CONST_CONNECTIVITY_METRIC %in% tolower(metrics)) {
+      if (tolower(CONST_CONNECTIVITY_METRIC) %in% tolower(metrics)) {
+        if (exitsInternal == 0) {
+          result <- c(result, CONST_TIME_INTERNAL)
+          exitsInternal = 1
+        }
         result <- c(result, CONST_CONNECTIVITY_METRIC)
       }
 
-      if (CONST_DUNN_METRIC %in% tolower(metrics)) {
+      if (tolower(CONST_DUNN_METRIC) %in% tolower(metrics)) {
+        if (exitsInternal == 0) {
+          result <- c(result, CONST_TIME_INTERNAL)
+          exitsInternal = 1
+        }
         result <- c(result, CONST_DUNN_METRIC)
       }
 
-      if (CONST_SILHOUETTE_METRIC %in% tolower(metrics)) {
+      if (tolower(CONST_SILHOUETTE_METRIC) %in% tolower(metrics)) {
+        if (exitsInternal == 0) {
+          result <- c(result, CONST_TIME_INTERNAL)
+          exitsInternal = 1
+        }
         result <- c(result, CONST_SILHOUETTE_METRIC)
       }
 
     }
 
-    result <- c(result, CONST_TIME_INTERNAL)
-
     if (variables) {
+
       result <- c(result, CONST_TIME_EXTERNAL_ATTR)
+
+      exitsInternal <- 0;
 
       if (length(metrics) > 0){
 
-        if (CONST_ENTROPY_METRIC %in% tolower(metrics)) {
+        if (tolower(CONST_ENTROPY_METRIC) %in% tolower(metrics)) {
           result <- c(result, CONST_ENTROPY_METRIC_ATTR)
         }
 
-        if (CONST_VARIATION_INFORMATION_METRIC %in% tolower(metrics)) {
+        if (tolower(CONST_VARIATION_INFORMATION_METRIC) %in% tolower(metrics)) {
           result <- c(result, CONST_VARIATION_INFORMATION_METRIC_ATTR)
         }
 
-        if (CONST_PRECISION_METRIC  %in% tolower(metrics)) {
+        if (tolower(CONST_PRECISION_METRIC)  %in% tolower(metrics)) {
           result <- c(result, CONST_PRECISION_METRIC_ATTR)
         }
 
-        if (CONST_RECALL_METRIC  %in% tolower(metrics)) {
+        if (tolower(CONST_RECALL_METRIC)  %in% tolower(metrics)) {
           result <- c(result, CONST_RECALL_METRIC_ATTR)
         }
 
-        if (CONST_F_MEASURE_METRIC  %in% tolower(metrics)) {
+        if (tolower(CONST_F_MEASURE_METRIC)  %in% tolower(metrics)) {
           result <- c(result, CONST_F_MEASURE_METRIC_ATTR)
         }
 
-        if (CONST_FOWLKES_MALLOWS_INDEX_METRIC  %in% tolower(metrics)) {
+        if (tolower(CONST_FOWLKES_MALLOWS_INDEX_METRIC)  %in% tolower(metrics)) {
           result <- c(result, CONST_FOWLKES_MALLOWS_INDEX_METRIC_ATTR)
         }
 
-        if (CONST_CONNECTIVITY_METRIC %in% tolower(metrics)) {
+        if (tolower(CONST_CONNECTIVITY_METRIC) %in% tolower(metrics)) {
+          if (exitsInternal == 0) {
+            result <- c(result, CONST_TIME_INTERNAL_ATTR)
+            exitsInternal = 1
+          }
           result <- c(result, CONST_CONNECTIVITY_METRIC_ATTR)
         }
 
-        if (CONST_DUNN_METRIC %in% tolower(metrics)) {
+        if (tolower(CONST_DUNN_METRIC) %in% tolower(metrics)) {
+          if (exitsInternal == 0) {
+            result <- c(result, CONST_TIME_INTERNAL_ATTR)
+            exitsInternal = 1
+          }
           result <- c(result, CONST_DUNN_METRIC_ATTR)
         }
 
-        if (CONST_SILHOUETTE_METRIC %in% tolower(metrics)) {
+        if (tolower(CONST_SILHOUETTE_METRIC) %in% tolower(metrics)) {
+          if (exitsInternal == 0) {
+            result <- c(result, CONST_TIME_INTERNAL_ATTR)
+            exitsInternal = 1
+          }
           result <- c(result, CONST_SILHOUETTE_METRIC_ATTR)
         }
-
       }
-
-      result <- c(result, CONST_TIME_INTERNAL_ATTR)
     }
 
   }
@@ -818,6 +858,18 @@ measure_clusterr <- function() {
 
 }
 
+#' Metrics of the gama algorithm
+#'
+#' @return list with the metrics
+#'
+#' @keywords internal
+#'
+
+measure_gama <- function() {
+  return(c(CONST_GAMA_EUCLIDEAN))
+
+}
+
 #' Metrics of the pvclust algorithm
 #'
 #' @return list with the metrics
@@ -900,6 +952,17 @@ algorithm_clusterr <- function() {
            CONST_KMEANS_RCPP,
            CONST_MINI_KMEANS))
 
+}
+
+#' gama package algorithms
+#'
+#' @return list with the algorithms
+#'
+#' @keywords internal
+#'
+
+algorithm_gama <- function() {
+  return(c(CONST_ALGORITHM_GAMA))
 }
 
 #' pvclust package algorithms

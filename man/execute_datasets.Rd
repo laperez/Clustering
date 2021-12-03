@@ -17,37 +17,33 @@ execute_datasets(
 )
 }
 \arguments{
-\item{path}{path where the datasets are located.}
+\item{path}{Path where the datasets are located.}
 
-\item{df}{data matrix or data frame, or dissimilarity matrix, depending on
+\item{df}{Data matrix or data frame, or dissimilarity matrix, depending on
 the value of the argument.}
 
-\item{packages}{array defining the clustering package. The seven packages
-implemented are: cluster, ClusterR, advclust, amap, apcluster, pvclust.
+\item{packages}{Array defining the clustering package. The seven packages
+implemented are: cluster, ClusterR, advclust, amap, apcluster, gama, pvclust.
 By default runs all packages.}
 
-\item{algorithm}{array with the algorithms that implement the package.
+\item{algorithm}{Array with the algorithms that implement the package.
 The algorithms implemented are: fuzzy_cm,fuzzy_gg,fuzzy_gk,hclust,apclusterK,
 agnes,clara,daisy,diana,fanny,mona,pam,gmm,kmeans_arma,kmeans_rcpp,
-mini_kmeans,pvclust.}
+mini_kmeans,gama,pvclust.}
 
-\item{cluster_min}{minimum number of clusters. at least one must be.}
+\item{cluster_min}{Minimum number of clusters. at least one must be.}
 
-\item{cluster_max}{maximum number of clusters. cluster_max must be greater or
+\item{cluster_max}{Maximum number of clusters. cluster_max must be greater or
 equal cluster_min.}
 
-\item{metrics}{array defining the metrics avalaible in the package. The night
-metrics implemented are: entropy, variation_information,precision,recall,
-f_measure,fowlkes_mallows_index,connectivity,dunn,silhouette.}
+\item{metrics}{Array defining the metrics avalaible in the package. The night
+metrics implemented are: Entropy, Variation_information, Precision, Recall,
+F_measure, Fowlkes_mallows_index, Connectivity, Dunn and Silhouette.}
 
-\item{attributes}{accepts Boolean values. If true as a result it shows the
-attribute that behaves best otherwise it shows the value of the executed
-metric.}
-
-\item{name_dataframe}{name of data.frame when df is fill.}
+\item{name_dataframe}{Name of data.frame when df is fill.}
 }
 \value{
-returns a matrix with the result of running all the metrics of the
+Returns a matrix with the result of running all the metrics of the
 algorithms contained in the packages we indicated.
 }
 \description{

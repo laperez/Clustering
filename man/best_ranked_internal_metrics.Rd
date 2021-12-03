@@ -7,21 +7,19 @@
 best_ranked_internal_metrics(df)
 }
 \arguments{
-\item{df}{matrix or data frame with the result of running the clustering
+\item{df}{Matrix or data frame with the result of running the clustering
 algorithm.}
 }
 \value{
 Returns a data.frame with the best classified internal attributes.
 }
 \description{
-method in charge of searching for each algorithm those that have
+Method in charge of searching for each algorithm those that have
 the best internal classification.
 
 Method that looks for those internal attributes that are better
-classified,
-making use of the ranking column. In this way we discard the rest of the
-attributes and only work with those that give the best response to the
-algorithm in question.
+classified, making use of the Var column. In this way we discard the attributes
+and only work with those that give the best response to the algorithm in question.
 }
 \examples{
 
@@ -30,14 +28,10 @@ result = clustering(
                min = 4,
                max = 5,
                algorithm='gmm',
-               metrics=c("recall"),
-               attributes = FALSE
+               metrics=c("Recall")
          )
 
 best_ranked_internal_metrics(df = result)
 
-\dontrun{
-best_ranked_internal_metrics(df = result$result)
-}
 
 }

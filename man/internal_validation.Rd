@@ -3,7 +3,7 @@
 \name{internal_validation}
 \alias{internal_validation}
 \title{Method that applicate differents internal metrics about a data frame or
-matrix, for example dunn, connectivity etc}
+matrix, for example dunn, connectivity etc.}
 \usage{
 internal_validation(
   distance = NULL,
@@ -14,21 +14,21 @@ internal_validation(
 )
 }
 \arguments{
-\item{distance}{dissimilarity matrix}
+\item{distance}{Dissimilarity matrix.}
 
-\item{clusters_vector}{array that containe tha data grouped in cluster}
+\item{clusters_vector}{Array that containe tha data grouped in cluster.}
 
-\item{dataf}{dataframe with original data}
+\item{dataf}{Dataframe with original data.}
 
-\item{method}{indicates the method for calculating distance between points}
+\item{method}{Indicates the method for calculating distance between points.}
 
-\item{metric}{array with external metric types}
+\item{metric}{Array with external metric types.}
 }
 \value{
-returns a list of the internal results initialized to zero
+Return a list of the internal results initialized to zero.
 }
 \description{
 Method that applicate differents internal metrics about a data frame or
-matrix, for example dunn, connectivity etc
+matrix, for example dunn, connectivity etc.
 }
 \keyword{internal}

@@ -2,23 +2,23 @@
 % Please edit documentation in R/external_validation.R
 \name{fowlkes_mallows_index_metric}
 \alias{fowlkes_mallows_index_metric}
-\title{Method to calculate the fowlkes and mallows}
+\title{Method to calculate the fowlkes and mallows.}
 \usage{
 fowlkes_mallows_index_metric(true_positive, false_positive, false_negative)
 }
 \arguments{
-\item{true_positive}{array with matching elements of B is in the same cluster}
+\item{true_positive}{Array with matching elements of B is in the same cluster.}
 
-\item{false_positive}{array with non matching element of B is in the same
-cluster}
+\item{false_positive}{Array with non matching element of B is in the same
+cluster.}
 
-\item{false_negative}{array with matching elements of B is not in the same
-cluster}
+\item{false_negative}{Array with matching elements of B is not in the same
+cluster.}
 }
 \value{
-returns a double with the fowlkes_mallows_index calculation
+Returns a double with the fowlkes_mallows_index calculation.
 }
 \description{
-Method to calculate the fowlkes and mallows
+Method to calculate the fowlkes and mallows.
 }
 \keyword{internal}
