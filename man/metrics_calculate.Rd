@@ -4,7 +4,7 @@
 \alias{metrics_calculate}
 \title{Method in charge of verifying the implemented metrics}
 \usage{
-metrics_calculate(metrics, variables)
+metrics_calculate(metrics, variables, internal, external)
 }
 \arguments{
 \item{metrics}{array with the metrics used in the execution of the package}

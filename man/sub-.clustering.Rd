@@ -29,6 +29,6 @@ library(Clustering)
 result <- clustering(package = 'clusterr', df = Clustering::basketball,
 min=3, max=4)
 
-result[Precision > 0.14 & Dunn > 0.11]
+result[Precision > 0.14 & Recall > 0.11]
 
 }

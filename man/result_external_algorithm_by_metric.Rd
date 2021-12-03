@@ -10,7 +10,7 @@ result_external_algorithm_by_metric(df, metric)
 \item{df}{data matrix or data frame with the result of running the clustering
 algorithm.}
 
-\item{metric}{It's a string with the metric we want to evaluate your results.}
+\item{metric}{It's a string with the metric to evaluate.}
 }
 \value{
 A data.frame with the results of the algorithm indicated as parameter.

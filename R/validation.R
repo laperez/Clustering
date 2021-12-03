@@ -72,6 +72,7 @@ calculate_result <-
            connectivity,
            silhouette,
            variables) {
+
     resultadoValores = list()
 
     if (variables) {
@@ -266,6 +267,9 @@ calculate_result <-
       else
         NULL
     }
+
+    if (is.null(sort_silhouette) && is.null(sort_dunn) && is.null(sort_connectivity)) sort_timeInternal <- NULL
+    if (is.null(sort_entropy) && is.null(sort_variation_information) && is.null(sort_precision) && is.null(sort_recall) && is.null(sort_f_measure) && is.null(sort_fowlkes_mallows_index)) sort_timeExternal <- NULL
 
     resultadoValores$algorith = algorith
     resultadoValores$distance = distance

@@ -9,6 +9,8 @@ evaluate_best_validation_internal_by_metrics(df, metric)
 \arguments{
 \item{df}{Data matrix or data frame with the result of running the clustering
 algorithm.}
+
+\item{metric}{It's a string with the metric to evaluate.}
 }
 \value{
 A data.frame with the algorithms classified by measures of
@@ -24,18 +26,14 @@ instead of obtaining the best attribute from the data set.
 }
 \examples{
 
-result = clustering(df = cluster::agriculture, min = 4, max = 5,
-algorithm='gmm', attributes = TRUE)
-
-evaluate_best_validation_internal_by_metrics(result)
-
 result = clustering(
                df = cluster::agriculture,
                min = 4,
                max = 5,
                algorithm='gmm',
-               metrics=c("Connectivity")
+               metrics=c("Precision","Connectivity")
          )
 
 evaluate_best_validation_internal_by_metrics(result,"Connectivity")
+
 }

@@ -28,7 +28,7 @@ result = clustering(
                min = 4,
                max = 5,
                algorithm='kmeans_rcpp',
-               metrics=c("Silhouette")
+               metrics=c("Recall","Silhouette")
          )
 
 evaluate_validation_internal_by_metrics(result)

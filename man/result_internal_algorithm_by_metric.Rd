@@ -26,7 +26,7 @@ result = clustering(
                min = 4,
                max = 5,
                algorithm='gmm',
-               metrics=c("Silhouette")
+               metrics=c("Recall","Silhouette")
          )
 
 result_internal_algorithm_by_metric(result,'Silhouette')

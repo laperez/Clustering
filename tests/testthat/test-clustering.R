@@ -48,7 +48,7 @@ test_that("validates that it correctly executes the dataset",{
 
   expect_equal(as.numeric(Clustering::result_external_algorithm_by_metric(df,"Precision")$result[1,5]),0.0714)
 
-  expect_equal(as.numeric(Clustering::result_internal_algorithm_by_metric(df,"Dunn")$result[2,7]),4)
+  expect_equal(as.numeric(Clustering::result_internal_algorithm_by_metric(df,"Dunn")$result[2,7]),1)
 
 })
 

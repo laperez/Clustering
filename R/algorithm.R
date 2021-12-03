@@ -600,7 +600,7 @@ measure_package <- function(package) {
 #' @keywords internal
 #'
 
-metrics_calculate <- function(metrics,variables) {
+metrics_calculate <- function(metrics,variables,internal,external) {
   result <- vector()
 
   if (is.null(metrics)) {
@@ -650,7 +650,9 @@ metrics_calculate <- function(metrics,variables) {
 
   } else {
 
-    result <- c(result, CONST_TIME_EXTERNAL)
+    if(external) {
+      result <- c(result, CONST_TIME_EXTERNAL)
+    }
 
     exitsInternal <- 0;
 
@@ -708,7 +710,9 @@ metrics_calculate <- function(metrics,variables) {
 
     if (variables) {
 
-      result <- c(result, CONST_TIME_EXTERNAL_ATTR)
+      if(external) {
+        result <- c(result, CONST_TIME_EXTERNAL_ATTR)
+      }
 
       exitsInternal <- 0;
 

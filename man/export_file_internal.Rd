@@ -28,7 +28,7 @@ result = clustering(
                min = 4,
                max = 5,
                algorithm='gmm',
-               metrics=c("Dunn")
+               metrics=c("Recall","Dunn")
          )
 
 export_file_internal(result)

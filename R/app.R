@@ -198,7 +198,7 @@ appClustering <- function() {
 #'      min = 4,
 #'      max = 5,
 #'      algorithm='gmm',
-#'      metrics='precision'
+#'      metrics=c('Precision')
 #' )
 #'
 #' }
@@ -385,10 +385,6 @@ execute_datasets <- function(path,
     measures_execute = measure_calculate(algorithm)
   }
 
-  # Character vector with the clustering evaluation measures
-
-  metrics_execute = metrics_calculate(metrics, attributes)
-
   # We calculate if you have internal evaluation measures
 
   is_metric_internal <- is_Internal_Metrics(metrics)
@@ -396,6 +392,13 @@ execute_datasets <- function(path,
   # We calculate if you have external evaluation measures
 
   is_metric_external <- is_External_Metrics(metrics)
+
+  if (!is_metric_external)
+    stop("Must have external metrics")
+
+  # Character vector with the clustering evaluation measures
+
+  metrics_execute = metrics_calculate(metrics, attributes, is_metric_internal, is_metric_external)
 
   # Variable initialization
 
@@ -734,10 +737,7 @@ execute_package_parallel <-
                       f_measure
                     else
                       CONST_NULL,
-                    if (CONST_TIME_INTERNAL %in% metrics_execute)
-                      timeInternal
-                    else
-                      CONST_NULL,
+                    timeInternal,
                     if (CONST_DUNN_METRIC %in% metrics_execute)
                       dunn
                     else
@@ -803,10 +803,7 @@ execute_package_parallel <-
                         f_measure
                       else
                         CONST_NULL,
-                      if (CONST_TIME_INTERNAL %in% metrics_execute)
-                        timeInternal
-                      else
-                        CONST_NULL,
+                      timeInternal,
                       if (CONST_DUNN_METRIC %in% metrics_execute)
                         dunn
                       else
@@ -988,7 +985,7 @@ sort.clustering <- function(x, decreasing = TRUE, ...) {
 #' result <- clustering(package = 'clusterr', df = Clustering::basketball,
 #' min=3, max=4)
 #'
-#' result[Precision > 0.14 & Dunn > 0.11]
+#' result[Precision > 0.14 & Recall > 0.11]
 #'
 
 "[.clustering" <- function(clustering, condition = T) {
@@ -1297,7 +1294,7 @@ print.evaluate_validation_external_by_metrics <- function(x, ...)
 #'                min = 4,
 #'                max = 5,
 #'                algorithm='kmeans_rcpp',
-#'                metrics=c("Silhouette")
+#'                metrics=c("Recall","Silhouette")
 #'          )
 #'
 #' evaluate_validation_internal_by_metrics(result)
@@ -1423,10 +1420,11 @@ print.evaluate_best_validation_external_by_metrics <-
 #'                min = 4,
 #'                max = 5,
 #'                algorithm='gmm',
-#'                metrics=c("Connectivity")
+#'                metrics=c("Precision","Connectivity")
 #'          )
 #'
 #' evaluate_best_validation_internal_by_metrics(result,"Connectivity")
+#'
 
 evaluate_best_validation_internal_by_metrics <- function(df,metric) {
 
@@ -1551,7 +1549,7 @@ print.result_external_algorithm_by_metric <- function(x, ...)
 #'                min = 4,
 #'                max = 5,
 #'                algorithm='gmm',
-#'                metrics=c("Silhouette")
+#'                metrics=c("Recall","Silhouette")
 #'          )
 #'
 #' result_internal_algorithm_by_metric(result,'Silhouette')
@@ -1648,6 +1646,9 @@ plot_clustering <- function(df, metric) {
     stop("The metric indicate does not exist in the dataframe")
 
   isExternalMetrics <- is_External_Metrics(metric)
+
+  if (!isExternalMetrics)
+    stop("Must have external metrics")
 
   isInternalMetrics <- is_Internal_Metrics(metric)
 
@@ -1797,7 +1798,7 @@ export_file_external <- function(df, path = NULL) {
 #'                min = 4,
 #'                max = 5,
 #'                algorithm='gmm',
-#'                metrics=c("Dunn")
+#'                metrics=c("Recall","Dunn")
 #'          )
 #'
 #' export_file_internal(result)
