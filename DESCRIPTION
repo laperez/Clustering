@@ -2,7 +2,7 @@ Package: Clustering
 Type: Package
 Title: Techniques for Evaluating Clustering
 Version: 1.7.4
-Date: 2021-12-03
+Date: 2021-12-08
 Author: Luis Alfonso Perez Martos [aut, cre]
 Maintainer: Luis Alfonso Perez Martos <lapm0001@gmail.com>
 Description: The design of this package allows us to run different clustering packages and compare the results between them, to determine which algorithm behaves best from the data provided.
@@ -14,4 +14,4 @@ LazyData: true
 RoxygenNote: 7.1.1
 Repository: CRAN
 Imports: advclust, amap, apcluster, cluster, ClusterR, data.table, doParallel, dplyr, foreach, future, ggplot2, gmp, pracma, pvclust, shiny, sqldf, stats, tools, utils, xtable, toOrdinal
-Suggests: DT, kableExtra, knitr, rmarkdown, shinyalert, shinyFiles, shinyjs, shinythemes, shinyWidgets, tidyverse, shinycssloaders
+Suggests: DT, shinyalert, shinyFiles, shinyjs, shinythemes, shinyWidgets, tidyverse, shinycssloaders

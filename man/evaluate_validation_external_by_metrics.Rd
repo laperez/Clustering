@@ -26,7 +26,7 @@ It groups the results of the execution by algorithms.
 result = clustering(
                df = cluster::agriculture,
                min = 4,
-               max = 5,
+               max = 4,
                algorithm='kmeans_arma',
                metrics=c("Precision")
          )

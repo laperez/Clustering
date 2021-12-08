@@ -79,3 +79,16 @@ to indicate the number of clusters.
 \code{min} and \code{max}, the algorithms \code{algorithm} or packages#'
 \code{packages} that we want to cluster and the metrics \code{metrics}.
 }
+\examples{
+
+clustering(
+     df = cluster::agriculture,
+     min = 3,
+     max = 3,
+     algorithm='clara',
+     metrics=c('Precision')
+)
+
+
+
+}

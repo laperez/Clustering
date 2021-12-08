@@ -192,13 +192,13 @@ appClustering <- function() {
 #'
 #' clustering(
 #'      df = cluster::agriculture,
-#'      min = 4,
-#'      max = 5,
-#'      algorithm='gmm',
+#'      min = 3,
+#'      max = 3,
+#'      algorithm='clara',
 #'      metrics=c('Precision')
 #' )
 #'
-#' }
+#'
 #'
 
 clustering <- function(path = NULL,
@@ -979,8 +979,8 @@ sort.clustering <- function(x, decreasing = TRUE, ...) {
 #'
 #' library(Clustering)
 #'
-#' result <- clustering(package = 'clusterr', df = Clustering::basketball,
-#' min=3, max=4)
+#' result <- clustering(df = Clustering::basketball, algorithm = 'clara',
+#' min=3, max=4, metrics = c('Precision','Recall'))
 #'
 #' result[Precision > 0.14 & Recall > 0.11]
 #'
@@ -1141,7 +1141,7 @@ print.clustering_sort <- function(x, ...) {
 #' result = clustering(
 #'                df = cluster::agriculture,
 #'                min = 4,
-#'                max = 5,
+#'                max = 4,
 #'                algorithm='gmm',
 #'                metrics=c("Recall")
 #'          )
@@ -1238,7 +1238,7 @@ print.best_ranked_internal_metrics <- function(x, ...)
 #' result = clustering(
 #'                df = cluster::agriculture,
 #'                min = 4,
-#'                max = 5,
+#'                max = 4,
 #'                algorithm='kmeans_arma',
 #'                metrics=c("Precision")
 #'          )

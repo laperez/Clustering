@@ -26,7 +26,7 @@ only work with those that give the best response to the algorithm in question.
 result = clustering(
                df = cluster::agriculture,
                min = 4,
-               max = 5,
+               max = 4,
                algorithm='gmm',
                metrics=c("Recall")
          )

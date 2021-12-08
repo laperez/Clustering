@@ -26,8 +26,8 @@ Connectivity, Dunn, Silhouette and TimeAtt}.
 
 library(Clustering)
 
-result <- clustering(package = 'clusterr', df = Clustering::basketball,
-min=3, max=4)
+result <- clustering(df = Clustering::basketball, algorithm = 'clara',
+min=3, max=4, metrics = c('Precision','Recall'))
 
 result[Precision > 0.14 & Recall > 0.11]
 
