@@ -434,7 +434,7 @@ calculate_validation_external_by_metrics <-
 
     query <-
       paste("select Algorithm ", query_fields, "from table_res
-            group by Algorithm", collapse = "")
+            group by Algorithm order by Algorithm desc", collapse = "")
 
 
     calculate_external_by_metrics <-
@@ -482,7 +482,7 @@ calculate_best_validation_external_by_metrics <-
 
     query <-
       paste("select Algorithm,Distance,Clusters", query_fields, "from table_res group by
-            Algorithm, Distance HAVING ",metric," = MAX(",metric,")", collapse = "")
+            Algorithm, Distance HAVING ",metric," = MAX(",metric,") order by Algorithm desc", collapse = "")
 
     calculate_best_external_by_metrics <-
       sqldf(
@@ -524,7 +524,7 @@ calculate_validation_internal_by_metrics <-
 
     query <-
       paste("select Algorithm ", query_fields, "from table_res group by
-            Algorithm", collapse = "")
+            Algorithm order by Algorithm desc", collapse = "")
 
 
     calculate_internal_by_metrics <-
@@ -571,7 +571,7 @@ calculate_best_validation_internal_by_metrics <-
 
     query <-
       paste("select Algorithm,Distance,Clusters ", query_fields, "from table_res group by
-            Algorithm, Distance HAVING ",metric," = MAX(",metric,")", collapse = "")
+            Algorithm, Distance HAVING ",metric," = MAX(",metric,") order by Algorithm desc", collapse = "")
 
     calculate_best_internal_by_metrics <-
       sqldf(
@@ -616,7 +616,7 @@ show_result_external_algorithm_group_by_clustering <-
 
       query <-
         paste("select Algorithm,Clusters ", query_fields, "from table_res group
-              by Algorithm, Clusters", collapse = "")
+              by Algorithm, Clusters order by Algorithm desc", collapse = "")
 
       calculate_result_external_algorithm_by_clusters <-
         sqldf(
@@ -659,7 +659,7 @@ show_result_internal_algorithm_group_by_clustering <-
 
     query <-
       paste("select Algorithm,Clusters ", query_fields, "from table_res group
-            by Algorithm, Clusters", collapse = "")
+            by Algorithm, Clusters order by Algorithm desc", collapse = "")
 
     calculate_result_internal_algorithm_by_clusters <-
       sqldf(
@@ -703,7 +703,7 @@ show_result_external_algorithm_by_metric <-
     }
 
     query <-
-      paste("select Algorithm, Distance, Clusters ", query_fields, " from table_res group by Algorithm HAVING ",metric," = MAX(",metric,")", collapse = "", sep = "")
+      paste("select Algorithm, Distance, Clusters ", query_fields, " from table_res group by Algorithm HAVING ",metric," = MAX(",metric,") order by Algorithm desc", collapse = "", sep = "")
 
     show_result_external_by_metrics <- sqldf(query)
 
@@ -773,7 +773,7 @@ show_result_internal_algorithm_by_metric <-
     }
 
     query <-
-      paste("select Algorithm, Distance, Clusters ", query_fields, " from table_res group by Algorithm HAVING ",metric," = MAX(",metric,")", collapse = "", sep = "")
+      paste("select Algorithm, Distance, Clusters ", query_fields, " from table_res group by Algorithm HAVING ",metric," = MAX(",metric,") order by Algorithm desc", collapse = "", sep = "")
 
     show_result_internal_by_metrics <- sqldf(query)
 

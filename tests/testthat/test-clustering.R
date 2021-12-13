@@ -38,15 +38,15 @@ test_that("validates that it correctly executes the dataset",{
 
   expect_equal(as.numeric(Clustering::best_ranked_internal_metrics(df)$result[1,7]), 0.482)
 
-  expect_equal(as.numeric(Clustering::evaluate_validation_external_by_metrics(df)$result[1,3]),0.0714)
+  expect_equal(as.numeric(Clustering::evaluate_validation_external_by_metrics(df)$result[1,3]),0.0909)
 
-  expect_equal(as.numeric(Clustering::evaluate_validation_internal_by_metrics(df)$result[1,3]),0.4)
+  expect_equal(as.numeric(Clustering::evaluate_validation_internal_by_metrics(df)$result[1,3]),0.482)
 
-  expect_equal(as.numeric(Clustering::evaluate_best_validation_external_by_metrics(df,'Precision')$result[1,5]),0.0667)
+  expect_equal(as.numeric(Clustering::evaluate_best_validation_external_by_metrics(df,'Precision')$result[1,5]),0.0909)
 
-  expect_equal(as.numeric(Clustering::evaluate_best_validation_internal_by_metrics(df,'Dunn')$result[1,5]),0.4000)
+  expect_equal(as.numeric(Clustering::evaluate_best_validation_internal_by_metrics(df,'Dunn')$result[1,5]),0.482)
 
-  expect_equal(as.numeric(Clustering::result_external_algorithm_by_metric(df,"Precision")$result[1,5]),0.0714)
+  expect_equal(as.numeric(Clustering::result_external_algorithm_by_metric(df,"Precision")$result[1,5]),0.0909)
 
   expect_equal(as.numeric(Clustering::result_internal_algorithm_by_metric(df,"Dunn")$result[2,7]),1)
 

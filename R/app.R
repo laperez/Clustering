@@ -1644,9 +1644,6 @@ plot_clustering <- function(df, metric) {
 
   isExternalMetrics <- is_External_Metrics(metric)
 
-  if (!isExternalMetrics)
-    stop("Must have external metrics")
-
   isInternalMetrics <- is_Internal_Metrics(metric)
 
   if (isExternalMetrics == F &&

@@ -14,14 +14,14 @@ fillComboExternalGraphs <- function(metrics) {
 
     if (length(metrics) > 0) {
         for (m in 1:length(metrics)) {
-            if (tolower(metrics[m]) %not in% c(
-                "entropy",
-                "precision",
-                "recall",
-                "variation_information",
-                "f_measure",
-                "fowlkes_mallows_index"
-            )) {
+            if (tolower(metrics[m]) %not in% tolower(c(
+                "Entropy",
+                "Precision",
+                "Recall",
+                "Variation_information",
+                "F_measure",
+                "Fowlkes_mallows_index"
+            ))) {
                 result <- result[result != metrics[m]]
             }
         }
@@ -39,9 +39,9 @@ fillComboInternalGraphs <- function(metrics) {
 
     if (length(metrics) > 0) {
         for (m in 1:length(metrics)) {
-            if (tolower(metrics[m]) %not in% c("connectivity",
-                                      "dunn",
-                                      "silhouette")) {
+            if (tolower(metrics[m]) %not in% tolower(c("Connectivity",
+                                      "Dunn",
+                                      "Silhouette"))) {
                 result <- result[result != metrics[m]]
             }
         }
@@ -77,6 +77,7 @@ shinyServer(function(input, output, session) {
     observeEvent(input$image1, {
         if (!is.null(input$image1) &&
             input$image1 != "" && !is.null(df_result)) {
+            shinyalert(input$image1,"q3423")
             output$plotImage1 <- renderPlot({
                 Clustering::plot_clustering(df_result, input$image1)
             })
