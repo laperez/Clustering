@@ -77,7 +77,6 @@ shinyServer(function(input, output, session) {
     observeEvent(input$image1, {
         if (!is.null(input$image1) &&
             input$image1 != "" && !is.null(df_result)) {
-            shinyalert(input$image1,"q3423")
             output$plotImage1 <- renderPlot({
                 Clustering::plot_clustering(df_result, input$image1)
             })
