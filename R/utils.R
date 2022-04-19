@@ -237,7 +237,7 @@ convert_numeric_matrix <- function(datas){
 
   for (iterator in 1:ncol(datas)){
 
-    if (class(datas[,iterator])=="character"){
+    if (is(datas[,iterator],"character")) {
 
       character_numeric <- ifelse(!is.na(as.numeric(datas[,iterator])), 1, 0)
 

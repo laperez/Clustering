@@ -18,6 +18,7 @@
 #' @importFrom
 #' utils install.packages
 #'
+#'
 #' @export
 #' appClustering
 #'
@@ -184,6 +185,9 @@ appClustering <- function() {
 #'
 #' @import
 #' toOrdinal
+#'
+#' @import
+#' methods
 #'
 #' @export
 #' clustering
