@@ -29,7 +29,7 @@ located.}
 the value of the argument.}
 
 \item{algorithms_execute}{Character vector with the algorithms to be
-executed. The algorithms implemented are: fuzzy_cm,fuzzy_gg,fuzzy_gk,hclust,
+executed. The algorithms implemented are: hclust,
 apclusterK,agnes,clara,daisy,diana,fanny,mona,pam,gmm,kmeans_arma,
 kmeans_rcpp,mini_kmeans, pvclust.}
 

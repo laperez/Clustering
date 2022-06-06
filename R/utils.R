@@ -66,6 +66,22 @@ fill_cluster_vector = function(data, appcluster) {
 
 }
 
+fill_cluster = function(data, clusters) {
+  cluster_vector = array(dim = nrow(data))
+  for (iterator_row in 1:length(clusters)) {
+    for (iterator_col in 1:length(clusters[[iterator_row]])) {
+      array_cluster = clusters[[iterator_row]]
+      pos = array_cluster[iterator_col]
+
+      cluster_vector[[pos]] = iterator_row
+
+    }
+  }
+
+  return (cluster_vector)
+
+}
+
 #' Method in charge of detecting the limit of a dataset header.
 #'
 #' @param path of the dataset

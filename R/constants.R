@@ -45,8 +45,6 @@
 
   CONST_PVCLUST <- "pvclust"
 
-  CONST_ALGORITHM_ADVCLUST <- 'advclust'
-
   CONST_ALGORITHM_AMAP <- "amap"
 
   CONST_ALGORITHM_APCLUSTER <- "apcluster"

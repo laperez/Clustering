@@ -23,13 +23,13 @@ allowed.}
 you want to use training and test \code{basketball} attributes.}
 
 \item{packages}{character vector with the packets running the algorithm.
-\code{NULL} The seven packages implemented are: cluster, ClusterR, advclust,
-amap, apcluster, pvclust. \cr By default runs all packages.}
+
+\code{NULL} The seven packages implemented are: cluster, ClusterR, amap,
+apcluster, pvclust. \cr By default runs all packages.}
 
 \item{algorithm}{character vector with the algorithms implemented within the
-package. \code{NULL} The algorithms implemented are: fuzzy_cm,fuzzy_gg,
-fuzzy_gk,hclust,apclusterK,agnes,clara,daisy, \cr diana,fanny,mona,pam,gmm,
-kmeans_arma,kmeans_rcpp,mini_kmeans,\cr pvclust.}
+package. \code{NULL} The algorithms implemented are: hclust,apclusterK,agnes,clara,daisy,
+diana,fanny,mona,pam,gmm, kmeans_arma,kmeans_rcpp,mini_kmeans,pvclust.}
 
 \item{min}{An integer with the minimum number of clusters This data is
 necessary to indicate the minimum number of clusters when grouping the data.
@@ -76,7 +76,8 @@ this, it is necessary to indicate the type of evaluation you want to make on
 the distribution of the data. To be able to execute the algorithm it is necessary
 to indicate the number of clusters.
 
-\code{min} and \code{max}, the algorithms \code{algorithm} or packages#'
+\code{min} and \code{max}, the algorithms \code{algorithm} or packages.
+
 \code{packages} that we want to cluster and the metrics \code{metrics}.
 }
 \examples{

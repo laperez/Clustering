@@ -52,7 +52,6 @@ shinyUI(
                     inputId = "packages",
                     label = h3("Packages"),
                     choices = list(
-                        "Advclust" = "advclust",
                         "Amap" = "amap",
                         "Apcluster" = "apcluster",
                         "ClusterR" = "clusterr",
@@ -78,9 +77,6 @@ shinyUI(
                         "Diana" = "diana",
                         "Fanny" = "fanny",
                         "Gmm" = "gmm",
-                        "Fuzzy CM" = "fuzzy_cm",
-                        "Fuzzy GG" = "fuzzy_gg",
-                        "Fuzzy GK" = "fuzzy_gk",
                         "Hclust" = "hclust",
                         "Kmeans Arma" = "kmeans_arma",
                         "Kmeans Rcpp" = "kmeans_rcpp",

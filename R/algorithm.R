@@ -8,7 +8,6 @@
 packages <- function() {
   return (
     c(
-      CONST_ALGORITHM_ADVCLUST,
       CONST_ALGORITHM_AMAP,
       CONST_ALGORITHM_APCLUSTER,
       CONST_ALGORITHM_CLUSTER,
@@ -28,9 +27,6 @@ packages <- function() {
 algorithms <- function() {
   return (
     c(
-      CONST_FUZZY_CM,
-      CONST_FUZZY_GG,
-      CONST_FUZZY_GK,
       CONST_HCLUST,
       CONST_APCLUSTERK,
       CONST_AGNES,
@@ -382,7 +378,6 @@ algorithms_package <- function(packages) {
 
   if (is.null(packages)) {
     # All algorithm
-    algorithms <- c(algorithms, algorithm_advclust())
     algorithms <- c(algorithms, algorithm_amap())
     algorithms <- c(algorithms, algorithm_apcluster())
     algorithms <- c(algorithms, algorithm_cluster())
@@ -391,9 +386,6 @@ algorithms_package <- function(packages) {
 
   } else {
     for (iterate in 1:length(packages)) {
-      if (tolower(packages[iterate]) == CONST_ALGORITHM_ADVCLUST) {
-        algorithms <- c(algorithms, algorithm_advclust())
-      }
 
       if (tolower(packages[iterate]) == CONST_ALGORITHM_AMAP) {
         algorithms <- c(algorithms, algorithm_amap())
@@ -435,17 +427,6 @@ measure_calculate <- function(algorithm) {
   result <- vector()
 
   for (iterate in 1:length(algorithm)) {
-    if (tolower(algorithm[iterate]) == tolower(CONST_FUZZY_CM)) {
-      result <- c(result, CONST_FUZZY_CM)
-    }
-
-    if (tolower(algorithm[iterate]) == tolower(CONST_FUZZY_GG)) {
-      result <- c(result, CONST_FUZZY_GG)
-    }
-
-    if (tolower(algorithm[iterate]) == tolower(CONST_FUZZY_GK)) {
-      result <- c(result, CONST_FUZZY_GK)
-    }
 
     if (tolower(algorithm[iterate]) == tolower(CONST_HCLUST)) {
       result <- c(result, CONST_HCLUST_EUCLIDEAN)
@@ -533,7 +514,6 @@ measure_package <- function(package) {
 
   if (is.null(package)) {
     # All measures
-    result <- c(result, measure_advclust())
     result <- c(result, measure_amap())
     result <- c(result, measure_apcluster())
     result <- c(result, measure_cluster())
@@ -541,9 +521,6 @@ measure_package <- function(package) {
     result <- c(result, measure_pvclust())
   } else {
     for (iterate in 1:length(package)) {
-      if (tolower(package[iterate]) == CONST_ALGORITHM_ADVCLUST) {
-        result <- c(result, measure_advclust())
-      }
 
       if (tolower(package[iterate]) == CONST_ALGORITHM_AMAP) {
         result <- c(result, measure_amap())
@@ -758,20 +735,6 @@ metrics_calculate <- function(metrics,variables,internal,external) {
 
 }
 
-#' Metrics of the advclust algorithm
-#'
-#' @return list with the metrics
-#'
-#' @keywords internal
-#'
-
-measure_advclust <- function() {
-  return(c(CONST_FUZZY_CM,
-           CONST_FUZZY_GG,
-           CONST_FUZZY_GK))
-
-}
-
 #' Metrics of the amap algorithm
 #'
 #' @return list with the metrics
@@ -856,20 +819,6 @@ measure_clusterr <- function() {
 measure_pvclust <- function() {
   return(c(CONST_PVCLUST_EUCLIDEAN,
            CONST_PVLCUST_CORRELATION))
-
-}
-
-#' Advclust package algorithms
-#'
-#' @return list with the algorithms
-#'
-#' @keywords internal
-#'
-
-algorithm_advclust <- function() {
-  return(c(CONST_FUZZY_CM,
-           CONST_FUZZY_GG,
-           CONST_FUZZY_GK))
 
 }
 

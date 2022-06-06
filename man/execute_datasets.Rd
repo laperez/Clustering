@@ -23,11 +23,11 @@ execute_datasets(
 the value of the argument.}
 
 \item{packages}{Array defining the clustering package. The seven packages
-implemented are: cluster, ClusterR, advclust, amap, apcluster, pvclust.
+implemented are: cluster, ClusterR, amap, apcluster, pvclust.
 By default runs all packages.}
 
 \item{algorithm}{Array with the algorithms that implement the package.
-The algorithms implemented are: fuzzy_cm,fuzzy_gg,fuzzy_gk,hclust,apclusterK,
+The algorithms implemented are: hclust,apclusterK,
 agnes,clara,daisy,diana,fanny,mona,pam,gmm,kmeans_arma,kmeans_rcpp,
 mini_kmeans, pvclust.}
 

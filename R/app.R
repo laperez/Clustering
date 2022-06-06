@@ -1,3 +1,5 @@
+
+
 #' @title Clustering GUI.
 #'
 #' @description Method that allows us to execute the main algorithm in graphic
@@ -79,13 +81,13 @@ appClustering <- function() {
 #' you want to use training and test \code{basketball} attributes.
 #'
 #' @param packages character vector with the packets running the algorithm.
-#' \code{NULL} The seven packages implemented are: cluster, ClusterR, advclust,
-#' amap, apcluster, pvclust. \cr By default runs all packages.
+#'
+#' \code{NULL} The seven packages implemented are: cluster, ClusterR, amap,
+#' apcluster, pvclust. \cr By default runs all packages.
 #'
 #' @param algorithm character vector with the algorithms implemented within the
-#' package. \code{NULL} The algorithms implemented are: fuzzy_cm,fuzzy_gg,
-#' fuzzy_gk,hclust,apclusterK,agnes,clara,daisy, \cr diana,fanny,mona,pam,gmm,
-#' kmeans_arma,kmeans_rcpp,mini_kmeans,\cr pvclust.
+#' package. \code{NULL} The algorithms implemented are: hclust,apclusterK,agnes,clara,daisy,
+#' diana,fanny,mona,pam,gmm, kmeans_arma,kmeans_rcpp,mini_kmeans,pvclust.
 #'
 #' @param min An integer with the minimum number of clusters This data is
 #' necessary to indicate the minimum number of clusters when grouping the data.
@@ -106,7 +108,8 @@ appClustering <- function() {
 #' the distribution of the data. To be able to execute the algorithm it is necessary
 #' to indicate the number of clusters.
 #'
-#' \code{min} and \code{max}, the algorithms \code{algorithm} or packages#'
+#' \code{min} and \code{max}, the algorithms \code{algorithm} or packages.
+#'
 #' \code{packages} that we want to cluster and the metrics \code{metrics}.
 #'
 #'
@@ -147,8 +150,6 @@ appClustering <- function() {
 #' ClusterR GMM predict_GMM distance_matrix KMeans_rcpp predict_KMeans
 #' KMeans_arma MiniBatchKmeans predict_MBatchKMeans center_scale
 #'
-#' @importFrom
-#' advclust fuzzy.CM fuzzy.GG fuzzy.GK
 #'
 #' @importFrom
 #' pvclust pvclust pvpick
@@ -327,11 +328,11 @@ clustering <- function(path = NULL,
 #' the value of the argument.
 #'
 #' @param packages Array defining the clustering package. The seven packages
-#' implemented are: cluster, ClusterR, advclust, amap, apcluster, pvclust.
+#' implemented are: cluster, ClusterR, amap, apcluster, pvclust.
 #' By default runs all packages.
 #'
 #' @param algorithm Array with the algorithms that implement the package.
-#' The algorithms implemented are: fuzzy_cm,fuzzy_gg,fuzzy_gk,hclust,apclusterK,
+#' The algorithms implemented are: hclust,apclusterK,
 #' agnes,clara,daisy,diana,fanny,mona,pam,gmm,kmeans_arma,kmeans_rcpp,
 #' mini_kmeans, pvclust.
 #'
@@ -496,7 +497,7 @@ execute_datasets <- function(path,
 #' the value of the argument.
 #'
 #' @param algorithms_execute Character vector with the algorithms to be
-#' executed. The algorithms implemented are: fuzzy_cm,fuzzy_gg,fuzzy_gk,hclust,
+#' executed. The algorithms implemented are: hclust,
 #' apclusterK,agnes,clara,daisy,diana,fanny,mona,pam,gmm,kmeans_arma,
 #' kmeans_rcpp,mini_kmeans, pvclust.
 #'

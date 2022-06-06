@@ -137,18 +137,6 @@ evaluate_all_column_dataset = function(datas,
         resultado = pam_manhattan_method(datas, cluster, i, metrics)
       }
 
-      if (method == 'fuzzy_cm') {
-        resultado = fuzzy_cm_method(datas, cluster,  i, metrics)
-      }
-
-      if (method == 'fuzzy_gg') {
-        resultado = fuzzy_gg_method(datas, cluster, i, metrics)
-      }
-
-      if (method == 'fuzzy_gk') {
-        resultado = fuzzy_gk_method(datas, cluster, i, metrics)
-      }
-
       if (method == 'pvpick') {
         resultado = pvpick_method(datas, cluster, metrics)
       }
