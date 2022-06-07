@@ -1,5 +1,6 @@
 
 
+
 #' @title Clustering GUI.
 #'
 #' @description Method that allows us to execute the main algorithm in graphic
@@ -929,7 +930,7 @@ sort.clustering <- function(x, decreasing = TRUE, ...) {
   if (is.null(x))
     stop("The x field must be filled")
 
-  if (class(x) != "clustering")
+  if (!is(x, "clustering"))
     stop("The x field must be clustering type")
 
   #Catch dots arguments
@@ -995,7 +996,7 @@ sort.clustering <- function(x, decreasing = TRUE, ...) {
   if (is.null(clustering))
     stop("The clustering field must be filled")
 
-  if (class(clustering) != "clustering")
+  if (!is(clustering, "clustering"))
     stop("The clustering field must be clustering type")
 
   filter <- substitute(condition, )
