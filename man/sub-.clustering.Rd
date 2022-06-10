@@ -5,12 +5,15 @@
 \title{Filter metrics in a \code{clustering} object returning a new
 \code{clustering} object.}
 \usage{
-\method{[}{clustering}(clustering, condition = T)
+\method{[}{clustering}(clustering, condition = TRUE)
 }
 \arguments{
 \item{clustering}{The \code{clustering} object to filter.}
 
 \item{condition}{Expression to filter the \code{clustering} object.}
+}
+\value{
+A \code{clustering} object filtered from the input parameters.
 }
 \description{
 Generates a new filtered \code{clustering} object.

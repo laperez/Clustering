@@ -4,7 +4,7 @@
 \alias{dataframe_by_metrics_evaluation}
 \title{Method to filter only the external measurement columns}
 \usage{
-dataframe_by_metrics_evaluation(data, external = T)
+dataframe_by_metrics_evaluation(data, external = TRUE)
 }
 \arguments{
 \item{data}{information matrix.}

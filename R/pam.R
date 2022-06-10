@@ -23,7 +23,7 @@ pam_euclidean_method = function(dt, clusters, columnClass, metric) {
 
   start.time <- Sys.time()
 
-  on.exit(options(warn = -1))
+  on.exit(suppressWarnings())
 
   if ('data.frame' %in% class(dt))
     dt = as.matrix(dt)
@@ -110,8 +110,6 @@ pam_euclidean_method = function(dt, clusters, columnClass, metric) {
 pam_manhattan_method = function(dt, clusters, columnClass, metric) {
 
   start.time <- Sys.time()
-
-  on.exit(options(warn = -1))
 
   if ('data.frame' %in% class(dt))
     dt = as.matrix(dt)

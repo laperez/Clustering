@@ -244,20 +244,20 @@ external_validation = function(column_dataset_label,
   if (is.na(as.numeric(fowlkes_mallows_index))) fowlkes_mallows_index <- 0
 
   resultadoValores = list(
-    "entropy" = format(round(as.numeric(entropy), digits = 4),scientific = F),
+    "entropy" = format(round(as.numeric(entropy), digits = 4),scientific = FALSE),
     "variation_information" = format(round(
       as.numeric(variation_information),
       digits = 4
-    ),scientific = F),
+    ),scientific = FALSE),
     "precision" = format(round(as.numeric(precision), digits = 4),
-                         scientific = F),
-    "recall" = format(round(as.numeric(recall), digits = 4),scientific = F),
+                         scientific = FALSE),
+    "recall" = format(round(as.numeric(recall), digits = 4),scientific = FALSE),
     "f_measure" = format(round(as.numeric(f_measure), digits = 4),
-                         scientific = F),
+                         scientific = FALSE),
     "fowlkes_mallows_index" = format(round(
       as.numeric(fowlkes_mallows_index),
       digits = 4
-    ),scientific = F),
+    ),scientific = FALSE),
     "time" = round(as.numeric(time_external), digits = 4)
   )
 
@@ -529,16 +529,16 @@ initializeExternalValidation = function() {
     "variation_information" = format(round(
       as.numeric(variation_information),
       digits = 4
-    ),scientific = F),
+    ),scientific = FALSE),
     "precision" = format(round(as.numeric(precision), digits = 4),
-                         scientific = F),
-    "recall" = format(round(as.numeric(recall), digits = 4),scientific = F),
+                         scientific = FALSE),
+    "recall" = format(round(as.numeric(recall), digits = 4),scientific = FALSE),
     "f_measure" = format(round(as.numeric(f_measure), digits = 4),
-                         scientific = F),
+                         scientific = FALSE),
     "fowlkes_mallows_index" = format(round(
       as.numeric(fowlkes_mallows_index),
       digits = 4
-    ),scientific = F),
+    ),scientific = FALSE),
     "time" = round(as.numeric(time), digits = 4)
   )
 

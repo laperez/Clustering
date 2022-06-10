@@ -12,6 +12,9 @@ algorithm.}
 
 \item{metric}{it's a string with the name of the metric select to evaluate.}
 }
+\value{
+Generate an image with the distribution of the clusters by metrics.
+}
 \description{
 Graphical representation of the evaluation measures grouped by
 cluster.

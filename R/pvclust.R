@@ -23,8 +23,6 @@ pvclust_euclidean_method = function(dt, clusters, columnClass, metric) {
 
   start.time <- Sys.time()
 
-  on.exit(options(warn = -1))
-
   if ('data.frame' %in% class(dt))
     dt = as.matrix(dt)
 
@@ -110,8 +108,6 @@ pvclust_euclidean_method = function(dt, clusters, columnClass, metric) {
 pvclust_correlation_method = function(dt, clusters, columnClass, metric) {
 
   start.time <- Sys.time()
-
-  on.exit(options(warn = -1))
 
   if ('data.frame' %in% class(dt))
     dt = as.matrix(dt)

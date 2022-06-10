@@ -108,8 +108,8 @@ shinyServer(function(input, output, session) {
     # Reactive event to manage the algorithm combo, that is, if we select an algorithm through this
     # event we will select the package that contains that algorithm.
     observeEvent(
-        ignoreNULL = F,
-        ignoreInit = T,
+        ignoreNULL = FALSE,
+        ignoreInit = TRUE,
         eventExpr = {
             input$algorithm
         },
@@ -282,8 +282,8 @@ shinyServer(function(input, output, session) {
     # Event that manages the package component. Each vex that selects a bundle will mark
     # the algorithms corresponding to the bundle.
     observeEvent(
-        ignoreNULL = F,
-        ignoreInit = T,
+        ignoreNULL = FALSE,
+        ignoreInit = TRUE,
         eventExpr = {
             input$packages
         },
@@ -454,7 +454,7 @@ shinyServer(function(input, output, session) {
 
     # Event managed by the component that controls the management of directories
     observeEvent(
-        ignoreNULL = T,
+        ignoreNULL = TRUE,
         eventExpr = {
             input$dir
         },
@@ -465,7 +465,7 @@ shinyServer(function(input, output, session) {
             global$datapath <-
                 file.path(home, paste(unlist(dir()$path[-1]), collapse = .Platform$file.sep))
         },
-        ignoreInit = T
+        ignoreInit = TRUE
     )
 
 
@@ -505,7 +505,7 @@ shinyServer(function(input, output, session) {
                        type = "error")
         } else {
 
-            printFirstTable = F
+            printFirstTable = FALSE
 
             # We check if the user has marked that the data should be uploaded from a directory
             # or a dataframe
@@ -556,9 +556,9 @@ shinyServer(function(input, output, session) {
                                                               extensions = c('Buttons','ColReorder'),
                                                               options = list(
                                                                   colReorder = TRUE,
-                                                                  scrollX = T,
-                                                                  lengthChange = F,
-                                                                  scroller = T,
+                                                                  scrollX = TRUE,
+                                                                  lengthChange = FALSE,
+                                                                  scroller = TRUE,
                                                                   dom = 'Bfrtip',
                                                                   buttons =
                                                                       list(
@@ -584,7 +584,7 @@ shinyServer(function(input, output, session) {
                                                                           ))
                                                               )))
 
-                        printFirstTable = T
+                        printFirstTable = TRUE
 
                         shinyjs::show("plotImage1")
                         output$plotImage1 <- renderPlot({
@@ -615,9 +615,9 @@ shinyServer(function(input, output, session) {
                                                                   extensions = c('Buttons','ColReorder'),
                                                                   options = list(
                                                                       colReorder = TRUE,
-                                                                      scrollX = T,
-                                                                      lengthChange = F,
-                                                                      scroller = T,
+                                                                      scrollX = TRUE,
+                                                                      lengthChange = FALSE,
+                                                                      scroller = TRUE,
                                                                       dom = 'Bfrtip',
                                                                       buttons =
                                                                           list(
@@ -651,9 +651,9 @@ shinyServer(function(input, output, session) {
                                 DT::renderDataTable(
                                     result_internal$result,
                                     options = list(
-                                        scroller = T,
-                                        scrollX = T,
-                                        lengthChange = F,
+                                        scroller = TRUE,
+                                        scrollX = TRUE,
+                                        lengthChange = FALSE,
                                         dom = 'Bfrtip',
                                         buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
                                     )
@@ -686,18 +686,18 @@ shinyServer(function(input, output, session) {
                     output$best_evaluation1 <-
                         DT::renderDataTable(NULL,
                                             options = list(
-                                                scroller = T,
-                                                scrollX = T,
-                                                lengthChange = F,
+                                                scroller = TRUE,
+                                                scrollX = TRUE,
+                                                lengthChange = FALSE,
                                                 dom = 'Bfrtip',
                                                 buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
                                             ))
                     output$best_evaluation2 <-
                         DT::renderDataTable(NULL,
                                             options = list(
-                                                scroller = T,
-                                                scrollX = T,
-                                                lengthChange = F,
+                                                scroller = TRUE,
+                                                scrollX = TRUE,
+                                                lengthChange = FALSE,
                                                 dom = 'Bfrtip',
                                                 buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
                                             ))
@@ -738,9 +738,9 @@ shinyServer(function(input, output, session) {
                                                               extensions = c('Buttons','ColReorder'),
                                                               options = list(
                                                                   colReorder = TRUE,
-                                                                  scrollX = T,
-                                                                  lengthChange = F,
-                                                                  scroller = T,
+                                                                  scrollX = TRUE,
+                                                                  lengthChange = FALSE,
+                                                                  scroller = TRUE,
                                                                   dom = 'Bfrtip',
                                                                   buttons =
                                                                       list(
@@ -766,7 +766,7 @@ shinyServer(function(input, output, session) {
                                                                           ))
                                                               )))
 
-                        printFirstTable = T
+                        printFirstTable = TRUE
 
                         shinyjs::show("plotImage1")
                         output$plotImage1 <- renderPlot({
@@ -797,9 +797,9 @@ shinyServer(function(input, output, session) {
                                                                   extensions = c('Buttons','ColReorder'),
                                                                   options = list(
                                                                       colReorder = TRUE,
-                                                                      scrollX = T,
-                                                                      lengthChange = F,
-                                                                      scroller = T,
+                                                                      scrollX = TRUE,
+                                                                      lengthChange = FALSE,
+                                                                      scroller = TRUE,
                                                                       dom = 'Bfrtip',
                                                                       buttons =
                                                                           list(
@@ -833,9 +833,9 @@ shinyServer(function(input, output, session) {
                                 DT::renderDataTable(
                                     result_internal$result,
                                     options = list(
-                                        scroller = T,
-                                        scrollX = T,
-                                        lengthChange = F,
+                                        scroller = TRUE,
+                                        scrollX = TRUE,
+                                        lengthChange = FALSE,
                                         dom = 'Bfrtip',
                                         buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
                                     )
@@ -863,27 +863,27 @@ shinyServer(function(input, output, session) {
                 error = function(e) {
                     output$tableClustering <- DT::renderDataTable(NULL,
                                                                   options = list(
-                                                                      scroller = T,
-                                                                      scrollX = T,
-                                                                      lengthChange = F,
+                                                                      scroller = TRUE,
+                                                                      scrollX = TRUE,
+                                                                      lengthChange = FALSE,
                                                                       dom = 'Bfrtip',
                                                                       buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
                                                                   ))
                     output$best_evaluation1 <-
                         DT::renderDataTable(NULL,
                                             options = list(
-                                                scroller = T,
-                                                scrollX = T,
-                                                lengthChange = F,
+                                                scroller = TRUE,
+                                                scrollX = TRUE,
+                                                lengthChange = FALSE,
                                                 dom = 'Bfrtip',
                                                 buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
                                             ))
                     output$best_evaluation2 <-
                         DT::renderDataTable(NULL,
                                             options = list(
-                                                scroller = T,
-                                                scrollX = T,
-                                                lengthChange = F,
+                                                scroller = TRUE,
+                                                scrollX = TRUE,
+                                                lengthChange = FALSE,
                                                 dom = 'Bfrtip',
                                                 buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
                                             ))

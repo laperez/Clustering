@@ -23,8 +23,6 @@ kmeans_rcpp_method = function(dt, clusters, columnClass, metric) {
 
   start.time <- Sys.time()
 
-  on.exit(options(warn = -1))
-
   if ('data.frame' %in% class(dt))
     dt = as.matrix(dt)
 
@@ -112,8 +110,6 @@ kmeans_rcpp_method = function(dt, clusters, columnClass, metric) {
 kmeans_arma_method = function(dt, clusters, columnClass, metric) {
 
   start.time <- Sys.time()
-
-  on.exit(options(warn = -1))
 
   if ('data.frame' %in% class(dt))
     dt = as.matrix(dt)
@@ -216,8 +212,6 @@ kmeans_arma_method = function(dt, clusters, columnClass, metric) {
 mini_kmeans_method = function(dt, clusters, columnClass, metric) {
 
   start.time <- Sys.time()
-
-  on.exit(options(warn = -1))
 
   if ('data.frame' %in% class(dt))
     dt = as.matrix(dt)

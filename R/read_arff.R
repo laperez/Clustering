@@ -30,18 +30,18 @@ read_arff <- function(arff_file) {
       readChar(
         file_con,
         nchars = file.info(arff_file)$size,
-        useBytes = T
+        useBytes = TRUE
       ),
       "\\\r\n|\\\r|\\\n",
-      fixed = F,
-      useBytes = T
+      fixed = FALSE,
+      useBytes = TRUE
     )[[1]]
 
   close(file_con)
 
   # Split into relation, attributes and data
-  relation_at <- grep("@relation", file_data, ignore.case = T)
-  data_start <- grep("@data", file_data, ignore.case = T)
+  relation_at <- grep("@relation", file_data, ignore.case = TRUE)
+  data_start <- grep("@data", file_data, ignore.case = TRUE)
 
   if (is.na(relation_at))
     stop("Missing @relation or not unique.")
@@ -83,20 +83,20 @@ parse_attributes <- function(arff_attrs) {
 
   rgx <-
     "(?:{[^}\\s]*?(\\s+[^}\\s]*?)+}|(?<!\\\\)'[^'\\\\]*(?:\\\\.[^'\\\\]*)*(?<!\\\\)')(*SKIP)(*F)|\\s+"
-  att_list <- strsplit(arff_attrs, rgx, perl = T)
+  att_list <- strsplit(arff_attrs, rgx, perl = TRUE)
 
   # Structure by rows
   att_mat <-
     matrix(unlist(att_list[sapply(att_list, function(row) {
       length(row) == 3
     })]),
-    ncol = 3, byrow = T)
+    ncol = 3, byrow = TRUE)
   rm(att_list)
   # Filter any data that is not an attribute
   att_mat <-
-    att_mat[grepl("\\s*@attribute", att_mat[, 1], ignore.case = T), 2:3]
-  att_mat <- gsub("\\'", "'", att_mat, fixed = T)
-  att_mat <- gsub("^'(.*?)'$", "\\1", att_mat, perl = T)
+    att_mat[grepl("\\s*@attribute", att_mat[, 1], ignore.case = TRUE), 2:3]
+  att_mat <- gsub("\\'", "'", att_mat, fixed = TRUE)
+  att_mat <- gsub("^'(.*?)'$", "\\1", att_mat, perl = TRUE)
 
   # Create the named vector
   att_v <- att_mat[, 2]
@@ -148,10 +148,10 @@ detect_sparsity <- function(arff_data) {
 # @return data.frame containing data values
 parse_nonsparse_data <- function(arff_data, num_attrs) {
   data.frame(matrix(unlist(strsplit(
-    arff_data, ",", fixed = T
+    arff_data, ",", fixed = TRUE
   )),
   ncol = num_attrs,
-  byrow = T), stringsAsFactors = F)
+  byrow = TRUE), stringsAsFactors = FALSE)
 }
 
 # Builds a data.frame out of sparse ARFF data
@@ -168,10 +168,10 @@ parse_sparse_data <- function(arff_data, num_attrs) {
   # Build complete matrix with data
   dataset <- sapply(arff_data, function(row) {
     complete <- rep(0, num_attrs)
-    complete[as.integer(row[c(T, F)]) + 1] <- row[c(F, T)]
+    complete[as.integer(row[c(TRUE, FALSE)]) + 1] <- row[c(FALSE, TRUE)]
     complete
   })
 
   # Create and return data.frame
-  data.frame(t(dataset), stringsAsFactors = F)
+  data.frame(t(dataset), stringsAsFactors = FALSE)
 }

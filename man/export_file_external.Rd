@@ -13,6 +13,9 @@ with the results of the external validations.}
 \item{path}{It's a string with the path to a directory where a file is to be
 stored in latex format.}
 }
+\value{
+A file in Latex format with the results of the external metrics.
+}
 \description{
 Method that exports the results of external measurements in
 latex format to a file.

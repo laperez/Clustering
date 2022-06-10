@@ -207,7 +207,7 @@ information_internal <- function (metrics, information, size, variables) {
     result[6] <- information$timeInternal
   else
     result[6] <- format(round(as.numeric(information$timeInternal), digits = 4),
-                        scientific = F)
+                        scientific = FALSE)
 
   position <- 7
 
@@ -271,7 +271,7 @@ information_external <- function (metrics, information, size, variables) {
     result[6] <- information$timeExternal
   else
     result[6] <- format(round(as.numeric(information$timeExternal), digits = 4),
-                        scientific = F)
+                        scientific = FALSE)
 
   position <- 7
 

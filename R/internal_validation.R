@@ -96,8 +96,8 @@ internal_validation = function(distance = NULL,
     distance = distance_matrix(
       data =  dataf,
       method = method,
-      upper = T,
-      diagonal = T
+      upper = TRUE,
+      diagonal = TRUE
     )
     method = ""
     dataf = NULL
@@ -145,12 +145,12 @@ internal_validation = function(distance = NULL,
 
   result = list(
     "connectivity" = format(round(as.numeric(connectivity), digits = 4),
-                            scientific = F),
-    "dunn" = format(round(as.numeric(dunn), digits = 4),scientific = F),
+                            scientific = FALSE),
+    "dunn" = format(round(as.numeric(dunn), digits = 4),scientific = FALSE),
     "silhouette" = format(round(
       as.numeric(silhouette),
       digits = 4),
-      scientific = F
+      scientific = FALSE
     ),
     "time" = round(time_internal, digits = 4)
   )
@@ -278,10 +278,10 @@ initializeInternalValidation = function() {
 
   result = list(
     "connectivity" = format(round(as.numeric(connectivity), digits = 4),
-                            scientific = F),
-    "dunn" = format(round(as.numeric(dunn), digits = 4), scientific = F),
+                            scientific = FALSE),
+    "dunn" = format(round(as.numeric(dunn), digits = 4), scientific = FALSE),
     "silhouette" = format(round(as.numeric(silhouette), digits = 4),
-                          scientific = F),
+                          scientific = FALSE),
     "time" = round(as.numeric(time), digits = 4)
   )
 
@@ -338,7 +338,7 @@ calculate_dunn <-
         }
       }
     }
-    dunn <- min(interClust, na.rm = T) / max(intraClust)
+    dunn <- min(interClust, na.rm = TRUE) / max(intraClust)
     return(dunn)
   }
 
@@ -382,14 +382,14 @@ calculate_connectivity <-
       distance <- as.matrix(distance)
     nearest <-
       apply(distance, 2, function(x)
-        sort(x, ind = T)$ix[2:(neighbSize + 1)])
+        sort(x, ind = TRUE)$ix[2:(neighbSize + 1)])
     nr <- nrow(nearest)
     nc <- ncol(nearest)
     same <-
       matrix(clusters,
              nrow = nr,
              ncol = nc,
-             byrow = T) != matrix(clusters[nearest], nrow = nr, ncol = nc)
+             byrow = TRUE) != matrix(clusters[nearest], nrow = nr, ncol = nc)
     conn <- sum(same * matrix(1 / 1:neighbSize, nrow = nr, ncol = nc))
     return(conn)
   }

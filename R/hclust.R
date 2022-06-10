@@ -23,8 +23,6 @@ hclust_euclidean = function(dt, clusters, columnClass, metric) {
 
   start.time <- Sys.time()
 
-  on.exit(options(warn = -1))
-
   if ('data.frame' %in% class(dt))
     dt = as.matrix(dt)
 
@@ -37,8 +35,8 @@ hclust_euclidean = function(dt, clusters, columnClass, metric) {
     hcluster(
       x = as.matrix(dt),
       method = CONST_EUCLIDEAN,
-      diag = T,
-      upper = T
+      diag = TRUE,
+      upper = TRUE
     )
   },
 

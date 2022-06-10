@@ -23,8 +23,6 @@ agnes_euclidean_method = function(dt, clusters, metric) {
 
   start.time <- Sys.time()
 
-  on.exit(options(warn = -1))
-
   if ('data.frame' %in% class(dt))
     dt = as.matrix(dt)
 
@@ -37,7 +35,7 @@ agnes_euclidean_method = function(dt, clusters, metric) {
     agnes(
       x = dt,
       metric = CONST_EUCLIDEAN,
-      stand = F,
+      stand = FALSE,
       trace.lev = CONST_ZERO
     )
   },
@@ -112,8 +110,6 @@ agnes_manhattan_method = function(dt, clusters, metric) {
 
   start.time <- Sys.time()
 
-  on.exit(options(warn = -1))
-
   if ('data.frame' %in% class(dt))
     dt = as.matrix(dt)
 
@@ -126,7 +122,7 @@ agnes_manhattan_method = function(dt, clusters, metric) {
     agnes(
       x = dt,
       metric = CONST_MANHATTAN,
-      stand = F,
+      stand = FALSE,
       trace.lev = CONST_ZERO
     )
   },

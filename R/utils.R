@@ -134,7 +134,7 @@ number_variables_dataset <- function(path) {
             file = files[pos],
             header = CONST_FALSE,
             comment.char = '@',
-            stringsAsFactors = F,
+            stringsAsFactors = FALSE,
             encoding = "UTF-8"
           )
         )
@@ -182,9 +182,9 @@ read_file <- function(path) {
       file = path,
       header = CONST_FALSE,
       comment.char = '@',
-      stringsAsFactors = F,
+      stringsAsFactors = FALSE,
       encoding = "UTF-8",
-      strip.white = T
+      strip.white = TRUE
     ))
   }
 
@@ -204,7 +204,7 @@ read_file <- function(path) {
 #'@keywords internal
 #'
 
-dataframe_by_metrics_evaluation <- function(data, external = T) {
+dataframe_by_metrics_evaluation <- function(data, external = TRUE) {
 
   if (external) {
     data <- transform_dataset(data)

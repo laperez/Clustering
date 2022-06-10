@@ -28,13 +28,13 @@ shinyUI(
                     "typeExecution",
                     label = h3(" Do you want to use test data or a file directory ? "),
                     choices = list("File Directory" = "directory", "Test Data" = "data"),
-                    inline = T,
+                    inline = TRUE,
                     selected = "data"
                 ),
                 shinyDirButton(id = "dir", label = "Directory Datasets", title = 'Select a directory'),
                 tags$br(),
                 tags$br(),
-                verbatimTextOutput("dir", placeholder = T),
+                verbatimTextOutput("dir", placeholder = TRUE),
                 selectInput(
                     inputId = "datasetTest",
                     label = h3("Dataset Test"),
@@ -45,7 +45,7 @@ shinyUI(
                         "Stulong" = "stulong",
                         "Weather" = "weather"
                     ),
-                    multiple = F,
+                    multiple = FALSE,
                     selected = "basketball"
                 ),
                 pickerInput(
@@ -59,11 +59,11 @@ shinyUI(
                         "Pvclust" = "pvclust"
                     ),
                     options = list(
-                        `actions-box` = T,
+                        `actions-box` = TRUE,
                         size = 5,
                         `selected-text-format` = "count > 3"
                     ),
-                    multiple = T,
+                    multiple = TRUE,
                     selected = "cluster"
                 ),
                 pickerInput(
@@ -86,12 +86,12 @@ shinyUI(
                         "Pvclust" = "pvclust"
                     ),
                     options = list(
-                        `actions-box` = T,
+                        `actions-box` = TRUE,
                         size = 5,
                         `selected-text-format` = "count > 3"
                     ),
                     selected = c("kmeans_arma", "kmeans_rcpp", "mini_kmeans", "gmm"),
-                    multiple = T
+                    multiple = TRUE
                 ),
                 sliderInput(
                     "clustering",
@@ -115,14 +115,14 @@ shinyUI(
                         "Variation Information" = "Variation_information"
                     ),
                     options = list(
-                        `actions-box` = T,
+                        `actions-box` = TRUE,
                         size = 5,
                         `selected-text-format` = "count > 3"
                     ),
                     choicesOpt = list(
                         style = "height: 15px;"
                     ),
-                    multiple = T,
+                    multiple = TRUE,
                     selected = "Precision"
                 )
 
@@ -144,7 +144,7 @@ shinyUI(
                             "image1",
                             h3("Metrics External", class="h3-clustering"),
                             choices = c(),
-                            multiple = F
+                            multiple = FALSE
                         )),
                         withSpinner(plotOutput("plotImage1"),color = "#4e5d6c"),
                         hidden(
@@ -152,7 +152,7 @@ shinyUI(
                                 "image2",
                                 h3("Metrics Internal",class="h3-clustering"),
                                 choices = c(),
-                                multiple = F
+                                multiple = FALSE
                             )),
                         plotOutput("plotImage2")
                     )
