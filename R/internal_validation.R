@@ -366,7 +366,7 @@ calculate_connectivity <-
   function(distance = NULL,
            clusters,
            datadf = NULL,
-           neighbSize = 10,
+           neighbSize = 12,
            method = "euclidean") {
     distance_null <- ifelse (is.null(distance), 1, 0)
     data_null <- ifelse (is.null(datadf), 1, 0)

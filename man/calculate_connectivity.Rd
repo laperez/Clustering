@@ -8,7 +8,7 @@ calculate_connectivity(
   distance = NULL,
   clusters,
   datadf = NULL,
-  neighbSize = 10,
+  neighbSize = 12,
   method = "euclidean"
 )
 }

@@ -347,6 +347,154 @@ calculate_result <-
   }
 
 #'
+#' Method that returns the value or variable depending on where it is in the
+#' calculated metrics.
+#'
+#' @param algorith Algorithm name.
+#'
+#' @param distance Name of the metric used to calculate the distance between
+#' points.
+#'
+#' @param cluster Number of clusters.
+#'
+#' @param dataset Name of dataset.
+#'
+#' @param dunn Array with the calculation of the dunn for each of the variables.
+#'
+#' @param connectivity Array with the calculation of the connectivity for each
+#' of the variables.
+#'
+#' @param silhouette Array with the calculation of the silhouette for each of
+#' the variables.
+#'
+#' @param timeInternal Array with the internal validation calculation times of
+#' the clustering.
+#'
+#' @param variables True if we want to show the value of the metric calculation
+#' and false if we want to show the variable.
+#'
+#' @return Returns an array with the calculation of each metric based on the
+#' indicated position.
+#'
+#' @keywords internal
+#'
+
+calculate_result_internal <-
+  function(algorith,
+           distance,
+           cluster,
+           dataset,
+           ranking,
+           timeInternal,
+           dunn,
+           connectivity,
+           silhouette,
+           variables) {
+
+    resultadoValores = list()
+
+    if (variables) {
+      sort_timeInternal <-
+        sort(  x = as.vector(unlist(timeInternal)),
+               decreasing = FALSE,
+               index.return = TRUE)$ix
+    } else {
+      sort_timeInternal <-
+        sort(x = as.vector(unlist(timeInternal)),
+             decreasing = FALSE,
+             index.return = TRUE)$x
+    }
+
+    if (variables) {
+      sort_dunn <-
+        if (!is.null(dunn))
+          sort(x = as.vector(unlist(dunn)),
+               decreasing = TRUE,
+               index.return = TRUE)$ix
+      else
+        NULL
+    } else {
+      sort_dunn <-
+        if (!is.null(dunn))
+          sort(x = as.vector(unlist(dunn)),
+               decreasing = TRUE,
+               index.return = TRUE)$x
+      else
+        NULL
+    }
+
+    if (variables) {
+      sort_connectivity <-
+        if (!is.null(connectivity))
+          sort(x = as.vector(unlist(connectivity)),
+               decreasing = TRUE,
+               index.return = TRUE)$ix
+      else
+        NULL
+    } else {
+      sort_connectivity <-
+        if (!is.null(connectivity))
+          sort(x = as.vector(unlist(connectivity)),
+               decreasing = TRUE,
+               index.return = TRUE)$x
+      else
+        NULL
+    }
+
+    if (variables) {
+      sort_silhouette <-
+        if (!is.null(silhouette))
+          sort(x = as.vector(unlist(silhouette)),
+               decreasing = TRUE,
+               index.return = TRUE)$ix
+      else
+        NULL
+    } else {
+      sort_silhouette <-
+        if (!is.null(silhouette))
+          sort(x = as.vector(unlist(silhouette)),
+               decreasing = TRUE,
+               index.return = TRUE)$x
+      else
+        NULL
+    }
+
+    if (is.null(sort_silhouette) && is.null(sort_dunn) && is.null(sort_connectivity)) sort_timeInternal <- NULL
+    if (is.null(distance)) distance <- '-'
+
+
+    resultadoValores$algorith = algorith
+    resultadoValores$distance = distance
+    resultadoValores$cluster = cluster
+    resultadoValores$dataset = dataset
+
+
+    if (!is.null(sort_timeInternal))
+      if (variables)  resultadoValores$timeInternal =
+      match(ranking, sort_timeInternal)
+    else resultadoValores$timeInternal =
+      format(round(as.numeric(sort_timeInternal[ranking]),
+                   digits = 4),scientific = FALSE)
+    if (!is.null(sort_connectivity))
+      if (variables)  resultadoValores$connectivity = sort_connectivity[ranking]
+    else resultadoValores$connectivity =
+      format(round(as.numeric(sort_connectivity[ranking]), digits = 4),
+             scientific = FALSE)
+    if (!is.null(sort_dunn))
+      if (variables)  resultadoValores$dunn = sort_dunn[ranking]
+    else resultadoValores$dunn = format(round(as.numeric(sort_dunn[ranking]),
+                                              digits = 4),scientific = FALSE)
+    if (!is.null(sort_silhouette))
+      if (variables)  resultadoValores$silhouette = sort_silhouette[ranking]
+    else resultadoValores$silhouette =
+      format(round(as.numeric(sort_silhouette[ranking]), digits = 4),
+             scientific = FALSE)
+
+    return (resultadoValores)
+
+  }
+
+#'
 #' Method that calculates the best rated external metrics.
 #'
 #' @param df Data matrix or data frame.

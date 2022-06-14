@@ -1,3 +1,156 @@
+#' @export
+#' hyperrectangule
+
+hyperrectangule <- function ( pathDataset = NULL, pathClustering = NULL, metrics = NULL, clusters = NULL, nameDataset = NULL) {
+
+  if (is.null(pathDataset)) {
+    stop("El campo pathDataset debe estar relleno");
+  }
+
+  if (is.null(pathClustering)) {
+    stop("El campo pathClustering debe estar relleno");
+  }
+
+  if (is.null(metrics) || length(metrics) == CONST_ZERO) {
+    stop("El campo metrics debe estar relleno");
+  }
+
+  if (!is.null(metrics) && length(metrics) > CONST_ZERO) {
+    for (iterateMetrics in 1:length(metrics)) {
+      if (!metrics[iterateMetrics] %in% metrics_validate())
+        stop("La métrica indicada no es válida")
+    }
+  }
+
+  datasetFile <- read_file(pathDataset)
+
+  datasetFile <- normalizarDataset(datasetFile);
+
+  datasetFile <- datasetFile[,1:ncol(datasetFile)-1]
+
+  datasetClustering <- read_file(pathClustering);
+
+  datasetClusteringHyper <- datasetClustering[,2]
+
+  datasetClustering <- datasetClustering[,1]
+
+  ncolumna <- ncol(datasetFile);
+
+  numResults <- length(metrics) + 4
+
+  df_result <-
+    matrix(
+      nrow = ncol(datasetFile)*2,
+      ncol = numResults
+    )
+
+  for (i in 1:ncolumna) {
+
+    resultadoExternal <- external_validation(column_dataset_label = datasetFile[, i], clusters_vector = as.vector(datasetClustering), metric = metrics);
+
+    resultadoInternal <- internal_validation(distance = CONST_NULL, dataf = as.data.frame(datasetFile), clusters_vector = as.vector(datasetClustering), method = CONST_EUCLIDEAN, metric = metrics);
+
+    timeInternal = resultadoInternal$time
+    dunn = resultadoInternal$dunn
+    connectivity = resultadoInternal$connectivity
+    silhouette = resultadoInternal$silhouette
+
+    result_information <- value(calculate_result_internal('k-MEANS','-',clusters, nameDataset, 1, timeInternal,
+                                                          if (CONST_DUNN_METRIC %in% metrics)
+                                                            dunn
+                                                          else
+                                                            CONST_NULL,
+                                                          if (CONST_CONNECTIVITY_METRIC %in% metrics)
+                                                            connectivity
+                                                          else
+                                                            CONST_NULL,
+                                                          if (CONST_SILHOUETTE_METRIC %in% metrics)
+                                                            silhouette
+                                                          else
+                                                            CONST_NULL,
+                                                          F))
+
+    result_information <-
+      as.vector(unlist(result_information))
+
+    for (j in 1:numResults) {
+
+      df_result[i, j] = result_information[j]
+    }
+
+  }
+
+  index <- 1
+
+  for (i in 6:10) {
+
+    resultadoExternal_hyper <- external_validation(column_dataset_label = datasetFile[, index], clusters_vector = as.vector(datasetClustering), metric = metrics);
+
+    resultadoInternal_hyper <- internal_validation(distance = CONST_NULL, dataf = as.data.frame(datasetFile), clusters_vector = as.vector(datasetClusteringHyper), method = CONST_EUCLIDEAN, metric = metrics);
+
+    timeInternal = resultadoInternal_hyper$time
+    dunn = resultadoInternal_hyper$dunn
+    connectivity = resultadoInternal_hyper$connectivity
+    silhouette = resultadoInternal_hyper$silhouette
+
+    result_information <- value(calculate_result_internal('HyperRectangule-CHC','-',clusters, nameDataset, 1, timeInternal,
+                                                          if (CONST_DUNN_METRIC %in% metrics)
+                                                            dunn
+                                                          else
+                                                            CONST_NULL,
+                                                          if (CONST_CONNECTIVITY_METRIC %in% metrics)
+                                                            connectivity
+                                                          else
+                                                            CONST_NULL,
+                                                          if (CONST_SILHOUETTE_METRIC %in% metrics)
+                                                            silhouette
+                                                          else
+                                                            CONST_NULL,
+                                                          F))
+
+    result_information <-
+      as.vector(unlist(result_information))
+
+    for (j in 1:numResults) {
+
+      df_result[i, j] = result_information[j]
+    }
+
+    index <- index +1
+
+  }
+
+  return (df_result)
+
+}
+
+normalizarDataset <- function(data) {
+
+  datasetFile <- data
+
+  if ('data.frame' %in% class(datasetFile))
+    datasetFile = as.matrix(datasetFile)
+
+  if (anyNA(datasetFile)) {
+    minValue <- as.numeric(which.min(datasetFile) - 1)
+    datasetFile[is.na(datasetFile)] <- minValue
+  }
+
+  datasetFile <- convert_numeric_matrix(datasetFile)
+  mode(datasetFile) = "numeric"
+
+  datasetFile = center_scale(datasetFile)
+
+  existsInfinitive <- ifelse(is.finite(datasetFile), 1, 0)
+
+  if (sum(existsInfinitive) > 0) {
+    datasetFile <- datasetFile[is.finite(rowSums(datasetFile)),]
+  }
+
+  return (datasetFile);
+
+}
+
 #' @title Clustering GUI.
 #'
 #' @description Method that allows us to execute the main algorithm in graphic
@@ -215,7 +368,8 @@ clustering <- function(path = NULL,
 
   ## Validation of input parameters
 
-  on.exit(options(scipen = 999))
+  config <- options(scipen = 999)
+  on.exit(options(config))
 
   if (is.null(path) && is.null(df)) {
     stop("You must fill in at least one of the fields: path or df")
