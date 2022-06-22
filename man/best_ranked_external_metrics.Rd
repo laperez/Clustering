@@ -27,7 +27,7 @@ result = clustering(
                df = cluster::agriculture,
                min = 4,
                max = 4,
-               algorithm='gmm',
+               algorithm='clara',
                metrics=c("Recall")
          )
 
