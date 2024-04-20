@@ -2,7 +2,7 @@
 #' Method in charge of calculating the average for all datasets using all the
 #' algorithms defined in the application.
 #'
-#' @param data It's a data frame or matrix.
+#' @param datas It's a data frame or matrix.
 #'
 #' @param method Described the metrics used by each of the algorithms.
 #'

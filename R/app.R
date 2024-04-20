@@ -140,9 +140,6 @@ appClustering <- function() {
 #' foreach foreach "%:%" "%do%"
 #'
 #' @importFrom
-#' doParallel registerDoParallel
-#'
-#' @importFrom
 #' cluster agnes clara daisy diana fanny silhouette mona pam
 #'
 #' @importFrom
@@ -194,7 +191,7 @@ appClustering <- function() {
 #'
 #' @examples
 #'
-#' clustering(
+#' Clustering::clustering(
 #'      df = cluster::agriculture,
 #'      min = 3,
 #'      max = 3,
@@ -550,12 +547,6 @@ execute_package_parallel <-
 
     # We start the process of creating clusters to perform parallel runs.
 
-    cl <-
-      parallel::makeCluster(availableCores(omit = 1),
-                            timeout = 60,
-                            setup_strategy = "sequential")
-    registerDoParallel(cl)
-
     numberColumns <-
       length(metrics_execute) + CONST_COLUMN_DEFAULT_TABLE
 
@@ -866,8 +857,6 @@ execute_package_parallel <-
 
     result = list("df_result" = df_result[1:rowCount, ])
 
-    # We stop the clusters created in the parallel execution.
-    on.exit(parallel::stopCluster(cl))
 
     return(result)
   }
@@ -915,10 +904,9 @@ print.clustering <- function(x, ...)
 #'
 #' @examples
 #'
-#' library(Clustering)
 #'
 #' result <-
-#' clustering(df = cluster::agriculture,min = 4, max = 4,algorithm='gmm',
+#' Clustering::clustering(df = cluster::agriculture,min = 4, max = 4,algorithm='gmm',
 #' metrics='Recall')
 #'
 #' sort(result, FALSE, 'Recall')
@@ -984,9 +972,8 @@ sort.clustering <- function(x, decreasing = TRUE, ...) {
 #'
 #' @examples
 #'
-#' library(Clustering)
 #'
-#' result <- clustering(df = Clustering::basketball, algorithm = 'clara',
+#' result <- Clustering::clustering(df = Clustering::basketball, algorithm = 'clara',
 #' min=3, max=4, metrics = c('Precision','Recall'))
 #'
 #' result[Precision > 0.14 & Recall > 0.11]
@@ -1145,7 +1132,7 @@ print.clustering_sort <- function(x, ...) {
 #'
 #' @examples
 #'
-#' result = clustering(
+#' result = Clustering::clustering(
 #'                df = cluster::agriculture,
 #'                min = 4,
 #'                max = 4,
@@ -1153,7 +1140,7 @@ print.clustering_sort <- function(x, ...) {
 #'                metrics=c("Recall")
 #'          )
 #'
-#' best_ranked_external_metrics(df = result)
+#' Clustering::best_ranked_external_metrics(df = result)
 #'
 
 best_ranked_external_metrics <- function(df) {
@@ -1193,7 +1180,7 @@ print.best_ranked_external_metrics <- function(x, ...)
 #'
 #' @examples
 #'
-#' result = clustering(
+#' result = Clustering::clustering(
 #'                df = cluster::agriculture,
 #'                min = 4,
 #'                max = 5,
@@ -1201,7 +1188,7 @@ print.best_ranked_external_metrics <- function(x, ...)
 #'                metrics=c("Recall")
 #'          )
 #'
-#' best_ranked_internal_metrics(df = result)
+#' Clustering::best_ranked_internal_metrics(df = result)
 #'
 #'
 
@@ -1242,7 +1229,7 @@ print.best_ranked_internal_metrics <- function(x, ...)
 #'
 #' @examples
 #'
-#' result = clustering(
+#' result = Clustering::clustering(
 #'                df = cluster::agriculture,
 #'                min = 4,
 #'                max = 4,
@@ -1250,7 +1237,7 @@ print.best_ranked_internal_metrics <- function(x, ...)
 #'                metrics=c("Precision")
 #'          )
 #'
-#' evaluate_validation_external_by_metrics(result)
+#' Clustering::evaluate_validation_external_by_metrics(result)
 #'
 #'
 
@@ -1293,7 +1280,7 @@ print.evaluate_validation_external_by_metrics <- function(x, ...)
 #'
 #' @examples
 #'
-#' result = clustering(
+#' result = Clustering::clustering(
 #'                df = cluster::agriculture,
 #'                min = 4,
 #'                max = 5,
@@ -1301,10 +1288,10 @@ print.evaluate_validation_external_by_metrics <- function(x, ...)
 #'                metrics=c("Recall","Silhouette")
 #'          )
 #'
-#' evaluate_validation_internal_by_metrics(result)
+#' Clustering::evaluate_validation_internal_by_metrics(result)
 #'
 #' \dontrun{
-#' evaluate_validation_internal_by_metrics(result$result)
+#' Clustering::evaluate_validation_internal_by_metrics(result$result)
 #' }
 #'
 
@@ -1350,14 +1337,14 @@ print.evaluate_validation_internal_by_metrics <- function(x, ...)
 #'
 #' @examples
 #'
-#' result = clustering(
+#' result = Clustering::clustering(
 #'                df = cluster::agriculture,
 #'                min = 4,
 #'                max = 5,
 #'                algorithm='kmeans_rcpp',
 #'                metrics=c("F_measure"))
 #'
-#' evaluate_best_validation_external_by_metrics(result,'F_measure')
+#' Clustering::evaluate_best_validation_external_by_metrics(result,'F_measure')
 #'
 
 evaluate_best_validation_external_by_metrics <- function(df,metric) {
@@ -1419,7 +1406,7 @@ print.evaluate_best_validation_external_by_metrics <-
 #'
 #' @examples
 #'
-#' result = clustering(
+#' result = Clustering::clustering(
 #'                df = cluster::agriculture,
 #'                min = 4,
 #'                max = 5,
@@ -1427,7 +1414,7 @@ print.evaluate_best_validation_external_by_metrics <-
 #'                metrics=c("Precision","Connectivity")
 #'          )
 #'
-#' evaluate_best_validation_internal_by_metrics(result,"Connectivity")
+#' Clustering::evaluate_best_validation_internal_by_metrics(result,"Connectivity")
 #'
 
 evaluate_best_validation_internal_by_metrics <- function(df,metric) {
@@ -1484,7 +1471,7 @@ print.evaluate_best_validation_internal_by_metrics <-
 #'
 #' @examples
 #'
-#' result = clustering(
+#' result = Clustering::clustering(
 #'                df = cluster::agriculture,
 #'                min = 4,
 #'                max = 5,
@@ -1492,7 +1479,7 @@ print.evaluate_best_validation_internal_by_metrics <-
 #'                metrics=c("Precision")
 #'          )
 #'
-#' result_external_algorithm_by_metric(result,'Precision')
+#' Clustering::result_external_algorithm_by_metric(result,'Precision')
 #'
 
 result_external_algorithm_by_metric <- function(df, metric) {
@@ -1548,7 +1535,7 @@ print.result_external_algorithm_by_metric <- function(x, ...)
 #'
 #' @examples
 #'
-#' result = clustering(
+#' result = Clustering::clustering(
 #'                df = cluster::agriculture,
 #'                min = 4,
 #'                max = 5,
@@ -1556,7 +1543,7 @@ print.result_external_algorithm_by_metric <- function(x, ...)
 #'                metrics=c("Recall","Silhouette")
 #'          )
 #'
-#' result_internal_algorithm_by_metric(result,'Silhouette')
+#' Clustering::result_internal_algorithm_by_metric(result,'Silhouette')
 #'
 
 result_internal_algorithm_by_metric <- function(df, metric) {
@@ -1622,7 +1609,7 @@ print.result_internal_algorithm_by_metric <- function(x, ...)
 #'
 #' @examples
 #'
-#' result = clustering(
+#' result = Clustering::clustering(
 #'                df = cluster::agriculture,
 #'                min = 4,
 #'                max = 5,
@@ -1630,7 +1617,7 @@ print.result_internal_algorithm_by_metric <- function(x, ...)
 #'                metrics=c("Precision")
 #'          )
 #'
-#' plot_clustering(result,c("Precision"))
+#' Clustering::plot_clustering(result,c("Precision"))
 #'
 
 plot_clustering <- function(df, metric) {
@@ -1733,7 +1720,8 @@ plot_clustering <- function(df, metric) {
 #' export_file_external
 #'
 #' @examples
-#' result = clustering(
+#'
+#' result = Clustering::clustering(
 #'                df = cluster::agriculture,
 #'                min = 4,
 #'                max = 5,
@@ -1741,7 +1729,7 @@ plot_clustering <- function(df, metric) {
 #'                metrics=c("Precision")
 #'          )
 #'
-#' export_file_external(result)
+#' Clustering::export_file_external(result)
 #' file.remove("external_data.tex")
 #'
 
@@ -1800,7 +1788,8 @@ export_file_external <- function(df, path = NULL) {
 #' export_file_internal
 #'
 #' @examples
-#' result = clustering(
+#'
+#' result = Clustering::clustering(
 #'                df = cluster::agriculture,
 #'                min = 4,
 #'                max = 5,
@@ -1808,7 +1797,7 @@ export_file_external <- function(df, path = NULL) {
 #'                metrics=c("Recall","Dunn")
 #'          )
 #'
-#' export_file_internal(result)
+#' Clustering::export_file_internal(result)
 #' file.remove("internal_data.tex")
 #'
 

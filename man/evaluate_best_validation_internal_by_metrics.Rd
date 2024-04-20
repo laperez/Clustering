@@ -26,7 +26,7 @@ instead of obtaining the best attribute from the data set.
 }
 \examples{
 
-result = clustering(
+result = Clustering::clustering(
                df = cluster::agriculture,
                min = 4,
                max = 5,
@@ -34,6 +34,6 @@ result = clustering(
                metrics=c("Precision","Connectivity")
          )
 
-evaluate_best_validation_internal_by_metrics(result,"Connectivity")
+Clustering::evaluate_best_validation_internal_by_metrics(result,"Connectivity")
 
 }

@@ -26,13 +26,13 @@ of obtaining the best attribute from the data set.
 }
 \examples{
 
-result = clustering(
+result = Clustering::clustering(
                df = cluster::agriculture,
                min = 4,
                max = 5,
                algorithm='kmeans_rcpp',
                metrics=c("F_measure"))
 
-evaluate_best_validation_external_by_metrics(result,'F_measure')
+Clustering::evaluate_best_validation_external_by_metrics(result,'F_measure')
 
 }

@@ -26,7 +26,8 @@ the results, with this method we can export the results of the clustering
 algorithm to latex.
 }
 \examples{
-result = clustering(
+
+result = Clustering::clustering(
                df = cluster::agriculture,
                min = 4,
                max = 5,
@@ -34,7 +35,7 @@ result = clustering(
                metrics=c("Recall","Dunn")
          )
 
-export_file_internal(result)
+Clustering::export_file_internal(result)
 file.remove("internal_data.tex")
 
 }

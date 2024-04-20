@@ -7,13 +7,13 @@
 dunn_metric(dist, clusters_vector, dt, me)
 }
 \arguments{
+\item{dist}{Dissimilarity matrix.}
+
 \item{clusters_vector}{Array that containe tha data grouped in cluster.}
 
 \item{dt}{Dataframe with original data.}
 
-\item{distance}{Dissimilarity matrix.}
-
-\item{method}{Indicates the method for calculating distance between points.}
+\item{me}{Indicates the method for calculating distance between points.}
 }
 \value{
 Return a double with the result of the dunn calculation.

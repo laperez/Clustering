@@ -499,10 +499,9 @@ shinyServer(function(input, output, session) {
         if ((is.null(input$packages) ||
              input$packages == "") ||
             (is.null(input$algorithm) ||
-             input$algorithm == "") ||
-            (is.null(input$metrics) || input$metrics == "")) {
-            shinyalert("The field packages,algorithm and metrics must be filled",
-                       type = "error")
+             length(input$algorithm) == 0) ||
+            (is.null(input$metrics) || length(input$metrics) == 0)) {
+            shinyalert(text = "The field packages,algorithm and metrics must be filled", type = "error")
         } else {
 
             printFirstTable = FALSE

@@ -23,7 +23,7 @@ and only work with those that give the best response to the algorithm in questio
 }
 \examples{
 
-result = clustering(
+result = Clustering::clustering(
                df = cluster::agriculture,
                min = 4,
                max = 5,
@@ -31,7 +31,7 @@ result = clustering(
                metrics=c("Recall")
          )
 
-best_ranked_internal_metrics(df = result)
+Clustering::best_ranked_internal_metrics(df = result)
 
 
 }

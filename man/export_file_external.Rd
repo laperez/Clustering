@@ -24,11 +24,10 @@ latex format to a file.
 When we work in latex format and we need to create a table to export
 the results, with this method we can export the results of the clustering
 algorithm to latex.
-
-
 }
 \examples{
-result = clustering(
+
+result = Clustering::clustering(
                df = cluster::agriculture,
                min = 4,
                max = 5,
@@ -36,7 +35,7 @@ result = clustering(
                metrics=c("Precision")
          )
 
-export_file_external(result)
+Clustering::export_file_external(result)
 file.remove("external_data.tex")
 
 }

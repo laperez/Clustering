@@ -8,6 +8,8 @@ algorithms defined in the application.}
 evaluate_all_column_dataset(datas, method, cluster, nameDataset, metrics)
 }
 \arguments{
+\item{datas}{It's a data frame or matrix.}
+
 \item{method}{Described the metrics used by each of the algorithms.}
 
 \item{cluster}{Number of clusters.}
@@ -15,8 +17,6 @@ evaluate_all_column_dataset(datas, method, cluster, nameDataset, metrics)
 \item{nameDataset}{Specify the name of dataset like information.}
 
 \item{metrics}{Array with internal or external metrics.}
-
-\item{data}{It's a data frame or matrix.}
 }
 \value{
 A list with result of external and internal validation applying on

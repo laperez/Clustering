@@ -16,8 +16,6 @@ shinyUI(
         #load javascript y themes
         shinyjs::useShinyjs(),
         theme = shinythemes::shinytheme("superhero"),
-        useShinyalert(),
-
         tags$link(rel = "stylesheet", type = "text/css", href = "style.css"),
         tags$script(src = "myjs.js"),
 

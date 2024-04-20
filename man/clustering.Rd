@@ -82,7 +82,7 @@ to indicate the number of clusters.
 }
 \examples{
 
-clustering(
+Clustering::clustering(
      df = cluster::agriculture,
      min = 3,
      max = 3,

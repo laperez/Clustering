@@ -200,13 +200,13 @@ connectivity_metric =
 #'
 #' Method to calculate the dunn.
 #'
-#' @param distance Dissimilarity matrix.
+#' @param dist Dissimilarity matrix.
 #'
 #' @param clusters_vector Array that containe tha data grouped in cluster.
 #'
 #' @param dt Dataframe with original data.
 #'
-#' @param method Indicates the method for calculating distance between points.
+#' @param me Indicates the method for calculating distance between points.
 #'
 #' @return Return a double with the result of the dunn calculation.
 #'
@@ -350,7 +350,7 @@ calculate_dunn <-
 #'
 #' @param clusters Array that containe tha data grouped in cluster.
 #'
-#' @param datdf Dataframe with original data.
+#' @param datadf Dataframe with original data.
 #'
 #' @param neighbSize Number of neighbours.
 #'

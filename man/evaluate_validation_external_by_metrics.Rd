@@ -23,7 +23,7 @@ It groups the results of the execution by algorithms.
 }
 \examples{
 
-result = clustering(
+result = Clustering::clustering(
                df = cluster::agriculture,
                min = 4,
                max = 4,
@@ -31,7 +31,7 @@ result = clustering(
                metrics=c("Precision")
          )
 
-evaluate_validation_external_by_metrics(result)
+Clustering::evaluate_validation_external_by_metrics(result)
 
 
 }

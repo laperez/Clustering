@@ -17,12 +17,12 @@ calculate_connectivity(
 
 \item{clusters}{Array that containe tha data grouped in cluster.}
 
+\item{datadf}{Dataframe with original data.}
+
 \item{neighbSize}{Number of neighbours.}
 
 \item{method}{Indicates the method for calculating distance between points.
 Default is euclidean.}
-
-\item{datdf}{Dataframe with original data.}
 }
 \value{
 Return a double with the result of the connectivity calculation.

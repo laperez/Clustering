@@ -23,7 +23,7 @@ It groups the results of the execution by algorithms.
 }
 \examples{
 
-result = clustering(
+result = Clustering::clustering(
                df = cluster::agriculture,
                min = 4,
                max = 5,
@@ -31,10 +31,10 @@ result = clustering(
                metrics=c("Recall","Silhouette")
          )
 
-evaluate_validation_internal_by_metrics(result)
+Clustering::evaluate_validation_internal_by_metrics(result)
 
 \dontrun{
-evaluate_validation_internal_by_metrics(result$result)
+Clustering::evaluate_validation_internal_by_metrics(result$result)
 }
 
 }

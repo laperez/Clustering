@@ -34,10 +34,9 @@ Connectivity, Dunn, Silhouette, TimeAtt}.
 }
 \examples{
 
-library(Clustering)
 
 result <-
-clustering(df = cluster::agriculture,min = 4, max = 4,algorithm='gmm',
+Clustering::clustering(df = cluster::agriculture,min = 4, max = 4,algorithm='gmm',
 metrics='Recall')
 
 sort(result, FALSE, 'Recall')

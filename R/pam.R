@@ -23,8 +23,6 @@ pam_euclidean_method = function(dt, clusters, columnClass, metric) {
 
   start.time <- Sys.time()
 
-  on.exit(suppressWarnings())
-
   if ('data.frame' %in% class(dt))
     dt = as.matrix(dt)
 

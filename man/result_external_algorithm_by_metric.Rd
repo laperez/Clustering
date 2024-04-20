@@ -21,7 +21,7 @@ as a parameter grouped by number of clusters.
 }
 \examples{
 
-result = clustering(
+result = Clustering::clustering(
                df = cluster::agriculture,
                min = 4,
                max = 5,
@@ -29,6 +29,6 @@ result = clustering(
                metrics=c("Precision")
          )
 
-result_external_algorithm_by_metric(result,'Precision')
+Clustering::result_external_algorithm_by_metric(result,'Precision')
 
 }

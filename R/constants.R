@@ -19,6 +19,8 @@
 
   CONST_HCLUST <- "hclust"
 
+  CONST_AGGEXCLUSTER <- "aggexcluster"
+
   CONST_APCLUSTERK <- "apclusterK"
 
   CONST_AGNES <-"agnes"
@@ -34,6 +36,8 @@
   CONST_MONA <- "mona"
 
   CONST_PAM <- "pam"
+
+  CONST_PVPICK <- "pvpick"
 
   CONST_GMM <- "gmm"
 

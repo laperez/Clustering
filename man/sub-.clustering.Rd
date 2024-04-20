@@ -27,9 +27,8 @@ Connectivity, Dunn, Silhouette and TimeAtt}.
 }
 \examples{
 
-library(Clustering)
 
-result <- clustering(df = Clustering::basketball, algorithm = 'clara',
+result <- Clustering::clustering(df = Clustering::basketball, algorithm = 'clara',
 min=3, max=4, metrics = c('Precision','Recall'))
 
 result[Precision > 0.14 & Recall > 0.11]

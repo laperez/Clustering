@@ -27,7 +27,7 @@ by metrics and see the data in a graphical way.
 }
 \examples{
 
-result = clustering(
+result = Clustering::clustering(
                df = cluster::agriculture,
                min = 4,
                max = 5,
@@ -35,6 +35,6 @@ result = clustering(
                metrics=c("Precision")
          )
 
-plot_clustering(result,c("Precision"))
+Clustering::plot_clustering(result,c("Precision"))
 
 }

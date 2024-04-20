@@ -21,7 +21,7 @@ as a parameter grouped by number of clusters.
 }
 \examples{
 
-result = clustering(
+result = Clustering::clustering(
                df = cluster::agriculture,
                min = 4,
                max = 5,
@@ -29,6 +29,6 @@ result = clustering(
                metrics=c("Recall","Silhouette")
          )
 
-result_internal_algorithm_by_metric(result,'Silhouette')
+Clustering::result_internal_algorithm_by_metric(result,'Silhouette')
 
 }

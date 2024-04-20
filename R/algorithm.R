@@ -40,7 +40,9 @@ algorithms <- function() {
       CONST_KMEANS_ARMA,
       CONST_KMEANS_RCPP,
       CONST_MINI_KMEANS,
-      CONST_PVCLUST
+      CONST_PVCLUST,
+      CONST_PVPICK,
+      CONST_AGGEXCLUSTER
     )
   )
 }
@@ -183,7 +185,7 @@ number_columnas_external <- function(metrics) {
 #' Method that returns an array with the internal information of the cluster
 #'
 #' @param metrics array with the metrics used in the execution of the package
-#' @param info list with internal clustering information
+#' @param information list with internal clustering information
 #' @param size internal number of columns
 #' @param variables Null returns the position of the variable, otherwise it
 #' returns the value of the variable
@@ -247,7 +249,7 @@ information_internal <- function (metrics, information, size, variables) {
 #' Method that returns an array with the external information of the cluster
 #'
 #' @param metrics array with the metrics used in the execution of the package
-#' @param info list with external clustering information
+#' @param information list with external clustering information
 #' @param size external number of columns
 #' @param variables Null returns the position of the variable, otherwise it
 #' returns the value of the variable
