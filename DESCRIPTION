@@ -1,8 +1,8 @@
 Package: Clustering
 Type: Package
 Title: Techniques for Evaluating Clustering
-Description: Clustering: an R library to facilitate the analysis and comparison of cluster algorithms see <doi:10.1007/s13748-022-00294-2>, <doi:10.1007/s44196-023-00341-3> and <doi:10.1016/j.procs.2023.12.058>.
-Version: 1.7.9
+Description: The design of this package allows us to run different clustering packages and compare the results between them, to determine which algorithm behaves best from the data provided. See Martos, L.A.P., García-Vico, Á.M., González, P. et al.(2023) <doi:10.1007/s13748-022-00294-2> "Clustering: an R library to facilitate the analysis and comparison of cluster algorithms.", Martos, L.A.P., García-Vico, Á.M., González, P. et al. "A Multiclustering Evolutionary Hyperrectangle-Based Algorithm" <doi:10.1007/s44196-023-00341-3> and L.A.P., García-Vico, Á.M., González, P. et al. "An Evolutionary Fuzzy System for Multiclustering in Data Streaming" <doi:10.1016/j.procs.2023.12.058>.
+Version: 1.7.10
 Date: 2024-04-20
 Author: Luis Alfonso Perez Martos [aut, cre] (<https://orcid.org/0000-0002-5154-6105>)
 Maintainer: Luis Alfonso Perez Martos <lapm0001@gmail.com>

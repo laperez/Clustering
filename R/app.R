@@ -1290,7 +1290,7 @@ print.evaluate_validation_external_by_metrics <- function(x, ...)
 #'
 #' Clustering::evaluate_validation_internal_by_metrics(result)
 #'
-#' \dontrun{
+#' \donttest{
 #' Clustering::evaluate_validation_internal_by_metrics(result$result)
 #' }
 #'

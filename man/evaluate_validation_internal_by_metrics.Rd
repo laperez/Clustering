@@ -33,7 +33,7 @@ result = Clustering::clustering(
 
 Clustering::evaluate_validation_internal_by_metrics(result)
 
-\dontrun{
+\donttest{
 Clustering::evaluate_validation_internal_by_metrics(result$result)
 }
 
